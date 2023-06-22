@@ -38,12 +38,8 @@ const StudentProfile = ({ auth }) => {
       <section className=" p-2 sm:p-5 md:p-10 ">
         {/* Profile Image Section */}
         <div className="relative h-96">
-          <img
-            src={stuBg}
-            className="h-96 w-full rounded-br-3xl sm:rounded-br-full"
-            alt=""
-          />
-          <div className="absolute top-0 left-0 h-96 w-full p-14 sm:p-20 bg-[#00000050] rounded-br-3xl sm:rounded-br-full">
+          <img src={stuBg} className="h-96 w-full" alt="" />
+          <div className="absolute top-0 left-0 h-96 w-full p-14 sm:p-20 bg-[#00000050]">
             <div className="flex flex-col items-center justify-center w-fit mx-auto sm:mx-0">
               <img
                 src={`${baseurl}/api/stprofilepic/${studentData.profilePic}`}

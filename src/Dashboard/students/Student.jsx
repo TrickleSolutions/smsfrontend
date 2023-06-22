@@ -32,15 +32,23 @@ const Student = ({ item, getStudentList }) => {
         <td class=" py-4">
           <Checkbox />
         </td>
-        <th scope="row" class="px-6 py-4 font-semibold text-black flex">
-          <div className="bg-[#FF854F] w-fit h-fit p-3  mr-2 rounded-full text-white text-center">
-            <span>G K</span>
+        <td scope="row" class="px-6 py-4 font-semibold text-black flex">
+          <div className="bg-[#524fff] w-fit h-fit p-3  mr-2 rounded-full text-white text-center">
+            <span>
+              {item.name.charAt(0).toUpperCase()}{" "}
+              {item.name.split(" ")[1]
+                ? item.name.split(" ")[1].charAt(0).toUpperCase()
+                : ""}
+            </span>
           </div>
           <div>
             <div>{item.name}</div>
             <div className="font-light my-1 text-gray-500">{item.email}</div>
           </div>
-        </th>
+        </td>
+        <td class="px-6 py-4 hidden md:table-cell">
+          {item.course ? item.course : "-"}
+        </td>
         <td class="px-6 py-4 hidden sm:table-cell">{item.fname}</td>
         <td class="px-6 py-4 hidden sm:table-cell max-w-xs break-words">
           {item.address}
@@ -49,6 +57,11 @@ const Student = ({ item, getStudentList }) => {
         <td class="px-3 py-4 hidden lg:table-cell">{item.gender}</td>
         <td class="px-3 py-4 hidden lg:table-cell">{item.dob}</td>
         <td class="px-6 py-4 hidden lg:table-cell">{item.admdate}</td>
+
+        <td class="px-6 py-4 hidden md:table-cell">
+          {item.library ? item.library : "-"}
+        </td>
+        <td class="px-6 py-4 hidden md:table-cell">{item.shift}</td>
         <td class="px-6 py-4 hidden sm:table-cell">
           <span
             className={
@@ -66,13 +79,6 @@ const Student = ({ item, getStudentList }) => {
             {item.status}
           </span>
         </td>
-        <td class="px-6 py-4 hidden md:table-cell">
-          {item.course ? item.course : "-"}
-        </td>
-        <td class="px-6 py-4 hidden md:table-cell">
-          {item.library ? item.library : "-"}
-        </td>
-        <td class="px-6 py-4 hidden md:table-cell">{item.shift}</td>
         <td class="px-1 py-4">
           <div>
             <Menu>

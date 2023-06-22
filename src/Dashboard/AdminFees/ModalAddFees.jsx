@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -6,11 +6,14 @@ import {
   DialogBody,
   DialogFooter,
   Radio,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
 const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
+  const [studentsData, setStudentsData] = useState([]);
   const [name, setName] = useState("");
   const [regno, setRegno] = useState("");
   const [amount, setAmount] = useState("");
@@ -18,6 +21,42 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
   const [transId, setTransId] = useState("NA");
   const [paid, setPaid] = useState("");
   const [date, setDate] = useState("");
+
+  console.log(name);
+
+  useEffect(() => {
+    getStudentList();
+  }, []);
+
+  const getStudentList = () => {
+    fetch(baseurl + "/api/students ", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setStudentsData(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getStudentName(regno);
+  }, [regno]);
+
+  const getStudentName = (id) => {
+    studentsData.map((student) => {
+      if (student.regno === id) {
+        setName(student.name);
+      }
+    });
+  };
 
   const data = { name, regno, amount, mode, transId, paid, date };
   console.log(data);
@@ -72,6 +111,29 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="regno"
+                >
+                  Regno
+                </label>
+                <Select
+                  id="regno"
+                  label="Select Student"
+                  // value={regno}
+                  onChange={(value) => {
+                    setRegno(value);
+                  }}
+                >
+                  {studentsData.map((student) => (
+                    <Option value={student.regno}>
+                      {student.regno} | {student.name}
+                    </Option>
+                  ))}
+                </Select>
+              </div>
+              {/* Regno */}
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="name"
                 >
                   Name
@@ -80,30 +142,8 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="name"
                   type="text"
-                  placeholder="Rohan"
                   value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-              </div>
-              {/* Regno */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="regno"
-                >
-                  Regno
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="regno"
-                  type="number"
-                  placeholder="32144"
-                  value={regno}
-                  onChange={(e) => {
-                    setRegno(e.target.value);
-                  }}
+                  disabled
                 />
               </div>
               {/* amount */}

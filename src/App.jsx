@@ -23,7 +23,6 @@ import EditInstructor from "./Dashboard/instructors/EditInstructor";
 import CoursesList from "./Dashboard/courses/CourseList";
 import CourseUploads from "./Dashboard/courses/course-content/CourseUploads";
 import Enquiries from "./Dashboard/enquiries/Enquiries";
-import Orders from "./Dashboard/Orders";
 import Categories from "./Dashboard/courses/categories/Categories";
 import EditStudent from "./Dashboard/students/EditStudent";
 import EditEnquiry from "./Dashboard/enquiries/EditEnquiry";
@@ -31,7 +30,6 @@ import Expenses from "./Dashboard/expenses/Expenses";
 import Income from "./Dashboard/income/Income";
 import BookList from "./Dashboard/library/BookList";
 import ScheduleClasses from "./Dashboard/scheduleClasses/ScheduleClasses";
-import InstructorEvents from "./Dashboard/AdminEvents/AdminEvents";
 
 // Student Dashboard Import
 import StudentSidebar from "./Components/StudentSidebar";
@@ -42,7 +40,7 @@ import StudentAcademics from "./studentDashboard/academics/StudentAcademics";
 import StudentMarks from "./studentDashboard/StudentMarks";
 import StudentProfile from "./studentDashboard/profile/StudentProfile";
 import StudentLibrary from "./studentDashboard/library/StudentLibrary";
-import StudentPayments from "./studentDashboard/StudentPayments";
+import StudentPayments from "./studentDashboard/payments/StudentPayments";
 import CourseContent from "./studentDashboard/academics/CourseContent";
 import StudentQueries from "./studentDashboard/queries/StudentQueries";
 import StudentAssignments from "./studentDashboard/assignments/StudentAssignments";
@@ -69,6 +67,8 @@ import AdminQueries from "./Dashboard/queries/AdminQueries";
 import AdminEvents from "./Dashboard/AdminEvents/AdminEvents";
 import StudentStatus from "./InstructorDashboard/StudentStatus/StudentStatus";
 import ManageStudentStatus from "./Dashboard/manage-student/ManageStudentStatus";
+import ScheduleBatches from "./Dashboard/scheduleBatches/ScheduleBatches";
+import PrintReceipt from "./studentDashboard/payments/PrintReceipt";
 
 const App = () => {
   const location = useLocation();
@@ -251,6 +251,17 @@ const App = () => {
                 />
               }
             />
+            <Route
+              path="/students/payments/receipt"
+              exact={true}
+              element={
+                <StudentProtected
+                  auth={auth}
+                  updateAuth={updateAuth}
+                  Component={PrintReceipt}
+                />
+              }
+            />
           </Routes>
         </>
       )}
@@ -361,12 +372,6 @@ const App = () => {
                 />
               }
             />
-            <Route
-              path="/admin/orders"
-              element={
-                <AdminProtected adminAuth={adminAuth} Component={Orders} />
-              }
-            />
 
             <Route
               path="/admin/enrollment"
@@ -450,6 +455,15 @@ const App = () => {
                 <AdminProtected
                   adminAuth={adminAuth}
                   Component={ManageStudentStatus}
+                />
+              }
+            />
+            <Route
+              path="/admin/schedule-batches"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={ScheduleBatches}
                 />
               }
             />

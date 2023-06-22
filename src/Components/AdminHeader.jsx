@@ -44,22 +44,18 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
   };
   return (
     <>
-      <div className=" px-5 bg-white py-2 shadow-xl">
-        <div className="flex justify-between ">
+      <div className=" px-5 bg-white py-0.5 shadow-xl">
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <Button
+            onClick={() => navigate("/admin/dashboard")}
+            size="sm"
+            variant="outlined"
+            className="mx-1 h-fit py-3   order-2 sm:order-none"
+          >
+            Back to Dashboard
+          </Button>
           <div className="flex flex-col sm:flex-row items-center">
-            <Button
-              onClick={() => navigate("/admin/dashboard")}
-              size="sm"
-              variant="outlined"
-              className="mx-1"
-            >
-              Back to Dashboard
-            </Button>
-            <img
-              src={logo}
-              className="mx-3 my-2 h-16 w-16 order-1 sm:order-2"
-              alt=""
-            />
+            <img src={logo} className="mx-3 my-2 h-20 w-20" alt="" />
           </div>
           {/* Right Box */}
           <div className="flex items-center">

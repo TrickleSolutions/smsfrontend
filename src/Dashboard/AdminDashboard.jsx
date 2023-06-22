@@ -40,29 +40,6 @@ const AdminDashboard = ({ auth, updateAuth }) => {
             </div>
             <div>Enquiries</div>
           </div>
-          {/* Orders */}
-          <div
-            onClick={() => goto("/admin/orders")}
-            className=" w-48 h-48 p-10 m-3 text-xl text-[#21d46a] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#21d46a] ring-offset-1"
-          >
-            <div className="py-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-10 h-10"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"
-                />
-              </svg>
-            </div>
-            <div>Orders</div>
-          </div>
           {/* Courses */}
           <div
             onClick={() => goto("/admin/courselist")}
@@ -340,6 +317,35 @@ const AdminDashboard = ({ auth, updateAuth }) => {
             </div>
             <div>Manage Student</div>
           </div>
+          {/* Schedule Batches */}
+          <div
+            onClick={() => goto("/admin/schedule-batches")}
+            className=" w-48 h-48 p-10 m-3 text-2xl text-[#00DFA2] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#00DFA2] ring-offset-1"
+          >
+            <div className="py-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-10 h-10"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122"
+                />
+              </svg>
+            </div>
+            <div>Schedule Batches</div>
+          </div>
+        </div>
+        {/* Footer */}
+        <div className="bg-[var(--theme-color)] mt-5">
+          <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
+            &#169; 2023 SMS Education | All Rights Reserved
+          </h1>
         </div>
       </section>
     </>

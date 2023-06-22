@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import baseurl from "../../Config";
-import ModalEditCourse from "./ModalEditCourse";
 import {
   Menu,
   MenuHandler,
@@ -8,68 +6,38 @@ import {
   MenuItem,
   Checkbox,
 } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import ModalEditBatch from "./ModalEditBatch";
 
-const CourseTable = ({ item, getCourseList }) => {
+const ScheduleBatchesTable = ({ item, getScheduledBatchesList }) => {
   const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(!open2);
-  const navigate = useNavigate();
 
   function deleteData(id) {
     if (window.confirm("Are you sure You want to delete ?")) {
-      fetch(baseurl + "/api/course/" + id, {
+      fetch(baseurl + "/api/class/" + id, {
         method: "DELETE",
       })
         .then((res) => res.json()) // or res.json()
         .then((res) => {
-          toast.info("Deleted Successfully");
-          getCourseList();
+          toast.success("Deleted Successfully");
+          getScheduledBatchesList();
         });
     }
   }
 
   return (
     <>
-      <tr className="bg-white border-b">
-        <td className=" py-4">
+      <tr class="bg-white border-b " key={item._id}>
+        <td class=" py-4">
           <Checkbox />
         </td>
-        <th
-          scope="row"
-          className="px-6 py-4 font-semibold text-black flex items-center"
-        >
-          <div
-            onClick={() => {
-              navigate("/admin/admin-courses/" + item._id);
-            }}
-            className=" w-fit h-fit  mr-2 rounded-md text-white text-center cursor-pointer"
-          >
-            {/* <img
-              src={`${baseurl}/coursepic/${item.img}`}
-              className="w-14 h-14 rounded-lg"
-              alt=""
-            /> */}
-          </div>
-          <div
-            onClick={() => {
-              navigate("/admin/admin-courses/" + item._id);
-            }}
-            className="cursor-pointer"
-          >
-            <div className="text-md">{item.title}</div>
-          </div>
-        </th>
-        {/* <td className="px-6 py-4">Development</td> */}
-        <td className="px-6 py-4 hidden md:table-cell max-w-xs">{item.desc}</td>
-        <td className="px-6 py-4 hidden md:table-cell">{item.level}</td>
-        <td className="px-6 py-4 hidden sm:table-cell">{item.lessons}</td>
-        {/* <td className="px-3 py-4">
-                          <span className="text-orange-600">Pending</span>
-                        </td> */}
-        <td className="px-3 py-4 hidden sm:table-cell">{item.price}</td>
-        <td className="px-6 py-4 hidden md:table-cell">{item.rating}</td>
-        <td className="px-1 py-4">
+        <td class="px-6 py-4 font-semibold text-black">{item.batch}</td>
+        <td class="px-6 py-4 hidden sm:table-cell">{item.course}</td>
+        <td class="px-6 py-4 hidden sm:table-cell">{item.date}</td>
+        <td class="px-6 py-4 hidden md:table-cell">{item.time}</td>
+        <td class="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>
@@ -112,7 +80,7 @@ const CourseTable = ({ item, getCourseList }) => {
                   <div
                     className="flex "
                     onClick={() => {
-                      deleteData(item._id);
+                      deleteData(item.contact_instructor);
                     }}
                   >
                     <svg
@@ -134,11 +102,11 @@ const CourseTable = ({ item, getCourseList }) => {
                 </MenuItem>
               </MenuList>
             </Menu>
-            <ModalEditCourse
-              item={item}
+            <ModalEditBatch
               open={open2}
               handleOpen={handleOpen2}
-              getCourseList={getCourseList}
+              getScheduledBatchesList={getScheduledBatchesList}
+              item={item}
             />
           </div>
         </td>
@@ -147,4 +115,4 @@ const CourseTable = ({ item, getCourseList }) => {
   );
 };
 
-export default CourseTable;
+export default ScheduleBatchesTable;

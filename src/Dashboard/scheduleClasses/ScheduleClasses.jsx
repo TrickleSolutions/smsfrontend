@@ -11,11 +11,9 @@ import {
 import ScheduleClassesTable from "./ScheduleClassesTable";
 import { Link, useNavigate } from "react-router-dom";
 import ModalAddClass from "./ModalAddClass";
-import ModalEditClass from "./ModalEditClass";
 import Loader from "../../Components/Loader";
-import InstructorHeader from "../../Components/InstructorHeader";
 
-const ScheduleClasses = ({ updateInstructorAuth, instructorAuth }) => {
+const ScheduleClasses = () => {
   const [product, setProduct] = useState([]);
   const [pageData, setPageData] = useState([]);
   const [page, setPage] = useState(1);

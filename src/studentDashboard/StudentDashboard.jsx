@@ -16,7 +16,7 @@ const StudentDashboard = ({ auth, updateAuth }) => {
             Welcome to SMS Education
           </h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 justify-items-center ">
           {/* div */}
           <div
             onClick={() => goto("/student/classes")}
@@ -172,6 +172,12 @@ const StudentDashboard = ({ auth, updateAuth }) => {
             </div>
             <div>Payments</div>
           </div>
+        </div>
+        {/* Footer */}
+        <div className="bg-[var(--theme-color)] mt-5">
+          <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
+            &#169; 2023 SMS Education | All Rights Reserved
+          </h1>
         </div>
       </section>
     </>
