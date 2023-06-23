@@ -15,6 +15,7 @@ import india from "../assets/images/india.png";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import logo from "../assets/images/logo.png";
+import avatar from "../assets/images/avatar.jpg";
 
 const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
   const [search, setSearch] = useState("");
@@ -42,6 +43,7 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
         console.log(err);
       });
   };
+
   return (
     <>
       <div className=" px-5 bg-white py-0.5 shadow-xl">
@@ -54,7 +56,7 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
           >
             Back to Dashboard
           </Button>
-          <div className="flex flex-col sm:flex-row items-center">
+          <div className="flex flex-col sm:flex-row items-center sm:ml-20">
             <img src={logo} className="mx-3 my-2 h-20 w-20" alt="" />
           </div>
           {/* Right Box */}
@@ -422,7 +424,7 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
                       alt="candice wu"
                       size="sm"
                       className="cursor-pointer"
-                      src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                      src={avatar}
                     />
                     <div className=" mx-2 hidden sm:block">
                       <h6 className="text-xs text-[var(--theme-color)]">

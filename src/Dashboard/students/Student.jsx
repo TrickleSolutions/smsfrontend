@@ -50,7 +50,7 @@ const Student = ({ item, getStudentList }) => {
           {item.course ? item.course : "-"}
         </td>
         <td class="px-6 py-4 hidden sm:table-cell">{item.fname}</td>
-        <td class="px-6 py-4 hidden sm:table-cell max-w-xs break-words">
+        <td class="px-6 py-4 hidden sm:table-cell max-w-xs break-words truncate">
           {item.address}
         </td>
         <td class="px-6 py-4 hidden md:table-cell">{item.contact}</td>

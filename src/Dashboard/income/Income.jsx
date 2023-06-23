@@ -257,7 +257,7 @@ const Income = () => {
             </table>
           )}
 
-          <div>
+          <div className="flex justify-end">
             <nav aria-label="Page navigation example">
               <ul className="pagination flex space-x-5 border w-fit px-2 py-1 mx-5 mt-5">
                 <li className="page-item">

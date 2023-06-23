@@ -39,7 +39,7 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
       </th>
       <td className="px-1 py-4">{item.fname}</td>
       <td className="px-1 py-4">{item.contact}</td>
-      <td className="px-1 py-4">{item.address}</td>
+      <td className="px-1 py-4 max-w-xs truncate">{item.address}</td>
       <td className="px-1 py-4">{item.ref_by}</td>
       <td className="px-1 py-4">{item.dob}</td>
       <td className="px-1 py-4">{item.gender}</td>

@@ -11,6 +11,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import StudentStatusTable from "./StudentStatusTable";
+import ModalStatusChange from "./ModalStatusChange";
 
 const StudentStatus = () => {
   const [product, setProduct] = useState([]);
@@ -21,12 +22,34 @@ const StudentStatus = () => {
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
 
+  console.log(product);
+
   useEffect(() => {
     getStudentList();
+    getStudentStatusList();
   }, [page]);
 
   const getStudentList = () => {
     fetch(baseurl + "/api/assign ", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setProduct(result);
+        setLoader(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getStudentStatusList = () => {
+    fetch(baseurl + "/api/reqststatus ", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -110,9 +133,14 @@ const StudentStatus = () => {
                 </div>
               </div>
             </div>
-            {/* <Button onClick={handleOpen} className="h-fit">
-              + Add Assignment
-            </Button> */}
+            <Button onClick={handleOpen} className="h-fit">
+              Change Status
+            </Button>
+            <ModalStatusChange
+              getStudentStatusList={getStudentStatusList}
+              open={open}
+              handleOpen={handleOpen}
+            />
           </div>
         </div>
 
@@ -133,41 +161,32 @@ const StudentStatus = () => {
                     <th scope="col" className="px-6 py-3">
                       Name
                     </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
+                    {/* <th scope="col" className="px-6 py-3 hidden sm:table-cell">
                       Course
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
+                    </th> */}
+                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
                       Regno
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Status
                     </th>
-                    <th scope="col" className="px-1 py-3">
-                      Change
-                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <StudentStatusTable />
-                  {/* {pageData.map((item) => {
+                  {pageData.map((item) => {
                     if (
-                      item.title
+                      item._id
                         .toLowerCase()
                         .includes(search.trim().toLowerCase())
                     ) {
-                      return (
-                        <>
-                          <InstructorAssignmentsTable
-                          />
-                        </>
-                      );
+                      return <StudentStatusTable item={item} />;
                     }
-                  })} */}
+                  })}
                 </tbody>
               </table>
             )}
 
-            <div>
+            <div className="flex justify-end">
               <nav aria-label="Page navigation example">
                 <ul className="pagination flex space-x-5 border w-fit px-2 py-1 mx-5 mt-5">
                   <li className="page-item">

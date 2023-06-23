@@ -5,14 +5,83 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
-const ModalStatusChange = ({ open, handleOpen }) => {
+const ModalStatusChange = ({ open, handleOpen, getStudentStatusList }) => {
+  const [studentsData, setStudentsData] = useState([]);
   const [regno, setRegno] = useState("");
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
+
+  const data = { regno, name, status };
+
+  useEffect(() => {
+    getStudentList();
+  }, []);
+
+  const getStudentList = () => {
+    fetch(baseurl + "/api/students ", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setStudentsData(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getStudentName(regno);
+  }, [regno]);
+
+  const getStudentName = (id) => {
+    studentsData.map((student) => {
+      if (student.regno === id) {
+        setName(student.name);
+      }
+    });
+  };
+
+  const onSubmitClick = (e) => {
+    e.preventDefault();
+    // Empty the fields
+    setName("");
+    setRegno("");
+    setStatus("");
+
+    // Post Api For Posting Data
+    fetch(baseurl + "/api/reqststatus", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        toast.success("Request Added Successfully");
+        handleOpen();
+        getStudentStatusList();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <Dialog
@@ -35,19 +104,22 @@ const ModalStatusChange = ({ open, handleOpen }) => {
               >
                 Regno
               </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                name="regno"
+              <Select
                 id="regno"
-                type="number"
-                placeholder="76556"
-                value={regno}
-                onChange={(e) => {
-                  setRegno(e.target.value);
+                label="Select Student"
+                // value={regno}
+                onChange={(value) => {
+                  setRegno(value);
                 }}
-              />
+              >
+                {studentsData.map((student) => (
+                  <Option value={student.regno}>
+                    {student.regno} | {student.name}
+                  </Option>
+                ))}
+              </Select>
             </div>
-            {/* NAme */}
+            {/* Name */}
             <div className="w-full px-3 mb-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -56,15 +128,11 @@ const ModalStatusChange = ({ open, handleOpen }) => {
                 Name
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                name="name"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 disabled:text-gray-500"
                 id="name"
                 type="text"
-                placeholder="John"
                 value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
+                disabled
               />
             </div>
             {/* Status */}
@@ -75,23 +143,25 @@ const ModalStatusChange = ({ open, handleOpen }) => {
               >
                 Choose Status
               </label>
-              <select
+              <Select
+                label="Select Status"
                 className="px-2 py-2"
                 name="status"
                 id="status"
                 value={status}
-                onChange={(e) => setStatus(e.target.value)}
+                onChange={(value) => setStatus(value)}
               >
-                <option value="">Choose Status</option>
-                <option value="active">Active</option>
-                <option value="inActive">InActive</option>
-                <option value="completed">Completed</option>
-                <option value="break">Break</option>
-              </select>
+                {/* <Option value="">Choose Status</Option> */}
+                <Option value="active">Active</Option>
+                <Option value="inActive">InActive</Option>
+                <Option value="completed">Completed</Option>
+                <Option value="break">Break</Option>
+              </Select>
             </div>
             <input
               type="submit"
               className="p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
+              onClick={onSubmitClick}
             />
           </form>
         </DialogBody>

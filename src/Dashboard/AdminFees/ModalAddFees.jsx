@@ -107,7 +107,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form className="w-full px-5 sm:px-10 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
-              {/* name */}
+              {/* Regno */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -130,7 +130,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
                   ))}
                 </Select>
               </div>
-              {/* Regno */}
+              {/* Name */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"

@@ -156,7 +156,7 @@ const Students = () => {
                       <Checkbox />
                     </th>
                     <th scope="col" className="px-3 py-3">
-                      User
+                      Student
                     </th>
                     <th scope="col" className="px-3 py-3 hidden md:table-cell">
                       Course
@@ -227,7 +227,7 @@ const Students = () => {
               </table>
             )}
 
-            <div>
+            <div className="flex justify-end">
               <nav aria-label="Page navigation example">
                 <ul className="pagination flex space-x-5 border w-fit px-2 py-1 mx-5 mt-5">
                   <li className="page-item">

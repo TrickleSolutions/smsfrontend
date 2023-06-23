@@ -20,6 +20,7 @@ import india from "../assets/images/india.png";
 import { Link, useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import logo from "../assets/images/logo.png";
+import avatar from "../assets/images/avatar.jpg";
 
 const StudentHeader = ({ updateAuth, auth }) => {
   const [search, setSearch] = useState("");
@@ -62,7 +63,7 @@ const StudentHeader = ({ updateAuth, auth }) => {
             Back to Dashboard
           </Button>
           <div className="flex flex-col sm:flex-row items-center">
-            <img src={logo} className="mx-3 my-2 h-20 w-20" alt="" />
+            <img src={logo} className="mx-3 my-2 h-20 w-20 sm:ml-20" alt="" />
           </div>
           {/* Right Box */}
           <div className="flex items-center">
@@ -429,7 +430,7 @@ const StudentHeader = ({ updateAuth, auth }) => {
                       alt="candice wu"
                       size="sm"
                       className="cursor-pointer"
-                      src={`${baseurl}/api/stprofilepic/${studentData.profilePic}`}
+                      src={avatar}
                     />
                     <div className=" mx-2 hidden sm:block">
                       <h6 className="text-xs text-[var(--theme-color)]">

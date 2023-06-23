@@ -44,14 +44,6 @@ const Enquiries = () => {
       });
   };
 
-  // const getProduct = async () => {
-  //   let result = await fetch(baseurl + "/api/students");
-  //   result = await result.json();
-  //   setProduct(result);
-  //   console.log(result);
-  // };
-  // console.log(product);
-
   const deleteData = async (id) => {
     //console.warn(id)
     var result = fetch(baseurl + `/api/students/${id}`, {

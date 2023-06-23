@@ -18,15 +18,35 @@ const ManageStudentStatus = () => {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [search, setSearch] = useState("");
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     getStudentList();
+    getStudentStatusList();
   }, [page]);
 
   const getStudentList = () => {
     fetch(baseurl + "/api/assign ", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setProduct(result);
+        setLoader(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getStudentStatusList = () => {
+    fetch(baseurl + "/api/reqststatus ", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -133,9 +153,9 @@ const ManageStudentStatus = () => {
                     <th scope="col" className="px-6 py-3">
                       Name
                     </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
+                    {/* <th scope="col" className="px-6 py-3 hidden sm:table-cell">
                       Course
-                    </th>
+                    </th> */}
                     <th scope="col" className="px-6 py-3 hidden md:table-cell">
                       Regno
                     </th>
@@ -148,26 +168,27 @@ const ManageStudentStatus = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <ManageStudentTable />
-                  {/* {pageData.map((item) => {
+                  {/* <ManageStudentTable /> */}
+                  {pageData.map((item) => {
+                    console.log(item);
                     if (
-                      item.title
+                      item._id
                         .toLowerCase()
                         .includes(search.trim().toLowerCase())
                     ) {
                       return (
-                        <>
-                          <InstructorAssignmentsTable
-                          />
-                        </>
+                        <ManageStudentTable
+                          item={item}
+                          getStudentStatusList={getStudentStatusList}
+                        />
                       );
                     }
-                  })} */}
+                  })}
                 </tbody>
               </table>
             )}
 
-            <div>
+            <div className="flex justify-end">
               <nav aria-label="Page navigation example">
                 <ul className="pagination flex space-x-5 border w-fit px-2 py-1 mx-5 mt-5">
                   <li className="page-item">
@@ -194,7 +215,7 @@ const ManageStudentStatus = () => {
                       return (
                         <li className="page-item">
                           <a
-                            className="page-link"
+                            className="page-link active:bg-[var(--theme-color)]"
                             href="#"
                             active={page === index + 1 ? true : false}
                             onClick={() => {
