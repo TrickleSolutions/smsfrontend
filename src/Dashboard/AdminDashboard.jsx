@@ -133,7 +133,7 @@ const AdminDashboard = ({ auth, updateAuth }) => {
             <div> Instructor List</div>
           </div>
           {/* Enrollment */}
-          <div
+          {/* <div
             onClick={() => goto("/admin/enrollment")}
             className=" w-48 h-48 p-10 m-3 text-xl text-[#5c2c34] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#5c2c34] ring-offset-1"
           >
@@ -154,9 +154,9 @@ const AdminDashboard = ({ auth, updateAuth }) => {
               </svg>
             </div>
             <div>Enrollment</div>
-          </div>
+          </div> */}
           {/* Library */}
-          <div
+          {/* <div
             onClick={() => goto("/admin/book-list")}
             className=" w-48 h-48 p-10 m-3 text-xl text-[#f1a81a] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#f1a81a] ring-offset-1"
           >
@@ -177,7 +177,7 @@ const AdminDashboard = ({ auth, updateAuth }) => {
               </svg>
             </div>
             <div>Library</div>
-          </div>
+          </div> */}
 
           {/* Income */}
           <div

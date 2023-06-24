@@ -75,14 +75,14 @@ const Income = () => {
     <div className="relative mt-5 mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
       {/* Stats */}
       <div className="flex justify-around flex-wrap my-10">
-        <div className="m-3 flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
+        <div className="m-3 flex items-center px-5 py-7 sm:py-10  rounded-lg shadow-xl hover:-translate-y-2 transition">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1}
             stroke="currentColor"
-            className="w-12 h-12 mr-3 text-[var(--theme-color)]"
+            className="w-12 sm:w-16 h-12 sm:h-16 mr-5 text-[var(--theme-color)]"
           >
             <path
               strokeLinecap="round"
@@ -91,20 +91,20 @@ const Income = () => {
             />
           </svg>
           <div className="">
-            <div className="text-[var(--theme-color)] text-3xl">{totInc}</div>
-            <div className="text-[var(--secondary-color)] font-semibold">
+            <div className="text-[var(--theme-color)] text-3xl">{35656}</div>
+            <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
               Total Expense
             </div>
           </div>
         </div>
-        <div className="m-3 flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
+        <div className="m-3 flex items-center w-fit px-5 py-7 sm:py-10  rounded-lg shadow-xl hover:-translate-y-2 transition">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1}
             stroke="currentColor"
-            className="w-12 h-12 mr-3 text-[var(--theme-color)]"
+            className="w-12 sm:w-16 h-12 sm:h-16 mr-5 text-[var(--theme-color)]"
           >
             <path
               strokeLinecap="round"
@@ -115,19 +115,19 @@ const Income = () => {
 
           <div className="">
             <div className="text-[var(--theme-color)] text-3xl">71845</div>
-            <div className="text-[var(--secondary-color)] font-semibold">
+            <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
               Total Income
             </div>
           </div>
         </div>
-        <div className="m-3 flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
+        <div className="m-3 flex items-center w-fit px-5 py-7 sm:py-10  rounded-lg shadow-xl hover:-translate-y-2 transition">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1}
             stroke="currentColor"
-            className="w-12 h-12 mr-3 text-[var(--theme-color)]"
+            className="w-12 sm:w-16 h-12 sm:h-16 mr-5 text-[var(--theme-color)]"
           >
             <path
               strokeLinecap="round"
@@ -138,7 +138,7 @@ const Income = () => {
 
           <div className="">
             <div className="text-[var(--theme-color)] text-3xl">23000</div>
-            <div className="text-[var(--secondary-color)] font-semibold">
+            <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
               Total Revenue
             </div>
           </div>

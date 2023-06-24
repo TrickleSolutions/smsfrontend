@@ -162,7 +162,7 @@ const ManageStudentStatus = () => {
                     <th scope="col" className="px-6 py-3">
                       Status
                     </th>
-                    <th scope="col" className="px-1 py-3">
+                    <th scope="col" className="px-1 py-3 w-[200px]">
                       Change
                     </th>
                   </tr>

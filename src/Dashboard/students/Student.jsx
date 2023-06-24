@@ -33,13 +33,11 @@ const Student = ({ item, getStudentList }) => {
           <Checkbox />
         </td>
         <td scope="row" class="px-6 py-4 font-semibold text-black flex">
-          <div className="bg-[#524fff] w-fit h-fit p-3  mr-2 rounded-full text-white text-center">
-            <span>
-              {item.name.charAt(0).toUpperCase()}{" "}
-              {item.name.split(" ")[1]
-                ? item.name.split(" ")[1].charAt(0).toUpperCase()
-                : ""}
-            </span>
+          <div className="bg-[#524fff] flex justify-center items-center w-10 h-10 p-2   mr-2 rounded-full text-white text-center">
+            {item.name.charAt(0).toUpperCase()}{" "}
+            {item.name.split(" ")[1]
+              ? item.name.split(" ")[1].charAt(0).toUpperCase()
+              : ""}
           </div>
           <div>
             <div>{item.name}</div>

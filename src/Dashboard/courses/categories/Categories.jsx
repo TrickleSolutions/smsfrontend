@@ -77,7 +77,7 @@ const Categories = () => {
   return (
     <div>
       <div className="mt-5 p-5 ml-auto shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
-        <div className="flex flex-col sm:flex-row justify-between items-center">
+        <div className=" flex flex-col sm:flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] text-center sm:text-start ">
             Course Category
             <div className="text-sm font-light text-[var(--para-color)]">
