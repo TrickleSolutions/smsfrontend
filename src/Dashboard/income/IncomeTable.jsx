@@ -5,6 +5,7 @@ import {
   MenuList,
   MenuItem,
   Checkbox,
+  Tooltip,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import ModalUpdateIncome from "./ModalUpdateIncome";
@@ -32,16 +33,17 @@ const IncomeTable = ({ item, getIncomeList }) => {
       <td class=" py-4">
         <Checkbox />
       </td>
-      <th scope="row" class="px-6 py-4 font-semibold text-black">
-        <div>{item.name}</div>
-      </th>
-      <td class="px-6 py-4 hidden  md:table-cell">{item.income_head}</td>
-      <td class="px-6 py-4 max-w-xs hidden lg:table-cell">{item.desc}</td>
-      <td class="px-6 py-4 hidden sm:table-cell">{item.invoice_number}</td>
-      <td class="px-6 py-4 hidden md:table-cell">{item.date}</td>
-      <td class="px-6 py-4 hidden lg:table-cell max-w-xs break-words">
-        {item.attach}
+      <td scope="row" class="px-6 py-4 max-w-[100px] truncate">
+        <Tooltip
+          content={item.desc}
+          placement="bottom-end"
+          className="max-w-xs  bg-[#000000d1]"
+        >
+          {item.desc}
+        </Tooltip>
       </td>
+      <td class="px-6 py-4 hidden sm:table-cell">{item.date}</td>
+      <td class="px-6 py-4 hidden md:table-cell">{item.time}</td>
       <td class="px-6 py-4">Rs. {item.amount}</td>
       <td class="px-1 py-4">
         <div>

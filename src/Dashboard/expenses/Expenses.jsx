@@ -64,7 +64,7 @@ const Expenses = () => {
   const handleOpen = () => setOpen(!open);
 
   return (
-    <div className="relative mt-5 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-none mx-auto  h-[80vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
+    <div className="relative mt-5 mx-auto  h-[80vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
       <div className="flex flex-col sm:flex-row justify-between items-center">
         <h2 className="text-2xl font-bold text-[var(--secondary-color)] text-center sm:text-start ">
           Expenses
@@ -125,22 +125,13 @@ const Expenses = () => {
                     <Checkbox />
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Name
+                    Source
                   </th>
-                  <th scope="col" className="px-3 py-3 hidden  md:table-cell">
-                    Expense Head
-                  </th>
-                  <th scope="col" className="px-6 py-3 hidden lg:table-cell ">
-                    Description
-                  </th>
-                  <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                    Invoice Number
-                  </th>
-                  <th scope="col" className="px-6 py-3 hidden md:table-cell ">
+                  <th scope="col" className="px-6 py-3 hidden sm:table-cell ">
                     Date
                   </th>
-                  <th scope="col" className="px-6 py-3 hidden lg:table-cell ">
-                    Receipt
+                  <th scope="col" className="px-6 py-3 hidden md:table-cell ">
+                    Time
                   </th>
                   <th scope="col" className="px-3 py-3">
                     Amount

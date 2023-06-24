@@ -69,6 +69,7 @@ import StudentStatus from "./InstructorDashboard/StudentStatus/StudentStatus";
 import ManageStudentStatus from "./Dashboard/manage-student/ManageStudentStatus";
 import ScheduleBatches from "./Dashboard/scheduleBatches/ScheduleBatches";
 import PrintReceipt from "./studentDashboard/payments/PrintReceipt";
+import StudentOfTheMonth from "./Dashboard/st-of-the-month/StudentOfTheMonth";
 
 const App = () => {
   const location = useLocation();
@@ -464,6 +465,15 @@ const App = () => {
                 <AdminProtected
                   adminAuth={adminAuth}
                   Component={ScheduleBatches}
+                />
+              }
+            />
+            <Route
+              path="/admin/monthly-acheivers"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={StudentOfTheMonth}
                 />
               }
             />

@@ -11,46 +11,36 @@ import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
 const ModalUpdateIncome = ({ open, handleOpen, getIncomeList, item }) => {
-  const [income_head, setIncome_head] = useState("");
-  const [name, setName] = useState("");
-  const [invoice_number, setInvoice_number] = useState("");
+  const [time, setTime] = useState("");
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState("");
-  const [attach, setAttach] = useState([]);
   const [desc, setDesc] = useState("");
 
   useEffect(() => {
-    setIncome_head(item.income_head);
-    setName(item.name);
-    setInvoice_number(item.invoice_number);
+    setTime(item.time);
     setDate(item.date);
     setAmount(item.amount);
-    setAttach(item.attach);
     setDesc(item.desc);
   }, [item]);
 
   const onSubmitClick = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("income_head", income_head);
-    formData.append("name", name);
-    formData.append("invoice_number", invoice_number);
-    formData.append("attach", attach);
-    formData.append("desc", desc);
-    formData.append("date", date);
-    formData.append("amount", amount);
+    const data = { time, date, amount, desc };
 
     // Empty the value of fields
-    // setIncome_head("");
-    // setName("");
-    // setInvoice_number("");
-    // setAttach("");
-    // setDesc("");
+    setTime("");
+    setDesc("");
+    setAmount("");
+    setDate("");
 
     // Post Api For Posting Data
     fetch(baseurl + "/api/income/" + item._id, {
       method: "PUT",
-      body: formData,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
       .then((res) => {
         return res.json();
@@ -74,65 +64,45 @@ const ModalUpdateIncome = ({ open, handleOpen, getIncomeList, item }) => {
       >
         <DialogHeader className="text-center justify-center">
           {" "}
-          Add Income
+          Update Income
         </DialogHeader>
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form className="w-full px-5 mt-5" onSubmit={onSubmitClick}>
             <div className="flex flex-wrap -mx-3 mb-6">
-              {/* Expense Head */}
+              {/* Description */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="income_head"
+                  htmlFor="desc"
                 >
-                  Expense Head
+                  Description
                 </label>
-                <input
+                <textarea
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="income_head"
+                  id="desc"
                   type="text"
-                  placeholder="Electricity"
-                  value={income_head}
+                  placeholder="Description"
+                  value={desc}
                   onChange={(e) => {
-                    setIncome_head(e.target.value);
+                    setDesc(e.target.value);
                   }}
                 />
               </div>
-              {/* Name */}
+              {/* time */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="name"
+                  htmlFor="time"
                 >
-                  Name
+                  Time
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="name"
-                  type="text"
-                  placeholder="Fun Fest"
-                  value={name}
+                  id="time"
+                  type="time"
+                  value={time}
                   onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-              </div>
-              {/* Invoice Number */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="invoice_number"
-                >
-                  Invoice Number
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="invoice_number"
-                  type="number"
-                  placeholder="632612"
-                  value={invoice_number}
-                  onChange={(e) => {
-                    setInvoice_number(e.target.value);
+                    setTime(e.target.value);
                   }}
                 />
               </div>
@@ -170,42 +140,6 @@ const ModalUpdateIncome = ({ open, handleOpen, getIncomeList, item }) => {
                   value={amount}
                   onChange={(e) => {
                     setAmount(e.target.value);
-                  }}
-                />
-              </div>
-              {/* Attach */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="attach"
-                >
-                  Attach Document
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="attach"
-                  type="file"
-                  onChange={(e) => {
-                    setAttach(e.target.files[0]);
-                  }}
-                />
-              </div>
-              {/* Description */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="desc"
-                >
-                  Description
-                </label>
-                <textarea
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="desc"
-                  type="text"
-                  placeholder="Description"
-                  value={desc}
-                  onChange={(e) => {
-                    setDesc(e.target.value);
                   }}
                 />
               </div>

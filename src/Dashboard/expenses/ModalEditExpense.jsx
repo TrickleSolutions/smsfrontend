@@ -11,46 +11,36 @@ import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
 const ModalEditExpense = ({ open, handleOpen, getExpenseList, item }) => {
-  const [expense_head, setExpenseHead] = useState("");
-  const [name, setName] = useState("");
-  const [invoice_number, setInvoice_number] = useState("");
+  const [time, setTime] = useState("");
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState("");
-  const [attach_document, setAttach_document] = useState([]);
-  const [description, setDescription] = useState("");
+  const [desc, setDesc] = useState("");
 
   useEffect(() => {
-    setExpenseHead(item.expense_head);
-    setName(item.name);
-    setInvoice_number(item.invoice_number);
+    setTime(item.time);
     setDate(item.date);
     setAmount(item.amount);
-    setAttach_document(item.attach_document);
-    setDescription(item.description);
+    setDesc(item.desc);
   }, [item]);
 
   const onSubmitClick = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("expense_head", expense_head);
-    formData.append("name", name);
-    formData.append("invoice_number", invoice_number);
-    formData.append("attach_document", attach_document);
-    formData.append("description", description);
-    formData.append("date", date);
-    formData.append("amount", amount);
+    const data = { time, date, amount, desc };
 
     // Empty the value of fields
-    // setExpenseHead("");
-    // setName("");
-    // setInvoice_number("");
-    // setAttach_document("");
-    // setDescription("");
+    setTime("");
+    setDesc("");
+    setAmount("");
+    setDate("");
 
     // Post Api For Posting Data
     fetch(baseurl + "/api/expense/" + item._id, {
       method: "PUT",
-      body: formData,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
       .then((res) => {
         return res.json();
@@ -74,65 +64,45 @@ const ModalEditExpense = ({ open, handleOpen, getExpenseList, item }) => {
       >
         <DialogHeader className="text-center justify-center">
           {" "}
-          Add Expense
+          Update Expense
         </DialogHeader>
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form className="w-full px-5 mt-5" onSubmit={onSubmitClick}>
             <div className="flex flex-wrap -mx-3 mb-6">
-              {/* Expense Head */}
+              {/* Description */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="expense_head"
+                  htmlFor="desc"
                 >
-                  Expense Head
+                  Description
                 </label>
-                <input
+                <textarea
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="expense_head"
+                  id="desc"
                   type="text"
-                  placeholder="Electricity"
-                  value={expense_head}
+                  placeholder="Description"
+                  value={desc}
                   onChange={(e) => {
-                    setExpenseHead(e.target.value);
+                    setDesc(e.target.value);
                   }}
                 />
               </div>
-              {/* Name */}
+              {/* time */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="name"
+                  htmlFor="time"
                 >
-                  Name
+                  Time
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="name"
-                  type="text"
-                  placeholder="Fun Fest"
-                  value={name}
+                  id="time"
+                  type="time"
+                  value={time}
                   onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-              </div>
-              {/* Invoice Number */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="invoice_number"
-                >
-                  Invoice Number
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="invoice_number"
-                  type="number"
-                  placeholder="632612"
-                  value={invoice_number}
-                  onChange={(e) => {
-                    setInvoice_number(e.target.value);
+                    setTime(e.target.value);
                   }}
                 />
               </div>
@@ -170,42 +140,6 @@ const ModalEditExpense = ({ open, handleOpen, getExpenseList, item }) => {
                   value={amount}
                   onChange={(e) => {
                     setAmount(e.target.value);
-                  }}
-                />
-              </div>
-              {/* attach_document */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="attach_document"
-                >
-                  attach_document Document
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="attach_document"
-                  type="file"
-                  onChange={(e) => {
-                    setAttach_document(e.target.files[0]);
-                  }}
-                />
-              </div>
-              {/* Description */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="description"
-                >
-                  Description
-                </label>
-                <textarea
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="description"
-                  type="text"
-                  placeholder="Description"
-                  value={description}
-                  onChange={(e) => {
-                    setDescription(e.target.value);
                   }}
                 />
               </div>

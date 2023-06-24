@@ -4,10 +4,10 @@ import { Checkbox } from "@material-tailwind/react";
 import baseurl from "../../Config";
 
 import { Link } from "react-router-dom";
-import AddIncome from "./ModalAddIncome";
 import IncomeTable from "./IncomeTable";
 import Loader from "../../Components/Loader";
 import Expenses from "../expenses/Expenses";
+import ModalAddIncome from "./ModalAddIncome";
 
 const Income = () => {
   const [product, setProduct] = useState([]);
@@ -16,6 +16,11 @@ const Income = () => {
   const [pageCount, setPageCount] = useState(0);
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
+
+  const [totInc, setTotInc] = useState(null);
+  const [totExp, setTotExp] = useState("");
+
+  const calcTotInc = (totInc, amt) => setTotInc(totInc + amt);
 
   useEffect(() => {
     getIncomeList();
@@ -67,7 +72,7 @@ const Income = () => {
   const handleOpen = () => setOpen(!open);
 
   return (
-    <div className="relative mt-5 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-none mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
+    <div className="relative mt-5 mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
       {/* Stats */}
       <div className="flex justify-around flex-wrap my-10">
         <div className="m-3 flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
@@ -86,7 +91,7 @@ const Income = () => {
             />
           </svg>
           <div className="">
-            <div className="text-[var(--theme-color)] text-3xl">34576</div>
+            <div className="text-[var(--theme-color)] text-3xl">{totInc}</div>
             <div className="text-[var(--secondary-color)] font-semibold">
               Total Expense
             </div>
@@ -181,7 +186,7 @@ const Income = () => {
           </Button>
         </div>
       </div>
-      <AddIncome
+      <ModalAddIncome
         open={open}
         handleOpen={handleOpen}
         getIncomeList={getIncomeList}
@@ -202,22 +207,13 @@ const Income = () => {
                     <Checkbox />
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Name
+                    Source
                   </th>
-                  <th scope="col" className="px-3 py-3 hidden  md:table-cell">
-                    Income Head
-                  </th>
-                  <th scope="col" className="px-6 py-3 hidden lg:table-cell ">
-                    Description
-                  </th>
-                  <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                    Invoice Number
-                  </th>
-                  <th scope="col" className="px-6 py-3 hidden md:table-cell ">
+                  <th scope="col" className="px-6 py-3 hidden sm:table-cell ">
                     Date
                   </th>
-                  <th scope="col" className="px-6 py-3 hidden lg:table-cell ">
-                    Receipt
+                  <th scope="col" className="px-6 py-3 hidden md:table-cell ">
+                    Time
                   </th>
                   <th scope="col" className="px-3 py-3">
                     Amount

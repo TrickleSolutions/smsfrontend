@@ -1,34 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Radio,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
-const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
-  const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
-  const [amount, setAmount] = useState("");
+const EditInstructorOfTheMonth = ({
+  open,
+  handleOpen,
+  InstructorOfTheMonthList,
+  instructorMonth,
+}) => {
+  const [course, setCourse] = useState("");
+  const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
+  const [img, setImg] = useState("");
 
-  const onSubmitClick = (e) => {
-    e.preventDefault();
-    const data = { time, date, amount, desc };
+  useEffect(() => {
+    setCourse(instructorMonth.course);
+    setName(instructorMonth.name);
+    setDesc(instructorMonth.desc);
+    setImg(instructorMonth.img);
+  });
 
-    // Empty the value of fields
-    setTime("");
+  const data = { course, name, img };
+  console.log(data);
+
+  const onsubmitClick = () => {
+    // Empty the fields
+    setCourse("");
+    setName("");
     setDesc("");
-    setAmount("");
-    setDate("");
 
     // Post Api For Posting Data
-    fetch(baseurl + "/api/income", {
-      method: "POST",
+    fetch(baseurl + "/api/class", {
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -39,9 +49,9 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
         return res.json();
       })
       .then((result) => {
-        toast.success("Income Added Successfully");
-        getIncomeList();
+        toast.success("Added Successfully");
         handleOpen();
+        InstructorOfTheMonthList();
       })
       .catch((err) => {
         console.log(err);
@@ -52,17 +62,55 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
       <Dialog
         open={open}
         handler={handleOpen}
-        size="sm"
-        className="min-w-[80%] md:min-w-[60%] lg:min-w-[50%]"
+        className="min-w-[80%] md:min-w-[60%] lg:min-w-[20%]"
       >
         <DialogHeader className="text-center justify-center">
           {" "}
-          Add Income
+          Add Instructor Of The Month
         </DialogHeader>
-        <DialogBody divider className="h-[25rem] overflow-y-scroll">
-          <form className="w-full px-5 mt-5" onSubmit={onSubmitClick}>
+        <DialogBody divider className=" overflow-y-scroll">
+          <form className="w-full px-5 sm:px-10 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
-              {/* Description */}
+              {/* name */}
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="name"
+                >
+                  name
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="name"
+                  type="name"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  placeholder="John"
+                />
+              </div>
+
+              {/* Course */}
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="course"
+                >
+                  Course
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="course"
+                  type="text"
+                  placeholder="Graphic Designing"
+                  value={course}
+                  onChange={(e) => {
+                    setCourse(e.target.value);
+                  }}
+                />
+              </div>
+              {/* Desc */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -73,74 +121,32 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
                 <textarea
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="desc"
-                  type="text"
-                  placeholder="Description"
+                  placeholder="Hard Working..."
                   value={desc}
+                  rows={5}
                   onChange={(e) => {
                     setDesc(e.target.value);
                   }}
                 />
               </div>
-              {/* time */}
+              {/* Image */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="time"
+                  htmlFor="img"
                 >
-                  Time
+                  Image
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="time"
-                  type="time"
-                  value={time}
+                  id="img"
+                  type="file"
+                  value={img}
                   onChange={(e) => {
-                    setTime(e.target.value);
+                    setImg(e.target.value);
                   }}
                 />
               </div>
-              {/* Date */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="date"
-                >
-                  Date
-                </label>
-                <input
-                  className="scroll-smooth appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="date"
-                  type="date"
-                  value={date}
-                  onChange={(e) => {
-                    setDate(e.target.value);
-                  }}
-                />
-              </div>
-              {/* Amount */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="amount"
-                >
-                  Amount
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="amount"
-                  type="number"
-                  placeholder="2000"
-                  value={amount}
-                  onChange={(e) => {
-                    setAmount(e.target.value);
-                  }}
-                />
-              </div>
-
-              <input
-                type="submit"
-                className="p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
-              />
             </div>
           </form>
         </DialogBody>
@@ -153,10 +159,13 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
           >
             <span>Cancel</span>
           </Button>
+          <Button variant="gradient" color="blue" onClick={onsubmitClick}>
+            <span>Add</span>
+          </Button>
         </DialogFooter>
       </Dialog>
     </>
   );
 };
 
-export default ModalAddIncome;
+export default EditInstructorOfTheMonth;
