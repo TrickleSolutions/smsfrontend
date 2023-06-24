@@ -17,16 +17,24 @@ import {
 } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import india from "../assets/images/india.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import logo from "../assets/images/logo.png";
 import avatar from "../assets/images/avatar.jpg";
 
 const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
+  const [instructor, setInstructor] = useState(null);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const [instructorData, setInstructorData] = useState([]);
-  console.log(instructorData);
+  const location = useLocation();
+  console.log(instructor);
+
+  useEffect(() => {
+    setInstructor(
+      location.pathname.startsWith("/instructor/instructor-dashboard")
+    );
+  }, [location.pathname]);
 
   useEffect(() => {
     getinstructorData();
@@ -54,14 +62,16 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
       <div className=" px-5 bg-white py-0.5 shadow-xl">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           {/* Left Box */}
-          <Button
-            onClick={() => navigate("/instructor/instructor-dashboard")}
-            size="sm"
-            variant="outlined"
-            className="block h-fit w-fit py-3 order-2 sm:order-none"
-          >
-            Back to Dashboard
-          </Button>
+          <div className={instructor ? "invisible" : "none"}>
+            <Button
+              onClick={() => navigate("/instructor/instructor-dashboard")}
+              size="sm"
+              variant="outlined"
+              className="block h-fit w-fit py-3 order-2 sm:order-none"
+            >
+              Back to Dashboard
+            </Button>
+          </div>
           <div className="flex flex-col sm:flex-row items-center">
             <Link to="https://coaching-institutev.netlify.app/">
               <img src={logo} className="mx-3 my-2 h-20 w-20 sm:ml-20" alt="" />

@@ -12,15 +12,21 @@ import {
 import { PowerIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import india from "../assets/images/india.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import logo from "../assets/images/logo.png";
 import avatar from "../assets/images/avatar.jpg";
 
 const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
+  const [admin, setAdmin] = useState(null);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const [adminData, setAdminData] = useState([]);
+  const location = useLocation();
+
+  useEffect(() => {
+    setAdmin(location.pathname.startsWith("/admin/dashboard"));
+  }, [location.pathname]);
 
   useEffect(() => {
     getAdminData();
@@ -48,14 +54,16 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
     <>
       <div className=" px-5 bg-white py-0.5 shadow-xl">
         <div className="flex flex-col sm:flex-row justify-between items-center">
-          <Button
-            onClick={() => navigate("/admin/dashboard")}
-            size="sm"
-            variant="outlined"
-            className="mx-1 h-fit py-3   order-2 sm:order-none"
-          >
-            Back to Dashboard
-          </Button>
+          <div className={admin ? "invisible" : "none"}>
+            <Button
+              onClick={() => navigate("/admin/dashboard")}
+              size="sm"
+              variant="outlined"
+              className="mx-1 h-fit py-3   order-2 sm:order-none"
+            >
+              Back to Dashboard
+            </Button>
+          </div>
           <div className="flex flex-col sm:flex-row items-center sm:ml-20">
             <Link to="https://coaching-institutev.netlify.app/">
               <img src={logo} className="mx-3 my-2 h-20 w-20" alt="" />

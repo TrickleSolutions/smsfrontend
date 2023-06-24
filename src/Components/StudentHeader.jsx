@@ -17,15 +17,21 @@ import {
 } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import india from "../assets/images/india.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import logo from "../assets/images/logo.png";
 import avatar from "../assets/images/avatar.jpg";
 
 const StudentHeader = ({ updateAuth, auth }) => {
+  const [dashBtn, setDashBtn] = useState(null);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const [studentData, setStudentData] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    setDashBtn(location.pathname.startsWith("/student/dashboard"));
+  }, [location.pathname]);
 
   useEffect(() => {
     getStudentData();
@@ -53,15 +59,16 @@ const StudentHeader = ({ updateAuth, auth }) => {
       <div className=" px-5 bg-white py-0.5 shadow-xl">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           {/* Left Box */}
-
-          <Button
-            onClick={() => navigate("/student/dashboard")}
-            size="sm"
-            variant="outlined"
-            className="h-fit py-3   order-2 sm:order-none"
-          >
-            Back to Dashboard
-          </Button>
+          <div className={dashBtn ? "invisible" : "none"}>
+            <Button
+              onClick={() => navigate("/student/dashboard")}
+              size="sm"
+              variant="outlined"
+              className="h-fit py-3   order-2 sm:order-none"
+            >
+              Back to Dashboard
+            </Button>
+          </div>
           <div className="flex flex-col sm:flex-row items-center">
             <Link to="https://coaching-institutev.netlify.app/">
               <img src={logo} className="mx-3 my-2 h-20 w-20 sm:ml-20" alt="" />
