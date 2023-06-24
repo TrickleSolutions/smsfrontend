@@ -154,7 +154,7 @@ const Enquiries = () => {
                       Ref By
                     </th>
                     <th scope="col" className="px-6 py-3 hidden lg:table-cell">
-                      Date of Birth
+                      DOB
                     </th>
                     <th scope="col" className="px-6 py-3 hidden lg:table-cell">
                       Gender
@@ -163,7 +163,7 @@ const Enquiries = () => {
                       Expected DOJ
                     </th>
                     <th scope="col" className="px-6 py-3 hidden lg:table-cell">
-                      Counseller
+                      Counselor
                     </th>
                     <th scope="col" className="px-6 py-3 hidden lg:table-cell">
                       Course
