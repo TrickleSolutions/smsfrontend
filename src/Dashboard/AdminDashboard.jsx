@@ -371,13 +371,13 @@ const AdminDashboard = ({ auth, updateAuth }) => {
             <div>Monthly Achievers</div>
           </div>
         </div>
-        {/* Footer */}
-        <div className="bg-[var(--theme-color)] mt-5">
-          <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
-            &#169; 2023 SMS Education | All Rights Reserved
-          </h1>
-        </div>
       </section>
+      {/* Footer */}
+      <div className="bg-[var(--theme-color)] mt-5">
+        <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
+          &#169; 2023 SMS Education | All Rights Reserved
+        </h1>
+      </div>
     </>
   );
 };

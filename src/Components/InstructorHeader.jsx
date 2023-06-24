@@ -63,7 +63,9 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
             Back to Dashboard
           </Button>
           <div className="flex flex-col sm:flex-row items-center">
-            <img src={logo} className="mx-3 my-2 h-20 w-20 sm:ml-20" alt="" />
+            <Link to="https://coaching-institutev.netlify.app/">
+              <img src={logo} className="mx-3 my-2 h-20 w-20 sm:ml-20" alt="" />
+            </Link>
           </div>
           {/* Right Box */}
           <div className="flex items-center">

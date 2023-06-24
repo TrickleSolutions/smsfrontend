@@ -67,7 +67,7 @@ const AdminEvents = () => {
 
   return (
     <>
-      <div className="p-5 ml-auto shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa] mt-5">
+      <div className="p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa] mt-5">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
             Events
@@ -244,6 +244,12 @@ const AdminEvents = () => {
             </div>
           </div>
         </div>
+      </div>
+      {/* Footer */}
+      <div className="bg-[var(--theme-color)]">
+        <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
+          &#169; 2023 SMS Education | All Rights Reserved
+        </h1>
       </div>
     </>
   );

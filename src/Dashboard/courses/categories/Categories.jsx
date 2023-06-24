@@ -75,7 +75,7 @@ const Categories = () => {
   const handleOpen = () => setOpen(!open);
 
   return (
-    <div>
+    <>
       <div className="mt-5 p-5 ml-auto shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
         <div className=" flex flex-col sm:flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] text-center sm:text-start ">
@@ -212,7 +212,13 @@ const Categories = () => {
           </div>
         </div>
       </div>
-    </div>
+      {/* Footer */}
+      <div className="bg-[var(--theme-color)]">
+        <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
+          &#169; 2023 SMS Education | All Rights Reserved
+        </h1>
+      </div>
+    </>
   );
 };
 

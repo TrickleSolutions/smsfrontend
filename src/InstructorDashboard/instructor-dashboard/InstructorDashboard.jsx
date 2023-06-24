@@ -17,7 +17,7 @@ const InstructorDashboard = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center min-h-[43vh]">
           <div
-            onClick={() => goto("/instructor/instructor-Attendence")}
+            onClick={() => goto("/instructor/instructor-attendence")}
             className=" w-48 h-48 p-10 m-3 text-2xl text-[var(--secondary-color)] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#f1a81a] ring-offset-1"
           >
             <div className="py-1">
@@ -105,13 +105,13 @@ const InstructorDashboard = () => {
             <div>Student Status</div>
           </div>
         </div>
-        {/* Footer */}
-        <div className="bg-[var(--theme-color)] mt-5">
-          <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
-            &#169; 2023 SMS Education | All Rights Reserved
-          </h1>
-        </div>
       </section>
+      {/* Footer */}
+      <div className="bg-[var(--theme-color)] mt-5">
+        <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
+          &#169; 2023 SMS Education | All Rights Reserved
+        </h1>
+      </div>
     </>
   );
 };

@@ -12,7 +12,7 @@ import {
 import { PowerIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import india from "../assets/images/india.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import logo from "../assets/images/logo.png";
 import avatar from "../assets/images/avatar.jpg";
@@ -57,7 +57,9 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
             Back to Dashboard
           </Button>
           <div className="flex flex-col sm:flex-row items-center sm:ml-20">
-            <img src={logo} className="mx-3 my-2 h-20 w-20" alt="" />
+            <Link to="https://coaching-institutev.netlify.app/">
+              <img src={logo} className="mx-3 my-2 h-20 w-20" alt="" />
+            </Link>
           </div>
           {/* Right Box */}
           <div className="flex items-center">

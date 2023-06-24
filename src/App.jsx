@@ -32,7 +32,6 @@ import BookList from "./Dashboard/library/BookList";
 import ScheduleClasses from "./Dashboard/scheduleClasses/ScheduleClasses";
 
 // Student Dashboard Import
-import StudentSidebar from "./Components/StudentSidebar";
 import StudentDashboard from "./studentDashboard/StudentDashboard";
 import Classes from "./studentDashboard/Classes";
 import Footer from "./Components/Footer";
@@ -50,7 +49,6 @@ import InstructorHeader from "./Components/InstructorHeader";
 import InstructorDashboard from "./InstructorDashboard/instructor-dashboard/InstructorDashboard";
 import InstructorResultList from "./InstructorDashboard/instructor-result/InstructorResultList";
 import InstructorAssignments from "./InstructorDashboard/InstructorAssignments/InstructorAssignments";
-import InstructorQueries from "./Dashboard/queries/AdminQueries";
 
 // Authentication Imports
 import LoginStudent from "./authentication/LoginStudent";
@@ -70,6 +68,7 @@ import ManageStudentStatus from "./Dashboard/manage-student/ManageStudentStatus"
 import ScheduleBatches from "./Dashboard/scheduleBatches/ScheduleBatches";
 import PrintReceipt from "./studentDashboard/payments/PrintReceipt";
 import StudentOfTheMonth from "./Dashboard/st-of-the-month/StudentOfTheMonth";
+import InstructorAttendence from "./InstructorDashboard/instructor-attendence/InstructorAttendence";
 
 const App = () => {
   const location = useLocation();
@@ -540,6 +539,17 @@ const App = () => {
               element={
                 <InstructorProtected
                   Component={StudentStatus}
+                  instructorAuth={instructorAuth}
+                  updateInstructorAuth={updateInstructorAuth}
+                />
+              }
+            />
+            <Route
+              path="/instructor/instructor-attendence"
+              exact={true}
+              element={
+                <InstructorProtected
+                  Component={InstructorAttendence}
                   instructorAuth={instructorAuth}
                   updateInstructorAuth={updateInstructorAuth}
                 />

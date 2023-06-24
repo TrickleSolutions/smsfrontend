@@ -262,6 +262,12 @@ const AdminFees = () => {
           </div>
         </div>
       </div>
+      {/* Footer */}
+      <div className="bg-[var(--theme-color)]">
+        <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
+          &#169; 2023 SMS Education | All Rights Reserved
+        </h1>
+      </div>
     </>
   );
 };

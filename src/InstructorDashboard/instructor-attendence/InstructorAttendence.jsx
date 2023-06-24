@@ -9,13 +9,9 @@ import {
   Checkbox,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
-import ModalEditAssignment from "./ModalEditAssignment";
-import ModalAddAssignment from "./ModalAddAssignment";
-import InstructorAssignmentsTable from "./InstructorAssignmentsTable";
 import Loader from "../../Components/Loader";
-import InstructorHeader from "../../Components/InstructorHeader";
 
-const InstructorAssignments = ({ updateInstructorAuth, instructorAuth }) => {
+const InstructorAttendence = () => {
   const [product, setProduct] = useState([]);
   const [pageData, setPageData] = useState([]);
   const [page, setPage] = useState(1);
@@ -78,7 +74,7 @@ const InstructorAssignments = ({ updateInstructorAuth, instructorAuth }) => {
       <div className="p-5 ml-auto shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa] mt-5">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
-            Assignments
+            Attendence
           </h2>
 
           {/* Students */}
@@ -114,15 +110,15 @@ const InstructorAssignments = ({ updateInstructorAuth, instructorAuth }) => {
               </div>
             </div>
             <Button onClick={handleOpen} className="h-fit">
-              + Add Assignment
+              + Add Attendence
             </Button>
           </div>
         </div>
-        <ModalAddAssignment
+        {/* <ModalAddAssignment
           open={open}
           handleOpen={handleOpen}
           getAssignmentList={getAssignmentList}
-        />
+        /> */}
 
         {/* Student Table */}
         <div className="my-10">
@@ -139,20 +135,17 @@ const InstructorAssignments = ({ updateInstructorAuth, instructorAuth }) => {
                       <Checkbox />
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Title
+                      Name
                     </th>
                     <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Instructions
+                      Date
                     </th>
                     <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Due Date
+                      Day
                     </th>
                     <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Doc
+                      Status
                     </th>
-                    {/* <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-              Instructor Contact
-            </th> */}
                     <th scope="col" className="px-1 py-3">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -180,10 +173,10 @@ const InstructorAssignments = ({ updateInstructorAuth, instructorAuth }) => {
                     ) {
                       return (
                         <>
-                          <InstructorAssignmentsTable
+                          {/* <InstructorAssignmentsTable
                             item={item}
                             getAssignmentList={getAssignmentList}
-                          />
+                          /> */}
                         </>
                       );
                     }
@@ -264,4 +257,4 @@ const InstructorAssignments = ({ updateInstructorAuth, instructorAuth }) => {
   );
 };
 
-export default InstructorAssignments;
+export default InstructorAttendence;
