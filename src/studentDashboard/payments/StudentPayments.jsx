@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import baseurl from "../../Config";
 import Loader from "../../Components/Loader";
 import { Link } from "react-router-dom";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PrintReceipt from "./PrintReceipt";
+import html2canvas from "html2canvas";
 
 const StudentPayments = ({ auth }) => {
   const [studentFees, setStudentFees] = useState([]);
@@ -159,24 +162,31 @@ const StudentPayments = ({ auth }) => {
                             </span>
                           </td>
                           <td className="px-1 py-5 text-sm">
-                            <div className="w-9 h-9 flex justify-center items-center bg-green-100 rounded-full cursor-pointer">
-                              <Link to="/students/payments/receipt">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={1.5}
-                                  stroke="currentColor"
-                                  className="w-5 h-5"
+                            {loader ? (
+                              <Loader />
+                            ) : (
+                              <div className="w-9 h-9 flex justify-center items-center bg-green-100 rounded-full cursor-pointer">
+                                <Link
+                                  to="/students/payments/receipt"
+                                  state={{ auth, item }}
                                 >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                                  />
-                                </svg>
-                              </Link>
-                            </div>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-5 h-5"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                                    />
+                                  </svg>
+                                </Link>
+                              </div>
+                            )}
                           </td>
                         </tr>
                       </>

@@ -118,13 +118,13 @@ const ModalEditFees = ({ item, open, handleOpen, getFeesList }) => {
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form className="w-full px-5 sm:px-10 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
-              {/* name */}
+              {/* Reg No. */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="regno"
                 >
-                  Regno
+                  Reg No.
                 </label>
                 <Select
                   id="regno"
@@ -133,6 +133,7 @@ const ModalEditFees = ({ item, open, handleOpen, getFeesList }) => {
                   onChange={(value) => {
                     setRegno(value);
                   }}
+                  disabled
                 >
                   {studentsData.map((student) => (
                     <Option value={student.regno}>
@@ -141,7 +142,7 @@ const ModalEditFees = ({ item, open, handleOpen, getFeesList }) => {
                   ))}
                 </Select>
               </div>
-              {/* Regno */}
+              {/* NAme */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -150,7 +151,7 @@ const ModalEditFees = ({ item, open, handleOpen, getFeesList }) => {
                   Name
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="disabled:text-gray-500 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="name"
                   type="text"
                   value={name}

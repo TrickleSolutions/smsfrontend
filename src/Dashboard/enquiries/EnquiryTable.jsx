@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Checkbox } from "@material-tailwind/react";
+import { Button, Checkbox, Tooltip } from "@material-tailwind/react";
 import {
   Menu,
   MenuHandler,
@@ -37,23 +37,31 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
         <div>{item.name}</div>
         <div className="font-light my-1 text-gray-500">{item.email}</div>
       </th>
-      <td className="px-1 py-4">{item.fname}</td>
+      <td className="px-1 py-4 hidden sm:table-cell">{item.fname}</td>
       <td className="px-1 py-4">{item.contact}</td>
-      <td className="px-1 py-4 max-w-xs truncate">{item.address}</td>
-      <td className="px-1 py-4">{item.ref_by}</td>
-      <td className="px-1 py-4">{item.dob}</td>
-      <td className="px-1 py-4">{item.gender}</td>
-      <td className="px-1 py-4">{item.epx_join}</td>
-      <td className="px-1 py-4">{item.counseller}</td>
-      <td className="px-1 py-4">{item.course}</td>
-      <td className="px-1 py-4">{item.note}</td>
+      <td className="px-1 py-4 max-w-xs truncate hidden md:table-cell">
+        <Tooltip
+          content={item.address}
+          className="max-w-xs bg-[val(--theme-color)]"
+          placement="bottom-end"
+        >
+          {item.address}
+        </Tooltip>
+      </td>
+      <td className="px-1 py-4 hidden md:table-cell">{item.ref_by}</td>
+      <td className="px-1 py-4 hidden lg:table-cell">{item.dob}</td>
+      <td className="px-1 py-4 hidden lg:table-cell">{item.gender}</td>
+      <td className="px-1 py-4 hidden lg:table-cell">{item.epx_join}</td>
+      <td className="px-1 py-4 hidden lg:table-cell">{item.counseller}</td>
+      <td className="px-1 py-4 hidden lg:table-cell">{item.course}</td>
+      <td className="px-1 py-4 hidden lg:table-cell">{item.note}</td>
       <td className="px-1 py-4">
         <Button size="sm" onClick={handleOpen}>
           Enroll
         </Button>
       </td>
       <ModalEnrollStudent open={open} handleOpen={handleOpen} item={item} />
-      <td className="px-6 py-4">
+      <td className="px-1 py-4">
         <Menu>
           <MenuHandler>
             <svg

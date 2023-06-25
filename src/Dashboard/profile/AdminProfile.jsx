@@ -42,34 +42,31 @@ const AdminProfile = ({ adminAuth }) => {
     <>
       <section className=" p-2 sm:p-5 md:p-10 ">
         {/* Profile Image Section */}
-        <div className="relative h-96">
-          <img src={stuBg} className="h-96 w-full" alt="" />
-          <div className="absolute top-0 left-0 h-96 w-full p-14 sm:p-20 bg-[#00000050] ">
-            <div className="flex flex-col items-center justify-center w-fit mx-auto sm:mx-0">
-              <img
-                src={`${baseurl}/api/teacherpic/${adminData.profilePic}`}
-                className="w-28 h-28 rounded-full shadow-xl ring-white ring-2"
-                alt=""
-              />
-              <h4 className="text-white text-lg font-semibold my-5">
-                {adminData.name}
-              </h4>
-              <p className="text-white">@administrator</p>
-              <Button onClick={handleOpen} className="h-fit my-3">
-                Update
-              </Button>
-            </div>
-            <ModalUpdateAdmin
-              adminData={adminData}
-              getAdminData={getAdminData}
-              open={open}
-              handleOpen={handleOpen}
+        <div className=" h-64 mt-10">
+          <div className="flex flex-col items-center justify-center ">
+            <img
+              src={`${baseurl}/api/teacherpic/${adminData.profilePic}`}
+              className="w-28 h-28 rounded-full shadow-xl ring-white ring-2 ring-[var(--theme-color)]"
+              alt=""
             />
+            <h4 className="text-black text-lg font-semibold my-5">
+              {adminData.name}
+            </h4>
+            <p className="text-black">@administrator</p>
+            <Button onClick={handleOpen} className="h-fit my-3">
+              Update
+            </Button>
           </div>
+          <ModalUpdateAdmin
+            adminData={adminData}
+            getAdminData={getAdminData}
+            open={open}
+            handleOpen={handleOpen}
+          />
         </div>
 
         {/* Account Type */}
-        <div className="flex flex-row my-2">
+        <div className="flex flex-row justify-center my-10">
           <div className="p-3">
             <div>Account Type:</div>
             <div>
@@ -91,7 +88,7 @@ const AdminProfile = ({ adminAuth }) => {
         </div>
 
         {/* Personal Information */}
-        <div className="px-2">
+        <div className="px-2 mx-auto mt-10 max-w-4xl">
           <h3 className="font-semibold my-5">Personal Information</h3>
           <div className="lg:max-w-5xl">
             <div className="flex flex-col md:flex-row mt-2">

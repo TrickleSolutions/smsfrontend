@@ -87,7 +87,7 @@ const Categories = () => {
           {/* Students */}
           <div className="flex flex-col sm:flex-row justify-between items-center">
             <div className=" w-48 mx-2">
-              <div className="relative flex w-full flex-wrap items-stretch">
+              {/* <div className="relative flex w-full flex-wrap items-stretch">
                 <input
                   type="textarea"
                   className="relative m-0 block w-[1%] min-w-0 pl-2 pr-8 py-2  flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-[var(--theme-color)] focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
@@ -114,7 +114,7 @@ const Categories = () => {
                     />
                   </svg>
                 </div>
-              </div>
+              </div> */}
             </div>
             <Button onClick={handleOpen} className="h-fit">
               + Add Category
@@ -136,7 +136,7 @@ const Categories = () => {
                 <Loader />
               </div>
             ) : (
-              <div className="flex justify-around flex-wrap">
+              <div className="flex justify-around flex-wrap my-10">
                 {/* Category-1 */}
                 {pageData.map((item) => {
                   console.log(item);

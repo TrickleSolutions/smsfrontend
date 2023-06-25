@@ -26,7 +26,7 @@ const CategoryBox = ({ item, getCategoryList }) => {
     }
   }
   return (
-    <div className=" w-64 shadow-lg p-5 m-2 rounded-lg">
+    <div className=" w-64 shadow-lg px-5 py-10 m-2 rounded-lg">
       <div className="flex justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className="py-2 px-3 bg-[#9d40ff] rounded-lg w-fit h-fit text-white">

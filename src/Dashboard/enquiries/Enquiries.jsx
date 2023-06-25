@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Checkbox } from "@material-tailwind/react";
 import baseurl from "../../Config";
-import {
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-} from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 import EnquiryTable from "./EnquiryTable";
 import Loader from "../../Components/Loader";
 
@@ -81,7 +74,7 @@ const Enquiries = () => {
 
   return (
     <div>
-      <div className="mt-5 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-3 sm:px-5 py-5 ml-auto shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
+      <div className="mt-5 mx-auto px-3 sm:px-5 py-5 ml-auto shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
             Enquiries
@@ -144,7 +137,7 @@ const Enquiries = () => {
                     <th scope="col" className="px-6 py-3 hidden sm:table-cell">
                       Father Name
                     </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
+                    <th scope="col" className="px-6 py-3">
                       Contact
                     </th>
                     <th scope="col" className="px-6 py-3 hidden md:table-cell">
@@ -171,7 +164,7 @@ const Enquiries = () => {
                     <th scope="col" className="px-6 py-3 hidden lg:table-cell">
                       Note
                     </th>
-                    <th scope="col" className="px-6 py-3 hidden lg:table-cell">
+                    <th scope="col" className="px-6 py-3">
                       Enroll
                     </th>
                     <th scope="col" className="px-1 py-3">

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import stuBg from "../../assets/images/student-bg.jpg";
 import man from "../../assets/images/man.jpg";
 import ModalUpdateProfile from "./ModalUpdateProfile";
-import { Button } from "@material-tailwind/react";
+import { Button, Tooltip } from "@material-tailwind/react";
 import baseurl from "../../Config";
 
 const StudentProfile = ({ auth }) => {
-  const [studentData, setStudentData] = useState("");
+  const [studentData, setStudentData] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   console.log(studentData);
@@ -37,34 +37,31 @@ const StudentProfile = ({ auth }) => {
     <>
       <section className=" p-2 sm:p-5 md:p-10 ">
         {/* Profile Image Section */}
-        <div className="relative h-96">
-          <img src={stuBg} className="h-96 w-full" alt="" />
-          <div className="absolute top-0 left-0 h-96 w-full p-14 sm:p-20 bg-[#00000050]">
-            <div className="flex flex-col items-center justify-center w-fit mx-auto sm:mx-0">
-              <img
-                src={`${baseurl}/api/stprofilepic/${studentData.profilePic}`}
-                className="w-28 h-28 rounded-full shadow-xl ring-white ring-2"
-                alt=""
-              />
-              <h4 className="text-white text-lg font-semibold my-5">
-                {studentData.name}
-              </h4>
-              <p className="text-white">@student</p>
-              {/* <Button onClick={handleOpen} className="h-fit my-3">
+        <div className=" h-64 mt-10">
+          <div className="flex flex-col items-center justify-center">
+            <img
+              src={`${baseurl}/api/stprofilepic/${studentData.profilePic}`}
+              className="w-28 h-28 rounded-full shadow-xl ring-white ring-2"
+              alt=""
+            />
+            <h4 className="text-black text-lg font-semibold my-5">
+              {studentData.name}
+            </h4>
+            <p className="text-black">@student</p>
+            {/* <Button onClick={handleOpen} className="h-fit my-3">
                 Update
               </Button> */}
-            </div>
-            <ModalUpdateProfile
-              open={open}
-              handleOpen={handleOpen}
-              studentData={studentData}
-              getStudentData={getStudentData}
-            />
           </div>
+          <ModalUpdateProfile
+            open={open}
+            handleOpen={handleOpen}
+            studentData={studentData}
+            getStudentData={getStudentData}
+          />
         </div>
 
         {/* Account Type */}
-        <div className="flex flex-row my-2">
+        <div className="flex flex-row justify-center my-2">
           <div className="p-3">
             <div>Account Type:</div>
             <div>
@@ -88,7 +85,7 @@ const StudentProfile = ({ auth }) => {
         </div>
 
         {/* Personal Information */}
-        <div className="px-2">
+        <div className="px-2 mx-auto mt-10 max-w-4xl">
           <h3 className="font-semibold my-5">Personal Information</h3>
           <div className="lg:max-w-5xl">
             <div className="flex flex-col md:flex-row mt-2">
@@ -128,8 +125,10 @@ const StudentProfile = ({ auth }) => {
             <div className="flex flex-col md:flex-row mt-4">
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
-                <div className="my-1">Username :</div>
-                <div className="my-1 text-[var(--dash-heading)]">student</div>
+                <div className="my-1">Locker No :</div>
+                <div className="my-1 text-[var(--dash-heading)]">
+                  {studentData.locker_no}
+                </div>
               </div>
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
@@ -144,14 +143,14 @@ const StudentProfile = ({ auth }) => {
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Address :</div>
-                <div className="my-1 text-[var(--dash-heading)] max-w-sm">
+                <div className="my-1 text-[var(--dash-heading)] max-w-xs truncate">
                   {studentData.address}
                 </div>
               </div>
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Gender :</div>
-                <div className="my-1 text-[var(--dash-heading)]">
+                <div className="my-1 text-[var(--dash-heading)] capitalize">
                   {studentData.gender}
                 </div>
               </div>
