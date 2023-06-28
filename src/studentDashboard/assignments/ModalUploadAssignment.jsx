@@ -13,7 +13,6 @@ const ModalUploadAssignment = ({ studentData, item, open, handleOpen }) => {
   const [upload, setUpload] = useState("");
   const [name, setName] = useState("");
   const [regno, setRegno] = useState("");
-  console.log(studentData);
 
   useEffect(() => {
     setName(studentData.name);

@@ -73,7 +73,7 @@ const CourseContent = () => {
   return (
     <>
       <div
-        onClick={() => navigate("/student/academic")}
+        onClick={() => navigate("/student/dashboard")}
         className="cursor-pointer mt-5 px-10 text-[var(--secondary-color)] "
       >
         <svg

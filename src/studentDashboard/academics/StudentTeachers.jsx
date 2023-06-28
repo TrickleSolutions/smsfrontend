@@ -12,9 +12,13 @@ const StudentTeachers = ({ enrollData }) => {
   return (
     <>
       <div className="flex flex-row justify-around flex-wrap">
-        {instructors.map((enroll) => {
-          return <StudentSingleTeacher enroll={enroll} />;
-        })}
+        {instructors.length == 0 ? (
+          instructors.map((enroll) => {
+            return <StudentSingleTeacher enroll={enroll} />;
+          })
+        ) : (
+          <h2 className="text-lg text-center my-10">No Instructors</h2>
+        )}
       </div>
     </>
   );

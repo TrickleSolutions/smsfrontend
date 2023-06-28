@@ -8,12 +8,19 @@ const StudentSingleCourse = ({
   getCategoryData,
 }) => {
   const [course, setCourse] = useState("");
+  const [instName, setInstName] = useState("");
+  const [catName, setCatName] = useState("");
 
   //   console.log(course);
 
   useEffect(() => {
     getCourseList();
   }, [courseId]);
+
+  useEffect(() => {
+    getInstName();
+    getCatName();
+  }, [course]);
 
   const getCourseList = () => {
     fetch(baseurl + "/api/course/" + courseId, {
@@ -36,11 +43,11 @@ const StudentSingleCourse = ({
 
   const getInstName = () => {
     let inst = getInstructorData(course.instructor);
-    return inst;
+    setInstName(inst);
   };
   const getCatName = () => {
     let cat = getCategoryData(course.category);
-    return cat;
+    setCatName(cat);
   };
 
   const navigate = useNavigate();
@@ -62,10 +69,10 @@ const StudentSingleCourse = ({
         <p>{course.desc}</p>
         <p className="text-xs flex items-center my-2">
           {/* <img src={man} className="h-5 w-5 rounded-full mx-2" alt="" /> */}
-          Instructor : {getInstName()}
+          Instructor : {instName ? instName : "-"}
         </p>
         <p className="text-xs flex items-center my-2">
-          Category : {getCatName()}
+          Category : {catName ? catName : "-"}
         </p>
       </div>
     </div>

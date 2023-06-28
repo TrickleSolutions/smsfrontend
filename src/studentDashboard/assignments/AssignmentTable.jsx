@@ -9,7 +9,7 @@ const AssignmentTable = ({ item, studentData }) => {
   const handleOpen = () => setOpen(!open);
   return (
     <>
-      <tr>
+      <tr key={item._id}>
         <td className="px-3 py-5 text-sm">{item.title}</td>
         <td className="px-3 py-5 hidden md:table-cell text-sm max-w-xs">
           {item.instructions}

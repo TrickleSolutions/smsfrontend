@@ -34,7 +34,7 @@ const StudentQueries = ({ auth }) => {
   };
 
   const getQueriesList = () => {
-    fetch(baseurl + "/api/queries ", {
+    fetch(baseurl + "/api/queries", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,8 +44,10 @@ const StudentQueries = ({ auth }) => {
         return res.json();
       })
       .then((result) => {
-        console.log(result);
-        setQueryData(result);
+        let filteredData = result.filter(
+          (query) => query.regno === studentData.regno
+        );
+        setQueryData(filteredData);
         setLoader(false);
       })
       .catch((err) => {
@@ -122,30 +124,34 @@ const StudentQueries = ({ auth }) => {
                 </tr>
               </thead>
               <tbody className="">
-                {queryData.map((item, index) => {
-                  return (
-                    <tr key={item._id}>
-                      <td className="px-0 py-5 text-sm">{index + 1}.</td>
-                      <td className="px-3 py-5 text-sm max-w-xs">
-                        {item.query}
-                      </td>
-                      <td className="px-3 py-5 hidden lg:table-cell ">
-                        {item.date}
-                      </td>
-                      <td className="px-3 py-5  text-sm">
-                        {item.status == "pending" ? (
-                          <div className="text-red-500 py-1">Pending</div>
-                        ) : (
-                          <div className="text-teal-500 py-1">Solved</div>
-                        )}
+                {queryData.length === 0 ? (
+                  <div className="text-lg text-center ">No Queries</div>
+                ) : (
+                  queryData.map((item, index) => {
+                    return (
+                      <tr key={item._id}>
+                        <td className="px-0 py-5 text-sm">{index + 1}.</td>
+                        <td className="px-3 py-5 text-sm max-w-xs">
+                          {item.query}
+                        </td>
+                        <td className="px-3 py-5 hidden lg:table-cell ">
+                          {item.date}
+                        </td>
+                        <td className="px-3 py-5  text-sm">
+                          {item.status == "pending" ? (
+                            <div className="text-red-500 py-1">Pending</div>
+                          ) : (
+                            <div className="text-teal-500 py-1">Solved</div>
+                          )}
 
-                        <p className="max-w-xs text-gray-700">
-                          {item.response}
-                        </p>
-                      </td>
-                    </tr>
-                  );
-                })}
+                          <p className="max-w-xs text-gray-700">
+                            {item.response}
+                          </p>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </table>
           </div>
@@ -162,7 +168,7 @@ const StudentQueries = ({ auth }) => {
                 New Query
               </label>
               <textarea
-                rows={10}
+                rows={5}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="query"
                 type="text"
@@ -193,7 +199,7 @@ const StudentQueries = ({ auth }) => {
           <div className="flex flex-col mx-3 mb-6 mt-10">
             <div className="w-full md:w-1/2 px-3 mb-3">
               <textarea
-                rows={10}
+                rows={5}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="feedback"
                 placeholder="Your Message Here...."

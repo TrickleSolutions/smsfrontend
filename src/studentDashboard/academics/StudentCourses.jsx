@@ -52,15 +52,19 @@ const StudentCourses = ({ enrollData }) => {
   return (
     <>
       <div className="flex flex-row justify-around flex-wrap my-10">
-        {courses.map((course) => {
-          return (
-            <StudentSingleCourse
-              courseId={course.course}
-              getInstructorData={getInstructorData}
-              getCategoryData={getCategoryData}
-            />
-          );
-        })}
+        {courses ? (
+          courses.map((course) => {
+            return (
+              <StudentSingleCourse
+                courseId={course.course}
+                getInstructorData={getInstructorData}
+                getCategoryData={getCategoryData}
+              />
+            );
+          })
+        ) : (
+          <h2 className="text-xl mt-10 font-semibold">No courses Enrolled</h2>
+        )}
       </div>
     </>
   );

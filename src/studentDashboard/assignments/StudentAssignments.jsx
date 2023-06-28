@@ -57,7 +57,7 @@ const StudentAssignments = ({ auth }) => {
 
   return (
     <>
-      <section className=" p-5 sm:p-5 lg:p-10 mt-5">
+      <section className=" mt-5">
         {/* Heading */}
         <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start my-5">
           Assignments

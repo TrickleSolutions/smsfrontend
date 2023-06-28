@@ -9,7 +9,6 @@ const StudentProfile = ({ auth }) => {
   const [studentData, setStudentData] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-  console.log(studentData);
 
   useEffect(() => {
     getStudentData();
@@ -35,19 +34,19 @@ const StudentProfile = ({ auth }) => {
 
   return (
     <>
-      <section className=" p-2 sm:p-5 md:p-10 ">
+      <section className=" p-2 sm:p-3 md:p-10 ">
         {/* Profile Image Section */}
-        <div className=" h-64 mt-10">
+        <div className=" mt-1">
           <div className="flex flex-col items-center justify-center">
             <img
               src={`${baseurl}/api/stprofilepic/${studentData.profilePic}`}
               className="w-28 h-28 rounded-full shadow-xl ring-white ring-2"
               alt=""
             />
-            <h4 className="text-black text-lg font-semibold my-5">
+            <h4 className="text-black text-lg font-semibold my-3">
               {studentData.name}
             </h4>
-            <p className="text-black">@student</p>
+            {/* <p className="text-black">@student</p> */}
             {/* <Button onClick={handleOpen} className="h-fit my-3">
                 Update
               </Button> */}
@@ -61,7 +60,7 @@ const StudentProfile = ({ auth }) => {
         </div>
 
         {/* Account Type */}
-        <div className="flex flex-row justify-center my-2">
+        {/* <div className="flex flex-row justify-center my-2">
           <div className="p-3">
             <div>Account Type:</div>
             <div>
@@ -82,13 +81,14 @@ const StudentProfile = ({ auth }) => {
               {studentData.regno}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Personal Information */}
         <div className="px-2 mx-auto mt-10 max-w-4xl">
           <h3 className="font-semibold my-5">Personal Information</h3>
           <div className="lg:max-w-5xl">
-            <div className="flex flex-col md:flex-row mt-2">
+            {/* 1st Row */}
+            <div className="flex flex-row mt-2">
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Name :</div>
@@ -105,7 +105,24 @@ const StudentProfile = ({ auth }) => {
               </div>
             </div>
             {/* 2nd Row */}
-            <div className="flex flex-col md:flex-row mt-4">
+            <div className="flex flex-row mt-2">
+              {/* Info */}
+              <div className="text-sm w-full md:w-1/2 m-2">
+                <div className="my-1">Admission Date :</div>
+                <div className="my-1 text-[var(--dash-heading)]">
+                  {studentData.admdate}
+                </div>
+              </div>
+              {/* Info */}
+              <div className="text-sm w-full md:w-1/2 m-2">
+                <div className="my-1">Registration No. :</div>
+                <div className="my-1 text-[var(--dash-heading)]">
+                  {studentData.regno}
+                </div>
+              </div>
+            </div>
+            {/* 2nd Row */}
+            <div className="flex flex-row mt-4">
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Email :</div>
@@ -122,7 +139,7 @@ const StudentProfile = ({ auth }) => {
               </div>
             </div>
             {/* 3rd Row */}
-            <div className="flex flex-col md:flex-row mt-4">
+            <div className="flex flex-row mt-4">
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Locker No :</div>
@@ -138,12 +155,12 @@ const StudentProfile = ({ auth }) => {
                 </div>
               </div>
             </div>
-            {/* 3rd Row */}
-            <div className="flex flex-col md:flex-row mt-4">
+            {/* 4th Row */}
+            <div className="flex flex-row mt-4">
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Address :</div>
-                <div className="my-1 text-[var(--dash-heading)] max-w-xs truncate">
+                <div className="my-1 text-[var(--dash-heading)] max-w-none break-words ">
                   {studentData.address}
                 </div>
               </div>
