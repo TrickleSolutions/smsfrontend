@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Menu,
   MenuHandler,
@@ -9,9 +9,11 @@ import {
 import { Link } from "react-router-dom";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import ModalViewStudent from "./ModalViewStudent";
 
 const Student = ({ item, getStudentList }) => {
-  console.log(item);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
 
   function deleteData(id) {
     if (window.confirm("Are you sure You want to delete ?")) {
@@ -32,17 +34,20 @@ const Student = ({ item, getStudentList }) => {
         <td class=" py-4">
           <Checkbox />
         </td>
-        <td scope="row" class="px-6 py-4 font-semibold text-black flex">
-          <div className="bg-[#524fff] flex justify-center items-center w-10 h-10 p-2   mr-2 rounded-full text-white text-center">
-            {item.name.charAt(0).toUpperCase()}{" "}
-            {item.name.split(" ")[1]
-              ? item.name.split(" ")[1].charAt(0).toUpperCase()
-              : ""}
+        <td scope="row" class="px-6 py-4 font-semibold text-black">
+          <div onClick={handleOpen} className="flex cursor-pointer">
+            <div className="bg-[#524fff] flex justify-center items-center w-10 h-10 p-2   mr-2 rounded-full text-white text-center">
+              {item.name.charAt(0).toUpperCase()}{" "}
+              {item.name.split(" ")[1]
+                ? item.name.split(" ")[1].charAt(0).toUpperCase()
+                : ""}
+            </div>
+            <div>
+              <div>{item.name}</div>
+              <div className="font-light my-1 text-gray-500">{item.email}</div>
+            </div>
           </div>
-          <div>
-            <div>{item.name}</div>
-            <div className="font-light my-1 text-gray-500">{item.email}</div>
-          </div>
+          <ModalViewStudent open={open} handleOpen={handleOpen} item={item} />
         </td>
         <td class="px-6 py-4 hidden md:table-cell">
           {item.course ? item.course : "-"}

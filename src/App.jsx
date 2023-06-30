@@ -69,6 +69,7 @@ import ScheduleBatches from "./Dashboard/scheduleBatches/ScheduleBatches";
 import PrintReceipt from "./studentDashboard/payments/PrintReceipt";
 import StudentOfTheMonth from "./Dashboard/st-of-the-month/StudentOfTheMonth";
 import InstructorAttendence from "./InstructorDashboard/instructor-attendence/InstructorAttendence";
+import Roles from "./Dashboard/roles-permissions/Roles";
 
 const App = () => {
   const location = useLocation();
@@ -474,6 +475,12 @@ const App = () => {
                   adminAuth={adminAuth}
                   Component={StudentOfTheMonth}
                 />
+              }
+            />
+            <Route
+              path="/admin/roles-and-permissions"
+              element={
+                <AdminProtected adminAuth={adminAuth} Component={Roles} />
               }
             />
           </Routes>

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import StudentHeader from "../Components/StudentHeader";
 
-const AdminDashboard = ({ auth, updateAuth }) => {
+const AdminDashboard = () => {
   const navigate = useNavigate();
 
   const goto = (url) => {
@@ -179,7 +179,7 @@ const AdminDashboard = ({ auth, updateAuth }) => {
             <div>Library</div>
           </div> */}
 
-          {/* Income */}
+          {/* Cash Ledger */}
           <div
             onClick={() => goto("/admin/funds")}
             className=" w-48 h-48 p-10 m-3 text-xl text-[#6a7279] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#6a7279] ring-offset-1"
@@ -200,7 +200,7 @@ const AdminDashboard = ({ auth, updateAuth }) => {
                 />
               </svg>
             </div>
-            <div>Funds</div>
+            <div>Cash Ledger</div>
           </div>
           {/* Fees */}
           <div
@@ -340,7 +340,7 @@ const AdminDashboard = ({ auth, updateAuth }) => {
             </div>
             <div>Schedule Batches</div>
           </div>
-          {/* Schedule Batches */}
+          {/* Monthly Achievers */}
           <div
             onClick={() => goto("/admin/monthly-acheivers")}
             className=" w-48 h-48 p-10 m-3 text-2xl text-[#FF2171] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#FF2171] ring-offset-1"
@@ -369,6 +369,29 @@ const AdminDashboard = ({ auth, updateAuth }) => {
               </svg> */}
             </div>
             <div>Monthly Achievers</div>
+          </div>
+          {/* Roles and Permissions */}
+          <div
+            onClick={() => goto("/admin/roles-and-permissions")}
+            className=" w-48 h-48 p-10 m-3 text-2xl text-[#6527BE] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#6527BE] ring-offset-1"
+          >
+            <div className="py-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-10 h-10"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
+                />
+              </svg>
+            </div>
+            <div>Roles & Permissions</div>
           </div>
         </div>
       </section>
