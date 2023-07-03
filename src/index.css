@@ -14,6 +14,9 @@ body {
   --para-color: #81868a;
   --dash-text-color: #526484;
   --dash-heading: #364a63;
+  --body-color: #cbdcf7;
+  --bg-dark-blue: #0f256e;
+  --golden: #c29d00;
 }
 
 @media (max-width: 639px) {
@@ -30,7 +33,4 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .hero-container {
-    height: 70vh;
-  }
 }

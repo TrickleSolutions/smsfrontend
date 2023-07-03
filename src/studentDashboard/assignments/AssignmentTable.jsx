@@ -24,7 +24,7 @@ const AssignmentTable = ({ item, studentData }) => {
         </td>
         <td className="px-3 py-5 text-sm">
           <Button onClick={handleOpen} size="sm" className="h-fit my-3">
-            Upload
+            Upload File
           </Button>
         </td>
       </tr>

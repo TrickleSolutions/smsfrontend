@@ -34,7 +34,7 @@ const StudentProfile = ({ auth }) => {
 
   return (
     <>
-      <section className=" p-2 sm:p-3 md:p-10 ">
+      <section className=" p-2 sm:p-3 md:p-10 border-b  border-[var(--secondary-color)]">
         {/* Profile Image Section */}
         <div className=" mt-1">
           <div className="flex flex-col items-center justify-center">

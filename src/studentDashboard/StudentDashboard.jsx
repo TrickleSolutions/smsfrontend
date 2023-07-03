@@ -41,7 +41,7 @@ const StudentDashboard = ({ auth }) => {
   };
   return (
     <>
-      <section className=" px-5 py-2">
+      <section className=" px-5 py-2 bg-[var(--body-color)]">
         <div className="bg-[var(--theme-color)] mt-5 mb-5">
           <h1 className="font-extrabold text-3xl text-center text-white px-2 py-5">
             Welcome to SMS Education

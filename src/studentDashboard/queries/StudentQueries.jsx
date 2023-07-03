@@ -8,6 +8,7 @@ const StudentQueries = ({ auth }) => {
   const [query, setQuery] = useState();
   const [studentData, setStudentData] = useState("");
   const [queryData, setQueryData] = useState([]);
+  const [feedBack, setFeedBack] = useState("");
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
@@ -101,7 +102,7 @@ const StudentQueries = ({ auth }) => {
 
   return (
     <>
-      <section className=" p-5 sm:p-5 lg:p-10 mt-5">
+      <section className=" p-5 sm:p-5 lg:p-10 mt-5 ">
         {/* Heading */}
         <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start mt-10 mb-10">
           Queries
@@ -111,49 +112,53 @@ const StudentQueries = ({ auth }) => {
             <Loader />
           </div>
         ) : (
-          <div className="my-5">
-            <table className="table-auto w-full">
-              <thead className="border-b border-b-gray-600  text-[var(--secondary-color)]">
-                <tr className="uppercase text-start">
-                  <th className="px-0 py-3 text-start ">Sr. No.</th>
-                  <th className="px-3 py-3 text-start">Query</th>
-                  <th className="px-3 py-3 text-start hidden md:table-cell">
-                    Date
-                  </th>
-                  <th className="px-3 py-3 text-start table-cell">Status</th>
-                </tr>
-              </thead>
-              <tbody className="">
-                {queryData.length === 0 ? (
-                  <div className="text-lg text-center ">No Queries</div>
-                ) : (
-                  queryData.map((item, index) => {
-                    return (
-                      <tr key={item._id}>
-                        <td className="px-0 py-5 text-sm">{index + 1}.</td>
-                        <td className="px-3 py-5 text-sm max-w-xs">
-                          {item.query}
-                        </td>
-                        <td className="px-3 py-5 hidden lg:table-cell ">
-                          {item.date}
-                        </td>
-                        <td className="px-3 py-5  text-sm">
-                          {item.status == "pending" ? (
-                            <div className="text-red-500 py-1">Pending</div>
-                          ) : (
-                            <div className="text-teal-500 py-1">Solved</div>
-                          )}
+          <div className="my-5 ">
+            {queryData.length === 0 ? (
+              ""
+            ) : (
+              <table className="table-auto w-full ">
+                <thead className="border-b border-b-gray-600  text-[var(--secondary-color)]">
+                  <tr className="uppercase text-start">
+                    <th className="px-0 py-3 text-start ">Sr. No.</th>
+                    <th className="px-3 py-3 text-start">Query</th>
+                    <th className="px-3 py-3 text-start hidden md:table-cell">
+                      Date
+                    </th>
+                    <th className="px-3 py-3 text-start table-cell">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="">
+                  {queryData.length === 0 ? (
+                    <div className="text-lg text-center ">No Queries</div>
+                  ) : (
+                    queryData.map((item, index) => {
+                      return (
+                        <tr key={item._id}>
+                          <td className="px-0 py-5 text-sm">{index + 1}.</td>
+                          <td className="px-3 py-5 text-sm max-w-xs">
+                            {item.query}
+                          </td>
+                          <td className="px-3 py-5 hidden lg:table-cell ">
+                            {item.date}
+                          </td>
+                          <td className="px-3 py-5  text-sm">
+                            {item.status == "pending" ? (
+                              <div className="text-red-500 py-1">Pending</div>
+                            ) : (
+                              <div className="text-teal-500 py-1">Solved</div>
+                            )}
 
-                          <p className="max-w-xs text-gray-700">
-                            {item.response}
-                          </p>
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
+                            <p className="max-w-xs text-gray-700">
+                              {item.response}
+                            </p>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+            )}
           </div>
         )}
 
@@ -203,9 +208,9 @@ const StudentQueries = ({ auth }) => {
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="feedback"
                 placeholder="Your Message Here...."
-                value={query}
+                value={feedBack}
                 onChange={(e) => {
-                  setQuery(e.target.value);
+                  setFeedBack(e.target.value);
                 }}
               />
             </div>

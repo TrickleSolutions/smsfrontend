@@ -5,6 +5,7 @@ import {
   MenuList,
   MenuItem,
   Checkbox,
+  Tooltip,
 } from "@material-tailwind/react";
 import ModalEditEvent from "./ModalEditEvent";
 import baseurl from "../../Config";
@@ -33,7 +34,15 @@ const AdminEventsTable = ({ item, getEventsList }) => {
           <Checkbox />
         </td>
         <td class="px-6 py-4 font-semibold text-black">{item.event}</td>
-        <td class="px-6 py-4 hidden sm:table-cell max-w-xs">{item.desc}</td>
+        <td class="px-6 py-4 hidden sm:table-cell max-w-xs truncate">
+          <Tooltip
+            placement="bottom-end"
+            content={item.desc}
+            className="max-w-sm mx-auto bg-[var(--theme-color)] "
+          >
+            {item.desc}
+          </Tooltip>
+        </td>
         <td class="px-6 py-4 hidden sm:table-cell">{item.from}</td>
         <td class="px-6 py-4 hidden md:table-cell">{item.to}</td>
         <td class="px-6 py-4 hidden md:table-cell">{item.img}</td>

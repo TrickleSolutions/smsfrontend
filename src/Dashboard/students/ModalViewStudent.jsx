@@ -22,7 +22,7 @@ const ModalViewStudent = ({ open, handleOpen, item }) => {
       >
         <DialogBody
           divider
-          className="h-[25rem] text-[var(--secondary-color)] overflow-y-scroll border-0 "
+          className="h-[35rem] text-[var(--secondary-color)] overflow-y-scroll border-0 "
         >
           <div
             className="absolute top-5 right-5 cursor-pointer"

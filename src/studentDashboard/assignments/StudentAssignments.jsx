@@ -57,10 +57,10 @@ const StudentAssignments = ({ auth }) => {
 
   return (
     <>
-      <section className=" mt-5">
+      <section className="p-2 sm:p-5 md:p-10 mt-5 border-b  border-[var(--secondary-color)]">
         {/* Heading */}
         <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start my-5">
-          Assignments
+          Submit Assignments
         </h2>
         {loader ? (
           <div className="w-full h-[90vh] flex justify-center items-center">
@@ -81,7 +81,7 @@ const StudentAssignments = ({ auth }) => {
                   <th className="px-3 py-3 text-start hidden lg:table-cell">
                     Document
                   </th>
-                  <th className="px-3 py-3 text-start">Upload</th>
+                  <th className="px-3 py-3 text-start">Submit</th>
                 </tr>
               </thead>
               <tbody>

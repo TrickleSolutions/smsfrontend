@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import baseurl from "../Config";
 import { Link, useNavigate } from "react-router-dom";
 import StudentHeader from "../Components/StudentHeader";
+import { Tooltip } from "@material-tailwind/react";
 
 const Classes = ({ auth, updateAuth }) => {
   const [scheduleData, setScheduleData] = useState([]);
@@ -86,7 +87,7 @@ const Classes = ({ auth, updateAuth }) => {
 
   return (
     <>
-      <section className=" p-3 sm:p-5 lg:py-5 lg:px-10 mt-5">
+      <section className=" p-3 sm:p-5 lg:py-5 lg:px-10 mt-5 border-b  border-[var(--secondary-color)]">
         <div className="flex justify-around flex-wrap my-10">
           <div className="m-3 flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
             <svg
@@ -162,7 +163,7 @@ const Classes = ({ auth, updateAuth }) => {
           </h2>
           {/* Notification */}
           {eventsData.length == 0 ? (
-            <div className="text-3xl mx-auto text-center">No Notifications</div>
+            <div className="text-3xl mx-auto text-center">No Notice</div>
           ) : (
             eventsData.map((item) => {
               return (
@@ -178,11 +179,19 @@ const Classes = ({ auth, updateAuth }) => {
                         alt=""
                       />
                     </div>
-                    <div className="text-[var(--para-color)] max-w-sm my-1 sm:mx-2">
-                      {item.desc}
-                    </div>
-                    <div className="my-2 text-[var(--secondary-color)] ">
-                      {item.from} - {item.to}
+                    <div className="m-3">
+                      <div className="text-[var(--para-color)] max-w-sm my-1 sm:mx-2 truncate">
+                        <Tooltip
+                          placement="bottom-end"
+                          content={item.desc}
+                          className="max-w-sm mx-auto bg-[var(--theme-color)] "
+                        >
+                          {item.desc}
+                        </Tooltip>
+                      </div>
+                      <div className="my-2 text-[var(--secondary-color)] ">
+                        {item.from} - {item.to}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -212,85 +221,91 @@ const Classes = ({ auth, updateAuth }) => {
 
         {/* Scheduled Classes */}
         <div>
-          {/* Heading */}
-          <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start my-5 sm:my-7 md:my-10">
-            Scheduled Classes
-          </h2>
-          {/* Schedule - 1 */}
-          <div className=" sm:max-w-sm md:max-w-2xl lg:max-w-5xl flex flex-col md:flex-row items-center justify-around md:flex-wrap my-5 sm:my-7 md:my-10">
-            {scheduleData.length == 0 ? (
-              <div className="text-3xl mx-auto text-center">No Classes</div>
-            ) : (
-              scheduleData.map((item) => {
-                return (
-                  <>
-                    <div className="sm:max-w-xs flex flex-row items-center shadow-lg rounded-lg">
-                      <div className="m-4 flex flex-col items-center  w-fit ">
-                        <div className="text-6xl text-[var(--theme-color)] font-bold">
-                          {date(item.date)[0]}
-                        </div>
-                        <div className="text-[var(--secondary-color)] text-xl font-semibold">
-                          {date(item.date)[1]}
-                        </div>
-                      </div>
-                      <div className="m-4 px-3 flex flex-col max-w-md w-fit ">
-                        <h4 className="text-2xl font-semibold my-5 text-[var(--secondary-color)]">
-                          {item.topic}
-                        </h4>
-                        <div className="flex flex-col sm:flex-row sm:space-x-5 justify-center sm:justify-normal">
-                          <div className="flex my-2">
-                            <div>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-6 h-6 mr-2 text-[var(--secondary-color)]"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
-                                />
-                              </svg>
+          {scheduleData.length == 0 ? (
+            ""
+          ) : (
+            <>
+              {/* Heading */}
+              <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start my-5 sm:my-7 md:my-10">
+                Scheduled Classes
+              </h2>
+              {/* Schedule - 1 */}
+              <div className=" sm:max-w-sm md:max-w-2xl lg:max-w-5xl flex flex-col md:flex-row items-center justify-around md:flex-wrap my-5 sm:my-7 md:my-10">
+                {scheduleData.length == 0 ? (
+                  <div className="text-3xl mx-auto text-center">No Classes</div>
+                ) : (
+                  scheduleData.map((item) => {
+                    return (
+                      <>
+                        <div className="sm:max-w-xs flex flex-row items-center shadow-lg rounded-lg">
+                          <div className="m-4 flex flex-col items-center  w-fit ">
+                            <div className="text-6xl text-[var(--theme-color)] font-bold">
+                              {date(item.date)[0]}
                             </div>
-                            <div>{item.course}</div>
-                          </div>
-                          {/* Duration */}
-                          <div className="flex my-2">
-                            <div>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={2}
-                                stroke="currentColor"
-                                className="w-6 h-6 mr-2 text-[var(--secondary-color)]"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                              </svg>
+                            <div className="text-[var(--secondary-color)] text-xl font-semibold">
+                              {date(item.date)[1]}
                             </div>
-                            <div>{time(item.time)}</div>
+                          </div>
+                          <div className="m-4 px-3 flex flex-col max-w-md w-fit ">
+                            <h4 className="text-2xl font-semibold my-5 text-[var(--secondary-color)]">
+                              {item.topic}
+                            </h4>
+                            <div className="flex flex-col sm:flex-row sm:space-x-5 justify-center sm:justify-normal">
+                              <div className="flex my-2">
+                                <div>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-6 h-6 mr-2 text-[var(--secondary-color)]"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+                                    />
+                                  </svg>
+                                </div>
+                                <div>{item.course}</div>
+                              </div>
+                              {/* Duration */}
+                              <div className="flex my-2">
+                                <div>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={2}
+                                    stroke="currentColor"
+                                    className="w-6 h-6 mr-2 text-[var(--secondary-color)]"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                  </svg>
+                                </div>
+                                <div>{time(item.time)}</div>
+                              </div>
+                            </div>
+                            <p className="my-2 text-[var(--para-color)]">
+                              <Link to={item.link}>Join here</Link>
+                            </p>
                           </div>
                         </div>
-                        <p className="my-2 text-[var(--para-color)]">
-                          <Link to={item.link}>Join here</Link>
-                        </p>
-                      </div>
-                    </div>
-                    {/* <div>
+                        {/* <div>
                   <img src={AI} className="w-64 h-40 rounded-lg" alt="" />
                 </div> */}
-                  </>
-                );
-              })
-            )}
-          </div>
+                      </>
+                    );
+                  })
+                )}
+              </div>
+            </>
+          )}
         </div>
       </section>
     </>

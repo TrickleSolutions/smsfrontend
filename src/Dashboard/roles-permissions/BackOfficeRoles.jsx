@@ -2,19 +2,19 @@ import { Switch } from "@material-tailwind/react";
 import React, { useState } from "react";
 
 const BackOfficeRoles = () => {
-  const [enquiries, setEnquiries] = useState(true);
-  const [courseList, setCourseList] = useState(true);
-  const [categories, setCategories] = useState(true);
-  const [studentList, setStudentList] = useState(true);
-  const [instructorList, setInstructorList] = useState(true);
-  const [cashLedger, setCashLedger] = useState(true);
-  const [fees, setFees] = useState(true);
-  const [scheduleClasses, setScheduleClasses] = useState(true);
-  const [events, setEvents] = useState(true);
-  const [manageStudent, setManageStudent] = useState(true);
-  const [scheduleBatches, setScheduleBatches] = useState(true);
-  const [monthlyAchievers, setMonthlyAchievers] = useState(true);
-  const [rolesPermission, setRolesPermission] = useState(true);
+  const [enquiries, setEnquiries] = useState("");
+  const [courseList, setCourseList] = useState("");
+  const [categories, setCategories] = useState("");
+  const [studentList, setStudentList] = useState("");
+  const [instructorList, setInstructorList] = useState("");
+  const [cashLedger, setCashLedger] = useState("");
+  const [fees, setFees] = useState("");
+  const [scheduleClasses, setScheduleClasses] = useState("");
+  const [events, setEvents] = useState("");
+  const [manageStudent, setManageStudent] = useState("");
+  const [scheduleBatches, setScheduleBatches] = useState("");
+  const [monthlyAchievers, setMonthlyAchievers] = useState("");
+  const [rolesPermission, setRolesPermission] = useState("");
   const data = {
     enquiries,
     courseList,
@@ -34,79 +34,79 @@ const BackOfficeRoles = () => {
   console.log(data);
   const roles = [
     {
-      id: "enquiries",
+      id: "enquiriesBack",
       name: "Enquiries",
       value: enquiries,
       setvalue: (e) => setEnquiries(e.target.checked),
     },
     {
-      id: "courseList",
+      id: "courseListBack",
       name: "CourseList",
       value: courseList,
       setvalue: (e) => setCourseList(e.target.checked),
     },
     {
-      id: "categories",
+      id: "categoriesBack",
       name: "Categories",
       value: categories,
       setvalue: (e) => setCategories(e.target.checked),
     },
     {
-      id: "studentList",
+      id: "studentListBack",
       name: "Student List",
       value: studentList,
       setvalue: (e) => setStudentList(e.target.checked),
     },
     {
-      id: "instructorList",
+      id: "instructorListBack",
       name: "Instructor List",
       value: instructorList,
       setvalue: (e) => setInstructorList(e.target.checked),
     },
     {
-      id: "cashLedger",
+      id: "cashLedgerBack",
       name: "Cash Ledger",
       value: cashLedger,
       setvalue: (e) => setCashLedger(e.target.checked),
     },
     {
-      id: "fees",
+      id: "feesBack",
       name: "Fees",
       value: fees,
       setvalue: (e) => setFees(e.target.checked),
     },
     {
-      id: "scheduleClasses",
+      id: "scheduleClassesBack",
       name: "Schedule Classes",
       value: scheduleClasses,
       setvalue: (e) => setScheduleClasses(e.target.checked),
     },
     {
-      id: "events",
+      id: "eventsBack",
       name: "Events",
       value: events,
       setvalue: (e) => setEvents(e.target.checked),
     },
     {
-      id: "manageStudent",
+      id: "manageStudentBack",
       name: "Manage Student",
       value: manageStudent,
       setvalue: (e) => setManageStudent(e.target.checked),
     },
     {
-      id: "scheduleBatches",
+      id: "scheduleBatchesBack",
       name: "Schedule Batches",
       value: scheduleBatches,
       setvalue: (e) => setScheduleBatches(e.target.checked),
     },
     {
-      id: "monthlyAchievers",
+      id: "monthlyAchieversBack",
       name: "Monthly Achievers",
       value: monthlyAchievers,
       setvalue: (e) => setMonthlyAchievers(e.target.checked),
     },
     {
-      id: "rolesPermission",
+      id: "rolesPermissionBack",
       name: "Roles And Permissions",
       value: rolesPermission,
       setvalue: (e) => setRolesPermission(e.target.checked),

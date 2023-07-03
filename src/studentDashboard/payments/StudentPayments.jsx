@@ -85,7 +85,7 @@ const StudentPayments = ({ auth }) => {
 
   return (
     <>
-      <section className=" mt-5">
+      <section className="p-2 sm:p-5 md:p-10 mt-5 border-b  border-[var(--secondary-color)]">
         <div>
           <div className="flex flex-col sm:flex-row items-center justify-between">
             <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start">

@@ -2,19 +2,19 @@ import { Switch } from "@material-tailwind/react";
 import React, { useState } from "react";
 
 const AdminRoles = () => {
-  const [enquiries, setEnquiries] = useState("");
-  const [courseList, setCourseList] = useState("");
-  const [categories, setCategories] = useState("");
-  const [studentList, setStudentList] = useState("");
-  const [instructorList, setInstructorList] = useState("");
-  const [cashLedger, setCashLedger] = useState("");
-  const [fees, setFees] = useState("");
-  const [scheduleClasses, setScheduleClasses] = useState("");
-  const [events, setEvents] = useState("");
-  const [manageStudent, setManageStudent] = useState("");
-  const [scheduleBatches, setScheduleBatches] = useState("");
-  const [monthlyAchievers, setMonthlyAchievers] = useState("");
-  const [rolesPermission, setRolesPermission] = useState("");
+  const [enquiries, setEnquiries] = useState(true);
+  const [courseList, setCourseList] = useState(true);
+  const [categories, setCategories] = useState(true);
+  const [studentList, setStudentList] = useState(true);
+  const [instructorList, setInstructorList] = useState(true);
+  const [cashLedger, setCashLedger] = useState(true);
+  const [fees, setFees] = useState(true);
+  const [scheduleClasses, setScheduleClasses] = useState(true);
+  const [events, setEvents] = useState(true);
+  const [manageStudent, setManageStudent] = useState(true);
+  const [scheduleBatches, setScheduleBatches] = useState(true);
+  const [monthlyAchievers, setMonthlyAchievers] = useState(true);
+  const [rolesPermission, setRolesPermission] = useState(true);
   const data = {
     enquiries,
     courseList,

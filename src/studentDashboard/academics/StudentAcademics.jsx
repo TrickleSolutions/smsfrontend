@@ -81,7 +81,7 @@ const StudentAcademics = ({ auth }) => {
               />
             </svg>
           </div> */}
-          <section className=" p-2 sm:p-5 md:p-10 ">
+          <section className=" p-2 sm:p-5 md:p-10 border-b  border-[var(--secondary-color)]">
             <Tabs value={activeTab}>
               <TabsHeader
                 className="rounded-none border-b border-blue-gray-50 bg-transparent p-0 max-w-sm sm:max-w-md md:max-w-xl lg:max-w-none mx-auto"

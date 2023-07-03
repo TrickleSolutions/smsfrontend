@@ -70,6 +70,9 @@ import PrintReceipt from "./studentDashboard/payments/PrintReceipt";
 import StudentOfTheMonth from "./Dashboard/st-of-the-month/StudentOfTheMonth";
 import InstructorAttendence from "./InstructorDashboard/instructor-attendence/InstructorAttendence";
 import Roles from "./Dashboard/roles-permissions/Roles";
+import ChatSupport from "./ChatSupport";
+import HomePage2 from "./HomePage2";
+import SmartBar from "./Components/SmartBar";
 
 const App = () => {
   const location = useLocation();
@@ -108,6 +111,7 @@ const App = () => {
 
   return (
     <>
+      <SmartBar />
       {isAdmin || isStudent || isInstructor ? "" : <Navigation />}
 
       <Routes>
@@ -116,6 +120,7 @@ const App = () => {
         <Route path="/courses" exact={true} element={<Courses />} />
         <Route path="/contact" exact={true} element={<Contact />} />
         <Route path="/blogs" exact={true} element={<Blogs />} />
+        <Route path="/home" exact={true} element={<HomePage2 />} />
 
         {/* Auth Routes */}
         <Route
@@ -260,6 +265,17 @@ const App = () => {
                   auth={auth}
                   updateAuth={updateAuth}
                   Component={PrintReceipt}
+                />
+              }
+            />
+            <Route
+              path="/students/chat/support"
+              exact={true}
+              element={
+                <StudentProtected
+                  auth={auth}
+                  updateAuth={updateAuth}
+                  Component={ChatSupport}
                 />
               }
             />

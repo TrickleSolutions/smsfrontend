@@ -1,11 +1,6 @@
 import { Button } from "@material-tailwind/react";
 
-import { Fragment, useState } from "react";
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-} from "@material-tailwind/react";
+import { useState } from "react";
 import React from "react";
 import heroImg2 from "./assets/images/hero-img2.png";
 import adca from "./assets/images/adca.jpg";
@@ -21,7 +16,7 @@ import person2 from "./assets/images/person-2.jpg";
 import person3 from "./assets/images/person-3.jpg";
 import news from "./assets/images/news.jpg";
 import question from "./assets/images/question-mark.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Icon({ id, open }) {
   return (
