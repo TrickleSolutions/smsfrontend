@@ -2,6 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import adminImage from "./assets/images/homepage/admin.jpg";
 import amit from "./assets/images/homepage/amit.jpg";
+import oppor1 from "./assets/images/homepage/oppor1.png";
+import oppor2 from "./assets/images/homepage/oppor2.png";
+import oppor3 from "./assets/images/homepage/oppor3.png";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 
 const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
@@ -159,7 +170,7 @@ const HomePage2 = () => {
           <div
             onMouseEnter={() => setViewAcheiver(true)}
             onMouseLeave={() => setViewAcheiver(false)}
-            className="relative w-64 h-40 rounded-2xl border bg-blue-500 hover:h-96 shadow-2xl transition-all"
+            className="relative w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all"
           >
             <div
               className={`${
@@ -192,7 +203,7 @@ const HomePage2 = () => {
           <div
             onMouseEnter={() => setViewAcheiver2(true)}
             onMouseLeave={() => setViewAcheiver2(false)}
-            className="relative w-64 h-40 rounded-2xl border bg-blue-500 hover:h-96 shadow-2xl transition-all"
+            className="relative w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all"
           >
             <div
               className={`${
@@ -221,6 +232,338 @@ const HomePage2 = () => {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Opportunity For Learning */}
+      <section className="my-10 p-5">
+        <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
+          How About SMS
+        </h3>
+        <h1 className="text-5xl text-center font-semibold my-10">
+          Opportunity For Learning
+        </h1>
+        {/* Oppotunities Container */}
+        <div className="flex justify-around mt-20 py-5  flex-wrap md:px-10">
+          <div className="w-fit m-5 p-3">
+            <img src={oppor1} alt="" />
+            <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
+            <p className="max-w-xs text-[var(--para-color)] pr-5">
+              Unlock your potential with our courses led by industry experts.
+              Gain invaluable knowledge and skills from seasoned professionals
+              who are at the forefront of their respective fields.
+            </p>
+            <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                />
+              </svg>
+            </div>
+          </div>
+          <div className="w-fit m-5 p-3">
+            <img src={oppor2} alt="" />
+            <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
+            <p className="max-w-xs text-[var(--para-color)] pr-5">
+              Unlock your potential with our courses led by industry experts.
+              Gain invaluable knowledge and skills from seasoned professionals
+              who are at the forefront of their respective fields.
+            </p>
+            <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                />
+              </svg>
+            </div>
+          </div>
+          <div className="w-fit m-5 p-3">
+            <img src={oppor3} alt="" />
+            <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
+            <p className="max-w-xs text-[var(--para-color)] pr-5">
+              Unlock your potential with our courses led by industry experts.
+              Gain invaluable knowledge and skills from seasoned professionals
+              who are at the forefront of their respective fields.
+            </p>
+            <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Browse Latest Courses */}
+      <section className="my-10 p-5">
+        <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
+          Latest Courses
+        </h3>
+        <h1 className="text-5xl text-center font-semibold my-10">
+          Browser Latest Courses
+        </h1>
+        {/* Oppotunities Container */}
+        <div className="flex justify-around items-center mt-20 py-5  flex-wrap md:px-10">
+          <Card className="m-10 w-96 mx-auto">
+            <CardHeader color="blue-gray" className="relative h-56">
+              <img
+                src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                alt="img-blur-shadow"
+                layout="fill"
+              />
+              <div>Rs. 8K</div>
+            </CardHeader>
+            <CardBody>
+              <Typography variant="h6" color="blue" className="mb-2">
+                Networking
+              </Typography>
+              <Typography variant="h4" color="blue-gray" className="mb-2">
+                ADCA - Advanced Diploma in Computer Applications
+              </Typography>
+            </CardBody>
+            <CardFooter className="pt-0">
+              <div className=" flex justify-between items-center text-center">
+                <div className="flex items-center text-sm m-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+                    />
+                  </svg>
+                  <span>
+                    By <span className="font-bold">Amit Singh</span>
+                  </span>
+                </div>
+                <div className="flex items-center text-sm m-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                    />
+                  </svg>
+
+                  <span>13 Lessons</span>
+                </div>
+                <div className="flex items-center text-sm m-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+
+                  <span>Rs. 6999/-</span>
+                </div>
+              </div>
+            </CardFooter>
+          </Card>
+          <Card className="m-10 w-96 mx-auto">
+            <CardHeader color="blue-gray" className="relative h-56">
+              <img
+                src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                alt="img-blur-shadow"
+                layout="fill"
+              />
+              <div>Rs. 8K</div>
+            </CardHeader>
+            <CardBody>
+              <Typography variant="h6" color="blue" className="mb-2">
+                Networking
+              </Typography>
+              <Typography variant="h4" color="blue-gray" className="mb-2">
+                ADCA - Advanced Diploma in Computer Applications
+              </Typography>
+            </CardBody>
+            <CardFooter className="pt-0">
+              <div className=" flex justify-between items-center text-center">
+                <div className="flex items-center text-sm m-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+                    />
+                  </svg>
+                  <span>
+                    By <span className="font-bold">Amit Singh</span>
+                  </span>
+                </div>
+                <div className="flex items-center text-sm m-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                    />
+                  </svg>
+
+                  <span>13 Lessons</span>
+                </div>
+                <div className="flex items-center text-sm m-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+
+                  <span>Rs. 6999/-</span>
+                </div>
+              </div>
+            </CardFooter>
+          </Card>
+          <Card className="m-10 w-96 mx-auto">
+            <CardHeader color="blue-gray" className="relative h-56">
+              <img
+                src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                alt="img-blur-shadow"
+                layout="fill"
+              />
+              <div>Rs. 8K</div>
+            </CardHeader>
+            <CardBody>
+              <Typography variant="h6" color="blue" className="mb-2">
+                Networking
+              </Typography>
+              <Typography variant="h4" color="blue-gray" className="mb-2">
+                ADCA - Advanced Diploma in Computer Applications
+              </Typography>
+            </CardBody>
+            <CardFooter className="pt-0">
+              <div className=" flex justify-between items-center text-center">
+                <div className="flex items-center text-sm m-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+                    />
+                  </svg>
+                  <span>
+                    By <span className="font-bold">Amit Singh</span>
+                  </span>
+                </div>
+                <div className="flex items-center text-sm m-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                    />
+                  </svg>
+
+                  <span>13 Lessons</span>
+                </div>
+                <div className="flex items-center text-sm m-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+
+                  <span>Rs. 6999/-</span>
+                </div>
+              </div>
+            </CardFooter>
+          </Card>
         </div>
       </section>
     </>
