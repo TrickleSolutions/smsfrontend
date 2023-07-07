@@ -14,6 +14,11 @@ import member3 from "./assets/images/homepage/member3.png";
 import member4 from "./assets/images/homepage/member4.png";
 import member5 from "./assets/images/homepage/member5.png";
 import director from "./assets/images/homepage/director-1.jpg";
+import testimonial1 from "./assets/images/homepage/testi-1.jpg";
+import centre1 from "./assets/images/homepage/centre-1.jpg";
+import centre2 from "./assets/images/homepage/centre-2.jpg";
+import asInstructor from "./assets/images/homepage/join-instructor.png";
+import asStudent from "./assets/images/homepage/join-student.png";
 import {
   Card,
   CardHeader,
@@ -22,11 +27,11 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 
 const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
   const [viewAcheiver2, setViewAcheiver2] = useState(false);
-  console.log(viewAcheiver);
   const navigate = useNavigate();
   return (
     <>
@@ -448,6 +453,42 @@ const HomePage2 = () => {
           </div>
         </section>
 
+        {/* Success Mantra */}
+        <section className="bg-white">
+          <h1 className="text-5xl text-center font-semibold my-10">
+            Success Mantra
+          </h1>
+
+          <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-8 lg:px-6">
+            <div className=" text-gray-500 sm:text-lg ">
+              <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 ">
+                Abhishek Singh
+              </h2>
+              <h3 className="text-[var(--bg-dark-blue)] text-xl font-bold mb-3">
+                - CCNA
+              </h3>
+              <p className="mb-4 text-[var(--para-color)]">
+                We are strategists, designers and developers. Innovators and
+                problem solvers. Small enough to be simple and quick, but big
+                enough to deliver the scope you want at the pace you need. Small
+                enough to be simple and quick, but big enough to deliver the
+                scope you want at the pace you need.
+              </p>
+              <p className="text-[var(--para-color)]">
+                We are strategists, designers and developers. Innovators and
+                problem solvers. Small enough to be simple and quick.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-4 mt-8">
+              <img
+                className="mt-4 w-[70%] mx-auto h-96 lg:mt-10 rounded-lg"
+                src={testimonial1}
+                alt="office content 2"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Browse Latest Courses */}
         <section className="my-10 p-5">
           <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
@@ -863,6 +904,179 @@ const HomePage2 = () => {
                 assumenda vero quidem quam.
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Location */}
+        <section className="mt-20 mb-10 p-5">
+          <h1 className="text-5xl text-center font-semibold my-10">
+            Locations
+          </h1>
+          <div className="flex flex-col lg:flex-row flex-wrap justify-around mx-auto py-10">
+            <Card className="flex-row w-full max-w-lg m-5">
+              <CardHeader
+                shadow={false}
+                floated={false}
+                className="w-2/5 shrink-0 m-0 rounded-r-none"
+              >
+                <img
+                  src={centre1}
+                  alt="image"
+                  className="w-full h-full object-cover"
+                />
+              </CardHeader>
+              <CardBody>
+                <Typography
+                  variant="h6"
+                  color="blue"
+                  className="uppercase mb-4"
+                >
+                  Branch
+                </Typography>
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  SMS - Gomti nagar
+                </Typography>
+                <Typography color="gray" className="font-normal mb-8">
+                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
+                  226008
+                </Typography>
+                <a href="#" className="inline-block">
+                  <Button variant="text" className="flex items-center gap-2">
+                    View on Map
+                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                  </Button>
+                </a>
+              </CardBody>
+            </Card>
+            <Card className="flex-row w-full max-w-lg m-5">
+              <CardHeader
+                shadow={false}
+                floated={false}
+                className="w-2/5 shrink-0 m-0 rounded-r-none"
+              >
+                <img
+                  src={centre2}
+                  alt="image"
+                  className="w-full h-full object-cover"
+                />
+              </CardHeader>
+              <CardBody>
+                <Typography
+                  variant="h6"
+                  color="blue"
+                  className="uppercase mb-4"
+                >
+                  Branch
+                </Typography>
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  SMS - Hajratganj
+                </Typography>
+                <Typography color="gray" className="font-normal mb-8">
+                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
+                  226008
+                </Typography>
+                <a href="#" className="inline-block">
+                  <Button variant="text" className="flex items-center gap-2">
+                    View on Map
+                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                  </Button>
+                </a>
+              </CardBody>
+            </Card>
+          </div>
+        </section>
+
+        {/* Join Us */}
+        <section className="mt-20 mb-10 p-5">
+          <h1 className="text-5xl text-center font-semibold my-10">Join Us</h1>
+          <div className="flex flex-col flex-wrap lg:flex-row justify-around mx-auto py-10">
+            <Card className="flex-row w-full max-w-lg m-5">
+              <CardHeader
+                shadow={false}
+                floated={false}
+                className="w-2/5 shrink-0 m-0 rounded-r-none"
+              >
+                <img
+                  src={asInstructor}
+                  alt="image"
+                  className="w-full h-full object-contain"
+                />
+              </CardHeader>
+              <CardBody>
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  Become An Instructor?
+                </Typography>
+                <Typography color="gray" className="font-normal mb-8">
+                  Are you passionate about sharing your knowledge and expertise?
+                  Join our team of instructors and become a part of our dynamic
+                  learning community.
+                </Typography>
+                <button className="mx-3 text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-md px-5 py-4 rounded-md transition-colors duration-500">
+                  <div className="flex items-center justify-center uppercase">
+                    Join Now
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                      className="w-5 h-5 ml-2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </CardBody>
+            </Card>
+            <Card className="flex-row w-full max-w-lg m-5">
+              <CardHeader
+                shadow={false}
+                floated={false}
+                className="w-2/5 shrink-0 m-0 rounded-r-none"
+              >
+                <img
+                  src={asStudent}
+                  alt="image"
+                  className="w-full h-full object-contain"
+                />
+              </CardHeader>
+              <CardBody>
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  Get Our Courses
+                </Typography>
+                <Typography
+                  color="gray"
+                  className="font-normal mb-8 leading-relaxed"
+                >
+                  Unlock your potential with our exceptional courses. Gain
+                  access to a world of knowledge and expertise that will empower
+                  you to achieve your goals.
+                </Typography>
+                <button className="mx-3 text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-md px-5 py-4 rounded-md transition-colors duration-500">
+                  <div className="flex items-center justify-center uppercase">
+                    Learn Now
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                      className="w-5 h-5 ml-2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </CardBody>
+            </Card>
           </div>
         </section>
       </main>
