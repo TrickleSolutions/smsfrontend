@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import heroRightImg from "./assets/images/homepage/hero-two-right.png";
+import heroLeftImg from "./assets/images/homepage/hero-two-right.png";
 import adminImage from "./assets/images/homepage/admin.jpg";
 import amit from "./assets/images/homepage/amit.jpg";
 import oppor1 from "./assets/images/homepage/oppor1.png";
@@ -38,19 +40,19 @@ const HomePage2 = () => {
       <main>
         {/* Hero Section */}
         <section className=" hero-container mb-10 sm:mb-5 flex items-start pb-3">
-          <div className='h-[140vh] before:absolute before:top-0 before:left-0 before:content-[""] before:bg-[var(--bg-dark-blue)] before:w-full before:h-[165vh] before:-z-10 hero-section w-full before:bg-cover before:bg-center before:opacity-100 px-10 flex justify-around items-start'>
+          <div className='h-[140vh] px-5 sm:px-6 md:px-8 lg:px-10 before:absolute before:top-0 before:left-0 before:content-[""] before:bg-[var(--bg-dark-blue)] before:w-full before:h-[165vh] before:-z-10 hero-section w-full before:bg-cover before:bg-center before:opacity-100  flex justify-around items-start'>
             <div className="mt-36  flex sm:flex-row lg:flex-row items-center justify-around w-full flex-wrap space-x-5 sm:space-x-7 ">
               <div className="text-white max-w-2xl">
                 <div>
-                  <h1 className="mb-2 text-6xl font-bold text-center leading-snug">
+                  <h1 className="mb-2 text-4xl   sm:text-6xl font-bold text-center leading-snug">
                     Build Bright Life?
                   </h1>
-                  <h1 className="mb-2 text-6xl font-bold text-center leading-snug">
+                  <h1 className="mb-2 text-4xl   sm:text-6xl font-bold text-center leading-snug">
                     Learn Many Things Us
                   </h1>
                 </div>
 
-                <div className="flex items-center justify-center my-5 ">
+                <div className="flex items-center justify-center flex-wrap my-5 ">
                   <div className="m-3 flex items-center font-semibold">
                     <div className="w-7 h-7 flex justify-center items-center bg-[var(--golden)] rounded-full">
                       <svg
@@ -111,7 +113,7 @@ const HomePage2 = () => {
                 </div>
 
                 {/* Button and Play Button */}
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center flex-wrap">
                   <button className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-lg font-semibold px-10 py-4 rounded-md transition-colors duration-500">
                     <div className="flex items-center justify-center">
                       Get Started
@@ -156,7 +158,7 @@ const HomePage2 = () => {
                 </div>
 
                 {/* testimonial */}
-                <div className="relative mt-36 bg-[#1c317c] max-w-xl py-10 px-10 leading-6 rounded-lg  shadow-lg">
+                <div className="relative mt-36 px-5 sm:px-6 md:px-8 lg:px-10 bg-[#1c317c] w-fit max-w-xl py-10 leading-6 rounded-lg  shadow-lg">
                   <div className=" opacity-70">
                     Sit amet consectetur adipiscing elit sed do eiusmod tempore
                     incididunt ut labore et dolore magna aliqua.
@@ -174,6 +176,8 @@ const HomePage2 = () => {
               </div>
             </div>
           </div>
+
+          {/* <img src={heroLeftImg} className="absolute bottom-0 left-5" alt="" /> */}
         </section>
 
         {/* About Us */}
@@ -232,7 +236,7 @@ const HomePage2 = () => {
                     </svg>
                   </div>
                 </button>
-                {/* Play */}
+                {/* How it Works */}
                 <div className="flex items-center m-4 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
                   <div className="ml-3 font-semibold underline">
                     How it works
@@ -285,6 +289,85 @@ const HomePage2 = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Location */}
+        <section className="mt-20 mb-10 p-5">
+          <h1 className="text-5xl text-center font-semibold my-10">
+            Locations
+          </h1>
+          <div className="flex flex-col lg:flex-row flex-wrap justify-around mx-auto py-10">
+            <Card className="flex-row w-full max-w-lg m-5">
+              <CardHeader
+                shadow={false}
+                floated={false}
+                className="w-2/5 shrink-0 m-0 rounded-r-none"
+              >
+                <img
+                  src={centre1}
+                  alt="image"
+                  className="w-full h-full object-cover"
+                />
+              </CardHeader>
+              <CardBody>
+                <Typography
+                  variant="h6"
+                  color="blue"
+                  className="uppercase mb-4"
+                >
+                  Branch
+                </Typography>
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  SMS - Gomti nagar
+                </Typography>
+                <Typography color="gray" className="font-normal mb-8">
+                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
+                  226008
+                </Typography>
+                <a href="#" className="inline-block">
+                  <Button variant="text" className="flex items-center gap-2">
+                    View on Map
+                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                  </Button>
+                </a>
+              </CardBody>
+            </Card>
+            <Card className="flex-row w-full max-w-lg m-5">
+              <CardHeader
+                shadow={false}
+                floated={false}
+                className="w-2/5 shrink-0 m-0 rounded-r-none"
+              >
+                <img
+                  src={centre2}
+                  alt="image"
+                  className="w-full h-full object-cover"
+                />
+              </CardHeader>
+              <CardBody>
+                <Typography
+                  variant="h6"
+                  color="blue"
+                  className="uppercase mb-4"
+                >
+                  Branch
+                </Typography>
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  SMS - Hajratganj
+                </Typography>
+                <Typography color="gray" className="font-normal mb-8">
+                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
+                  226008
+                </Typography>
+                <a href="#" className="inline-block">
+                  <Button variant="text" className="flex items-center gap-2">
+                    View on Map
+                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                  </Button>
+                </a>
+              </CardBody>
+            </Card>
           </div>
         </section>
 
@@ -361,6 +444,42 @@ const HomePage2 = () => {
                   dolor sit amet consectetur adipisicing elit. Aliquid, fuga.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Success Mantra */}
+        <section className="bg-white">
+          <h1 className="text-5xl text-center font-semibold my-10">
+            Success Mantra
+          </h1>
+
+          <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-8 lg:px-6">
+            <div className=" text-gray-500 sm:text-lg ">
+              <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 ">
+                Abhishek Singh
+              </h2>
+              <h3 className="text-[var(--bg-dark-blue)] text-xl font-bold mb-3">
+                - CCNA
+              </h3>
+              <p className="mb-4 text-[var(--para-color)]">
+                We are strategists, designers and developers. Innovators and
+                problem solvers. Small enough to be simple and quick, but big
+                enough to deliver the scope you want at the pace you need. Small
+                enough to be simple and quick, but big enough to deliver the
+                scope you want at the pace you need.
+              </p>
+              <p className="text-[var(--para-color)]">
+                We are strategists, designers and developers. Innovators and
+                problem solvers. Small enough to be simple and quick.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-4 mt-8">
+              <img
+                className="mt-4 w-[70%] mx-auto h-96 lg:mt-10 rounded-lg"
+                src={testimonial1}
+                alt="office content 2"
+              />
             </div>
           </div>
         </section>
@@ -453,38 +572,147 @@ const HomePage2 = () => {
           </div>
         </section>
 
-        {/* Success Mantra */}
-        <section className="bg-white">
-          <h1 className="text-5xl text-center font-semibold my-10">
-            Success Mantra
-          </h1>
-
-          <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-8 lg:px-6">
-            <div className=" text-gray-500 sm:text-lg ">
-              <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 ">
-                Abhishek Singh
-              </h2>
-              <h3 className="text-[var(--bg-dark-blue)] text-xl font-bold mb-3">
-                - CCNA
-              </h3>
-              <p className="mb-4 text-[var(--para-color)]">
-                We are strategists, designers and developers. Innovators and
-                problem solvers. Small enough to be simple and quick, but big
-                enough to deliver the scope you want at the pace you need. Small
-                enough to be simple and quick, but big enough to deliver the
-                scope you want at the pace you need.
+        {/* Meet Our Team */}
+        <section className="mt-20 mb-10 p-5 bg-[var(--bg-dark-blue)] text-white">
+          <div className="flex flex-col lg:flex-row justify-around items-center sm:px-5 lg:px-10 ">
+            {/* left */}
+            <div className="py-10">
+              <h3 className="text-xl font-bold">Meet Our Team</h3>
+              <h1 className="text-5xl font-bold my-5  md:max-w-xl lg:max-w-xl xl:max-w-2xl">
+                We Have Thousands Of Experience Team Members
+              </h1>
+              <p className="text-[var(--para-color)] md:max-w-xl lg:max-w-xl xl:max-w-2xl">
+                Allow us to introduce our remarkable team, a group of passionate
+                individuals who are dedicated to delivering exceptional
+                services.
               </p>
-              <p className="text-[var(--para-color)]">
-                We are strategists, designers and developers. Innovators and
-                problem solvers. Small enough to be simple and quick.
-              </p>
+              {/* List */}
+              <div className="my-10">
+                <div className="flex items-center font-bold mx-3 my-5">
+                  <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={4}
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                  </div>
+                  Experience Team Members
+                </div>
+                <div className="flex items-center font-bold mx-3 my-5">
+                  <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={4}
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                  </div>
+                  Lot’s of Video Tutorials
+                </div>
+                <div className="flex items-center font-bold mx-3 my-5">
+                  <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={4}
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                  </div>
+                  Events & Programs
+                </div>
+                <div className="flex items-center font-bold mx-3 my-5">
+                  <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={4}
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                  </div>
+                  Free & Premium Courses
+                </div>
+              </div>
+              <button className="mx-3 text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-md px-5 py-4 rounded-md transition-colors duration-500">
+                <div className="flex items-center justify-center uppercase">
+                  Learn More
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 ml-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
-            <div className="grid grid-cols-1 gap-4 mt-8">
-              <img
-                className="mt-4 w-[70%] mx-auto h-96 lg:mt-10 rounded-lg"
-                src={testimonial1}
-                alt="office content 2"
-              />
+
+            {/* Right */}
+            <div className="static lg:relative -top-32 flex items-center justify-center min-w-min">
+              {/* 1st col */}
+              <div>
+                {/* image - 1  */}
+                <div>
+                  <img src={member1} className="h-64 w-56 m-2" alt="" />
+                </div>
+                {/* image - 2  */}
+                <div>
+                  <img src={member2} className="h-64 w-56 m-2" alt="" />
+                </div>
+              </div>
+              {/* 2nd col */}
+              <div>
+                {/* image - 1  */}
+                <div>
+                  <img src={member3} className="h-64 w-56 m-2" alt="" />
+                </div>
+                {/* image - 2  */}
+                <div>
+                  <img src={member4} className="h-64 w-56 m-2" alt="" />
+                </div>
+                <div>
+                  <img src={member5} className="h-64 w-56 m-2" alt="" />
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -733,153 +961,11 @@ const HomePage2 = () => {
           </div>
         </section>
 
-        {/* Meet Our Team */}
-        <section className="mt-20 mb-10 p-5 bg-[var(--bg-dark-blue)] text-white">
-          <div className="flex flex-col lg:flex-row justify-around items-center sm:px-5 lg:px-10 ">
-            {/* left */}
-            <div className="py-10">
-              <h3 className="text-xl font-bold">Meet Our Team</h3>
-              <h1 className="text-5xl font-bold my-5  md:max-w-xl lg:max-w-xl xl:max-w-2xl">
-                We Have Thousands Of Experience Team Members
-              </h1>
-              <p className="text-[var(--para-color)] md:max-w-xl lg:max-w-xl xl:max-w-2xl">
-                Allow us to introduce our remarkable team, a group of passionate
-                individuals who are dedicated to delivering exceptional
-                services.
-              </p>
-              {/* List */}
-              <div className="my-10">
-                <div className="flex items-center font-bold mx-3 my-5">
-                  <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={4}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
-                  </div>
-                  Experience Team Members
-                </div>
-                <div className="flex items-center font-bold mx-3 my-5">
-                  <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={4}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
-                  </div>
-                  Lot’s of Video Tutorials
-                </div>
-                <div className="flex items-center font-bold mx-3 my-5">
-                  <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={4}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
-                  </div>
-                  Events & Programs
-                </div>
-                <div className="flex items-center font-bold mx-3 my-5">
-                  <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={4}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
-                  </div>
-                  Free & Premium Courses
-                </div>
-              </div>
-              <button className="mx-3 text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-md px-5 py-4 rounded-md transition-colors duration-500">
-                <div className="flex items-center justify-center uppercase">
-                  Learn More
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2.5}
-                    stroke="currentColor"
-                    className="w-5 h-5 ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                    />
-                  </svg>
-                </div>
-              </button>
-            </div>
-
-            {/* Right */}
-            <div className="static lg:relative -top-32 flex items-center justify-center min-w-min">
-              {/* 1st col */}
-              <div>
-                {/* image - 1  */}
-                <div>
-                  <img src={member1} className="h-64 w-56 m-2" alt="" />
-                </div>
-                {/* image - 2  */}
-                <div>
-                  <img src={member2} className="h-64 w-56 m-2" alt="" />
-                </div>
-              </div>
-              {/* 2nd col */}
-              <div>
-                {/* image - 1  */}
-                <div>
-                  <img src={member3} className="h-64 w-56 m-2" alt="" />
-                </div>
-                {/* image - 2  */}
-                <div>
-                  <img src={member4} className="h-64 w-56 m-2" alt="" />
-                </div>
-                <div>
-                  <img src={member5} className="h-64 w-56 m-2" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Meet Our Director */}
         <section className="mt-20 mb-10 p-5">
+          <h1 className="text-5xl text-center font-semibold mb-20">
+            Meet Our Director
+          </h1>
           <div className="flex flex-col lg:flex-row justify-around max-w-6xl mx-auto">
             {/* left */}
             <div className="mx-5 my-3">
@@ -907,82 +993,126 @@ const HomePage2 = () => {
           </div>
         </section>
 
-        {/* Location */}
+        {/* Events */}
         <section className="mt-20 mb-10 p-5">
+          <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
+            Event & Program
+          </h3>
           <h1 className="text-5xl text-center font-semibold my-10">
-            Locations
+            Upcoming Events & Program
           </h1>
-          <div className="flex flex-col lg:flex-row flex-wrap justify-around mx-auto py-10">
-            <Card className="flex-row w-full max-w-lg m-5">
-              <CardHeader
-                shadow={false}
-                floated={false}
-                className="w-2/5 shrink-0 m-0 rounded-r-none"
-              >
-                <img
-                  src={centre1}
-                  alt="image"
-                  className="w-full h-full object-cover"
-                />
-              </CardHeader>
-              <CardBody>
-                <Typography
-                  variant="h6"
-                  color="blue"
-                  className="uppercase mb-4"
-                >
-                  Branch
-                </Typography>
-                <Typography variant="h4" color="blue-gray" className="mb-2">
-                  SMS - Gomti nagar
-                </Typography>
-                <Typography color="gray" className="font-normal mb-8">
-                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
-                  226008
-                </Typography>
-                <a href="#" className="inline-block">
-                  <Button variant="text" className="flex items-center gap-2">
-                    View on Map
-                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                  </Button>
-                </a>
-              </CardBody>
-            </Card>
-            <Card className="flex-row w-full max-w-lg m-5">
-              <CardHeader
-                shadow={false}
-                floated={false}
-                className="w-2/5 shrink-0 m-0 rounded-r-none"
-              >
-                <img
-                  src={centre2}
-                  alt="image"
-                  className="w-full h-full object-cover"
-                />
-              </CardHeader>
-              <CardBody>
-                <Typography
-                  variant="h6"
-                  color="blue"
-                  className="uppercase mb-4"
-                >
-                  Branch
-                </Typography>
-                <Typography variant="h4" color="blue-gray" className="mb-2">
-                  SMS - Hajratganj
-                </Typography>
-                <Typography color="gray" className="font-normal mb-8">
-                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
-                  226008
-                </Typography>
-                <a href="#" className="inline-block">
-                  <Button variant="text" className="flex items-center gap-2">
-                    View on Map
-                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                  </Button>
-                </a>
-              </CardBody>
-            </Card>
+          {/* Events Container */}
+          <div className="flex justify-around items-center flex-wrap">
+            {/* Event - 1 */}
+            <div className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded">
+              <div className="flex justify-between w-full sm:w-fit">
+                <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
+                  <div>Mar</div>{" "}
+                  <div className="text-5xl text-black font-extrabold my-4">
+                    03
+                  </div>{" "}
+                  <div>2023</div>
+                </div>
+                <div className="py-4 mx-3 h-32 w-32">
+                  <img src={about2} className="h-32 w-32 rounded-full" alt="" />
+                </div>
+              </div>
+              <div className="mx-3">
+                {/* Address */}
+                <div className="my-4 flex items-center text-[var(--dash-text-color)] text-lg ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="var(--golden)"
+                    className="w-6 h-6 mr-2"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  55 Main Street, USA
+                </div>
+                <h3 className="max-w-sm my-4 text-3xl font-extrabold text-black hover:text-[var(--golden)] transition-colors duration-500">
+                  Useful VS Code Extensions Front-End Developers
+                </h3>
+                <div className="flex items-center m-3 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
+                  <div className="ml-3 font-semibold underline">Know More</div>
+                  <div className="flex items-center justify-center  w-10 h-12 rounded-full">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Event - 2 */}
+            <div className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded">
+              <div className="flex justify-between w-full sm:w-fit">
+                <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
+                  <div>Mar</div>{" "}
+                  <div className="text-5xl text-black font-extrabold my-4">
+                    03
+                  </div>{" "}
+                  <div>2023</div>
+                </div>
+                <div className="py-4 mx-3 h-32 w-32">
+                  <img src={about2} className="h-32 w-32 rounded-full" alt="" />
+                </div>
+              </div>
+              <div className="mx-3">
+                {/* Address */}
+                <div className="my-4 flex items-center text-[var(--dash-text-color)] text-lg ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="var(--golden)"
+                    className="w-6 h-6 mr-2"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  55 Main Street, USA
+                </div>
+                <h3 className="max-w-sm my-4 text-3xl font-extrabold text-black hover:text-[var(--golden)] transition-colors duration-500">
+                  Useful VS Code Extensions Front-End Developers
+                </h3>
+                <div className="flex items-center m-3 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
+                  <div className="ml-3 font-semibold underline">Know More</div>
+                  <div className="flex items-center justify-center  w-10 h-12 rounded-full">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

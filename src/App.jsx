@@ -115,12 +115,11 @@ const App = () => {
       {isAdmin || isStudent || isInstructor ? "" : <Navigation />}
 
       <Routes>
-        <Route path="/" exact={true} element={<Homepage />} />
+        <Route path="/" exact={true} element={<HomePage2 />} />
         <Route path="/about" exact={true} element={<About />} />
         <Route path="/courses" exact={true} element={<Courses />} />
         <Route path="/contact" exact={true} element={<Contact />} />
         <Route path="/blogs" exact={true} element={<Blogs />} />
-        <Route path="/home" exact={true} element={<HomePage2 />} />
 
         {/* Auth Routes */}
         <Route

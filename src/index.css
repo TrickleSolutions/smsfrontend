@@ -19,6 +19,7 @@ body {
   --golden: #c29d00;
 }
 
+/*
 @media (max-width: 639px) {
   .hero-container {
     height: 56vh;
@@ -28,9 +29,11 @@ body {
 @media (min-width: 640px) and (max-width: 1023px) {
   .hero-container {
     height: 56vh;
-    /* background-color: aqua; */
+   background-color: aqua; 
   }
 }
 
 @media (min-width: 1024px) {
 }
+
+*/

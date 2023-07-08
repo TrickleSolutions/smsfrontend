@@ -158,7 +158,7 @@ const Navigation = () => {
               </svg>
             </div>
             {/* ///////////////////////////////// Drawer //////////////////////////////////////// */}
-            <div onClick={openDrawer}>
+            <div onClick={openDrawer} className="hidden lg:block">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -175,11 +175,11 @@ const Navigation = () => {
               </svg>
             </div>
             {/* Drawer */}
-            {/* <Drawer
+            <Drawer
               placement="right"
               open={open}
               onClose={closeDrawer}
-              className="!bg-white  "
+              className={`!bg-white ${open ? "block" : "hidden"} `}
               overlay={false}
             >
               <div className="mb-2 flex items-center justify-between p-4 !bg-white">
@@ -200,7 +200,7 @@ const Navigation = () => {
                 <Textarea rows={6} label="Message" />
                 <Button>Send Message</Button>
               </form>
-            </Drawer> */}
+            </Drawer>
             {/* ///////////////////////////////// Drawer //////////////////////////////////////// */}
             <IconButton
               variant="text"
