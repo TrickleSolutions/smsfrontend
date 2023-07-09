@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
-import heroRightImg from "./assets/images/homepage/hero-two-right.png";
-import heroLeftImg from "./assets/images/homepage/hero-two-right.png";
 import adminImage from "./assets/images/homepage/admin.jpg";
 import amit from "./assets/images/homepage/amit.jpg";
 import oppor1 from "./assets/images/homepage/oppor1.png";
@@ -35,6 +35,13 @@ const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
   const [viewAcheiver2, setViewAcheiver2] = useState(false);
   const navigate = useNavigate();
+
+  AOS.init({
+    delay: 300,
+    duration: 1000,
+    // easing: "ease-in",
+    mirror: false,
+  });
   return (
     <>
       <main>
@@ -43,7 +50,7 @@ const HomePage2 = () => {
           <div className='h-[140vh] px-5 sm:px-6 md:px-8 lg:px-10 before:absolute before:top-0 before:left-0 before:content-[""] before:bg-[var(--bg-dark-blue)] before:w-full before:h-[165vh] before:-z-10 hero-section w-full before:bg-cover before:bg-center before:opacity-100  flex justify-around items-start'>
             <div className="mt-36  flex sm:flex-row lg:flex-row items-center justify-around w-full flex-wrap space-x-5 sm:space-x-7 ">
               <div className="text-white max-w-2xl">
-                <div>
+                <div data-aos="fade-down" data-aos-delay="100">
                   <h1 className="mb-2 text-4xl   sm:text-6xl font-bold text-center leading-snug">
                     Build Bright Life?
                   </h1>
@@ -52,7 +59,11 @@ const HomePage2 = () => {
                   </h1>
                 </div>
 
-                <div className="flex items-center justify-center flex-wrap my-5 ">
+                <div
+                  data-aos="fade-down"
+                  data-aos-delay="500"
+                  className="flex items-center justify-center flex-wrap my-5 "
+                >
                   <div className="m-3 flex items-center font-semibold">
                     <div className="w-7 h-7 flex justify-center items-center bg-[var(--golden)] rounded-full">
                       <svg
@@ -113,7 +124,11 @@ const HomePage2 = () => {
                 </div>
 
                 {/* Button and Play Button */}
-                <div className="flex items-center justify-center flex-wrap">
+                <div
+                  data-aos="fade-down"
+                  data-aos-delay="1000"
+                  className="flex items-center justify-center flex-wrap"
+                >
                   <button className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-lg font-semibold px-10 py-4 rounded-md transition-colors duration-500">
                     <div className="flex items-center justify-center">
                       Get Started
@@ -158,7 +173,10 @@ const HomePage2 = () => {
                 </div>
 
                 {/* testimonial */}
-                <div className="relative mt-36 px-5 sm:px-6 md:px-8 lg:px-10 bg-[#1c317c] w-fit max-w-xl py-10 leading-6 rounded-lg  shadow-lg">
+                <div
+                  data-aos="fade-up"
+                  className="relative mt-36 px-5 sm:px-6 md:px-8 lg:px-10 bg-[#1c317c] w-fit max-w-xl py-10 leading-6 rounded-lg  shadow-lg"
+                >
                   <div className=" opacity-70">
                     Sit amet consectetur adipiscing elit sed do eiusmod tempore
                     incididunt ut labore et dolore magna aliqua.
@@ -185,7 +203,10 @@ const HomePage2 = () => {
           {/* About Container */}
           <div className="flex flex-col lg:flex-row justify-around xl:max-w-[80%] mx-auto">
             {/* left */}
-            <div className="w-full lg:w-5/12 md:w-10/12 sm:w-9/12 mx-auto">
+            <div
+              data-aos="fade-right"
+              className="w-full lg:w-5/12 md:w-10/12 sm:w-9/12 mx-auto"
+            >
               <div className="relative flex justify-end p-2">
                 <img src={about1} className="w-80 h-64 rounded-2xl" alt="" />
                 <div className="absolute top-24 left-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
@@ -203,7 +224,7 @@ const HomePage2 = () => {
             </div>
 
             {/* Right */}
-            <div className="p-2">
+            <div data-aos="fade-up" className="p-2">
               <h3 className="text-[var(--bg-dark-blue)] text-xl font-bold">
                 About SMS
               </h3>
@@ -293,12 +314,15 @@ const HomePage2 = () => {
         </section>
 
         {/* Location */}
-        <section className="mt-20 mb-10 p-5">
+        <section data-aos="fade-up" className="mt-20 mb-10 p-5">
           <h1 className="text-5xl text-center font-semibold my-10">
             Locations
           </h1>
           <div className="flex flex-col lg:flex-row flex-wrap justify-around mx-auto py-10">
-            <Card className="flex-row w-full max-w-lg m-5">
+            <Card
+              data-aos="fade-right"
+              className="flex-row w-full max-w-lg m-5"
+            >
               <CardHeader
                 shadow={false}
                 floated={false}
@@ -333,7 +357,7 @@ const HomePage2 = () => {
                 </a>
               </CardBody>
             </Card>
-            <Card className="flex-row w-full max-w-lg m-5">
+            <Card data-aos="fade-left" className="flex-row w-full max-w-lg m-5">
               <CardHeader
                 shadow={false}
                 floated={false}
@@ -372,7 +396,7 @@ const HomePage2 = () => {
         </section>
 
         {/* Our Pride */}
-        <section className="my-10 p-5">
+        <section data-aos="fade-up" className="my-10 p-5">
           <h1 className="text-5xl text-center font-semibold my-10">
             Our Pride
           </h1>
@@ -449,7 +473,7 @@ const HomePage2 = () => {
         </section>
 
         {/* Success Mantra */}
-        <section className="bg-white">
+        <section data-aos="fade-up" className="bg-white">
           <h1 className="text-5xl text-center font-semibold my-10">
             Success Mantra
           </h1>
@@ -494,7 +518,11 @@ const HomePage2 = () => {
           </h1>
           {/* Oppotunities Container */}
           <div className="flex justify-around mt-20 py-5  flex-wrap md:px-10">
-            <div className="w-fit m-5 p-3">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="100"
+              className="w-fit m-5 p-3"
+            >
               <img src={oppor1} alt="" />
               <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
               <p className="max-w-xs text-[var(--para-color)] pr-5">
@@ -519,7 +547,11 @@ const HomePage2 = () => {
                 </svg>
               </div>
             </div>
-            <div className="w-fit m-5 p-3">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="400"
+              className="w-fit m-5 p-3"
+            >
               <img src={oppor2} alt="" />
               <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
               <p className="max-w-xs text-[var(--para-color)] pr-5">
@@ -544,7 +576,11 @@ const HomePage2 = () => {
                 </svg>
               </div>
             </div>
-            <div className="w-fit m-5 p-3">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="700"
+              className="w-fit m-5 p-3"
+            >
               <img src={oppor3} alt="" />
               <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
               <p className="max-w-xs text-[var(--para-color)] pr-5">
@@ -576,7 +612,7 @@ const HomePage2 = () => {
         <section className="mt-20 mb-10 p-5 bg-[var(--bg-dark-blue)] text-white">
           <div className="flex flex-col lg:flex-row justify-around items-center sm:px-5 lg:px-10 ">
             {/* left */}
-            <div className="py-10">
+            <div data-aos="fade-up" className="py-10">
               <h3 className="text-xl font-bold">Meet Our Team</h3>
               <h1 className="text-5xl font-bold my-5  md:max-w-xl lg:max-w-xl xl:max-w-2xl">
                 We Have Thousands Of Experience Team Members
@@ -691,25 +727,25 @@ const HomePage2 = () => {
               {/* 1st col */}
               <div>
                 {/* image - 1  */}
-                <div>
+                <div data-aos="zoom-out">
                   <img src={member1} className="h-64 w-56 m-2" alt="" />
                 </div>
                 {/* image - 2  */}
-                <div>
+                <div data-aos="zoom-out">
                   <img src={member2} className="h-64 w-56 m-2" alt="" />
                 </div>
               </div>
               {/* 2nd col */}
               <div>
                 {/* image - 1  */}
-                <div>
+                <div data-aos="zoom-out">
                   <img src={member3} className="h-64 w-56 m-2" alt="" />
                 </div>
                 {/* image - 2  */}
-                <div>
+                <div data-aos="zoom-out">
                   <img src={member4} className="h-64 w-56 m-2" alt="" />
                 </div>
-                <div>
+                <div data-aos="zoom-out">
                   <img src={member5} className="h-64 w-56 m-2" alt="" />
                 </div>
               </div>
@@ -727,7 +763,11 @@ const HomePage2 = () => {
           </h1>
           {/* Oppotunities Container */}
           <div className="flex justify-around items-center mt-20 py-5  flex-wrap md:px-10">
-            <Card className="m-10 w-96 mx-auto">
+            <Card
+              data-aos="fade-up"
+              data-aos-delay="100"
+              className="m-10 w-96 mx-auto"
+            >
               <CardHeader color="blue-gray" className="relative h-56">
                 <img
                   src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
@@ -804,7 +844,11 @@ const HomePage2 = () => {
                 </div>
               </CardFooter>
             </Card>
-            <Card className="m-10 w-96 mx-auto">
+            <Card
+              data-aos="fade-up"
+              data-aos-delay="400"
+              className="m-10 w-96 mx-auto"
+            >
               <CardHeader color="blue-gray" className="relative h-56">
                 <img
                   src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
@@ -881,7 +925,11 @@ const HomePage2 = () => {
                 </div>
               </CardFooter>
             </Card>
-            <Card className="m-10 w-96 mx-auto">
+            <Card
+              data-aos="fade-up"
+              data-aos-delay="700"
+              className="m-10 w-96 mx-auto"
+            >
               <CardHeader color="blue-gray" className="relative h-56">
                 <img
                   src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
@@ -968,7 +1016,7 @@ const HomePage2 = () => {
           </h1>
           <div className="flex flex-col lg:flex-row justify-around max-w-6xl mx-auto">
             {/* left */}
-            <div className="mx-5 my-3">
+            <div data-aos="fade-right" className="mx-5 my-3">
               <img
                 src={director}
                 className="max-w-xl lg:max-w-sm w-full  lg:w-80 h-full lg:h-96 mx-auto"
@@ -976,7 +1024,7 @@ const HomePage2 = () => {
               />
             </div>
             {/* Director message */}
-            <div className="mx-auto lg:mx-5 my-10">
+            <div data-aos="fade-up" className="mx-auto lg:mx-5 my-10">
               <h1 className="text-4xl font-bold my-4  md:max-w-xl lg:max-w-xl xl:max-w-2xl">
                 Saurabh Verma
               </h1>
@@ -1004,7 +1052,10 @@ const HomePage2 = () => {
           {/* Events Container */}
           <div className="flex justify-around items-center flex-wrap">
             {/* Event - 1 */}
-            <div className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded">
+            <div
+              data-aos="fade-up"
+              className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded"
+            >
               <div className="flex justify-between w-full sm:w-fit">
                 <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
                   <div>Mar</div>{" "}
@@ -1059,7 +1110,11 @@ const HomePage2 = () => {
               </div>
             </div>
             {/* Event - 2 */}
-            <div className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="400"
+              className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded"
+            >
               <div className="flex justify-between w-full sm:w-fit">
                 <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
                   <div>Mar</div>{" "}
@@ -1120,7 +1175,10 @@ const HomePage2 = () => {
         <section className="mt-20 mb-10 p-5">
           <h1 className="text-5xl text-center font-semibold my-10">Join Us</h1>
           <div className="flex flex-col flex-wrap lg:flex-row justify-around mx-auto py-10">
-            <Card className="flex-row w-full max-w-lg m-5">
+            <Card
+              data-aos="fade-right"
+              className="flex-row w-full max-w-lg m-5"
+            >
               <CardHeader
                 shadow={false}
                 floated={false}
@@ -1162,7 +1220,7 @@ const HomePage2 = () => {
                 </button>
               </CardBody>
             </Card>
-            <Card className="flex-row w-full max-w-lg m-5">
+            <Card data-aos="fade-left" className="flex-row w-full max-w-lg m-5">
               <CardHeader
                 shadow={false}
                 floated={false}

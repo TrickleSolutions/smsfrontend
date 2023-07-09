@@ -123,8 +123,8 @@ const Navigation = () => {
       <Navbar
         className={
           scrolled
-            ? " bg-[white] !text-[var(--secondary-color)] backdrop-blur-lg sticky inset-0 z-30 h-24 max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-3 shadow-xl animate__animated animate__slideInDown animate__fast"
-            : " sticky inset-0 z-30 h-24 max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-3 transition-all"
+            ? " bg-[white] !text-[var(--secondary-color)] backdrop-blur-lg sticky inset-0 z-30 h-24 max-w-full rounded-none py-1 pr-4 pl-2 lg:pr-8 lg:pl-2 lg:py-3 shadow-xl animate__animated animate__slideInDown animate__fast"
+            : " sticky inset-0 z-30 h-24 max-w-full rounded-none py-2 pr-4 pl-2 lg:pr-8 lg:pl-2 lg:py-3 transition-all"
         }
         shadow={false}
         color={scrolled ? "" : "transparent"}
