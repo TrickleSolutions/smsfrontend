@@ -4,7 +4,7 @@ const SmartBar = () => {
   return (
     <>
       <div
-        className="px-5 py-3 text-white  bg-[#204ecf] tracking-widest font-semibold flex items-center justify-center"
+        className="px-5 py-3 text-white  bg-[var(--bg-light-blue)] tracking-widest font-semibold flex items-center justify-center"
         style={{ fontFamily: "Nunito Sans" }}
       >
         <span>

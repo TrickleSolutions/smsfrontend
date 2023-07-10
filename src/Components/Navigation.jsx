@@ -62,9 +62,9 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <a href="#" className="flex items-center">
+        <Link to="/" className="flex items-center">
           Home
-        </a>
+        </Link>
       </Typography>
 
       <Typography
@@ -75,9 +75,9 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <a href="#" className="flex items-center">
+        <Link to="/about" className="flex items-center">
           About
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -87,9 +87,9 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <a href="#" className="flex items-center">
+        <Link to="/courses" className="flex items-center">
           Courses
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -99,9 +99,9 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <a href="#" className="flex items-center">
+        <Link to="/blogs" className="flex items-center">
           Blogs
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -111,9 +111,9 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <a href="#" className="flex items-center">
+        <Link to="/contact" className="flex items-center">
           Contact
-        </a>
+        </Link>
       </Typography>
     </ul>
   );
