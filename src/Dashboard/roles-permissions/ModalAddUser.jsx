@@ -26,6 +26,7 @@ const ModalAddUser = ({ open, handleOpen, getUserList }) => {
   console.log(role);
 
   const data = {
+    role,
     name,
     email,
     address,
@@ -52,7 +53,7 @@ const ModalAddUser = ({ open, handleOpen, getUserList }) => {
     setExp("");
 
     // Post Api For Posting Data
-    fetch(baseurl + "/api/instructor", {
+    fetch(baseurl + "/api/admin", {
       method: "POST",
       headers: {
         Accept: "application/json",

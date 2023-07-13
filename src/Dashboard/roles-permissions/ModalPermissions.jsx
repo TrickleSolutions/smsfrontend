@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -26,6 +26,51 @@ const ModalPermissions = ({ open, handleOpen, item }) => {
   const [scheduleBatches, setScheduleBatches] = useState(true);
   const [monthlyAchievers, setMonthlyAchievers] = useState(true);
   const [rolesPermission, setRolesPermission] = useState(true);
+
+  const [userPermissions, setUserPermissions] = useState([]);
+
+  console.log(userPermissions);
+
+  useEffect(() => {
+    setEnquiries(userPermissions.enquiries);
+    setCourseList(userPermissions.courseList);
+    setCategories(userPermissions.categories);
+    setStudentList(userPermissions.studentList);
+    setInstructorList(userPermissions.instructorList);
+    setCashLedger(userPermissions.cashLedger);
+    setFees(userPermissions.fees);
+    setScheduleClasses(userPermissions.scheduleClasses);
+    setEvents(userPermissions.events);
+    setManageStudent(userPermissions.manageStudent);
+    setScheduleBatches(userPermissions.scheduleBatches);
+    setMonthlyAchievers(userPermissions.monthlyAchievers);
+    setRolesPermission(userPermissions.rolesPermission);
+  });
+
+  useEffect(() => {
+    getUserPermissionsList();
+  }, [item]);
+
+  const getUserPermissionsList = () => {
+    fetch(baseurl + "/api/permission/" + item._id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        console.log(result);
+        setUserPermissions(result[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // console.log(item);
   const data = {
     enquiries,
     courseList,
@@ -42,7 +87,7 @@ const ModalPermissions = ({ open, handleOpen, item }) => {
     rolesPermission,
   };
 
-  console.log(data);
+  // console.log(data);
   const roles = [
     {
       id: "enquiries",

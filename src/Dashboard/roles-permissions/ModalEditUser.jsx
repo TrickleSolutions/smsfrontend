@@ -22,6 +22,8 @@ const ModalEditUser = ({ open, item, handleOpen, getUserList }) => {
   const [qualification, setQualification] = useState("");
   const [degree, setDegree] = useState("");
   const [exp, setExp] = useState("");
+  const [password, setPassword] = useState("");
+  const [profilePic, setProfilePic] = useState("");
 
   useEffect(() => {
     setRole(item.role);
@@ -34,9 +36,12 @@ const ModalEditUser = ({ open, item, handleOpen, getUserList }) => {
     setQualification(item.qualification);
     setDegree(item.degree);
     setExp(item.exp);
+    setPassword(item.password);
+    setProfilePic(item.profilePic);
   }, [item]);
 
   const data = {
+    role,
     name,
     email,
     address,
@@ -48,9 +53,22 @@ const ModalEditUser = ({ open, item, handleOpen, getUserList }) => {
     exp,
   };
 
-  console.log(data);
+  // console.log(data);
 
   const onSubmitClick = () => {
+    const formData = new FormData();
+    formData.append("role", role);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("address", address);
+    formData.append("contact", contact);
+    formData.append("gender", gender);
+    formData.append("dob", dob);
+    formData.append("qualification", qualification);
+    formData.append("degree", degree);
+    formData.append("exp", exp);
+    formData.append("profilePic", profilePic);
+    formData.append("password", password);
     // Empty the value of fields
     setName("");
     setEmail("");
@@ -61,27 +79,21 @@ const ModalEditUser = ({ open, item, handleOpen, getUserList }) => {
     setQualification("");
     setDegree("");
     setExp("");
+    setPassword("");
+    setProfilePic("");
 
     // Post Api For Posting Data
-    fetch(baseurl + "/api/instructor", {
+    fetch(baseurl + "/api/admin/" + item._id, {
       method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+      body: formData,
     })
       .then((res) => {
         return res.json();
       })
-      .then((result) => {
-        if (result.status === true && result.code === 200) {
-          toast.success("Instructor Added Successfully");
-          handleOpen();
-          getUserList();
-        } else {
-          toast.success(`${result.message}`);
-        }
+      .then(() => {
+        handleOpen();
+        toast.success("User Updated Successfully");
+        getUserList();
       })
       .catch((err) => {
         console.log(err);
@@ -269,9 +281,6 @@ const ModalEditUser = ({ open, item, handleOpen, getUserList }) => {
                   htmlFor="exp"
                 >
                   Experience
-                  <span className="text-xs mx-1 text-gray-500 lowercase font-light">
-                    (in years)
-                  </span>
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -281,6 +290,40 @@ const ModalEditUser = ({ open, item, handleOpen, getUserList }) => {
                   value={exp}
                   onChange={(e) => {
                     setExp(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="pass"
+                >
+                  Password
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="pass"
+                  type="text"
+                  placeholder="••••••••••"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="profilePic"
+                >
+                  Profile photo
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="profilePic"
+                  type="file"
+                  onChange={(e) => {
+                    setProfilePic(e.target.files[0]);
                   }}
                 />
               </div>

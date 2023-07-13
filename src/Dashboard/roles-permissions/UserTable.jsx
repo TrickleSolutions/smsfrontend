@@ -19,7 +19,45 @@ const UserTable = ({ item, getUserList }) => {
   const handleOpen2 = () => setOpen2(!open2);
   const [open3, setOpen3] = useState(false);
   const handleOpen3 = () => setOpen3(!open3);
-  const navigate = useNavigate();
+
+  const permissions = {
+    id: item._id,
+    enquiries: true,
+    courseList: true,
+    categories: true,
+    studentList: true,
+    instructorList: true,
+    cashLedger: true,
+    fees: true,
+    scheduleClasses: true,
+    events: true,
+    manageStudent: true,
+    scheduleBatches: true,
+    monthlyAchievers: true,
+    rolesPermission: false,
+  };
+
+  const initPermissions = () => {
+    // Post Api For Posting Data
+    fetch(baseurl + "/api/permission", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(permissions),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then(() => {
+        toast.success("Permissions initialised Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // console.log(permissions);
+  };
 
   function deleteData(id) {
     if (window.confirm("Are you sure You want to delete ?")) {
@@ -60,7 +98,13 @@ const UserTable = ({ item, getUserList }) => {
           {item.role == 0 ? "Admin" : item.role == 1 ? "Back Office" : "-"}
         </td>
         <td className="px-6 py-4 ">
-          <Button size="sm" onClick={handleOpen3}>
+          <Button
+            size="sm"
+            onClick={() => {
+              handleOpen3();
+              // initPermissions();
+            }}
+          >
             Update
           </Button>
           <ModalPermissions open={open3} handleOpen={handleOpen3} item={item} />
