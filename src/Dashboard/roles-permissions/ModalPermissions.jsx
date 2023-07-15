@@ -13,39 +13,43 @@ import { toast } from "react-toastify";
 import { Select, Option } from "@material-tailwind/react";
 
 const ModalPermissions = ({ open, handleOpen, item }) => {
-  const [enquiries, setEnquiries] = useState(true);
-  const [courseList, setCourseList] = useState(true);
-  const [categories, setCategories] = useState(true);
-  const [studentList, setStudentList] = useState(true);
-  const [instructorList, setInstructorList] = useState(true);
-  const [cashLedger, setCashLedger] = useState(true);
-  const [fees, setFees] = useState(true);
-  const [scheduleClasses, setScheduleClasses] = useState(true);
-  const [events, setEvents] = useState(true);
-  const [manageStudent, setManageStudent] = useState(true);
-  const [scheduleBatches, setScheduleBatches] = useState(true);
-  const [monthlyAchievers, setMonthlyAchievers] = useState(true);
-  const [rolesPermission, setRolesPermission] = useState(true);
+  const [enquiries, setEnquiries] = useState("");
+  const [courseList, setCourseList] = useState("");
+  const [categories, setCategories] = useState("");
+  const [studentList, setStudentList] = useState("");
+  const [instructorList, setInstructorList] = useState("");
+  const [cashLedger, setCashLedger] = useState("");
+  const [fees, setFees] = useState("");
+  const [scheduleClasses, setScheduleClasses] = useState("");
+  const [events, setEvents] = useState("");
+  const [manageStudent, setManageStudent] = useState("");
+  const [scheduleBatches, setScheduleBatches] = useState("");
+  const [monthlyAchievers, setMonthlyAchievers] = useState("");
+  const [rolesPermission, setRolesPermission] = useState("");
+  const [id, setId] = useState("");
 
   const [userPermissions, setUserPermissions] = useState([]);
 
-  console.log(userPermissions);
+  // console.log(userPermissions);
 
   useEffect(() => {
-    setEnquiries(userPermissions.enquiries);
-    setCourseList(userPermissions.courseList);
-    setCategories(userPermissions.categories);
-    setStudentList(userPermissions.studentList);
-    setInstructorList(userPermissions.instructorList);
-    setCashLedger(userPermissions.cashLedger);
-    setFees(userPermissions.fees);
-    setScheduleClasses(userPermissions.scheduleClasses);
-    setEvents(userPermissions.events);
-    setManageStudent(userPermissions.manageStudent);
-    setScheduleBatches(userPermissions.scheduleBatches);
-    setMonthlyAchievers(userPermissions.monthlyAchievers);
-    setRolesPermission(userPermissions.rolesPermission);
-  });
+    if (userPermissions) {
+      setEnquiries(userPermissions.enquiries);
+      setCourseList(userPermissions.courseList);
+      setCategories(userPermissions.categories);
+      setStudentList(userPermissions.studentList);
+      setInstructorList(userPermissions.instructorList);
+      setCashLedger(userPermissions.cashLedger);
+      setFees(userPermissions.fees);
+      setScheduleClasses(userPermissions.scheduleClasses);
+      setEvents(userPermissions.events);
+      setManageStudent(userPermissions.manageStudent);
+      setScheduleBatches(userPermissions.scheduleBatches);
+      setMonthlyAchievers(userPermissions.monthlyAchievers);
+      setRolesPermission(userPermissions.rolesPermission);
+      setId(userPermissions.id);
+    }
+  }, [userPermissions]);
 
   useEffect(() => {
     getUserPermissionsList();
@@ -62,7 +66,7 @@ const ModalPermissions = ({ open, handleOpen, item }) => {
         return res.json();
       })
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         setUserPermissions(result[0]);
       })
       .catch((err) => {
@@ -85,6 +89,7 @@ const ModalPermissions = ({ open, handleOpen, item }) => {
     scheduleBatches,
     monthlyAchievers,
     rolesPermission,
+    id,
   };
 
   // console.log(data);
@@ -168,6 +173,39 @@ const ModalPermissions = ({ open, handleOpen, item }) => {
       setvalue: (e) => setRolesPermission(e.target.checked),
     },
   ];
+
+  const UpdatePermissions = () => {
+    // setEnquiries("");
+    // setCourseList("");
+    // setCategories("");
+    // setStudentList("");
+    // setInstructorList("");
+    // setCashLedger("");
+    // setFees("");
+    // setScheduleClasses("");
+    // setEvents("");
+    // setManageStudent("");
+    // setScheduleBatches("");
+    // setMonthlyAchievers("");
+    // setRolesPermission("");
+
+    // Update Api For Updating Data
+    fetch(baseurl + "/api/permission/" + userPermissions._id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then(() => {
+        handleOpen();
+        toast.success("Permissions Updated Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <Dialog
@@ -187,12 +225,18 @@ const ModalPermissions = ({ open, handleOpen, item }) => {
             >
               <div>{role.name}</div>
               <div>
+                {/* {item.role === "0" && role.id === "rolesPermission" ? 
+                
+              
+              
+              } */}
                 <Switch
                   id={role.id}
                   ripple={false}
                   checked={role.value}
                   value={role.value}
                   onChange={role.setvalue}
+                  disabled={item.role === "0" && role.id === "rolesPermission"}
                 />
               </div>
             </div>
@@ -207,8 +251,8 @@ const ModalPermissions = ({ open, handleOpen, item }) => {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="blue">
-            <span>Save</span>
+          <Button variant="gradient" color="blue" onClick={UpdatePermissions}>
+            <span>Update</span>
           </Button>
         </DialogFooter>
       </Dialog>

@@ -95,7 +95,13 @@ const UserTable = ({ item, getUserList }) => {
                         </td> */}
         <td className="px-3 py-4 hidden sm:table-cell">{item.gender}</td>
         <td className="px-6 py-4">
-          {item.role == 0 ? "Admin" : item.role == 1 ? "Back Office" : "-"}
+          {item.role == 0
+            ? "Super Admin"
+            : item.role == 1
+            ? "Admin"
+            : item.role == 2
+            ? "Back Office"
+            : "-"}
         </td>
         <td className="px-6 py-4 ">
           <Button

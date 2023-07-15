@@ -23,7 +23,7 @@ const ModalAddUser = ({ open, handleOpen, getUserList }) => {
   const [degree, setDegree] = useState("");
   const [exp, setExp] = useState("");
 
-  console.log(role);
+  // console.log(role);
 
   const data = {
     role,
@@ -38,7 +38,7 @@ const ModalAddUser = ({ open, handleOpen, getUserList }) => {
     exp,
   };
 
-  console.log(data);
+  // console.log(data);
 
   const onSubmitClick = () => {
     // Empty the value of fields
@@ -147,8 +147,9 @@ const ModalAddUser = ({ open, handleOpen, getUserList }) => {
               </div>
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <Select label="Select Role" onChange={(e) => setRole(e)}>
-                  <Option value="0">Admin</Option>
-                  <Option value="1">Back Office</Option>
+                  <Option value="0">Super Admin</Option>
+                  <Option value="1">Admin</Option>
+                  <Option value="2">Back Office</Option>
                 </Select>
               </div>
               <div className="w-full md:w-1/2 px-3 mb-3">
