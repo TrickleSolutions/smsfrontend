@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import StudentSingleCourse from "./StudentSingleCourse";
 import baseurl from "../../Config";
 
@@ -7,6 +6,8 @@ const StudentCourses = ({ enrollData }) => {
   const [courses, setCourses] = useState([]);
   const [iname, setIname] = useState("");
   const [cname, setCname] = useState("");
+
+  console.log("Courses list", courses);
 
   useEffect(() => {
     setCourses(enrollData);

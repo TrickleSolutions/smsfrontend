@@ -59,6 +59,13 @@ const LoginInstructor = ({ updateInstructorAuth }) => {
       });
   };
 
+  function onEnterPress(e) {
+    e.preventDefault();
+    if (e.code === "Enter") {
+      onLoginPress(e);
+    }
+  }
+
   return (
     <>
       <section className=" p-5">
@@ -104,6 +111,7 @@ const LoginInstructor = ({ updateInstructorAuth }) => {
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
+                  // onKeyDown={(e) => onEnterPress(e)}
                 />
               </div>
               <div>

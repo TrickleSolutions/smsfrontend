@@ -438,7 +438,13 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
                     />
                     <div className=" mx-2 hidden sm:block">
                       <h6 className="text-xs text-[var(--theme-color)]">
-                        Administrator
+                        {adminData.role == "0"
+                          ? "Super Admin"
+                          : adminData.role == "1"
+                          ? "Admin"
+                          : adminData.role == "2"
+                          ? "Back Office"
+                          : ""}
                       </h6>
                       <h4 className="flex items-center my-1 text-sm font-semibold text-[#6e82a5]">
                         {adminData.name}{" "}

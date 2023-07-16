@@ -35,7 +35,8 @@ const Roles = () => {
         return res.json();
       })
       .then((result) => {
-        setProduct(result);
+        let filteredData = result.filter((item) => item.role != "0");
+        setProduct(filteredData);
         setLoader(false);
         console.log(result);
       })
@@ -67,6 +68,7 @@ const Roles = () => {
       setPageData(dataskip);
     }
   }, [product]);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 

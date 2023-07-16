@@ -147,7 +147,7 @@ const ModalAddUser = ({ open, handleOpen, getUserList }) => {
               </div>
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <Select label="Select Role" onChange={(e) => setRole(e)}>
-                  <Option value="0">Super Admin</Option>
+                  {/* <Option value="0">Super Admin</Option> */}
                   <Option value="1">Admin</Option>
                   <Option value="2">Back Office</Option>
                 </Select>

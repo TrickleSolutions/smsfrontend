@@ -54,6 +54,7 @@ const StudentDashboard = ({ auth }) => {
         <hr />
         <StudentAcademics auth={auth} />
         <hr />
+
         <StudentMarks auth={auth} />
         <hr />
         <StudentAssignments auth={auth} />

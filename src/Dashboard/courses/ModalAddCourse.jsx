@@ -20,7 +20,7 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
   const [category, setCategory] = useState("");
   const [instructor, setInstructor] = useState("");
   const [level, setLevel] = useState("");
-  const [lessons, setLessons] = useState(2);
+  const [lessons, setLessons] = useState("");
   const [img, setImg] = useState("");
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
@@ -95,7 +95,6 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
     setLessons("");
     setDuration("");
     setPrice("");
-    setRating();
     setCategory("");
     setInstructor("");
 

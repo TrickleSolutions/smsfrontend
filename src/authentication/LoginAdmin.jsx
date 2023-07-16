@@ -11,7 +11,6 @@ const LoginAdmin = ({ updateAdminAuth }) => {
   const navigate = useNavigate();
 
   const onLoginPress = (e) => {
-    e.preventDefault();
     const data = { email, password };
 
     fetch(baseurl + "/api/adminlogin", {
@@ -59,12 +58,20 @@ const LoginAdmin = ({ updateAdminAuth }) => {
       });
   };
 
+  function onEnterPress(e) {
+    console.log(e);
+    e.preventDefault();
+    if (e.code === "Enter") {
+      onLoginPress();
+    }
+  }
+
   return (
     <>
       <section className=" p-5">
         <div className=" w-96 my-10 rounded-lg border shadow-xl mx-auto">
           <h1 className="px-5 sm:px-10 mt-5 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-            Admin Login
+            Admin / Back Office Login
           </h1>
           {/* Form */}
           <form className="w-full px-5 sm:px-10 mt-5">
@@ -102,8 +109,12 @@ const LoginAdmin = ({ updateAdminAuth }) => {
                   type="password"
                   value={password}
                   onChange={(e) => {
+                    console.log(e);
                     setPassword(e.target.value);
                   }}
+                  // onKeyDown={(e) => {
+                  //   onEnterPress(e);
+                  // }}
                 />
               </div>
               <div>

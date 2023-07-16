@@ -48,7 +48,7 @@ const StudentSingleTeacher = ({ enroll }) => {
       {instructorData ? (
         <div
           key={instructorData._id}
-          className="m-3 rounded-lg border shadow-xl w-fit py-5 px-5 flex flex-row items-center"
+          className="m-3 bg-white rounded-lg border shadow-xl w-fit py-5 px-5 flex flex-row items-center"
         >
           <img src={man} className="h-14 w-14 rounded-full mr-5" alt="" />
           <div>

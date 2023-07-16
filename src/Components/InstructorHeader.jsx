@@ -38,7 +38,7 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
 
   useEffect(() => {
     getinstructorData();
-  }, []);
+  }, [instructorAuth]);
 
   const getinstructorData = () => {
     fetch(`${baseurl}/api/instructor/${instructorAuth}`, {
@@ -449,7 +449,9 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
                         Instructor
                       </h6>
                       <h4 className="flex items-center my-1 text-sm font-semibold text-[#6e82a5]">
-                        {instructorData.name}{" "}
+                        {instructorData
+                          ? instructorData.name
+                          : "Not Authorized"}{" "}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

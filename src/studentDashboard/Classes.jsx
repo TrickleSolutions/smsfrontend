@@ -89,7 +89,7 @@ const Classes = ({ auth, updateAuth }) => {
     <>
       <section className=" p-3 sm:p-5 lg:py-5 lg:px-10 mt-5 border-b  border-[var(--secondary-color)]">
         <div className="flex justify-around flex-wrap my-10">
-          <div className="m-3 flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
+          <div className="m-3 bg-white flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -111,7 +111,7 @@ const Classes = ({ auth, updateAuth }) => {
               </div>
             </div>
           </div>
-          <div className="m-3 flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
+          <div className="m-3 bg-white flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -133,7 +133,7 @@ const Classes = ({ auth, updateAuth }) => {
               </div>
             </div>
           </div>
-          <div className="m-3 flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
+          <div className="m-3 bg-white flex items-center w-fit p-5 rounded-lg shadow-xl hover:-translate-y-2 transition">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -157,66 +157,50 @@ const Classes = ({ auth, updateAuth }) => {
           </div>
         </div>
 
-        <div className="sm:max-w-xl p-2">
+        <div className=" p-2">
           <h2 className="  text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start my-5 sm:my-7 md:my-10">
             Notifications / Notice
           </h2>
           {/* Notification */}
+
           {eventsData.length == 0 ? (
             <div className="text-3xl mx-auto text-center">No Notice</div>
           ) : (
-            eventsData.map((item) => {
-              return (
-                <div className="my-5">
-                  <h3 className="my-5 sm:my-1 text-[var(--secondary-color)] text-xl font-bold">
-                    {item.event}
-                  </h3>
-                  <div className="flex items-center flex-wrap">
-                    <div>
-                      <img
-                        src={`${baseurl}/eventpic/${item.img}`}
-                        className="w-28 h-20 rounded-lg"
-                        alt=""
-                      />
-                    </div>
-                    <div className="m-3">
-                      <div className="text-[var(--para-color)] max-w-sm my-1 sm:mx-2 truncate">
-                        <Tooltip
-                          placement="bottom-end"
-                          content={item.desc}
-                          className="max-w-sm mx-auto bg-[var(--theme-color)] "
-                        >
-                          {item.desc}
-                        </Tooltip>
+            <div className="flex justify-around items-center flex-wrap">
+              {eventsData.map((item) => {
+                return (
+                  <div className="my-5 bg-white px-3 py-2 rounded-md sm:max-w-xl">
+                    <h3 className="my-5 sm:my-1 text-center text-[var(--secondary-color)] text-xl font-bold">
+                      {item.event}
+                    </h3>
+                    <div className="flex items-center flex-wrap">
+                      <div>
+                        <img
+                          src={`${baseurl}/eventpic/${item.img}`}
+                          className="w-28 h-20 rounded-lg"
+                          alt=""
+                        />
                       </div>
-                      <div className="my-2 text-[var(--secondary-color)] ">
-                        {item.from} - {item.to}
+                      <div className="m-3">
+                        <div className="text-[var(--para-color)] max-w-sm my-1 sm:mx-2 truncate">
+                          <Tooltip
+                            placement="bottom-end"
+                            content={item.desc}
+                            className="max-w-sm mx-auto bg-[var(--theme-color)] "
+                          >
+                            {item.desc}
+                          </Tooltip>
+                        </div>
+                        <div className="my-2 text-[var(--secondary-color)] ">
+                          {item.from} - {item.to}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })
-          )}
-
-          {/* <div>
-            <h3 className="my-5 sm:my-1 text-[var(--secondary-color)] text-2xl font-bold">
-              Holi
-            </h3>
-            <div className="flex items-center flex-wrap">
-              <div>
-                <img src={AI} className="w-28 h-20 rounded-lg" alt="" />
-              </div>
-              <div className="text-[var(--para-color)] max-w-sm my-1 sm:mx-2">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Consequatur amet quod nemo modi? Magnam explicabo accusamus
-                repudiandae libero assumenda magni?
-              </div>
-              <div className="my-2 text-[var(--secondary-color)] ">
-                10/05/2023 - 12/05/2020
-              </div>
+                );
+              })}
             </div>
-          </div> */}
+          )}
         </div>
 
         {/* Scheduled Classes */}
@@ -237,7 +221,7 @@ const Classes = ({ auth, updateAuth }) => {
                   scheduleData.map((item) => {
                     return (
                       <>
-                        <div className="sm:max-w-xs flex flex-row items-center shadow-lg rounded-lg">
+                        <div className="sm:max-w-xs bg-white flex flex-row items-center shadow-lg rounded-lg">
                           <div className="m-4 flex flex-col items-center  w-fit ">
                             <div className="text-6xl text-[var(--theme-color)] font-bold">
                               {date(item.date)[0]}

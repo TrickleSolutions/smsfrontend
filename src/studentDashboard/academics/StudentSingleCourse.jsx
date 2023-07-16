@@ -11,7 +11,7 @@ const StudentSingleCourse = ({
   const [instName, setInstName] = useState("");
   const [catName, setCatName] = useState("");
 
-  //   console.log(course);
+  console.log("Course Details", course);
 
   useEffect(() => {
     getCourseList();
@@ -57,7 +57,7 @@ const StudentSingleCourse = ({
   return (
     <div
       onClick={coursedetails}
-      className="w-64 m-3 rounded-lg border shadow-xl  flex flex-col justify-center text-center items-center hover:-translate-y-4 transition cursor-pointer"
+      className="w-64 bg-white m-3 rounded-lg border shadow-xl  flex flex-col justify-center text-center items-center hover:-translate-y-4 transition cursor-pointer"
     >
       <img
         src={`${baseurl}/coursepic/${course.img}`}
