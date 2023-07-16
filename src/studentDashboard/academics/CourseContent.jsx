@@ -92,6 +92,148 @@ const CourseContent = () => {
         </svg>
       </div>
       <section className=" p-5 sm:p-5 lg:p-10 mt-5">
+        <div className="my-5">
+          <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start">
+            Study Plan
+          </h2>
+
+          <div className="w-full">
+            <table class="w-full">
+              <tbody className="border border-black">
+                <tr className="border border-black">
+                  <td className="px-2 border-r border-black">1</td>
+                  <td className="px-2"> M1-R5 : Introduction to Computer</td>
+                  <td>
+                    <table class="w-full">
+                      <thead>
+                        <tr className="border border-black">
+                          <th className="px-2 py-2 border border-black text-start">
+                            SNo
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Topic Name
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Notes
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Start Date
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            End Date
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Teacher
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Verified
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="px-2 py-2 border border-black">1</td>
+                          <td className="px-2 py-2 border border-black max-w-xs">
+                            Computer and Latest IT gadgets, Evolution of
+                            Computers & its applications, IT gadgets and their
+                            applications
+                          </td>
+                          <td className="px-2 py-2 border border-black text-center">
+                            Download
+                          </td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                        </tr>
+                        <tr className="border border-black">
+                          <td className="px-2 py-2 border border-black">1</td>
+                          <td className="px-2 py-2 border border-black max-w-xs">
+                            Computer and Latest IT gadgets, Evolution of
+                            Computers & its applications, IT gadgets and their
+                            applications
+                          </td>
+                          <td className="px-2 py-2 border border-black text-center">
+                            Download
+                          </td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="px-2 border-r border-black">1</td>
+                  <td className="px-2"> M1-R5 : Introduction to Computer</td>
+                  <td>
+                    <table class="w-full">
+                      <thead>
+                        <tr className="border border-black">
+                          <th className="px-2 py-2 border border-black text-start">
+                            SNo
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Topic Name
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Notes
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Start Date
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            End Date
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Teacher
+                          </th>
+                          <th className="px-2 py-2 border border-black">
+                            Verified
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="px-2 py-2 border border-black">1</td>
+                          <td className="px-2 py-2 border border-black max-w-xs">
+                            Computer and Latest IT gadgets, Evolution of
+                            Computers & its applications, IT gadgets and their
+                            applications
+                          </td>
+                          <td className="px-2 py-2 border border-black text-center">
+                            Download
+                          </td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                        </tr>
+                        <tr className="border border-black">
+                          <td className="px-2 py-2 border border-black">1</td>
+                          <td className="px-2 py-2 border border-black max-w-xs">
+                            Computer and Latest IT gadgets, Evolution of
+                            Computers & its applications, IT gadgets and their
+                            applications
+                          </td>
+                          <td className="px-2 py-2 border border-black text-center">
+                            Download
+                          </td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                          <td className="px-2 py-2 border border-black text-center"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start">
           Course Material
         </h2>
