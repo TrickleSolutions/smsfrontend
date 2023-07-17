@@ -1373,12 +1373,12 @@ const HomePage2 = () => {
           <div className="flex flex-col flex-wrap lg:flex-row justify-around mx-auto py-10">
             <Card
               data-aos="fade-right"
-              className="flex-row w-full max-w-lg m-5"
+              className=" flex flex-col md:flex-row justify-center w-full max-w-lg m-5"
             >
               <CardHeader
                 shadow={false}
                 floated={false}
-                className="w-2/5 shrink-0 m-0 rounded-r-none"
+                className="w-[80%] sm:w-[70%] md:w-2/5 shrink-0 m-0 rounded-r-none"
               >
                 <img
                   src={asInstructor}
@@ -1416,11 +1416,14 @@ const HomePage2 = () => {
                 </button>
               </CardBody>
             </Card>
-            <Card data-aos="fade-left" className="flex-row w-full max-w-lg m-5">
+            <Card
+              data-aos="fade-left"
+              className=" flex flex-col md:flex-row justify-center w-full max-w-lg m-5"
+            >
               <CardHeader
                 shadow={false}
                 floated={false}
-                className="w-2/5 shrink-0 m-0 rounded-r-none"
+                className="w-[80%] sm:w-[70%] md:w-2/5 shrink-0 m-0 rounded-r-none"
               >
                 <img
                   src={asStudent}
