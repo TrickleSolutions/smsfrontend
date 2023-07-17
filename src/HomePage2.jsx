@@ -3,7 +3,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
 import adminImage from "./assets/images/homepage/admin.jpg";
-import amit from "./assets/images/homepage/amit.jpg";
+import studentMonth from "./assets/images/homepage/student-month.jpg";
+import teacherMonth from "./assets/images/homepage/teacher-month.jpg";
 import oppor1 from "./assets/images/homepage/oppor1.png";
 import oppor2 from "./assets/images/homepage/oppor2.png";
 import oppor3 from "./assets/images/homepage/oppor3.png";
@@ -34,6 +35,7 @@ import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
   const [viewAcheiver2, setViewAcheiver2] = useState(false);
+  // const [studentOfMonth,]
   const navigate = useNavigate();
 
   AOS.init({
@@ -234,7 +236,8 @@ const HomePage2 = () => {
               <p className="lg:max-w-sm leading-7 mb-3 text-[var(--dash-text-color)]">
                 SMS Education is a well-diversified an autonomous institute in
                 the field of computer literacy, governed by distinctive and
-                highly qualified professionals.
+                highly qualified professionals. SMS Education involves in
+                preparing skilled computer professional environment.
               </p>
               {/* Button and How it works*/}
               <div className="flex items-center justify-start">
@@ -308,301 +311,6 @@ const HomePage2 = () => {
                     Satisfaction Rate
                   </p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Location */}
-        <section data-aos="fade-up" className="mt-20 mb-10 p-5">
-          <h1 className="text-5xl text-center font-semibold my-10">
-            Locations
-          </h1>
-          <div className="flex flex-col lg:flex-row flex-wrap justify-around mx-auto py-10">
-            <Card
-              data-aos="fade-right"
-              className="flex-row w-full max-w-lg m-5"
-            >
-              <CardHeader
-                shadow={false}
-                floated={false}
-                className="w-2/5 shrink-0 m-0 rounded-r-none"
-              >
-                <img
-                  src={centre1}
-                  alt="image"
-                  className="w-full h-full object-cover"
-                />
-              </CardHeader>
-              <CardBody>
-                <Typography
-                  variant="h6"
-                  color="blue"
-                  className="uppercase mb-4"
-                >
-                  Branch
-                </Typography>
-                <Typography variant="h4" color="blue-gray" className="mb-2">
-                  SMS - Gomti nagar
-                </Typography>
-                <Typography color="gray" className="font-normal mb-8">
-                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
-                  226008
-                </Typography>
-                <a href="#" className="inline-block">
-                  <Button variant="text" className="flex items-center gap-2">
-                    View on Map
-                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                  </Button>
-                </a>
-              </CardBody>
-            </Card>
-            <Card data-aos="fade-left" className="flex-row w-full max-w-lg m-5">
-              <CardHeader
-                shadow={false}
-                floated={false}
-                className="w-2/5 shrink-0 m-0 rounded-r-none"
-              >
-                <img
-                  src={centre2}
-                  alt="image"
-                  className="w-full h-full object-cover"
-                />
-              </CardHeader>
-              <CardBody>
-                <Typography
-                  variant="h6"
-                  color="blue"
-                  className="uppercase mb-4"
-                >
-                  Branch
-                </Typography>
-                <Typography variant="h4" color="blue-gray" className="mb-2">
-                  SMS - Hajratganj
-                </Typography>
-                <Typography color="gray" className="font-normal mb-8">
-                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
-                  226008
-                </Typography>
-                <a href="#" className="inline-block">
-                  <Button variant="text" className="flex items-center gap-2">
-                    View on Map
-                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                  </Button>
-                </a>
-              </CardBody>
-            </Card>
-          </div>
-        </section>
-
-        {/* Our Pride */}
-        <section data-aos="fade-up" className="my-10 p-5">
-          <h1 className="text-5xl text-center font-semibold my-10">
-            Our Pride
-          </h1>
-
-          {/* Monthly Acheivers */}
-          <div className="flex justify-around items-center flex-wrap my-10">
-            {/* Instructor Of The Month */}
-            <div
-              onMouseEnter={() => setViewAcheiver(true)}
-              onMouseLeave={() => setViewAcheiver(false)}
-              className="relative w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all"
-            >
-              <div
-                className={`${
-                  viewAcheiver ? "-top-20" : ""
-                } relative -top-10 transition-all left-4 z-20`}
-              >
-                <img src={amit} className="w-56 h-56 rounded-2xl" alt="" />
-                <div className="text-xl font-bold my-1 ">
-                  Instructor Of The Month 🏆
-                </div>
-              </div>
-              <div
-                className={`${
-                  viewAcheiver ? "block" : "hidden"
-                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
-              >
-                <h2 className="text-2xl font-extrabold text-center text-[black]">
-                  Amit Chauhan
-                </h2>
-                <p className="my-2">
-                  <span className="font-bold">Course :</span> CCC
-                </p>
-                <p>
-                  <span className="font-bold">Description :</span> Lorem ipsum,
-                  dolor sit amet consectetur adipisicing elit. Aliquid, fuga.
-                </p>
-              </div>
-            </div>
-            {/* Student Of The Month */}
-            <div
-              onMouseEnter={() => setViewAcheiver2(true)}
-              onMouseLeave={() => setViewAcheiver2(false)}
-              className="relative w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all"
-            >
-              <div
-                className={`${
-                  viewAcheiver2 ? "-top-20" : ""
-                } relative -top-10 transition-all left-4 z-20`}
-              >
-                <img src={amit} className="w-56 h-56 rounded-2xl" alt="" />
-                <div className="text-xl font-bold my-1 ">
-                  Student Of The Month 🏆
-                </div>
-              </div>
-              <div
-                className={`${
-                  viewAcheiver2 ? "block" : "hidden"
-                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
-              >
-                <h2 className="text-2xl font-extrabold text-center text-[black]">
-                  Amit Chauhan
-                </h2>
-                <p className="my-2">
-                  <span className="font-bold">Course :</span> CCC
-                </p>
-                <p>
-                  <span className="font-bold">Description :</span> Lorem ipsum,
-                  dolor sit amet consectetur adipisicing elit. Aliquid, fuga.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Success Mantra */}
-        <section data-aos="fade-up" className="bg-white">
-          <h1 className="text-5xl text-center font-semibold my-10">
-            Success Mantra
-          </h1>
-
-          <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-8 lg:px-6">
-            <div className=" text-gray-500 sm:text-lg ">
-              <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 ">
-                Abhishek Singh
-              </h2>
-              <h3 className="text-[var(--bg-dark-blue)] text-xl font-bold mb-3">
-                - CCNA
-              </h3>
-              <p className="mb-4 text-[var(--para-color)]">
-                We are strategists, designers and developers. Innovators and
-                problem solvers. Small enough to be simple and quick, but big
-                enough to deliver the scope you want at the pace you need. Small
-                enough to be simple and quick, but big enough to deliver the
-                scope you want at the pace you need.
-              </p>
-              <p className="text-[var(--para-color)]">
-                We are strategists, designers and developers. Innovators and
-                problem solvers. Small enough to be simple and quick.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 gap-4 mt-8">
-              <img
-                className="mt-4 w-[70%] mx-auto h-96 lg:mt-10 rounded-lg"
-                src={testimonial1}
-                alt="office content 2"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Opportunity For Learning */}
-        <section className="mt-28 mb-10 p-5">
-          <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
-            How About SMS
-          </h3>
-          <h1 className="text-5xl text-center font-semibold my-10">
-            Opportunity For Learning
-          </h1>
-          {/* Oppotunities Container */}
-          <div className="flex justify-around mt-20 py-5  flex-wrap md:px-10">
-            <div
-              data-aos="fade-up"
-              data-aos-delay="100"
-              className="w-fit m-5 p-3"
-            >
-              <img src={oppor1} alt="" />
-              <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
-              <p className="max-w-xs text-[var(--para-color)] pr-5">
-                Unlock your potential with our courses led by industry experts.
-                Gain invaluable knowledge and skills from seasoned professionals
-                who are at the forefront of their respective fields.
-              </p>
-              <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div
-              data-aos="fade-up"
-              data-aos-delay="400"
-              className="w-fit m-5 p-3"
-            >
-              <img src={oppor2} alt="" />
-              <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
-              <p className="max-w-xs text-[var(--para-color)] pr-5">
-                Unlock your potential with our courses led by industry experts.
-                Gain invaluable knowledge and skills from seasoned professionals
-                who are at the forefront of their respective fields.
-              </p>
-              <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div
-              data-aos="fade-up"
-              data-aos-delay="700"
-              className="w-fit m-5 p-3"
-            >
-              <img src={oppor3} alt="" />
-              <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
-              <p className="max-w-xs text-[var(--para-color)] pr-5">
-                Unlock your potential with our courses led by industry experts.
-                Gain invaluable knowledge and skills from seasoned professionals
-                who are at the forefront of their respective fields.
-              </p>
-              <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  />
-                </svg>
               </div>
             </div>
           </div>
@@ -748,6 +456,494 @@ const HomePage2 = () => {
                 <div data-aos="zoom-out">
                   <img src={member5} className="h-64 w-56 m-2" alt="" />
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Location */}
+        <section data-aos="fade-up" className="mt-20 mb-10 p-5">
+          <h1 className="text-5xl text-center font-semibold my-10">
+            Locations
+          </h1>
+          <div className="flex flex-col lg:flex-row flex-wrap justify-around mx-auto py-10">
+            <Card
+              data-aos="fade-right"
+              className="flex-row w-full max-w-lg m-5"
+            >
+              <CardHeader
+                shadow={false}
+                floated={false}
+                className="w-2/5 shrink-0 m-0 rounded-r-none"
+              >
+                <img
+                  src={centre1}
+                  alt="image"
+                  className="w-full h-full object-cover"
+                />
+              </CardHeader>
+              <CardBody>
+                <Typography
+                  variant="h6"
+                  color="blue"
+                  className="uppercase mb-4"
+                >
+                  Branch
+                </Typography>
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  SMS - Sarojini nagar
+                </Typography>
+                <Typography color="gray" className="font-normal mb-8">
+                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
+                  226008
+                </Typography>
+                <a
+                  href="https://goo.gl/maps/NKysRroC4qWoepn86"
+                  target="_blank"
+                  className="inline-block"
+                >
+                  <Button variant="text" className="flex items-center gap-2">
+                    View on Map
+                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                  </Button>
+                </a>
+              </CardBody>
+            </Card>
+            <Card data-aos="fade-left" className="flex-row w-full max-w-lg m-5">
+              <CardHeader
+                shadow={false}
+                floated={false}
+                className="w-2/5 shrink-0 m-0 rounded-r-none"
+              >
+                <img
+                  src={centre2}
+                  alt="image"
+                  className="w-full h-full object-cover"
+                />
+              </CardHeader>
+              <CardBody>
+                <Typography
+                  variant="h6"
+                  color="blue"
+                  className="uppercase mb-4"
+                >
+                  Branch
+                </Typography>
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                  SMS - Hajratganj
+                </Typography>
+                <Typography color="gray" className="font-normal mb-8">
+                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
+                  226008
+                </Typography>
+                <a href="#" className="inline-block">
+                  <Button variant="text" className="flex items-center gap-2">
+                    View on Map
+                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                  </Button>
+                </a>
+              </CardBody>
+            </Card>
+          </div>
+        </section>
+
+        {/* SPECIAL FEATURES */}
+        <section data-aos="fade-up" className="mt-20 mb-10 p-5">
+          <h1 className="text-5xl text-center font-semibold my-10">
+            SPECIAL FEATURES
+          </h1>
+          <div className=" my-20">
+            <ul class="w-fit mx-5 sm:mx-10 md:mx-20 space-y-4 text-left text-[var(--para-color)] flex flex-col md:flex-row md:justify-start md:flex-wrap ">
+              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+                <svg
+                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>Highly qualified and dedicated faculty.</span>
+              </li>
+              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+                <svg
+                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>Most modern computer lab.</span>
+              </li>
+              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+                <svg
+                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>Latest hardware and software.</span>
+              </li>
+              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+                <svg
+                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>Courses are designed to impart job-oriented skills.</span>
+              </li>
+              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+                <svg
+                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>
+                  Specialized short-term courses for the executives, businessman
+                  and educated housewives.
+                </span>
+              </li>
+              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+                <svg
+                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>Internet access</span>
+              </li>
+              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+                <svg
+                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>
+                  Multimedia supported tutorial package based on "DO YOURSELF"
+                </span>
+              </li>
+              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+                <svg
+                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>Special practical timing for meritorious students.</span>
+              </li>
+              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+                <svg
+                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>
+                  Scholarship and fee concession for those having exceptional
+                  academic record.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Our Pride */}
+        <section data-aos="fade-up" className="my-10 p-5">
+          <h1 className="text-5xl text-center font-semibold my-10">
+            Our Pride
+          </h1>
+
+          {/* Monthly Acheivers */}
+          <div className="flex flex-col md:flex-row justify-center md:justify-around items-center md:items-start  my-10 py-20">
+            {/* Instructor Of The Month */}
+            <div
+              onMouseEnter={() => setViewAcheiver(true)}
+              onMouseLeave={() => setViewAcheiver(false)}
+              className="relative w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all  duration-500"
+            >
+              <div
+                className={`${
+                  viewAcheiver ? "-top-20" : ""
+                } relative -top-10 transition-all left-4 z-20`}
+              >
+                <img
+                  src={teacherMonth}
+                  className="w-56 h-56 rounded-2xl"
+                  alt=""
+                />
+                <div className="text-xl font-bold my-1 ">
+                  Instructor Of The Month 🏆
+                </div>
+              </div>
+              <div
+                className={`${
+                  viewAcheiver ? "block" : "hidden"
+                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
+              >
+                <h2 className="text-2xl font-extrabold text-center text-[black]">
+                  Amit Chauhan
+                </h2>
+                <p className="my-2">
+                  <span className="font-bold">Course :</span> CCC
+                </p>
+                <p>
+                  <span className="font-bold">Description :</span> Lorem ipsum,
+                  dolor sit amet consectetur adipisicing elit. Aliquid, fuga.
+                </p>
+              </div>
+            </div>
+            {/* Student Of The Month */}
+            <div
+              onMouseEnter={() => setViewAcheiver2(true)}
+              onMouseLeave={() => setViewAcheiver2(false)}
+              className="relative top-40 w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all duration-500"
+            >
+              <div
+                className={`${
+                  viewAcheiver2 ? "-top-20" : ""
+                } relative -top-10 transition-all left-4 z-20`}
+              >
+                <img
+                  src={studentMonth}
+                  className="w-56 h-56 rounded-2xl"
+                  alt=""
+                />
+                <div className="text-xl font-bold my-1 ">
+                  Student Of The Month 🏆
+                </div>
+              </div>
+              <div
+                className={`${
+                  viewAcheiver2 ? "block" : "hidden"
+                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
+              >
+                <h2 className="text-2xl font-extrabold text-center text-[black]">
+                  Amit Chauhan
+                </h2>
+                <p className="my-2">
+                  <span className="font-bold">Course :</span> CCC
+                </p>
+                <p>
+                  <span className="font-bold">Description :</span> Lorem ipsum,
+                  dolor sit amet consectetur adipisicing elit. Aliquid, fuga.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Success Mantra */}
+        <section data-aos="fade-up" className="bg-white mt-32 md:mt-0">
+          <h1 className="text-5xl text-center font-semibold my-10">
+            Success Mantra
+          </h1>
+
+          <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-8 lg:px-6">
+            <div className=" text-gray-500 sm:text-lg ">
+              <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 ">
+                Abhishek Singh
+              </h2>
+              <h3 className="text-[var(--bg-dark-blue)] text-xl font-bold mb-3">
+                - CCNA
+              </h3>
+              <p className="mb-4 text-[var(--para-color)]">
+                We are strategists, designers and developers. Innovators and
+                problem solvers. Small enough to be simple and quick, but big
+                enough to deliver the scope you want at the pace you need. Small
+                enough to be simple and quick, but big enough to deliver the
+                scope you want at the pace you need.
+              </p>
+              <p className="text-[var(--para-color)]">
+                We are strategists, designers and developers. Innovators and
+                problem solvers. Small enough to be simple and quick.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-4 mt-8">
+              <img
+                className="mt-4 w-[70%] mx-auto h-96 lg:mt-10 rounded-lg"
+                src={testimonial1}
+                alt="office content 2"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Opportunity For Learning */}
+        <section className="mt-28 mb-10 p-5">
+          <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
+            How About SMS
+          </h3>
+          <h1 className="text-5xl text-center font-semibold my-10">
+            Opportunity For Learning
+          </h1>
+          {/* Oppotunities Container */}
+          <div className="flex justify-around mt-20 py-5  flex-wrap md:px-10">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="100"
+              className="w-fit m-5 p-3"
+            >
+              <img src={oppor1} alt="" />
+              <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
+              <p className="max-w-xs text-[var(--para-color)] pr-5">
+                Unlock your potential with our courses led by industry experts.
+                Gain invaluable knowledge and skills from seasoned professionals
+                who are at the forefront of their respective fields.
+              </p>
+              <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              data-aos="fade-up"
+              data-aos-delay="400"
+              className="w-fit m-5 p-3"
+            >
+              <img src={oppor2} alt="" />
+              <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
+              <p className="max-w-xs text-[var(--para-color)] pr-5">
+                Unlock your potential with our courses led by industry experts.
+                Gain invaluable knowledge and skills from seasoned professionals
+                who are at the forefront of their respective fields.
+              </p>
+              <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              data-aos="fade-up"
+              data-aos-delay="700"
+              className="w-fit m-5 p-3"
+            >
+              <img src={oppor3} alt="" />
+              <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
+              <p className="max-w-xs text-[var(--para-color)] pr-5">
+                Unlock your potential with our courses led by industry experts.
+                Gain invaluable knowledge and skills from seasoned professionals
+                who are at the forefront of their respective fields.
+              </p>
+              <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                  />
+                </svg>
               </div>
             </div>
           </div>

@@ -65,7 +65,7 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
             </Button>
           </div>
           <div className="flex flex-col sm:flex-row items-center sm:ml-20">
-            <Link to="https://coaching-institutev.netlify.app/">
+            <Link to="/">
               <img src={logo} className="mx-3 my-2 h-20 w-20" alt="" />
             </Link>
           </div>

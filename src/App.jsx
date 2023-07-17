@@ -73,6 +73,7 @@ import Roles from "./Dashboard/roles-permissions/Roles";
 import ChatSupport from "./ChatSupport";
 import HomePage2 from "./HomePage2";
 import SmartBar from "./Components/SmartBar";
+import InstituteHeader from "./Components/InstituteHeader";
 
 const App = () => {
   const location = useLocation();
@@ -112,6 +113,8 @@ const App = () => {
   return (
     <>
       <SmartBar />
+
+      {isAdmin || isStudent || isInstructor ? "" : <InstituteHeader />}
       {isAdmin || isStudent || isInstructor ? "" : <Navigation />}
 
       <Routes>

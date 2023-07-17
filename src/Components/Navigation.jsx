@@ -134,8 +134,8 @@ const Navigation = () => {
           {/* Logo */}
           <div
             className={`${
-              scrolled ? "shadow-xl" : ""
-            } relative top-5 flex items-center px-1 py-5 rounded-lg bg-white`}
+              scrolled ? "shadow-xl visible" : "invisible"
+            } relative top-5 flex items-center px-1 py-5 rounded-lg bg-white transition-all`}
           >
             <img src={logo2} alt="" className="mx-3 h-16 w-16 rounded-full" />
           </div>

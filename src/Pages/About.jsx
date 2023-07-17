@@ -40,6 +40,23 @@ const About = () => {
       </section>
       {/* About Us */}
       <section className="my-20 p-5">
+        {/* About Us  */}
+        <div className="mb-20">
+          {/* <h1 className="text-4xl  font-semibold mb-5">About Us</h1> */}
+          <p className="text-lg">
+            SMS Education is a well-diversified an autonomous institute in the
+            field of computer literacy, governed by distinctive and highly
+            qualified professionals. SMS Education involves in preparing skilled
+            computer professional environment. The courses are structured with
+            special emphasis on personal development and compatibility in
+            information technology with excellent infrastructure, core facility
+            and rich library. the schemes & planning formation are reserved with
+            the erudite professional & promoters of the institute - it is
+            prompted to spread the rich guidance in order to satisfy country's
+            fast growing new technology requirements.
+          </p>
+        </div>
+
         {/* About Container */}
         <div className="flex flex-col lg:flex-row justify-around xl:max-w-[80%] mx-auto">
           {/* left */}
@@ -74,7 +91,8 @@ const About = () => {
             <p className="lg:max-w-sm leading-7 mb-3 text-[var(--dash-text-color)]">
               SMS Education is a well-diversified an autonomous institute in the
               field of computer literacy, governed by distinctive and highly
-              qualified professionals.
+              qualified professionals. SMS Education involves in preparing
+              skilled computer professional environment.
             </p>
             {/* Button and How it works*/}
             <div className="flex items-center justify-start">
