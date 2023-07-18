@@ -20,10 +20,11 @@ const InstructorList = () => {
   const [pageCount, setPageCount] = useState(0);
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
+  const [filterBy, setFilterBy] = useState("all");
 
   useEffect(() => {
     getInstructorList();
-  }, [page]);
+  }, [page, filterBy]);
 
   const getInstructorList = () => {
     fetch(baseurl + "/api/instructor", {
@@ -36,7 +37,16 @@ const InstructorList = () => {
         return res.json();
       })
       .then((result) => {
-        setProduct(result);
+        // setProduct(result);
+        if (filterBy === "all") {
+          setProduct(result);
+        } else {
+          let filteredData = result.filter(
+            (instructor) => instructor.status == filterBy
+          );
+          setProduct(filteredData);
+        }
+
         setLoader(false);
       })
       .catch((err) => {
@@ -93,6 +103,27 @@ const InstructorList = () => {
           </h2>
           {/* Students */}
           <div className="flex items-center flex-col sm:flex-row">
+            <div className="flex items-center">
+              <div className="text-[var(--secondary-color)]">
+                Filter By Status
+              </div>{" "}
+              <div>
+                <select
+                  name="filter"
+                  id="filter"
+                  value={filterBy}
+                  onChange={(e) => {
+                    setFilterBy(e.target.value);
+                    setLoader(true);
+                  }}
+                  className="w-32 p-2 mx-2"
+                >
+                  <option value="all">All</option>
+                  <option value="active">Active</option>
+                  <option value="leave">Leave</option>
+                </select>
+              </div>
+            </div>
             <div className=" w-48 mx-2">
               <div className="relative flex w-full flex-wrap items-stretch">
                 <input

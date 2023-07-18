@@ -64,6 +64,7 @@ const CourseTable = ({ item, getCourseList }) => {
         <td className="px-6 py-4 hidden md:table-cell max-w-xs">{item.desc}</td>
         <td className="px-6 py-4 hidden md:table-cell">{item.level}</td>
         <td className="px-6 py-4 hidden sm:table-cell">{item.lessons}</td>
+        <td className="px-6 py-4 hidden sm:table-cell">{item.duration} Days</td>
         {/* <td className="px-3 py-4">
                           <span className="text-orange-600">Pending</span>
                         </td> */}

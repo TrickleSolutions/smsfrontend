@@ -17,7 +17,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
   const [name, setName] = useState("");
   const [regno, setRegno] = useState("");
   const [amount, setAmount] = useState("");
-  const [mode, setMode] = useState("offline");
+  const [mode, setMode] = useState("cash");
   const [transId, setTransId] = useState("NA");
   const [paid, setPaid] = useState("");
   const [date, setDate] = useState("");
@@ -176,43 +176,55 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
                 </label>
                 <div className="flex flex-wrap gap-2">
                   <Radio
-                    id="online"
+                    id="upi"
                     name="type"
-                    label="Online"
+                    label="UPI"
                     onChange={() => {
-                      setMode("Online");
+                      setMode("upi");
                     }}
                   />
                   <Radio
-                    id="offline"
+                    id="cash"
                     name="type"
-                    label="offline"
+                    label="Cash"
                     onChange={() => {
-                      setMode("offline");
+                      setMode("cash");
                     }}
-                    defaultChecked
+                    defaultChecked={mode === "cash"}
+                  />
+                  <Radio
+                    id="bTransfer"
+                    name="type"
+                    label="Bank Transfer"
+                    onChange={() => {
+                      setMode("bTransfer");
+                    }}
                   />
                 </div>
               </div>
               {/* Transaction ID */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="transId"
-                >
-                  Transaction ID
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="transId"
-                  type="text"
-                  placeholder="7645"
-                  value={transId}
-                  onChange={(e) => {
-                    setTransId(e.target.value);
-                  }}
-                />
-              </div>
+              {mode === "upi" || mode === "bTransfer" ? (
+                <div className="w-full px-3 mb-3">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="transId"
+                  >
+                    Transaction ID
+                  </label>
+                  <input
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="transId"
+                    type="text"
+                    placeholder="7645"
+                    value={transId}
+                    onChange={(e) => {
+                      setTransId(e.target.value);
+                    }}
+                  />
+                </div>
+              ) : (
+                ""
+              )}
 
               {/* Paid */}
               <div className="w-full px-3 mb-3">

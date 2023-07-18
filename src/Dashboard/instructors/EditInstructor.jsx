@@ -16,6 +16,7 @@ const EditInstructor = () => {
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState("");
+  const [status, setStatus] = useState("");
   const location = useLocation();
   const instData = location.state;
   console.log(instData);
@@ -34,6 +35,7 @@ const EditInstructor = () => {
     setContact(instData.contact);
     setPassword(instData.password);
     setProfilePic(instData.profilePic);
+    setStatus(instData.status);
   }, [instData]);
 
   const handleSubmit = (e) => {
@@ -63,6 +65,7 @@ const EditInstructor = () => {
     formData.append("contact", contact);
     formData.append("password", password);
     formData.append("profilePic", profilePic);
+    formData.append("status", status);
 
     // Post Api For Posting Data
     fetch(baseurl + "/api/instructor/" + instData._id, {
@@ -274,6 +277,37 @@ const EditInstructor = () => {
                     setProfilePic(e.target.files[0]);
                   }}
                 />
+                {/* Status */}
+                <div className="w-full px-3 mb-3">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="status"
+                  >
+                    Status
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    <Radio
+                      id="Active"
+                      name="type"
+                      label="Active"
+                      value="active"
+                      onChange={(e) => {
+                        setStatus(e.target.value);
+                      }}
+                      defaultChecked={instData.status === "active"}
+                    />
+                    <Radio
+                      id="leave"
+                      name="type"
+                      label="Leave"
+                      value="leave"
+                      onChange={(e) => {
+                        setStatus(e.target.value);
+                      }}
+                      defaultChecked={instData.status === "leave"}
+                    />
+                  </div>
+                </div>
 
                 <input
                   type="submit"

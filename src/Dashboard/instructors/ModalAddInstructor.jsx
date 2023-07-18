@@ -20,6 +20,7 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
   const [qualification, setQualification] = useState("");
   const [degree, setDegree] = useState("");
   const [exp, setExp] = useState("");
+  const [status, setStatus] = useState("active");
 
   const data = {
     name,
@@ -31,6 +32,7 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
     qualification,
     degree,
     exp,
+    status,
   };
 
   console.log(data);
@@ -262,6 +264,36 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                     setExp(e.target.value);
                   }}
                 />
+              </div>
+              {/* Status */}
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="status"
+                >
+                  Status
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  <Radio
+                    id="Active"
+                    name="type"
+                    label="Active"
+                    value="active"
+                    onChange={(e) => {
+                      setStatus(e.target.value);
+                    }}
+                    defaultChecked
+                  />
+                  <Radio
+                    id="leave"
+                    name="type"
+                    label="Leave"
+                    value="leave"
+                    onChange={(e) => {
+                      setStatus(e.target.value);
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </form>

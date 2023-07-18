@@ -19,12 +19,13 @@ const CourseList = () => {
   const [pageCount, setPageCount] = useState(0);
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
+  const [filterBy, setFilterBy] = useState("all");
 
   useEffect(() => {
-    getCourseList();
-  }, [page]);
+    getCourseList(filterBy);
+  }, [page, filterBy]);
 
-  const getCourseList = () => {
+  const getCourseList = (filterBy) => {
     fetch(baseurl + "/api/course ", {
       method: "GET",
       headers: {
@@ -35,9 +36,16 @@ const CourseList = () => {
         return res.json();
       })
       .then((result) => {
-        setProduct(result);
+        // setProduct(result);
+        if (filterBy === "all") {
+          setProduct(result);
+        } else {
+          let filteredData = result.filter(
+            (course) => course.status == filterBy
+          );
+          setProduct(filteredData);
+        }
         setLoader(false);
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -82,6 +90,27 @@ const CourseList = () => {
           </h2>
           {/* Course */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center">
+            <div className="flex items-center">
+              <div className="text-[var(--secondary-color)]">
+                Filter By Status
+              </div>{" "}
+              <div>
+                <select
+                  name="filter"
+                  id="filter"
+                  value={filterBy}
+                  onChange={(e) => {
+                    setFilterBy(e.target.value);
+                    setLoader(true);
+                  }}
+                  className="w-32 p-2 mx-2"
+                >
+                  <option value="all">All</option>
+                  <option value="active">Active</option>
+                  <option value="paused">Paused</option>
+                </select>
+              </div>
+            </div>
             <div className=" w-48 mx-2">
               <div className="relative flex w-full flex-wrap items-stretch">
                 <input
@@ -151,6 +180,9 @@ const CourseList = () => {
                     </th>
                     <th scope="col" className="px-6 py-3 hidden sm:table-cell">
                       Lessons
+                    </th>
+                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
+                      Duration
                     </th>
                     {/* <th scope="col" className="px-3 py-3">
               Status

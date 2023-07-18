@@ -26,6 +26,8 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
   const [price, setPrice] = useState("");
   const [duration, setDuration] = useState("");
   const [rating, setRating] = useState(2);
+  const [status, setStatus] = useState("active");
+  console.log(status);
 
   useEffect(() => {
     getCategoryList();
@@ -83,6 +85,7 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
     formData.append("rating", rating);
     formData.append("category", category);
     formData.append("instructor", instructor);
+    formData.append("status", status);
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
@@ -318,10 +321,10 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                 />
               </div>
               {/* Status */}
-              {/* <div className="w-full px-3 mb-3">
+              <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="lessons"
+                  htmlFor="status"
                 >
                   Status
                 </label>
@@ -330,31 +333,23 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                     id="Active"
                     name="type"
                     label="Active"
-                    value="Active"
+                    value="active"
                     onChange={(e) => {
                       setStatus(e.target.value);
                     }}
+                    defaultChecked
                   />
                   <Radio
-                    id="Pending"
+                    id="Paused"
                     name="type"
-                    label="Pending"
-                    value="Pending"
-                    onChange={(e) => {
-                      setStatus(e.target.value);
-                    }}
-                  />
-                  <Radio
-                    id="Rejected"
-                    name="type"
-                    label="Rejected"
-                    value="Rejected"
+                    label="Paused"
+                    value="paused"
                     onChange={(e) => {
                       setStatus(e.target.value);
                     }}
                   />
                 </div>
-              </div> */}
+              </div>
               {/* Course Price */}
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <label

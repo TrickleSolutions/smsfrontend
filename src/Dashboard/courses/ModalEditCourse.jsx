@@ -26,6 +26,7 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
   const [instructorData, setInstructorData] = useState([]);
   const [category, setCategory] = useState("");
   const [instructor, setInstructor] = useState("");
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     getCategoryList();
@@ -81,6 +82,7 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
     setRating(item.rating);
     setCategory(item.category);
     setInstructor(item.instructor);
+    setStatus(item.status);
   }, [item]);
 
   const handleSubmit = (e) => {
@@ -96,6 +98,7 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
     formData.append("rating", rating);
     formData.append("category", category);
     formData.append("instructor", instructor);
+    formData.append("status", status);
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
@@ -334,10 +337,10 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
                 />
               </div>
               {/* Status */}
-              {/* <div className="w-full px-3 mb-3">
+              <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="lessons"
+                  htmlFor="status"
                 >
                   Status
                 </label>
@@ -346,31 +349,24 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
                     id="Active"
                     name="type"
                     label="Active"
-                    value="Active"
+                    value="active"
                     onChange={(e) => {
                       setStatus(e.target.value);
                     }}
+                    defaultChecked={status === "active"}
                   />
                   <Radio
-                    id="Pending"
+                    id="Paused"
                     name="type"
-                    label="Pending"
-                    value="Pending"
+                    label="Paused"
+                    value="paused"
                     onChange={(e) => {
                       setStatus(e.target.value);
                     }}
-                  />
-                  <Radio
-                    id="Rejected"
-                    name="type"
-                    label="Rejected"
-                    value="Rejected"
-                    onChange={(e) => {
-                      setStatus(e.target.value);
-                    }}
+                    defaultChecked={status === "paused"}
                   />
                 </div>
-              </div> */}
+              </div>
               {/* Course Price */}
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <label

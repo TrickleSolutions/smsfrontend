@@ -12,6 +12,7 @@ const AddInstructor = () => {
   const [qualification, setQualification] = useState("");
   const [degree, setDegree] = useState("");
   const [exp, setExp] = useState("");
+  const [status, setStatus] = useState("active");
 
   const data = {
     name,
@@ -245,6 +246,36 @@ const AddInstructor = () => {
                     setExp(e.target.value);
                   }}
                 />
+              </div>
+              {/* Status */}
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="status"
+                >
+                  Status
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  <Radio
+                    id="Active"
+                    name="type"
+                    label="Active"
+                    value="active"
+                    onChange={(e) => {
+                      setStatus(e.target.value);
+                    }}
+                    defaultChecked
+                  />
+                  <Radio
+                    id="Paused"
+                    name="type"
+                    label="Paused"
+                    value="paused"
+                    onChange={(e) => {
+                      setStatus(e.target.value);
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </form>
