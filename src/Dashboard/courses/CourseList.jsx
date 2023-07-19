@@ -193,6 +193,9 @@ const CourseList = () => {
                     <th scope="col" className="px-6 py-3 hidden md:table-cell">
                       Rating
                     </th>
+                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
+                      Status
+                    </th>
                     {/* <th scope="col" className="px-6 py-3">
               Deadline
             </th> */}

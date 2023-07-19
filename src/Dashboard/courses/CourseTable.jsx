@@ -70,6 +70,17 @@ const CourseTable = ({ item, getCourseList }) => {
                         </td> */}
         <td className="px-3 py-4 hidden sm:table-cell">{item.price}</td>
         <td className="px-6 py-4 hidden md:table-cell">{item.rating}</td>
+        <td
+          className={`${
+            item.status === "active"
+              ? "text-teal-500"
+              : item.status === "paused"
+              ? "text-amber-500"
+              : ""
+          } px-6 py-4 hidden md:table-cell capitalize`}
+        >
+          {item.status}
+        </td>
         <td className="px-1 py-4">
           <div>
             <Menu>

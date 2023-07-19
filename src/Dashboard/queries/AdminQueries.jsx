@@ -7,11 +7,12 @@ import AdminQueriesTable from "./AdminQueriesTable";
 const AdminQueries = () => {
   const [queryData, setQueryData] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [filterBy, setFilterBy] = useState("all");
   const navigate = useNavigate();
 
   useEffect(() => {
     getQueriesList();
-  }, []);
+  }, [filterBy]);
 
   const getQueriesList = () => {
     fetch(baseurl + "/api/queries ", {
@@ -24,7 +25,13 @@ const AdminQueries = () => {
         return res.json();
       })
       .then((result) => {
-        setQueryData(result);
+        // setQueryData(result);
+        if (filterBy === "all") {
+          setQueryData(result);
+        } else {
+          let filteredData = result.filter((query) => query.status == filterBy);
+          setQueryData(filteredData);
+        }
         setLoader(false);
       })
       .catch((err) => {
@@ -36,10 +43,34 @@ const AdminQueries = () => {
     <>
       <section className=" p-5 sm:p-5 lg:p-8 mt-5">
         {/* Heading */}
-
-        <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
-          Student Queries
-        </h2>
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
+            Student Queries
+          </h2>
+          <div className="flex items-center flex-col sm:flex-row">
+            <div className="flex items-center">
+              <div className="text-[var(--secondary-color)]">
+                Filter By Status
+              </div>{" "}
+              <div>
+                <select
+                  name="filter"
+                  id="filter"
+                  value={filterBy}
+                  onChange={(e) => {
+                    setFilterBy(e.target.value);
+                    setLoader(true);
+                  }}
+                  className="w-32 p-2 mx-2"
+                >
+                  <option value="all">All</option>
+                  <option value="Solved">Resolved</option>
+                  <option value="pending">Pending</option>\
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="my-5">
           {loader ? (

@@ -107,13 +107,18 @@ const UserTable = ({ item, getUserList }) => {
           <Button
             size="sm"
             onClick={() => {
+              initPermissions();
               handleOpen3();
-              // initPermissions();
             }}
           >
             Update
           </Button>
-          <ModalPermissions open={open3} handleOpen={handleOpen3} item={item} />
+          <ModalPermissions
+            open={open3}
+            initPermissions={initPermissions}
+            handleOpen={handleOpen3}
+            item={item}
+          />
         </td>
         <td className="px-1 py-4">
           <div>

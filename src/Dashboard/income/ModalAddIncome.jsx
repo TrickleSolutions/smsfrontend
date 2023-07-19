@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 
 const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
   const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState("2023-08-06");
   const [amount, setAmount] = useState("");
   const [desc, setDesc] = useState("");
 

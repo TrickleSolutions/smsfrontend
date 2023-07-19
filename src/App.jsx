@@ -17,7 +17,6 @@ import Students from "./Dashboard/students/Students";
 import AdminEnrollment from "./Dashboard/enrollment/AdminEnrollment";
 import AdminSettings from "./Dashboard/AdminSettings";
 import AddStudentForm from "./Dashboard/students/AddStudentForm";
-import AddInstructor from "./Dashboard/instructors/AddInstructor";
 import InstructorList from "./Dashboard/instructors/InstructorList";
 import EditInstructor from "./Dashboard/instructors/EditInstructor";
 import CoursesList from "./Dashboard/courses/CourseList";
@@ -360,16 +359,6 @@ const App = () => {
               exact={true}
               element={
                 <AdminProtected adminAuth={adminAuth} Component={EditStudent} />
-              }
-            />
-            <Route
-              path="/admin/addInstructor"
-              exact={true}
-              element={
-                <AdminProtected
-                  adminAuth={adminAuth}
-                  Component={AddInstructor}
-                />
               }
             />
             <Route

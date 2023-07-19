@@ -200,6 +200,9 @@ const InstructorList = () => {
                     <th scope="col" className="px-6 py-3 hidden lg:table-cell">
                       Degree
                     </th>
+                    <th scope="col" className="px-6 py-3 hidden lg:table-cell">
+                      Status
+                    </th>
                     <th class="px-1 py-4">
                       <div>Action</div>
                     </th>
@@ -248,6 +251,17 @@ const InstructorList = () => {
                           </td>
                           <td class="px-6 py-4 hidden lg:table-cell">
                             {item.degree}
+                          </td>
+                          <td
+                            className={`${
+                              item.status === "active"
+                                ? "text-teal-500"
+                                : item.status === "leave"
+                                ? "text-amber-500"
+                                : ""
+                            } px-6 py-4 hidden md:table-cell capitalize`}
+                          >
+                            {item.status}
                           </td>
                           <td class="px-1 py-4">
                             <div>

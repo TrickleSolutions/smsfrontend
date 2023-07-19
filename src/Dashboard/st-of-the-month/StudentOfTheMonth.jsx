@@ -23,7 +23,7 @@ const StudentOfTheMonth = () => {
   }, []);
 
   const StudentOfTheMonthList = () => {
-    fetch(baseurl + "/api/class ", {
+    fetch(baseurl + "/api/studentofmonth ", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

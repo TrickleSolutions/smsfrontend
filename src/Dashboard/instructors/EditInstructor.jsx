@@ -155,6 +155,7 @@ const EditInstructor = () => {
                     onChange={(e) => {
                       setGender("male");
                     }}
+                    defaultChecked
                   />
                   <Radio
                     id="female"
@@ -164,6 +165,7 @@ const EditInstructor = () => {
                     onChange={(e) => {
                       setGender("female");
                     }}
+                    // defaultChecked={instData.gender === "female"}
                   />
                 </div>
               </div>

@@ -12,7 +12,7 @@ import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import { Select, Option } from "@material-tailwind/react";
 
-const ModalPermissions = ({ open, handleOpen, item }) => {
+const ModalPermissions = ({ open, handleOpen, item, initPermissions }) => {
   const [enquiries, setEnquiries] = useState("");
   const [courseList, setCourseList] = useState("");
   const [categories, setCategories] = useState("");
@@ -49,11 +49,11 @@ const ModalPermissions = ({ open, handleOpen, item }) => {
       setRolesPermission(userPermissions.rolesPermission);
       setId(userPermissions.id);
     }
-  }, [userPermissions]);
+  }, [item]);
 
   useEffect(() => {
     getUserPermissionsList();
-  }, [item]);
+  }, [item, initPermissions]);
 
   const getUserPermissionsList = () => {
     fetch(baseurl + "/api/permission/" + item._id, {
