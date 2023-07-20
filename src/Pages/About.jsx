@@ -5,11 +5,12 @@ import abtIco from "../assets/images/homepage/abt-ico.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import director from "../assets/images/homepage/director-1.jpg";
-import member1 from "../assets/images/homepage/member1.png";
-import member2 from "../assets/images/homepage/member2.png";
-import member3 from "../assets/images/homepage/member3.png";
-import member4 from "../assets/images/homepage/member4.png";
-import member5 from "../assets/images/homepage/member5.png";
+import DivyanshiSingh from "../assets/images/homepage/staff/Divyanshi-singh-(Teacher).jpeg";
+import PratishthaDwivedi from "../assets/images/homepage/staff/Pratishtha-Dwivedi (Evening-manager).jpeg";
+import PrabhatKumarSharma from "../assets/images/homepage/staff/Prabhat-kumar Sharma-(Teacher).png";
+import MukeshKumar from "../assets/images/homepage/staff/Mukesh-kumar-(Teacher).jpeg";
+import KomalVerma from "../assets/images/homepage/staff/Komal-verma-(Morning-manager).jpeg";
+import AnujSrivastava from "../assets/images/homepage/staff/Anuj-Srivastava-(Teacher).JPG";
 
 const About = () => {
   // toast("Wow so easy!");
@@ -20,6 +21,39 @@ const About = () => {
     // easing: "ease-in",
     mirror: false,
   });
+
+  const staff = [
+    {
+      img: DivyanshiSingh,
+      name: "Divyanshi Singh",
+      position: "Teacher",
+    },
+    {
+      img: PratishthaDwivedi,
+      name: "Pratishtha Dwivedi",
+      position: "Evening Manager",
+    },
+    {
+      img: PrabhatKumarSharma,
+      name: "Prabhat Kumar Sharma",
+      position: "Teacher",
+    },
+    {
+      img: MukeshKumar,
+      name: "Mukesh Kumar",
+      position: "Teacher",
+    },
+    {
+      img: KomalVerma,
+      name: "Komal Verma",
+      position: "Morning Teacher",
+    },
+    {
+      img: AnujSrivastava,
+      name: "Anuj Srivastava",
+      position: "Teacher",
+    },
+  ];
   return (
     <main>
       {/* About Heading */}
@@ -202,145 +236,71 @@ const About = () => {
       </section>
 
       {/* Meet Our Team */}
-      <section className="mt-20 mb-10 p-5 bg-[var(--bg-dark-blue)] text-white">
-        <div className="flex flex-col lg:flex-row justify-around items-center sm:px-5 lg:px-10 ">
-          {/* left */}
-          <div data-aos="fade-up" className="py-10">
-            <h3 className="text-xl font-bold">Meet Our Team</h3>
-            <h1 className="text-5xl font-bold my-5  md:max-w-xl lg:max-w-xl xl:max-w-2xl">
-              We Have Thousands Of Experience Team Members
-            </h1>
-            <p className="text-[var(--para-color)] md:max-w-xl lg:max-w-xl xl:max-w-2xl">
-              Allow us to introduce our remarkable team, a group of passionate
-              individuals who are dedicated to delivering exceptional services.
-            </p>
-            {/* List */}
-            <div className="my-10">
-              <div className="flex items-center font-bold mx-3 my-5">
-                <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={4}
-                    stroke="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
-                </div>
-                Experience Team Members
-              </div>
-              <div className="flex items-center font-bold mx-3 my-5">
-                <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={4}
-                    stroke="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
-                </div>
-                Lot’s of Video Tutorials
-              </div>
-              <div className="flex items-center font-bold mx-3 my-5">
-                <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={4}
-                    stroke="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
-                </div>
-                Events & Programs
-              </div>
-              <div className="flex items-center font-bold mx-3 my-5">
-                <div className="w-7 h-7 mr-5 flex justify-center items-center bg-[var(--golden)] rounded-full">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={4}
-                    stroke="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
-                </div>
-                Free & Premium Courses
-              </div>
+      <section>
+        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+          <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
+            <div>
+              <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
+                Meet Our Team
+              </p>
             </div>
-            <button className="mx-3 text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-md px-5 py-4 rounded-md transition-colors duration-500">
-              <div className="flex items-center justify-center uppercase">
-                Learn More
+            <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+              <span className="relative inline-block">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
-                  className="w-5 h-5 ml-2"
+                  viewBox="0 0 52 24"
+                  fill="currentColor"
+                  className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-blue-gray-100 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                  <defs>
+                    <pattern
+                      id="1d4040f3-9f3e-4ac7-b117-7d4009658ced"
+                      x="0"
+                      y="0"
+                      width=".135"
+                      height=".30"
+                    >
+                      <circle cx="1" cy="1" r=".7" />
+                    </pattern>
+                  </defs>
+                  <rect
+                    fill="url(#1d4040f3-9f3e-4ac7-b117-7d4009658ced)"
+                    width="52"
+                    height="24"
                   />
                 </svg>
-              </div>
-            </button>
+                <span className="relative">Welcome</span>
+              </span>{" "}
+              our talented team of professionals
+            </h2>
+            <p className="text-base text-gray-700 md:text-lg">
+              Meet our exceptional team of skilled tech enthusiasts, dedicated
+              to guiding you on a transformative learning journey. With their
+              expertise and passion, they empower you to conquer the digital
+              world with confidence
+            </p>
           </div>
-
-          {/* Right */}
-          <div className="static lg:relative -top-32 flex items-center justify-center min-w-min">
-            {/* 1st col */}
-            <div>
-              {/* image - 1  */}
-              <div data-aos="zoom-out">
-                <img src={member1} className="h-64 w-56 m-2" alt="" />
-              </div>
-              {/* image - 2  */}
-              <div data-aos="zoom-out">
-                <img src={member2} className="h-64 w-56 m-2" alt="" />
-              </div>
-            </div>
-            {/* 2nd col */}
-            <div>
-              {/* image - 1  */}
-              <div data-aos="zoom-out">
-                <img src={member3} className="h-64 w-56 m-2" alt="" />
-              </div>
-              {/* image - 2  */}
-              <div data-aos="zoom-out">
-                <img src={member4} className="h-64 w-56 m-2" alt="" />
-              </div>
-              <div data-aos="zoom-out">
-                <img src={member5} className="h-64 w-56 m-2" alt="" />
-              </div>
-            </div>
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            {staff.map((item) => {
+              return (
+                <div>
+                  <div className="relative overflow-hidden transition duration-300 transform rounded shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
+                    <img
+                      className="object-contain w-full h-56 md:h-64 xl:h-80"
+                      src={item.img}
+                      alt="Person"
+                    />
+                    <div className="absolute inset-0 flex flex-col justify-center px-5 py-4 text-center transition-opacity duration-300 bg-black bg-opacity-75 opacity-0 hover:opacity-100">
+                      <p className="mb-1 text-lg font-bold text-gray-100">
+                        {item.name}
+                      </p>
+                      <p className="mb-4 text-xs text-gray-100">
+                        {item.position}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

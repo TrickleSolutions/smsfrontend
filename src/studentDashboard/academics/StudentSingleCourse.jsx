@@ -12,14 +12,18 @@ const StudentSingleCourse = ({
   const [catName, setCatName] = useState("");
 
   console.log("Course Details", course);
+  // console.log("Image", course.img);
 
   useEffect(() => {
     getCourseList();
   }, [courseId]);
 
   useEffect(() => {
-    getInstName();
-    getCatName();
+    // If course true then only
+    if (course) {
+      getInstName();
+      getCatName();
+    }
   }, [course]);
 
   const getCourseList = () => {
@@ -55,27 +59,38 @@ const StudentSingleCourse = ({
     navigate("/student/academic/course/" + courseId);
   };
   return (
-    <div
-      onClick={coursedetails}
-      className="w-64 bg-white m-3 rounded-lg border shadow-xl  flex flex-col justify-center text-center items-center hover:-translate-y-4 transition cursor-pointer"
-    >
-      <img
-        src={`${baseurl}/coursepic/${course.img}`}
-        className="h-40 w-full rounded-tr-lg rounded-tl-lg"
-        alt=""
-      />
-      <div className="py-5 px-3 flex flex-col justify-center items-center flex-grow">
-        <h5 className="text-lg font-bold ">{course.title}</h5>
-        <p>{course.desc}</p>
-        <p className="text-xs flex items-center my-2">
-          {/* <img src={man} className="h-5 w-5 rounded-full mx-2" alt="" /> */}
-          Instructor : {instName ? instName : "-"}
-        </p>
-        <p className="text-xs flex items-center my-2">
-          Category : {catName ? catName : "-"}
-        </p>
-      </div>
-    </div>
+    <>
+      {course ? (
+        <div
+          onClick={coursedetails}
+          className="w-64 bg-white m-3 rounded-lg border shadow-xl  flex flex-col justify-center text-center items-center hover:-translate-y-4 transition cursor-pointer"
+        >
+          {course.img ? (
+            <img
+              src={`${baseurl}/coursepic/${course.img}`}
+              className="h-40 w-full rounded-tr-lg rounded-tl-lg"
+              alt=""
+            />
+          ) : (
+            ""
+          )}
+
+          <div className="py-5 px-3 flex flex-col justify-center items-center flex-grow">
+            <h5 className="text-lg font-bold ">{course.title}</h5>
+            <p>{course.desc}</p>
+            <p className="text-xs flex items-center my-2">
+              {/* <img src={man} className="h-5 w-5 rounded-full mx-2" alt="" /> */}
+              Instructor : {instName ? instName : "-"}
+            </p>
+            <p className="text-xs flex items-center my-2">
+              Category : {catName ? catName : "-"}
+            </p>
+          </div>
+        </div>
+      ) : (
+        "No Course"
+      )}
+    </>
   );
 };
 

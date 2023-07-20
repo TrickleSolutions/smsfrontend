@@ -73,6 +73,7 @@ import ChatSupport from "./ChatSupport";
 import HomePage2 from "./HomePage2";
 import SmartBar from "./Components/SmartBar";
 import InstituteHeader from "./Components/InstituteHeader";
+import Gallery from "./Pages/Gallery";
 
 const App = () => {
   const location = useLocation();
@@ -113,7 +114,7 @@ const App = () => {
     <>
       <SmartBar />
 
-      {isAdmin || isStudent || isInstructor ? "" : <InstituteHeader />}
+      {/* {isAdmin || isStudent || isInstructor ? "" : <InstituteHeader />} */}
       {isAdmin || isStudent || isInstructor ? "" : <Navigation />}
 
       <Routes>
@@ -121,7 +122,7 @@ const App = () => {
         <Route path="/about" exact={true} element={<About />} />
         <Route path="/courses" exact={true} element={<Courses />} />
         <Route path="/contact" exact={true} element={<Contact />} />
-        <Route path="/blogs" exact={true} element={<Blogs />} />
+        <Route path="/gallery" exact={true} element={<Gallery />} />
 
         {/* Auth Routes */}
         <Route

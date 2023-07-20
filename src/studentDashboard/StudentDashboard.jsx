@@ -41,35 +41,42 @@ const StudentDashboard = ({ auth }) => {
   };
   return (
     <>
-      <section className=" px-5 py-2 bg-[var(--body-color)]">
-        <div className="bg-[var(--theme-color)] mt-5 mb-5">
-          <h1 className="font-extrabold text-3xl text-center text-white px-2 py-5">
-            Welcome to SMS Education
-          </h1>
-        </div>
-        {/* Profile */}
-        <StudentProfile auth={auth} />
-        <hr />
-        <Classes />
-        <hr />
-        <StudentAcademics auth={auth} />
-        <hr />
+      {student ? (
+        <section className=" px-5 py-2 bg-[var(--body-color)]">
+          <div className="bg-[var(--theme-color)] mt-5 mb-5">
+            <h1 className="font-extrabold text-3xl text-center text-white px-2 py-5">
+              Welcome to SMS Education
+            </h1>
+          </div>
+          {/* Profile */}
+          <StudentProfile auth={auth} />
+          <hr />
+          <Classes />
+          <hr />
+          <StudentAcademics auth={auth} />
+          <hr />
 
-        <StudentMarks auth={auth} />
-        <hr />
-        <StudentAssignments auth={auth} />
-        <hr />
-        <StudentPayments auth={auth} />
-        <hr />
-        <StudentQueries auth={auth} />
+          <StudentMarks auth={auth} />
+          <hr />
+          <StudentAssignments auth={auth} />
+          <hr />
+          <StudentPayments auth={auth} />
+          <hr />
+          <StudentQueries auth={auth} />
 
-        {/* Footer */}
-        <div className="bg-[var(--theme-color)] mt-5">
-          <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
-            &#169; 2023 SMS Education | All Rights Reserved
-          </h1>
+          {/* Footer */}
+          <div className="bg-[var(--theme-color)] mt-5">
+            <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
+              &#169; 2023 SMS Education | All Rights Reserved
+            </h1>
+          </div>
+        </section>
+      ) : (
+        <div className="text-xl font-semibold my-20 text-center">
+          {" "}
+          You are not authorized to view this page
         </div>
-      </section>
+      )}
     </>
   );
 };

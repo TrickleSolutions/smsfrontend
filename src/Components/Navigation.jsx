@@ -99,8 +99,8 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/blogs" className="flex items-center">
-          Blogs
+        <Link to="/gallery" className="flex items-center">
+          Gallery
         </Link>
       </Typography>
       <Typography
@@ -134,7 +134,7 @@ const Navigation = () => {
           {/* Logo */}
           <div
             className={`${
-              scrolled ? "shadow-xl visible" : "invisible"
+              scrolled ? "shadow-xl " : ""
             } relative top-5 flex items-center px-1 py-5 rounded-lg bg-white transition-all`}
           >
             <img src={logo2} alt="" className="mx-3 h-16 w-16 rounded-full" />

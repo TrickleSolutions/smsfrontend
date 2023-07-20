@@ -32,7 +32,7 @@ const StudentAcademics = ({ auth }) => {
 
   useEffect(() => {
     getEnrollData();
-    console.log(enrollData);
+    console.log("Student Data", enrollData);
   }, []);
 
   const getEnrollData = () => {
