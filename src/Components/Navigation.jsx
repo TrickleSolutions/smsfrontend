@@ -132,13 +132,15 @@ const Navigation = () => {
       >
         <div className="h-full flex items-center justify-between">
           {/* Logo */}
-          <div
+
+          <Link
+            to="/"
             className={`${
               scrolled ? "shadow-xl " : ""
             } relative top-5 flex items-center px-1 py-5 rounded-lg bg-white transition-all`}
           >
             <img src={logo2} alt="" className="mx-3 h-16 w-16 rounded-full" />
-          </div>
+          </Link>
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-4">
             <Link to="/student/dashboard">

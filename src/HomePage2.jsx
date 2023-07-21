@@ -12,13 +12,7 @@ import about1 from "./assets/images/homepage/about-img-1.jpg";
 import about2 from "./assets/images/homepage/about-img-2.jpg";
 import abtIco from "./assets/images/homepage/abt-ico.png";
 import director from "./assets/images/homepage/director-1.jpg";
-import member1 from "./assets/images/homepage/member1.png";
-import member2 from "./assets/images/homepage/member2.png";
-import member3 from "./assets/images/homepage/member3.png";
-import member4 from "./assets/images/homepage/member4.png";
-import member5 from "./assets/images/homepage/member5.png";
 import testimonial1 from "./assets/images/homepage/testi-1.jpg";
-import centre1 from "./assets/images/homepage/centre-1.jpg";
 import centre2 from "./assets/images/homepage/centre-2.jpg";
 import asInstructor from "./assets/images/homepage/join-instructor.png";
 import asStudent from "./assets/images/homepage/join-student.png";
@@ -28,6 +22,7 @@ import PrabhatKumarSharma from "./assets/images/homepage/staff/Prabhat-kumar Sha
 import MukeshKumar from "./assets/images/homepage/staff/Mukesh-kumar-(Teacher).jpeg";
 import KomalVerma from "./assets/images/homepage/staff/Komal-verma-(Morning-manager).jpeg";
 import AnujSrivastava from "./assets/images/homepage/staff/Anuj-Srivastava-(Teacher).JPG";
+import premise7 from "./assets/images/homepage/premises/premise7.JPG";
 import {
   Card,
   CardHeader,
@@ -95,8 +90,8 @@ const HomePage2 = () => {
                   <h1 className="mb-2 text-4xl uppercase  sm:text-6xl font-bold text-center leading-snug">
                     SMS Education
                   </h1>
-                  <h1 className="mb-2 text-xl   sm:text-3xl font-bold text-center leading-snug">
-                    Nielit Computer Center
+                  <h1 className="mb-2   sm:text-2xl font-bold text-center leading-snug">
+                    Nielit Authorized Computer Center
                   </h1>
                 </div>
 
@@ -216,15 +211,17 @@ const HomePage2 = () => {
                 {/* testimonial */}
                 <div
                   data-aos="fade-up"
-                  className="relative mt-36 px-5 sm:px-6 md:px-8 lg:px-10 bg-[#1c317c] w-fit max-w-xl py-10 leading-6 rounded-lg  shadow-lg"
+                  className="relative mt-36 mx-auto px-5 sm:px-6 md:px-8 lg:px-10 bg-[#1c317c] w-fit max-w-xl py-10 leading-6 rounded-lg  shadow-lg"
                 >
-                  <div className=" opacity-70">
-                    Sit amet consectetur adipiscing elit sed do eiusmod tempore
-                    incididunt ut labore et dolore magna aliqua.
+                  <div
+                    className=" opacity-70 text-2xl"
+                    style={{ fontFamily: "Mynerve, cursive" }}
+                  >
+                    If sky is your limit, we provide base . . .
                   </div>
                   <div className="flex items-center mt-7 opacity-70">
                     <div className="h-0.5 w-7 bg-[var(--golden)]"></div>
-                    <span className="mx-3">Brendan E. Cote</span>
+                    <span className="mx-3">SMS Education</span>
                   </div>
                   <img
                     src={adminImage}
@@ -441,9 +438,9 @@ const HomePage2 = () => {
                 className="w-2/5 shrink-0 m-0 rounded-r-none"
               >
                 <img
-                  src={centre1}
+                  src={premise7}
                   alt="image"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-fill"
                 />
               </CardHeader>
               <CardBody>
@@ -741,7 +738,7 @@ const HomePage2 = () => {
             <div
               onMouseEnter={() => setViewAcheiver2(true)}
               onMouseLeave={() => setViewAcheiver2(false)}
-              className="relative top-40 w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all duration-500"
+              className="relative top-40 md:top-0 w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all duration-500"
             >
               <div
                 className={`${
@@ -1334,7 +1331,7 @@ const HomePage2 = () => {
         {/* Join Us */}
         <section className="mt-20 mb-10 p-5">
           <h1 className="text-5xl text-center font-semibold my-10">Join Us</h1>
-          <div className="flex flex-col flex-wrap lg:flex-row justify-around mx-auto py-10">
+          <div className="flex flex-col flex-wrap lg:flex-row justify-around items-center mx-auto py-10">
             <Card
               data-aos="fade-right"
               className=" flex flex-col md:flex-row justify-center w-full max-w-lg m-5"
