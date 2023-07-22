@@ -12,44 +12,45 @@ import { toast } from "react-toastify";
 const EditStudentOfTheMonth = ({
   open,
   handleOpen,
-  getScheduledBatchesList,
+  StudentOfTheMonthList,
   studentMonth,
 }) => {
   const [regno, setRegno] = useState("");
   const [course, setCourse] = useState("");
   const [name, setName] = useState("");
+  const [img, setImg] = useState([]);
 
   useEffect(() => {
     setRegno(studentMonth.regno);
     setCourse(studentMonth.course);
     setName(studentMonth.name);
-  }, []);
-
-  const data = { course, regno, name };
-  console.log(data);
+    setImg(studentMonth.img);
+  }, [studentMonth]);
 
   const onsubmitClick = () => {
+    const formData = new FormData();
+    formData.append("regno", regno);
+    formData.append("course", course);
+    formData.append("name", name);
+    formData.append("img", img);
     // Empty the fields
     setCourse("");
     setRegno("");
     setName("");
+    setImg("");
 
     // Post Api For Posting Data
-    fetch(baseurl + "/api/class", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+    fetch(baseurl + "/api/studentofmonth/" + studentMonth.regno, {
+      method: "PUT",
+      body: formData,
     })
       .then((res) => {
         return res.json();
       })
       .then((result) => {
-        toast.success("Added Successfully");
+        toast.success("Updated Successfully");
         handleOpen();
-        getScheduledBatchesList();
+        StudentOfTheMonthList();
       })
       .catch((err) => {
         console.log(err);
@@ -126,7 +127,7 @@ const EditStudentOfTheMonth = ({
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="name"
                 >
-                  name
+                  Name
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -135,6 +136,23 @@ const EditStudentOfTheMonth = ({
                   value={name}
                   onChange={(e) => {
                     setName(e.target.value);
+                  }}
+                />
+              </div>
+              {/* Image */}
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="image"
+                >
+                  Image
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="image"
+                  type="file"
+                  onChange={(e) => {
+                    setImg(e.target.files[0]);
                   }}
                 />
               </div>

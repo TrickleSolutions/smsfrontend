@@ -9,40 +9,39 @@ import {
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
-const AddStudentOfTheMonth = ({
-  open,
-  handleOpen,
-  getScheduledBatchesList,
-}) => {
+const AddStudentOfTheMonth = ({ open, handleOpen, StudentOfTheMonthList }) => {
   const [regno, setRegno] = useState("");
   const [course, setCourse] = useState("");
   const [name, setName] = useState("");
+  const [img, setImg] = useState("");
 
   const data = { course, regno, name };
   console.log(data);
 
   const onsubmitClick = () => {
+    const formData = new FormData();
+    formData.append("regno", regno);
+    formData.append("course", course);
+    formData.append("name", name);
+    formData.append("img", img);
     // Empty the fields
     setCourse("");
     setRegno("");
     setName("");
+    setImg("");
 
     // Post Api For Posting Data
-    fetch(baseurl + "/api/class", {
+    fetch(baseurl + "/api/studentofmonth", {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+      body: formData,
     })
       .then((res) => {
         return res.json();
       })
       .then((result) => {
-        toast.success("Added Successfully");
+        toast.success("Updated Successfully");
         handleOpen();
-        getScheduledBatchesList();
+        StudentOfTheMonthList();
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +105,7 @@ const AddStudentOfTheMonth = ({
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="name"
                 >
-                  name
+                  Name
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -117,6 +116,23 @@ const AddStudentOfTheMonth = ({
                     setName(e.target.value);
                   }}
                   placeholder="John"
+                />
+              </div>
+              {/* Image */}
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="image"
+                >
+                  Image
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="image"
+                  type="file"
+                  onChange={(e) => {
+                    setImg(e.target.files[0]);
+                  }}
                 />
               </div>
             </div>

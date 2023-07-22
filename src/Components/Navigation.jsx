@@ -137,9 +137,9 @@ const Navigation = () => {
             to="/"
             className={`${
               scrolled ? "shadow-xl " : ""
-            } relative top-5 flex items-center px-1 py-5 rounded-lg bg-white transition-all`}
+            } relative top-1 -left-1 flex items-center px-1 py-2 rounded-lg bg-white transition-all`}
           >
-            <img src={logo2} alt="" className="mx-3 h-16 w-16 rounded-full" />
+            <img src={logo2} alt="" className="mx-1 h-20 w-20 rounded-full" />
           </Link>
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-4">

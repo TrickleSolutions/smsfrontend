@@ -25,31 +25,35 @@ const EditInstructorOfTheMonth = ({
     setName(instructorMonth.name);
     setDesc(instructorMonth.desc);
     setImg(instructorMonth.img);
-  });
+  }, [instructorMonth]);
 
   const data = { course, name, img };
-  console.log(data);
+  // console.log(data);
 
   const onsubmitClick = () => {
+    const formData = new FormData();
+    formData.append("desc", desc);
+    formData.append("course", course);
+    formData.append("name", name);
+    formData.append("img", img);
+
     // Empty the fields
     setCourse("");
     setName("");
     setDesc("");
+    setImg("");
 
     // Post Api For Posting Data
-    fetch(baseurl + "/api/class", {
+    fetch(baseurl + "/api/instructorofmonth/" + instructorMonth._id, {
       method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+
+      body: formData,
     })
       .then((res) => {
         return res.json();
       })
       .then((result) => {
-        toast.success("Added Successfully");
+        toast.success("Updated Successfully");
         handleOpen();
         InstructorOfTheMonthList();
       })
@@ -66,7 +70,7 @@ const EditInstructorOfTheMonth = ({
       >
         <DialogHeader className="text-center justify-center">
           {" "}
-          Add Instructor Of The Month
+          Edit Instructor Of The Month
         </DialogHeader>
         <DialogBody divider className=" overflow-y-scroll">
           <form className="w-full px-5 sm:px-10 mt-5">
@@ -141,9 +145,8 @@ const EditInstructorOfTheMonth = ({
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="img"
                   type="file"
-                  value={img}
                   onChange={(e) => {
-                    setImg(e.target.value);
+                    setImg(e.target.files[0]);
                   }}
                 />
               </div>
@@ -160,7 +163,7 @@ const EditInstructorOfTheMonth = ({
             <span>Cancel</span>
           </Button>
           <Button variant="gradient" color="blue" onClick={onsubmitClick}>
-            <span>Add</span>
+            <span>Save</span>
           </Button>
         </DialogFooter>
       </Dialog>

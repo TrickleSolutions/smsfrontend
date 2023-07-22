@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import adminImage from "./assets/images/homepage/admin.jpg";
 import studentMonth from "./assets/images/homepage/student-month.jpg";
 import teacherMonth from "./assets/images/homepage/teacher-month.jpg";
 import oppor1 from "./assets/images/homepage/oppor1.png";
 import oppor2 from "./assets/images/homepage/oppor2.png";
 import oppor3 from "./assets/images/homepage/oppor3.png";
-import about1 from "./assets/images/homepage/about-img-1.jpg";
 import about2 from "./assets/images/homepage/about-img-2.jpg";
 import abtIco from "./assets/images/homepage/abt-ico.png";
-import director from "./assets/images/homepage/director-1.jpg";
 import testimonial1 from "./assets/images/homepage/testi-1.jpg";
-import centre2 from "./assets/images/homepage/centre-2.jpg";
 import asInstructor from "./assets/images/homepage/join-instructor.png";
 import asStudent from "./assets/images/homepage/join-student.png";
 import DivyanshiSingh from "./assets/images/homepage/staff/Divyanshi-singh-(Teacher).jpeg";
@@ -23,6 +20,10 @@ import MukeshKumar from "./assets/images/homepage/staff/Mukesh-kumar-(Teacher).j
 import KomalVerma from "./assets/images/homepage/staff/Komal-verma-(Morning-manager).jpeg";
 import AnujSrivastava from "./assets/images/homepage/staff/Anuj-Srivastava-(Teacher).JPG";
 import premise7 from "./assets/images/homepage/premises/premise7.JPG";
+import premise8 from "./assets/images/homepage/premises/premise8.JPG";
+import premise14 from "./assets/images/homepage/premises/premise14.JPG";
+import classroom6 from "./assets/images/homepage/premises/classroom/classroom6.JPG";
+import director from "./assets/images/homepage/team/director.jpeg";
 import {
   Card,
   CardHeader,
@@ -32,12 +33,56 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
+import baseurl from "./Config";
 
 const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
   const [viewAcheiver2, setViewAcheiver2] = useState(false);
+  const [studentMonth, setStudentMonth] = useState([]);
+  const [instructorMonth, setInstructorMonth] = useState([]);
   // const [studentOfMonth,]
   const navigate = useNavigate();
+
+  useEffect(() => {
+    StudentOfTheMonthList();
+    InstructorOfTheMonthList();
+  }, []);
+
+  const StudentOfTheMonthList = () => {
+    fetch(baseurl + "/api/studentofmonth ", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setStudentMonth(result[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const InstructorOfTheMonthList = () => {
+    fetch(baseurl + "/api/instructorofmonth ", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setInstructorMonth(result[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   AOS.init({
     delay: 300,
@@ -159,7 +204,7 @@ const HomePage2 = () => {
                   </div>
                 </div>
 
-                {/* Button and Play Button */}
+                {/* Button  */}
                 <div
                   data-aos="fade-down"
                   data-aos-delay="1000"
@@ -184,28 +229,6 @@ const HomePage2 = () => {
                       </svg>
                     </div>
                   </button>
-                  {/* Play */}
-                  <div className="flex items-center m-4">
-                    <div className="flex items-center justify-center  w-12 h-12 rounded-full bg-white">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="#204ecf"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="w-8 h-8"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
-                        />
-                      </svg>
-                    </div>
-                    <div className="ml-3 font-semibold underline">
-                      How it works
-                    </div>
-                  </div>
                 </div>
 
                 {/* testimonial */}
@@ -236,6 +259,123 @@ const HomePage2 = () => {
           {/* <img src={heroLeftImg} className="absolute bottom-0 left-5" alt="" /> */}
         </section>
 
+        <section className="fixed top-[30%] right-0">
+          <div className="h-12 w-12 my-1 flex justify-center items-center border border-gray-500 bg-white hover:scale-105 hover:-translate-x-3 transition-all duration-500">
+            <a
+              href="https://api.whatsapp.com/send?phone=918090004415&text=I%20want%20to%20enquire%20about%20fees"
+              target="_blank"
+              className="cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={50}
+                height={50}
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                image-rendering="optimizeQuality"
+                shape-rendering="geometricPrecision"
+                text-rendering="geometricPrecision"
+                viewBox="0 0 13333.33 13333.33"
+                id="whatsapp-logo"
+              >
+                <path
+                  fill="#3c3"
+                  d="M4368.28 2476.11l4596.93 0c1027.92,0 1867.22,841.16 1867.22,1867.37l0 4644.48c0,1028.14 -839.3,1869.26 -1867.22,1869.26l-4596.93 0c-1028.07,0 -1867.35,-841.12 -1867.35,-1869.26l0 -4644.48c0,-1026.2 839.28,-1867.37 1867.35,-1867.37l0 0z"
+                ></path>
+                <path
+                  fill="#fefefe"
+                  d="M6716.35 8886.92c-469.18,0 -904.19,-141.18 -1270.46,-379.6l-884.95 280.41 286.13 -852.62c-276.57,-373.83 -440.65,-843.08 -440.65,-1344.72 0,-74.39 5.7,-144.96 15.26,-219.35 112.55,-1161.62 1100.61,-2069.53 2294.67,-2069.53 1213.07,0 2210.65,932.72 2304.05,2111.5 3.84,61.03 3.84,122.06 3.84,177.39 0,1264.61 -1035.6,2296.54 -2307.89,2296.54zm2742.7 -2361.39c-36.19,-1474.44 -1249.26,-2655.12 -2742.7,-2655.12 -1476.45,0 -2679.98,1152.08 -2740.97,2603.62 -3.85,38.15 -3.85,80.11 -3.85,116.35 0,516.9 144.96,997.54 392.96,1411.49l-495.94 1461.09 1522.14 -482.58c392.96,215.51 846.79,335.7 1325.66,335.7 1516.29,0 2748.55,-1216.94 2748.55,-2725.7 0,-22.89 -5.85,-41.96 -5.85,-64.85z"
+                ></path>
+                <path
+                  fill="#fefefe"
+                  d="M7517.45 6901.28c-66.9,-17.17 -108.75,-32.43 -156.46,38.16 -68.72,108.72 -213.67,347.14 -354.76,276.57 -70.55,-32.43 -286.04,-103.01 -543.57,-331.9 -200.32,-179.3 -337.58,-394.83 -373.95,-459.67 -59.04,-110.63 127.76,-226.99 196.48,-366.22 22.85,-45.79 13.34,-83.93 -5.67,-116.35 -13.34,-32.43 -148.78,-364.31 -205.99,-495.92 -55.38,-135.44 -112.59,-112.54 -148.78,-112.54 -373.96,0 -549.42,265.13 -549.42,637.06 0,74.39 15.35,154.52 38.2,225.09 66.71,238.43 215.49,431.07 238.52,463.5 32.35,45.77 463.52,740.07 1148.19,1007.14 688.51,267 688.51,177.36 810.6,167.8 120.27,-9.49 396.8,-158.32 454.01,-318.54 55.38,-154.48 55.38,-289.93 36.19,-318.52 -22.85,-40.05 -583.59,-293.74 -583.59,-295.65z"
+                ></path>
+              </svg>
+            </a>
+          </div>
+          <div className="h-12 w-12 my-1 flex justify-center items-center border border-gray-500 bg-white hover:scale-105 hover:-translate-x-3 transition-all duration-500">
+            <a href="tel:+918090004415" className="cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                id="phone-calling"
+                height={30}
+                width={30}
+                fill="var(--bg-dark-blue)"
+              >
+                <path d="M439.62 396.531a3153555.92 3153555.92 0 0 1-54.398-65.832c-1.45-1.755-3.067-3.614-5.289-4.107-2.903-.643-5.7 1.25-8.073 3.043l-40.219 30.384c-8.03 6.067-17.968 12.468-27.433 9.051-5.483-1.98-9.312-6.857-12.834-11.504-20.403-26.911-40.806-53.824-61.211-80.735l-.372-.507-58.748-82.546c-3.381-4.75-6.89-9.86-7.141-15.684-.432-10.055 8.647-17.625 16.836-23.475 13.673-9.765 27.345-19.532 41.017-29.298 2.42-1.728 5.064-3.832 5.317-6.794.195-2.268-1.097-4.367-2.338-6.274l-46.561-71.589c-5.304-8.154-11.224-16.814-20.362-20.15-10.658-3.889-22.367.601-32.784 5.096-17.341 7.483-35.259 15.614-47.316 30.152-20.164 24.317-19.45 60.744-17.678 90.53 2.075 34.883 13.587 70.892 27.119 102.854 13.997 33.06 32.551 64.087 54.536 92.485 20.489 29.369 44.486 56.266 71.773 79.438 26.456 22.467 57.378 44.216 90.045 56.624 27.893 10.595 62.442 22.164 91.674 10.19 17.477-7.16 30.593-21.828 42.918-36.139 7.403-8.597 15.188-18.429 14.661-29.763-.448-9.713-6.943-17.952-13.139-25.45z"></path>
+              </svg>
+            </a>
+          </div>
+          <div className="h-12 w-12 my-1 flex justify-center items-center border border-gray-500 bg-white hover:scale-105 hover:-translate-x-3 transition-all duration-500">
+            <Link to="/contact" className="cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 64 64"
+                id="help-desk"
+                height={30}
+                width={30}
+              >
+                <g data-name="17. Info">
+                  <circle cx="49" cy="6" r="6" fill="#88b8f9"></circle>
+                  <path
+                    fill="#88b8f9"
+                    d="M63.23,25.93,57.57,15.46c0-.08-.09,0-.14-.12A3,3,0,0,0,55,14H54c-.84.68-.55.28-1.12.82-1.08.73-2.72,1.7-3.88,1.7a8.26,8.26,0,0,1-3.73-1.6,2.91,2.91,0,0,0-.57-.47A2.4,2.4,0,0,1,44,14H43a3,3,0,0,0-2.44,1.43l-3.17,4.95-6.07-4.89a2,2,0,0,0-2.64,3c10.68,10.13,7.12,6.7,7.85,7.43a2.32,2.32,0,0,0,3.28-.33l2.73-3.24L42,32H56l-.1-1.77L51,30a3,3,0,0,1,0-6l4.59-.22,0-.53,1,1.49L51,25a2,2,0,0,0,0,4l10,.47A2.4,2.4,0,0,0,63.23,25.93Z"
+                  ></path>
+                  <path
+                    fill="#fffeff"
+                    d="M54,14c-2.93,5.28-1.79,3.21-5,9l-5-9Z"
+                  ></path>
+                  <polygon
+                    fill="#0c3798"
+                    points="51.67 18.19 49 23 46.33 18.19 48 14 50 14 51.67 18.19"
+                  ></polygon>
+                  <rect
+                    width="46"
+                    height="4"
+                    x="18"
+                    y="29"
+                    fill="#f8cf6d"
+                  ></rect>
+                  <rect
+                    width="44"
+                    height="24"
+                    x="20"
+                    y="33"
+                    fill="#ee7231"
+                  ></rect>
+                  <circle cx="15" cy="16" r="6" fill="#88b8f9"></circle>
+                  <path
+                    fill="#2f79f0"
+                    d="M34.6,28a2,2,0,0,0-2.76-.61l-5.08,3.26c-3.45-5.41-3.4-5.35-3.55-5.53A3,3,0,0,0,21,24H9a3,3,0,0,0-2.72,1.9L.19,41.15a2,2,0,0,0,3.62,1.7l4.72-8.61C7.87,48.79,8,42.59,8,62a2,2,0,0,0,4,.25S14,46.06,14,46h2c0,.06,2,16.25,2,16.25A2,2,0,0,0,22,62c0-19.4.15-12.72-.62-29.74l2.83,3.37a2.29,2.29,0,0,0,3.2.35l6.75-5.35A2,2,0,0,0,34.6,28Z"
+                  ></path>
+                  <path
+                    fill="#fffeff"
+                    d="M20,24c-3.25,7.15-2.08,4.59-5,11-2.92-6.41-1.75-3.85-5-11Z"
+                  ></path>
+                  <polygon
+                    fill="#0c3798"
+                    points="17.42 29.68 15 35 12.58 29.68 14 24 16 24 17.42 29.68"
+                  ></polygon>
+                  <rect
+                    width="10"
+                    height="12"
+                    x="23"
+                    y="9"
+                    fill="#f8cf6d"
+                    rx="1"
+                  ></rect>
+                  <circle cx="42" cy="38" r="2" fill="#fffeff"></circle>
+                  <path
+                    fill="#fffeff"
+                    d="M44,43V53a1,1,0,0,1-1,1H41a1,1,0,0,1-1-1V44H39a1,1,0,0,1-1-1h0a1,1,0,0,1,1-1h4A1,1,0,0,1,44,43Z"
+                  ></path>
+                </g>
+              </svg>
+            </Link>
+          </div>
+        </section>
+
         {/* About Us */}
         <section className="my-20 p-5">
           {/* About Container */}
@@ -246,14 +386,18 @@ const HomePage2 = () => {
               className="w-full lg:w-5/12 md:w-10/12 sm:w-9/12 mx-auto"
             >
               <div className="relative flex justify-end p-2">
-                <img src={about1} className="w-80 h-64 rounded-2xl" alt="" />
+                <img src={premise14} className="w-80 h-64 rounded-2xl" alt="" />
                 <div className="absolute top-24 left-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
                   <img src={abtIco} className="mr-2" alt="" />
                   Experience Advisor
                 </div>
               </div>
               <div className="relative -top-16 flex justify-start p-2">
-                <img src={about1} className="w-80 h-64 rounded-2xl" alt="" />
+                <img
+                  src={classroom6}
+                  className="w-80 h-64 rounded-2xl"
+                  alt=""
+                />
                 <div className="absolute top-28 right-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
                   <img src={abtIco} className="mr-2" alt="" />
                   Experience Advisor
@@ -402,7 +546,7 @@ const HomePage2 = () => {
                   <div>
                     <div className="relative overflow-hidden transition duration-300 transform rounded shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
                       <img
-                        className="object-contain w-full h-56 md:h-64 xl:h-80"
+                        className="object-cover object-top w-full h-56 md:h-64 xl:h-80"
                         src={item.img}
                         alt="Person"
                       />
@@ -427,7 +571,7 @@ const HomePage2 = () => {
           <h1 className="text-5xl text-center font-semibold my-10">
             Locations
           </h1>
-          <div className="flex flex-col lg:flex-row flex-wrap justify-around mx-auto py-10">
+          <div className="flex flex-col lg:flex-row flex-wrap justify-around items-center mx-auto py-10">
             <Card
               data-aos="fade-right"
               className="flex-row w-full max-w-lg m-5"
@@ -477,9 +621,9 @@ const HomePage2 = () => {
                 className="w-2/5 shrink-0 m-0 rounded-r-none"
               >
                 <img
-                  src={centre2}
+                  src={premise8}
                   alt="image"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-fill object-center"
                 />
               </CardHeader>
               <CardBody>
@@ -723,14 +867,15 @@ const HomePage2 = () => {
                 } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
               >
                 <h2 className="text-2xl font-extrabold text-center text-[black]">
-                  Amit Chauhan
+                  {instructorMonth.name ? instructorMonth.name : ""}
                 </h2>
                 <p className="my-2">
-                  <span className="font-bold">Course :</span> CCC
+                  <span className="font-bold">Course :</span>{" "}
+                  {instructorMonth.course ? instructorMonth.course : ""}
                 </p>
                 <p>
-                  <span className="font-bold">Description :</span> Lorem ipsum,
-                  dolor sit amet consectetur adipisicing elit. Aliquid, fuga.
+                  <span className="font-bold">Description :</span>{" "}
+                  {instructorMonth.desc ? instructorMonth.desc : ""}
                 </p>
               </div>
             </div>
@@ -746,7 +891,11 @@ const HomePage2 = () => {
                 } relative -top-10 transition-all left-4 z-20`}
               >
                 <img
-                  src={studentMonth}
+                  src={
+                    studentMonth.img
+                      ? `${baseurl}/api/studentofmonth/${studentMonth.img}`
+                      : ""
+                  }
                   className="w-56 h-56 rounded-2xl"
                   alt=""
                 />
@@ -760,14 +909,15 @@ const HomePage2 = () => {
                 } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
               >
                 <h2 className="text-2xl font-extrabold text-center text-[black]">
-                  Amit Chauhan
+                  {studentMonth.name ? studentMonth.name : ""}
                 </h2>
                 <p className="my-2">
-                  <span className="font-bold">Course :</span> CCC
+                  <span className="font-bold">Registration No. :</span>{" "}
+                  {studentMonth.regno ? studentMonth.regno : ""}
                 </p>
                 <p>
-                  <span className="font-bold">Description :</span> Lorem ipsum,
-                  dolor sit amet consectetur adipisicing elit. Aliquid, fuga.
+                  <span className="font-bold">Course :</span>
+                  {studentMonth.course ? studentMonth.course : ""}
                 </p>
               </div>
             </div>
@@ -1171,28 +1321,32 @@ const HomePage2 = () => {
           <h1 className="text-5xl text-center font-semibold mb-20">
             Meet Our Director
           </h1>
-          <div className="flex flex-col lg:flex-row justify-around max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row justify-around items-center max-w-6xl mx-auto">
             {/* left */}
             <div data-aos="fade-right" className="mx-5 my-3">
               <img
                 src={director}
-                className="max-w-xl lg:max-w-sm w-full  lg:w-80 h-full lg:h-96 mx-auto"
+                className="max-w-xl lg:max-w-xl w-full h-full mx-auto"
                 alt=""
               />
             </div>
             {/* Director message */}
             <div data-aos="fade-up" className="mx-auto lg:mx-5 my-10">
               <h1 className="text-4xl font-bold my-4  md:max-w-xl lg:max-w-xl xl:max-w-2xl">
-                Saurabh Verma
+                Khushboo Gupta
               </h1>
               <h3 className="text-lg text-[var(--bg-dark-blue)]">
                 Director - SMS Education
               </h3>
-              <p className="text-3xl my-3 md:max-w-xl lg:max-w-xl xl:max-w-2xl">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-                necessitatibus cupiditate dolores corrupti odit ipsum vel
-                sapiente maiores commodi veniam. Soluta a incidunt quos harum ut
-                assumenda vero quidem quam.
+              <p className="text-xl my-3 md:max-w-xl lg:max-w-xl xl:max-w-2xl">
+                "I am thrilled to have you join us on this exciting learning
+                journey. Our mission is to empower individuals like you with the
+                essential computer skills and knowledge that can open doors to
+                endless opportunities in today's fast-paced digital world. I
+                founded this platform with the vision of creating a supportive
+                and innovative learning environment.Our team of dedicated
+                instructors and experts are committed to delivering top-notch
+                courses that cater to learners of all levels."
               </p>
             </div>
           </div>

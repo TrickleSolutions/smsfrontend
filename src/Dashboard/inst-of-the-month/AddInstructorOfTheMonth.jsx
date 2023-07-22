@@ -20,7 +20,7 @@ const AddInstructorOfTheMonth = ({
   const [img, setImg] = useState("");
 
   const data = { course, name, img };
-  console.log(data);
+  // console.log(data);
 
   const onsubmitClick = () => {
     // Empty the fields
@@ -41,7 +41,7 @@ const AddInstructorOfTheMonth = ({
         return res.json();
       })
       .then((result) => {
-        toast.success("Updated Successfully");
+        toast.success("Added Successfully");
         handleOpen();
         InstructorOfTheMonthList();
       })
