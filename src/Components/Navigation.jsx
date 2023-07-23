@@ -62,7 +62,7 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/" className="flex items-center  justify-center">
+        <Link to="/" className="text-lg flex items-center  justify-center">
           Home
         </Link>
       </Typography>
@@ -75,7 +75,7 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/about" className="flex items-center justify-center">
+        <Link to="/about" className="text-lg flex items-center justify-center">
           About
         </Link>
       </Typography>
@@ -87,7 +87,10 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/courses" className="flex items-center justify-center">
+        <Link
+          to="/courses"
+          className="text-lg flex items-center justify-center"
+        >
           Courses
         </Link>
       </Typography>
@@ -99,7 +102,10 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/gallery" className="flex items-center justify-center">
+        <Link
+          to="/gallery"
+          className="text-lg flex items-center justify-center"
+        >
           Gallery
         </Link>
       </Typography>
@@ -111,7 +117,10 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/contact" className="flex items-center justify-center">
+        <Link
+          to="/contact"
+          className="text-lg flex items-center justify-center"
+        >
           Contact
         </Link>
       </Typography>
