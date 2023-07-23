@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
 import adminImage from "./assets/images/homepage/admin.jpg";
-import studentMonth from "./assets/images/homepage/student-month.jpg";
+import studentOfMonth from "./assets/images/homepage/student-month.jpg";
 import teacherMonth from "./assets/images/homepage/teacher-month.jpg";
 import oppor1 from "./assets/images/homepage/oppor1.png";
 import oppor2 from "./assets/images/homepage/oppor2.png";
@@ -24,6 +24,7 @@ import premise8 from "./assets/images/homepage/premises/premise8.JPG";
 import premise14 from "./assets/images/homepage/premises/premise14.JPG";
 import classroom6 from "./assets/images/homepage/premises/classroom/classroom6.JPG";
 import director from "./assets/images/homepage/team/director.jpeg";
+import directorAvatar from "./assets/images/homepage/team/director-avatar.jpeg";
 import {
   Card,
   CardHeader,
@@ -34,12 +35,16 @@ import {
 } from "@material-tailwind/react";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import baseurl from "./Config";
+import premise1 from "./assets/images/homepage/premises/premise1.JPG";
+import ModalJoinInstructor from "./Components/ModalJoinInstructor";
 
 const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
   const [viewAcheiver2, setViewAcheiver2] = useState(false);
   const [studentMonth, setStudentMonth] = useState([]);
   const [instructorMonth, setInstructorMonth] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
   // const [studentOfMonth,]
   const navigate = useNavigate();
 
@@ -127,15 +132,18 @@ const HomePage2 = () => {
     <>
       <main>
         {/* Hero Section */}
-        <section className=" hero-container mb-10 sm:mb-5 flex items-start pb-3">
-          <div className='h-[140vh] px-5 sm:px-6 md:px-8 lg:px-10 before:absolute before:top-0 before:left-0 before:content-[""] before:bg-[var(--bg-dark-blue)] before:w-full before:h-[165vh] before:-z-10 hero-section w-full before:bg-cover before:bg-center before:opacity-100  flex justify-around items-start'>
-            <div className="mt-36  flex sm:flex-row lg:flex-row items-center justify-around w-full flex-wrap space-x-5 sm:space-x-7 ">
+        <section className=" relative top-[-96px] bg-cover bg-[#00000070] hero-container mb-10 sm:mb-5 flex items-start pb-3">
+          <div className="h-[140vh] relative  px-5 sm:px-6 md:px-8 lg:px-10 before:absolute before:top-0 before:left-0 before:content-[''] before:bg-[url('./assets/images/homepage/premises/premise1.JPG')] before:w-full before:h-[142vh] before:-z-10 hero-section w-full before:bg-cover before:bg-center before:opacity-100  flex justify-around items-center">
+            <div className="mt-28  flex sm:flex-row lg:flex-row items-center justify-around w-full flex-wrap space-x-5 sm:space-x-7 ">
               <div className="text-white max-w-2xl">
                 <div data-aos="fade-down" data-aos-delay="100">
-                  <h1 className="mb-2 text-4xl uppercase  sm:text-6xl font-bold text-center leading-snug">
+                  <h1
+                    style={{ fontFamily: "Lumanosimo" }}
+                    className="mb-2 text-5xl uppercase  sm:text-6xl font-bold text-center leading-snug"
+                  >
                     SMS Education
                   </h1>
-                  <h1 className="mb-2   sm:text-2xl font-bold text-center leading-snug">
+                  <h1 className="mb-2 mt-4   sm:text-2xl font-bold text-center leading-snug">
                     Nielit Authorized Computer Center
                   </h1>
                 </div>
@@ -210,7 +218,10 @@ const HomePage2 = () => {
                   data-aos-delay="1000"
                   className="flex items-center justify-center flex-wrap"
                 >
-                  <button className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-lg font-semibold px-10 py-4 rounded-md transition-colors duration-500">
+                  <button
+                    onClick={() => navigate("/contact")}
+                    className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-white text-lg font-semibold px-10 py-4 rounded-md transition-colors duration-500"
+                  >
                     <div className="flex items-center justify-center">
                       Get Started
                       <svg
@@ -234,21 +245,21 @@ const HomePage2 = () => {
                 {/* testimonial */}
                 <div
                   data-aos="fade-up"
-                  className="relative mt-36 mx-auto px-5 sm:px-6 md:px-8 lg:px-10 bg-[#1c317c] w-fit max-w-xl py-10 leading-6 rounded-lg  shadow-lg"
+                  className="relative mt-36 mx-auto px-5 sm:px-6 md:px-8 lg:px-10 text-[#1c317c] bg-white font-extrabold w-[80%] sm:w-fit max-w-lg sm:max-w-xl py-10 leading-6 rounded-lg  shadow-lg"
                 >
                   <div
-                    className=" opacity-70 text-2xl"
+                    className=" opacity-90 text-2xl"
                     style={{ fontFamily: "Mynerve, cursive" }}
                   >
                     If sky is your limit, we provide base . . .
                   </div>
-                  <div className="flex items-center mt-7 opacity-70">
+                  <div className="flex items-center mt-7 opacity-90">
                     <div className="h-0.5 w-7 bg-[var(--golden)]"></div>
                     <span className="mx-3">SMS Education</span>
                   </div>
                   <img
-                    src={adminImage}
-                    className="absolute -top-8 -left-8 opacity-100 rounded-full"
+                    src={directorAvatar}
+                    className="absolute -top-8 -left-8 opacity-100 rounded-full w-16 h-16"
                     alt=""
                   />
                 </div>
@@ -377,7 +388,7 @@ const HomePage2 = () => {
         </section>
 
         {/* About Us */}
-        <section className="my-20 p-5">
+        <section className="my-10 p-5">
           {/* About Container */}
           <div className="flex flex-col lg:flex-row justify-around xl:max-w-[80%] mx-auto">
             {/* left */}
@@ -573,13 +584,13 @@ const HomePage2 = () => {
           </h1>
           <div className="flex flex-col lg:flex-row flex-wrap justify-around items-center mx-auto py-10">
             <Card
-              data-aos="fade-right"
-              className="flex-row w-full max-w-lg m-5"
+              data-aos="fade-up"
+              className="flex-col sm:flex-row w-[95%] sm:max-w-lg m-2 sm:m-5"
             >
               <CardHeader
                 shadow={false}
                 floated={false}
-                className="w-2/5 shrink-0 m-0 rounded-r-none"
+                className=" w-full sm:w-2/5 shrink-0 m-0 rounded-r-none"
               >
                 <img
                   src={premise7}
@@ -614,11 +625,15 @@ const HomePage2 = () => {
                 </a>
               </CardBody>
             </Card>
-            <Card data-aos="fade-left" className="flex-row w-full max-w-lg m-5">
+            <Card
+              data-aos="fade-up"
+              data-aos-delay="400"
+              className="flex-col sm:flex-row w-[95%] sm:max-w-lg m-2 sm:m-5"
+            >
               <CardHeader
                 shadow={false}
                 floated={false}
-                className="w-2/5 shrink-0 m-0 rounded-r-none"
+                className=" w-full sm:w-2/5 shrink-0 m-0 rounded-r-none"
               >
                 <img
                   src={premise8}
@@ -890,7 +905,7 @@ const HomePage2 = () => {
                   viewAcheiver2 ? "-top-20" : ""
                 } relative -top-10 transition-all left-4 z-20`}
               >
-                <img
+                {/* <img
                   src={
                     studentMonth.img
                       ? `${baseurl}/api/studentofmonth/${studentMonth.img}`
@@ -898,7 +913,13 @@ const HomePage2 = () => {
                   }
                   className="w-56 h-56 rounded-2xl"
                   alt=""
+                /> */}
+                <img
+                  src={studentOfMonth}
+                  className="w-56 h-56 rounded-2xl"
+                  alt=""
                 />
+
                 <div className="text-xl font-bold my-1 ">
                   Student Of The Month 🏆
                 </div>
@@ -1487,7 +1508,8 @@ const HomePage2 = () => {
           <h1 className="text-5xl text-center font-semibold my-10">Join Us</h1>
           <div className="flex flex-col flex-wrap lg:flex-row justify-around items-center mx-auto py-10">
             <Card
-              data-aos="fade-right"
+              onClick={handleOpen}
+              data-aos="fade-up"
               className=" flex flex-col md:flex-row justify-center w-full max-w-lg m-5"
             >
               <CardHeader
@@ -1531,8 +1553,11 @@ const HomePage2 = () => {
                 </button>
               </CardBody>
             </Card>
+            <ModalJoinInstructor open={open} handleOpen={handleOpen} />
             <Card
-              data-aos="fade-left"
+              onClick={() => navigate("/courses")}
+              data-aos="fade-up"
+              data-aos-delay="400"
               className=" flex flex-col md:flex-row justify-center w-full max-w-lg m-5"
             >
               <CardHeader

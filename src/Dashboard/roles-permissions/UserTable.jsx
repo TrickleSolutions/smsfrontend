@@ -50,8 +50,10 @@ const UserTable = ({ item, getUserList }) => {
       .then((res) => {
         return res.json();
       })
-      .then(() => {
-        toast.success("Permissions initialised Successfully");
+      .then((result) => {
+        if (result.code == 200) {
+          toast.success("Permissions initialised Successfully");
+        }
       })
       .catch((err) => {
         console.log(err);

@@ -7,7 +7,7 @@ const StudentCourses = ({ enrollData }) => {
   const [iname, setIname] = useState("");
   const [cname, setCname] = useState("");
 
-  console.log("Courses list", courses);
+  // console.log("Courses list", courses);
 
   useEffect(() => {
     setCourses(enrollData);

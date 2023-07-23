@@ -62,7 +62,7 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="flex items-center  justify-center">
           Home
         </Link>
       </Typography>
@@ -75,7 +75,7 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/about" className="flex items-center">
+        <Link to="/about" className="flex items-center justify-center">
           About
         </Link>
       </Typography>
@@ -87,7 +87,7 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/courses" className="flex items-center">
+        <Link to="/courses" className="flex items-center justify-center">
           Courses
         </Link>
       </Typography>
@@ -99,7 +99,7 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/gallery" className="flex items-center">
+        <Link to="/gallery" className="flex items-center justify-center">
           Gallery
         </Link>
       </Typography>
@@ -111,7 +111,7 @@ const Navigation = () => {
           scrolled ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
-        <Link to="/contact" className="flex items-center">
+        <Link to="/contact" className="flex items-center justify-center">
           Contact
         </Link>
       </Typography>
@@ -243,7 +243,7 @@ const Navigation = () => {
             </IconButton>
           </div>
         </div>
-        <Collapse open={openNav}>
+        <Collapse open={openNav} className="bg-white pr-5">
           {navList}
           <Button variant="gradient" size="sm" fullWidth className="mb-2">
             <span>Login/Register</span>

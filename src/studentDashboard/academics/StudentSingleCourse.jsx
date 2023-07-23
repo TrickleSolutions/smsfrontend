@@ -11,7 +11,7 @@ const StudentSingleCourse = ({
   const [instName, setInstName] = useState("");
   const [catName, setCatName] = useState("");
 
-  console.log("Course Details", course);
+  // console.log("Course Details", course);
   // console.log("Image", course.img);
 
   useEffect(() => {

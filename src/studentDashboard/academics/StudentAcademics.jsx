@@ -20,7 +20,7 @@ const StudentAcademics = ({ auth }) => {
     {
       label: "Courses",
       value: "courses",
-      desc: <StudentCourses enrollData={enrollData} />,
+      desc: <StudentCourses />,
     },
     {
       label: "Teachers",
@@ -48,7 +48,7 @@ const StudentAcademics = ({ auth }) => {
       .then((result) => {
         setEnrollData(result);
         setLoader(false);
-        console.log(result);
+        // console.log(result);
       })
       .catch((err) => {
         console.log(err);

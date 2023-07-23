@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Contact = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [subject, setSubject] = useState("");
+  const [desc, setDesc] = useState("");
   return (
     <main>
       {/* Courses Heading */}
@@ -21,14 +26,25 @@ const Contact = () => {
       </section>
       <section className="bg-white ">
         <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 ">
-            Contact Us
-          </h2>
-          <p className="mb-8 lg:mb-16 font-light text-center text-gray-500  sm:text-xl">
-            Got a technical issue? Want to send feedback about a beta feature?
-            Need details about our Business plan? Let us know.
+          <p className="mb-8 lg:mb-16 font-light text-center   sm:text-xl">
+            Interested in Joining SMS Education? Want to enroll in our Courses?
+            Have any other enquiry? Just fill the enquiry form .
           </p>
           <form action="#" className="space-y-8">
+            <div>
+              <label
+                htmlFor="name"
+                className="block mb-2 text-sm font-medium text-gray-900 "
+              >
+                Your Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5   "
+                placeholder="John"
+              />
+            </div>
             <div>
               <label
                 htmlFor="email"
@@ -46,10 +62,24 @@ const Contact = () => {
             </div>
             <div>
               <label
+                htmlFor="contact"
+                className="block mb-2 text-sm font-medium text-gray-900 "
+              >
+                Contact Number
+              </label>
+              <input
+                type="number"
+                id="contact"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5   "
+                placeholder="1234567890"
+              />
+            </div>
+            <div>
+              <label
                 htmlFor="subject"
                 className="block mb-2 text-sm font-medium text-gray-900 "
               >
-                Subject
+                Subject / Course
               </label>
               <input
                 type="text"
@@ -64,13 +94,13 @@ const Contact = () => {
                 htmlFor="message"
                 className="block mb-2 text-sm font-medium text-gray-900 "
               >
-                Your message
+                Description
               </label>
               <textarea
                 id="message"
                 rows={6}
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 "
-                placeholder="Leave a comment..."
+                placeholder="Tell us more about your enquiry"
                 defaultValue={""}
               />
             </div>

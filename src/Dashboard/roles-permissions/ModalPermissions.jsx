@@ -198,7 +198,7 @@ const ModalPermissions = ({ open, handleOpen, item, initPermissions }) => {
       .then((res) => {
         return res.json();
       })
-      .then(() => {
+      .then((result) => {
         handleOpen();
         toast.success("Permissions Updated Successfully");
       })

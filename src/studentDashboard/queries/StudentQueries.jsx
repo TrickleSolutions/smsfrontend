@@ -6,7 +6,7 @@ import Loader from "../../Components/Loader";
 
 const StudentQueries = ({ auth }) => {
   const [query, setQuery] = useState();
-  const [studentData, setStudentData] = useState("");
+  const [studentData, setStudentData] = useState([]);
   const [queryData, setQueryData] = useState([]);
   const [feedBack, setFeedBack] = useState("");
   const [loader, setLoader] = useState(true);
@@ -17,7 +17,7 @@ const StudentQueries = ({ auth }) => {
   }, []);
 
   const getStudentsList = () => {
-    fetch(baseurl + "/api/students/ " + auth, {
+    fetch(baseurl + "/api/students/" + auth, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

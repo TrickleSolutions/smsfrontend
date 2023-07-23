@@ -12,7 +12,7 @@ import baseurl from "../Config";
 const StudentDashboard = ({ auth }) => {
   const [student, setStudent] = useState([]);
   const navigate = useNavigate();
-  console.log(student);
+  // console.log(student);
 
   useEffect(() => {
     getStudentData();
