@@ -27,7 +27,7 @@ const Footer = () => {
                   </Link>
                 </div>
               </div>
-              <p className="my-5 pr-20 text-justify">
+              <p className="my-5 sm:pr-20 text-justify">
                 SMS Education is a well-diversified an autonomous institute in
                 the field of computer literacy, governed by distinctive and
                 highly qualified professionals.SMS Education involves in
@@ -39,7 +39,7 @@ const Footer = () => {
               <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white text-xl">
                 Courses
               </h6>
-              <ul className="list-disc">
+              <ul className="sm:list-disc">
                 <li className="mb-4">
                   <a
                     href="#!"
@@ -95,26 +95,26 @@ const Footer = () => {
               <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white text-xl">
                 Useful links
               </h6>
-              <ul className="list-disc">
+              <ul className="sm:list-disc">
                 <li className="mb-4">
-                  <a
-                    href="#!"
+                  <Link
+                    to="/"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
-                  <a
-                    href="#!"
+                  <Link
+                    href="/about"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     About
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
                   <a
-                    href="#!"
+                    href="/courses"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     Courses
@@ -229,8 +229,9 @@ const Footer = () => {
                   </svg> */}
                 </a>
                 <a
-                  href="#!"
+                  href="https://www.facebook.com/smseducationlko"
                   className="mr-6 text-neutral-600 w-10 h-10 bg-[#ffffff1a] hover:bg-[#204ecf] flex justify-center items-center rounded-full transition-color duration-500"
+                  target="_blank"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -243,8 +244,9 @@ const Footer = () => {
                 </a>
 
                 <a
-                  href="#!"
+                  href="https://www.instagram.com/smseducationinstitute/"
                   className="mr-6 text-neutral-600 w-10 h-10 bg-[#ffffff1a] hover:bg-[#204ecf] flex justify-center items-center rounded-full transition-color duration-500"
+                  target="_blank"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

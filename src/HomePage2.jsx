@@ -251,7 +251,7 @@ const HomePage2 = () => {
                     className=" opacity-90 text-2xl"
                     style={{ fontFamily: "Mynerve, cursive" }}
                   >
-                    If sky is your limit, we provide base . . .
+                    If sky is your limit, Then we provide base . . .
                   </div>
                   <div className="flex items-center mt-7 opacity-90">
                     <div className="h-0.5 w-7 bg-[var(--golden)]"></div>
@@ -270,7 +270,7 @@ const HomePage2 = () => {
           {/* <img src={heroLeftImg} className="absolute bottom-0 left-5" alt="" /> */}
         </section>
 
-        <section className="fixed top-[30%] right-0">
+        <section className="fixed top-[30%] right-0 z-50">
           <div className="h-12 w-12 my-1 flex justify-center items-center border border-gray-500 bg-white hover:scale-105 hover:-translate-x-3 transition-all duration-500">
             <a
               href="https://api.whatsapp.com/send?phone=918090004415&text=I%20want%20to%20enquire%20about%20fees"
