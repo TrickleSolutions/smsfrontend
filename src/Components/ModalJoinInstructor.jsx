@@ -31,9 +31,9 @@ const ModalJoinInstructor = ({ open, handleOpen }) => {
     formData.append("exp", exp);
     formData.append("cv", cv);
 
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
 
     // Empty the value of fields
     setName("");

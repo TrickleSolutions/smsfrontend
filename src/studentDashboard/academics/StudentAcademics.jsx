@@ -20,7 +20,7 @@ const StudentAcademics = ({ auth }) => {
     {
       label: "Courses",
       value: "courses",
-      desc: <StudentCourses />,
+      desc: <StudentCourses auth={auth} />,
     },
     {
       label: "Teachers",

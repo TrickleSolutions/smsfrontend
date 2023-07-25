@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import baseurl from "../Config";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -6,6 +8,49 @@ const Contact = () => {
   const [contact, setContact] = useState("");
   const [subject, setSubject] = useState("");
   const [desc, setDesc] = useState("");
+
+  const data = {
+    name,
+    email,
+    contact,
+    subject,
+    desc,
+  };
+
+  console.log(data);
+
+  const onSubmitClick = (e) => {
+    e.preventDefault();
+    // Empty the value of fields
+    setName("");
+    setEmail("");
+    setContact("");
+    setSubject("");
+    setDesc("");
+
+    // Post Api For Posting Data
+    fetch(baseurl + "/api/contact", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        if (result.status === true && result.code === 200) {
+          toast.success("Enquiry Submitted Successfully");
+        } else {
+          toast.error(`${result.message}`);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <main>
       {/* Courses Heading */}
@@ -43,6 +88,8 @@ const Contact = () => {
                 id="name"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5   "
                 placeholder="John"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div>
@@ -58,6 +105,8 @@ const Contact = () => {
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5   "
                 placeholder="name@flowbite.com"
                 required=""
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
@@ -72,6 +121,8 @@ const Contact = () => {
                 id="contact"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5   "
                 placeholder="1234567890"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
               />
             </div>
             <div>
@@ -87,6 +138,8 @@ const Contact = () => {
                 className="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 "
                 placeholder="Courses interested in"
                 required=""
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
               />
             </div>
             <div className="sm:col-span-2">
@@ -101,12 +154,14 @@ const Contact = () => {
                 rows={6}
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 "
                 placeholder="Tell us more about your enquiry"
-                defaultValue={""}
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
               />
             </div>
             <button
               type="submit"
               className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-[var(--bg-dark-blue)] hover:bg-[var(--bg-light-blue)] sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-color duration-500"
+              onClick={(e) => onSubmitClick(e)}
             >
               Submit
             </button>

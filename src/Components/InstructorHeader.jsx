@@ -28,7 +28,7 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
   const navigate = useNavigate();
   const [instructorData, setInstructorData] = useState([]);
   const location = useLocation();
-  console.log(instructor);
+  // console.log(instructor);
 
   useEffect(() => {
     setInstructor(

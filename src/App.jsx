@@ -84,7 +84,7 @@ const App = () => {
   const [instructorAuth, setInstructorAuth] = useState();
   const [adminAuth, setAdminAuth] = useState();
 
-  console.log("Student Details", auth);
+  // console.log("Student Details", auth);
 
   useEffect(() => {
     updateAuth();
