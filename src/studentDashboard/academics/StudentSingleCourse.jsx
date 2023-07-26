@@ -54,6 +54,7 @@ const StudentSingleCourse = ({
     let inst = getInstructorData(course.instructor);
     setInstName(inst);
   };
+
   const getCatName = () => {
     let cat = getCategoryData(course.category);
     setCatName(cat);

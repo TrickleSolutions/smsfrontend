@@ -4,7 +4,7 @@ import about1 from "../assets/images/homepage/about-img-1.jpg";
 import abtIco from "../assets/images/homepage/abt-ico.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import director from "../assets/images/homepage/director-1.jpg";
+import director from "../assets/images/homepage/team/director.jpeg";
 import DivyanshiSingh from "../assets/images/homepage/staff/Divyanshi-singh-(Teacher).jpeg";
 import PratishthaDwivedi from "../assets/images/homepage/staff/Pratishtha-Dwivedi (Evening-manager).jpeg";
 import PrabhatKumarSharma from "../assets/images/homepage/staff/Prabhat-kumar Sharma-(Teacher).png";
@@ -208,28 +208,32 @@ const About = () => {
         <h1 className="text-5xl text-center font-semibold mb-20">
           Meet Our Director
         </h1>
-        <div className="flex flex-col lg:flex-row justify-around max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row justify-around items-center max-w-6xl mx-auto">
           {/* left */}
           <div data-aos="fade-right" className="mx-5 my-3">
             <img
               src={director}
-              className="max-w-xl lg:max-w-sm w-full  lg:w-80 h-full lg:h-96 mx-auto"
+              className="max-w-xl lg:max-w-xl w-full h-full mx-auto"
               alt=""
             />
           </div>
           {/* Director message */}
           <div data-aos="fade-up" className="mx-auto lg:mx-5 my-10">
             <h1 className="text-4xl font-bold my-4  md:max-w-xl lg:max-w-xl xl:max-w-2xl">
-              Saurabh Verma
+              Khushboo Gupta
             </h1>
             <h3 className="text-lg text-[var(--bg-dark-blue)]">
               Director - SMS Education
             </h3>
-            <p className="text-3xl my-3 md:max-w-xl lg:max-w-xl xl:max-w-2xl">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-              necessitatibus cupiditate dolores corrupti odit ipsum vel sapiente
-              maiores commodi veniam. Soluta a incidunt quos harum ut assumenda
-              vero quidem quam.
+            <p className="text-xl my-3 md:max-w-xl lg:max-w-xl xl:max-w-2xl">
+              "I am thrilled to have you join us on this exciting learning
+              journey. Our mission is to empower individuals like you with the
+              essential computer skills and knowledge that can open doors to
+              endless opportunities in today's fast-paced digital world. I
+              founded this platform with the vision of creating a supportive and
+              innovative learning environment.Our team of dedicated instructors
+              and experts are committed to delivering top-notch courses that
+              cater to learners of all levels."
             </p>
           </div>
         </div>
@@ -285,7 +289,7 @@ const About = () => {
                 <div>
                   <div className="relative overflow-hidden transition duration-300 transform rounded shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
                     <img
-                      className="object-contain w-full h-56 md:h-64 xl:h-80"
+                      className="object-cover object-top w-full h-56 md:h-64 xl:h-80"
                       src={item.img}
                       alt="Person"
                     />
