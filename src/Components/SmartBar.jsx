@@ -23,7 +23,7 @@ const SmartBar = () => {
             />
           </svg>
         </span>{" "}
-        Working Hours : Monday - Sunday, 08am - 07pm
+        Working Hours : Monday - Sunday, 07am - 09pm
       </div>
     </>
   );

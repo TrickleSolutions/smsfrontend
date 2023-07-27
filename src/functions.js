@@ -1,7 +1,7 @@
 import baseurl from "./Config";
 
 export const functions = {
-  getSingleCategory: async function (id, setState) {
+  getSingleCategory: async function (id) {
     let cat = await fetch(baseurl + "/api/category/" + id, {
       method: "GET",
       headers: {
