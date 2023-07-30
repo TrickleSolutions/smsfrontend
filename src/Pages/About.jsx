@@ -11,6 +11,9 @@ import PrabhatKumarSharma from "../assets/images/homepage/staff/Prabhat-kumar Sh
 import MukeshKumar from "../assets/images/homepage/staff/Mukesh-kumar-(Teacher).jpeg";
 import KomalVerma from "../assets/images/homepage/staff/Komal-verma-(Morning-manager).jpeg";
 import AnujSrivastava from "../assets/images/homepage/staff/Anuj-Srivastava-(Teacher).JPG";
+import premise14 from "../assets/images/homepage/premises/premise14.JPG";
+import classroom6 from "../assets/images/homepage/premises/classroom/classroom6.JPG";
+import classroom4 from "../assets/images/homepage/premises/classroom/classroom4.JPG";
 
 const About = () => {
   // toast("Wow so easy!");
@@ -72,42 +75,33 @@ const About = () => {
 
         {/* <img src={heroLeftImg} className="absolute bottom-0 left-5" alt="" /> */}
       </section>
-      {/* About Us */}
-      <section className="my-20 p-5">
-        {/* About Us  */}
-        <div className="mb-20">
-          {/* <h1 className="text-4xl  font-semibold mb-5">About Us</h1> */}
-          <p className="text-lg">
-            SMS Education is a well-diversified an autonomous institute in the
-            field of computer literacy, governed by distinctive and highly
-            qualified professionals. SMS Education involves in preparing skilled
-            computer professional environment. The courses are structured with
-            special emphasis on personal development and compatibility in
-            information technology with excellent infrastructure, core facility
-            and rich library. the schemes & planning formation are reserved with
-            the erudite professional & promoters of the institute - it is
-            prompted to spread the rich guidance in order to satisfy country's
-            fast growing new technology requirements.
-          </p>
-        </div>
 
+      {/* About Us */}
+      <section className="my-10 p-5">
         {/* About Container */}
-        <div className="flex flex-col lg:flex-row justify-around xl:max-w-[80%] mx-auto">
+        <div className="flex flex-col lg:flex-row justify-around xl:max-w-[90%] mx-auto">
           {/* left */}
           <div
             data-aos="fade-right"
-            className="w-full lg:w-5/12 md:w-10/12 sm:w-9/12 mx-auto"
+            className="w-full lg:w-6/12 md:w-10/12 sm:w-9/12 mx-auto"
           >
             <div className="relative flex justify-end p-2">
-              <img src={about1} className="w-80 h-64 rounded-2xl" alt="" />
+              <img src={premise14} className="w-80 h-64 rounded-2xl" alt="" />
               <div className="absolute top-24 left-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
                 <img src={abtIco} className="mr-2" alt="" />
                 Experience Advisor
               </div>
             </div>
             <div className="relative -top-16 flex justify-start p-2">
-              <img src={about1} className="w-80 h-64 rounded-2xl" alt="" />
+              <img src={classroom6} className="w-80 h-64 rounded-2xl" alt="" />
               <div className="absolute top-28 right-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
+                <img src={abtIco} className="mr-2" alt="" />
+                Experience Advisor
+              </div>
+            </div>
+            <div className="relative -top-28 flex justify-end p-2">
+              <img src={classroom4} className="w-80 h-64 rounded-2xl" alt="" />
+              <div className="absolute top-28 left-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
                 <img src={abtIco} className="mr-2" alt="" />
                 Experience Advisor
               </div>
@@ -286,21 +280,16 @@ const About = () => {
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {staff.map((item) => {
               return (
-                <div>
-                  <div className="relative overflow-hidden transition duration-300 transform rounded shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
-                    <img
-                      className="object-cover object-top w-full h-56 md:h-64 xl:h-80"
-                      src={item.img}
-                      alt="Person"
-                    />
-                    <div className="absolute inset-0 flex flex-col justify-center px-5 py-4 text-center transition-opacity duration-300 bg-black bg-opacity-75 opacity-0 hover:opacity-100">
-                      <p className="mb-1 text-lg font-bold text-gray-100">
-                        {item.name}
-                      </p>
-                      <p className="mb-4 text-xs text-gray-100">
-                        {item.position}
-                      </p>
-                    </div>
+                <div className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
+                  <img
+                    className="object-cover object-top w-full h-[100%] md:h-[100%] xl:h-[100%]"
+                    src={item.img}
+                    alt="Person"
+                  />
+                  <div className="absolute inset-0 flex flex-col justify-center px-5 py-4 text-center transition-opacity duration-300 bg-black bg-opacity-75 opacity-0 hover:opacity-100">
+                    <p className="mb-1 text-lg font-bold text-gray-100">
+                      {item.name}
+                    </p>
                   </div>
                 </div>
               );

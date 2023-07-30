@@ -76,7 +76,9 @@ const HomePage2 = () => {
         return res.json();
       })
       .then((result) => {
-        setCourses(result);
+        // setCourses(result);
+        let filteredData = result.filter((course, i) => i < 3);
+        setCourses(filteredData);
         setLoader(false);
       })
       .catch((err) => {
@@ -704,10 +706,10 @@ const HomePage2 = () => {
 
         {/* Location */}
         <section data-aos="fade-up" className="mt-20 mb-10 p-5">
-          <h1 className="text-5xl text-center font-semibold my-10">
+          <h1 className="text-5xl text-center font-semibold my-10 pb-10">
             Locations
           </h1>
-          <div className="flex flex-col lg:flex-row flex-wrap justify-around items-center mx-auto py-10">
+          {/* <div className="flex flex-col lg:flex-row flex-wrap justify-around items-center mx-auto py-10">
             <Card
               data-aos="fade-up"
               className="flex-col sm:flex-row w-[95%] sm:max-w-lg m-2 sm:m-5"
@@ -789,7 +791,47 @@ const HomePage2 = () => {
                 </a>
               </CardBody>
             </Card>
-          </div>
+          </div> */}
+          <Card
+            shadow={false}
+            className="relative grid h-[28rem] w-full max-w-[80rem] mx-auto items-center justify-center overflow-hidden text-center"
+          >
+            <CardHeader
+              floated={false}
+              shadow={false}
+              color="transparent"
+              className="absolute inset-0 m-0 h-full w-full rounded-none bg-[url('./assets/images/homepage/premises/premise7.JPG')] bg-cover bg-no-repeat bg-bottom"
+            >
+              <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+            </CardHeader>
+            <CardBody className="relative py-14 px-6 md:px-12">
+              <Typography
+                variant="h1"
+                color="white"
+                className="mb-6 font-medium leading-[1.5]"
+              >
+                SMS - Sarojini Nagar
+              </Typography>
+              <Typography
+                variant="h5"
+                color="white"
+                className="mb-6 font-medium leading-[1.5]"
+              >
+                Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh -
+                226008
+              </Typography>
+              <a
+                href="https://goo.gl/maps/NKysRroC4qWoepn86"
+                target="_blank"
+                className="inline-block"
+              >
+                <Button variant="text" className="flex items-center gap-2">
+                  View on Map
+                  <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                </Button>
+              </a>
+            </CardBody>
+          </Card>
         </section>
 
         {/* SPECIAL FEATURES */}
@@ -1202,7 +1244,7 @@ const HomePage2 = () => {
         </section>
 
         {/* Browse Latest Courses */}
-        <section className="my-10 p-5">
+        <section className="w-full flex flex-col items-center my-10 p-5">
           <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
             Latest Courses
           </h3>
@@ -1210,22 +1252,22 @@ const HomePage2 = () => {
             Browser Latest Courses
           </h1>
           {/* Oppotunities Container */}
-          <div className="flex justify-around items-center mt-20 py-5  flex-wrap md:px-10">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-around items-center mt-20 py-5 md:px-10">
             {courses &&
               courses.map((course) => {
                 return (
                   <Card
                     data-aos="fade-up"
                     data-aos-delay="100"
-                    className="m-10 w-96 mx-auto"
+                    className="m-10 w-72 sm:w-64 md:w-80 lg:w-72 xl:w-96 mx-auto"
                   >
                     <CardHeader color="blue-gray" className="relative h-56">
                       <img
                         src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
                         alt="img-blur-shadow"
                         layout="fill"
+                        className="h-full w-full"
                       />
-                      <div>Rs. 8K</div>
                     </CardHeader>
                     <CardBody>
                       <Typography variant="h6" color="blue" className="mb-2">
@@ -1316,6 +1358,9 @@ const HomePage2 = () => {
                 );
               })}
           </div>
+          <Button onClick={() => navigate("/courses")} className="w-fit float">
+            View more
+          </Button>
         </section>
 
         {/* Meet Our Director */}

@@ -144,20 +144,21 @@ const Courses = () => {
             Browser Latest Courses
           </h1>
           {/* Oppotunities Container */}
-          <div className="flex justify-around items-center mt-20 py-5  flex-wrap md:px-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-around items-center mt-20 py-5  md:px-10">
             {courses &&
               courses.map((course) => {
                 return (
                   <Card
                     data-aos="fade-up"
                     data-aos-delay="100"
-                    className="m-10 w-96 mx-auto"
+                    className="m-10 w-72 sm:w-64 md:w-80 lg:w-72 xl:w-96 mx-auto"
                   >
                     <CardHeader color="blue-gray" className="relative h-56">
                       <img
                         src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
                         alt="img-blur-shadow"
                         layout="fill"
+                        className="h-full w-full"
                       />
                       <div>Rs. 8K</div>
                     </CardHeader>
