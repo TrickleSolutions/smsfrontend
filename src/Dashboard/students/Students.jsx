@@ -137,6 +137,7 @@ const Students = () => {
             <Button onClick={handleOpen} className="h-fit">
               + Add Student
             </Button>
+            <AddStudent open={open} handleOpen={handleOpen} />
           </div>
         </div>
 

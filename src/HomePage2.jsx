@@ -50,15 +50,19 @@ const HomePage2 = () => {
   const [courses, setCourses] = useState([]);
   const [events, setEvents] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [catData, setCatData] = useState([]);
+  const [instData, setInstData] = useState([]);
   // const [studentOfMonth,]
   const navigate = useNavigate();
-  console.log(events);
+  // console.log(events);
 
   useEffect(() => {
     StudentOfTheMonthList();
     InstructorOfTheMonthList();
     getCourseList();
     getEventsList();
+    getCategoryData();
+    getInstructorData();
   }, []);
 
   const getCourseList = () => {
@@ -133,6 +137,61 @@ const HomePage2 = () => {
         console.log(err);
       });
   };
+
+  function getCategoryData() {
+    fetch(baseurl + "/api/category", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setCatData(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function getInstructorData() {
+    fetch(baseurl + "/api/instructor", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setInstData(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function getCategoryName(id) {
+    let name = "";
+    catData.forEach((item) => {
+      if (item._id === id) {
+        name = item.name;
+      }
+    });
+    return name;
+  }
+  function getInstructorName(id) {
+    let name = "";
+    instData.forEach((item) => {
+      if (item._id === id) {
+        name = item.name;
+      }
+    });
+    return name;
+  }
 
   AOS.init({
     delay: 300,
@@ -627,7 +686,7 @@ const HomePage2 = () => {
                 return (
                   <div className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
                     <img
-                      className="object-cover object-top w-full h-56 md:h-64 xl:h-80"
+                      className="object-cover object-top w-full h-[100%] md:h-[100%] xl:h-[100%]"
                       src={item.img}
                       alt="Person"
                     />
@@ -1170,10 +1229,9 @@ const HomePage2 = () => {
                     </CardHeader>
                     <CardBody>
                       <Typography variant="h6" color="blue" className="mb-2">
-                        Networking{" "}
-                        {/* {course.category
-                        ? getSingleCategory(course.category)
-                        : ""} */}
+                        {course.category
+                          ? getCategoryName(course.category)
+                          : ""}
                       </Typography>
                       <Typography
                         variant="h4"
@@ -1203,8 +1261,13 @@ const HomePage2 = () => {
                               d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
                             />
                           </svg>
-                          <span>
-                            By <span className="font-bold">Amit Singh</span>
+                          <span className=" text-start  pl-1">
+                            By{" "}
+                            <span className="font-bold">
+                              {course.instructor
+                                ? getInstructorName(course.instructor)
+                                : ""}
+                            </span>
                           </span>
                         </div>
                         <div className="flex items-center text-sm m-1">
@@ -1223,7 +1286,10 @@ const HomePage2 = () => {
                             />
                           </svg>
 
-                          <span> {course && course.lessons} Lessons</span>
+                          <span className="text-start ">
+                            {" "}
+                            {course && course.lessons} Lessons
+                          </span>
                         </div>
                         <div className="flex items-center text-sm m-1">
                           <svg
@@ -1240,7 +1306,9 @@ const HomePage2 = () => {
                               d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                             />
                           </svg>
-                          <span>Rs. {course.price && course.price}/-</span>
+                          <span className="text-start ">
+                            Rs. {course.price && course.price}/-
+                          </span>
                         </div>
                       </div>
                     </CardFooter>

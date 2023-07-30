@@ -27,7 +27,6 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
   const [duration, setDuration] = useState("");
   const [rating, setRating] = useState(2);
   const [status, setStatus] = useState("active");
-  console.log(status);
 
   useEffect(() => {
     getCategoryList();
@@ -132,23 +131,6 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form onSubmit={handleSubmit} className="w-full px-5 sm:px-10 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
-              {/* <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-first-name"
-                >
-                  First Name
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  id="grid-first-name"
-                  type="text"
-                  placeholder="Jane"
-                />
-                <p className="text-red-500 text-xs italic">
-                  Please fill out this field.
-                </p>
-              </div> */}
               {/* Course Name */}
               <div className="w-full px-3 mb-3">
                 <label

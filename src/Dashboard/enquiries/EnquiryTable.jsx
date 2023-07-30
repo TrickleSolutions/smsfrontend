@@ -10,10 +10,13 @@ import { Link } from "react-router-dom";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import ModalEnrollStudent from "./ModalEnrollStudent";
+import ModalEditEnquiry from "./ModalEditEnquiry";
 
 const EnquiryTable = ({ item, getEnquiryList }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  const [open2, setOpen2] = useState(false);
+  const handleOpen2 = () => setOpen2(!open2);
 
   function deleteData(id) {
     if (window.confirm("Are you sure You want to delete ?")) {
@@ -39,16 +42,16 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
       </th>
       <td className="px-1 py-4 hidden sm:table-cell">{item.fname}</td>
       <td className="px-1 py-4">{item.contact}</td>
-      <td className="px-1 py-4 max-w-xs truncate hidden md:table-cell">
+      <td className="px-1 py-4 max-w-0 truncate hidden md:table-cell">
         <Tooltip
           content={item.address}
-          className="max-w-xs bg-[val(--theme-color)]"
+          className="max-w-xs text-white bg-[var(--theme-color)] rounded-md"
           placement="bottom-end"
         >
           {item.address}
         </Tooltip>
       </td>
-      <td className="px-1 py-4 hidden md:table-cell">{item.ref_by}</td>
+      {/* <td className="px-1 py-4 hidden md:table-cell">{item.ref_by}</td> */}
       <td className="px-1 py-4 hidden lg:table-cell">{item.dob}</td>
       <td className="px-1 py-4 hidden lg:table-cell">{item.gender}</td>
       <td className="px-1 py-4 hidden lg:table-cell">{item.epx_join}</td>
@@ -81,7 +84,7 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
           </MenuHandler>
           <MenuList>
             <MenuItem>
-              <Link to="/admin/editEnquiry" className="flex ">
+              <div onClick={handleOpen2} className="flex ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -97,7 +100,7 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
                   />
                 </svg>
                 Edit
-              </Link>
+              </div>
             </MenuItem>
             <MenuItem>
               <div className="flex " onClick={() => deleteData(item._id)}>
@@ -120,6 +123,12 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
             </MenuItem>
           </MenuList>
         </Menu>
+        <ModalEditEnquiry
+          item={item}
+          open={open2}
+          handleOpen={handleOpen2}
+          getEnquiryList={getEnquiryList}
+        />
       </td>
     </tr>
   );

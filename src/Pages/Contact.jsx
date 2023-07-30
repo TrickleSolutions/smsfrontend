@@ -17,8 +17,6 @@ const Contact = () => {
     desc,
   };
 
-  console.log(data);
-
   const onSubmitClick = (e) => {
     e.preventDefault();
     // Empty the value of fields

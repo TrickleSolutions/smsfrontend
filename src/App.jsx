@@ -74,6 +74,8 @@ import HomePage2 from "./HomePage2";
 import SmartBar from "./Components/SmartBar";
 import InstituteHeader from "./Components/InstituteHeader";
 import Gallery from "./Pages/Gallery";
+import JoinAsInstructor from "./Dashboard/JoinInstructor/JoinAsInstructor";
+import ContactQueries from "./Dashboard/contactQueries/ContactQueries";
 
 const App = () => {
   const location = useLocation();
@@ -381,7 +383,6 @@ const App = () => {
                 />
               }
             />
-
             <Route
               path="/admin/enrollment"
               element={
@@ -409,7 +410,6 @@ const App = () => {
                 <AdminProtected adminAuth={adminAuth} Component={Income} />
               }
             />
-
             <Route
               path="/admin/admin-profile"
               element={
@@ -489,6 +489,24 @@ const App = () => {
               path="/admin/roles-and-permissions"
               element={
                 <AdminProtected adminAuth={adminAuth} Component={Roles} />
+              }
+            />
+            <Route
+              path="/admin/joinInstructor"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={JoinAsInstructor}
+                />
+              }
+            />
+            <Route
+              path="/admin/contactQueries"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={ContactQueries}
+                />
               }
             />
           </Routes>

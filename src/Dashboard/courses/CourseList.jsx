@@ -1,13 +1,6 @@
 import React, { useEffect, Fragment, useState } from "react";
 import baseurl from "../../Config";
-import {
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Checkbox,
-  Button,
-} from "@material-tailwind/react";
+import { Checkbox, Button } from "@material-tailwind/react";
 import ModalAddCourse from "./ModalAddCourse";
 import CourseTable from "./CourseTable";
 import Loader from "../../Components/Loader";

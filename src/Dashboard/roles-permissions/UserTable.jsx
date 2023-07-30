@@ -35,6 +35,8 @@ const UserTable = ({ item, getUserList }) => {
     scheduleBatches: true,
     monthlyAchievers: true,
     rolesPermission: false,
+    // joinInstructor: true,
+    // contact: true,
   };
 
   const initPermissions = () => {

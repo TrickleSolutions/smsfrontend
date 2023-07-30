@@ -45,7 +45,7 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
       })
       .then((result) => {
         setCategoryData(result);
-        console.log(result);
+        // console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -64,13 +64,13 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
       })
       .then((result) => {
         setInstructorData(result);
-        console.log(result);
+        // console.log(result);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  console.log(item);
+  // console.log(item);
   useEffect(() => {
     setTitle(item.title);
     setLevel(item.level);

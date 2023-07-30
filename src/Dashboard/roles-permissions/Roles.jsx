@@ -74,7 +74,7 @@ const Roles = () => {
 
   return (
     <>
-      <div className="mt-5 sm:max-w-lg md:max-w-2xl lg:max-w-none mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
+      <div className="mt-5  mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] text-center sm:text-start ">
             Users
