@@ -33,7 +33,7 @@ const CourseDetails = () => {
       <section>
         <div className="max-w-[90%] mx-auto">
           {/* Left */}
-          <div className="w-4/6">
+          <div className="w-full md:w-4/6">
             {/* Rating div */}
             <div className="flex items-center">
               <div className="mx-2 text-lg text-[var(--bg-dark-blue)] font-semibold">
