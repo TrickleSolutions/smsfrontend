@@ -5,9 +5,8 @@ import Homepage from "./Homepage";
 import Navigation from "./Components/Navigation";
 import { Route, Routes, useLocation } from "react-router-dom";
 import About from "./Pages/About";
-import Courses from "./Pages/Courses";
+import Courses from "./Pages/courses/Courses";
 import Contact from "./Pages/Contact";
-import Blogs from "./Pages/Blogs";
 
 // Admin Dashboard Import
 import AdminHeader from "./Components/AdminHeader";
@@ -76,6 +75,7 @@ import InstituteHeader from "./Components/InstituteHeader";
 import Gallery from "./Pages/Gallery";
 import JoinAsInstructor from "./Dashboard/JoinInstructor/JoinAsInstructor";
 import ContactQueries from "./Dashboard/contactQueries/ContactQueries";
+import CourseDetails from "./Pages/courses/CourseDetails";
 
 const App = () => {
   const location = useLocation();
@@ -125,6 +125,11 @@ const App = () => {
         <Route path="/courses" exact={true} element={<Courses />} />
         <Route path="/contact" exact={true} element={<Contact />} />
         <Route path="/gallery" exact={true} element={<Gallery />} />
+        <Route
+          path="/course/course-details"
+          exact={true}
+          element={<CourseDetails />}
+        />
 
         {/* Auth Routes */}
         <Route

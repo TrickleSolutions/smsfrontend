@@ -9,10 +9,11 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import baseurl from "../Config";
-import { functions } from "../functions";
+import baseurl from "../../Config";
+import { functions } from "../../functions";
 import axios from "axios";
-import Loader from "../Components/Loader";
+import Loader from "../../Components/Loader";
+import { useNavigate } from "react-router-dom";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
@@ -20,8 +21,7 @@ const Courses = () => {
   const [catData, setCatData] = useState([]);
   const [instData, setInstData] = useState([]);
 
-  // console.log("CatId", catId);
-  // console.log("instData", instData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCourseList();
@@ -171,9 +171,12 @@ const Courses = () => {
                       <Typography
                         variant="h4"
                         color="blue-gray"
-                        className="mb-2"
+                        className="mb-2 cursor-pointer hover:text-[var(--golden)]"
+                        onClick={() => navigate("/course/course-details")}
                       >
-                        {course.title && course.title}
+                        <span className="hover:text-[var(--golden)] transition-colors duration-300">
+                          {course.title && course.title}
+                        </span>
                       </Typography>
                       <Typography className="mb-2">
                         {course.desc && course.desc}

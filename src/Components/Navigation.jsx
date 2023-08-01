@@ -10,6 +10,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import logo2 from "../assets/images/logo2.jpg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
+import ModalJoinInstructor from "./ModalJoinInstructor";
 
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -127,6 +128,9 @@ const Navigation = () => {
     </ul>
   );
 
+  const [open2, setOpen2] = useState(false);
+  const handleOpen2 = () => setOpen2(!open2);
+
   return (
     <>
       <Navbar
@@ -151,7 +155,14 @@ const Navigation = () => {
             <img src={logo2} alt="" className="mx-1 h-20 w-20 rounded-full" />
           </Link>
           <div className="mr-4 hidden lg:block">{navList}</div>
-          <div className="flex items-center gap-4">
+          <div className="relative flex items-center gap-4">
+            <div
+              className="absolute top-2 left-[-140px] font-semibold cursor-pointer hover:text-[var(--golden)] transition-all duration-300"
+              onClick={handleOpen2}
+            >
+              Join as Instructor
+            </div>
+            <ModalJoinInstructor open={open2} handleOpen={handleOpen2} />
             <Link to="/student/dashboard">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
