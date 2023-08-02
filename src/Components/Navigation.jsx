@@ -150,7 +150,7 @@ const Navigation = () => {
             to="/"
             className={`${
               scrolled ? "shadow-xl " : ""
-            } relative top-1 -left-1 flex items-center px-1 py-2 rounded-lg bg-white transition-all`}
+            } relative top-2 -left-0 flex items-center px-1 py-2 rounded-lg bg-white transition-all`}
           >
             <img src={logo2} alt="" className="mx-1 h-20 w-20 rounded-full" />
           </Link>

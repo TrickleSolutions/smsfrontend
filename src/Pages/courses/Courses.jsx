@@ -13,7 +13,7 @@ import baseurl from "../../Config";
 import { functions } from "../../functions";
 import axios from "axios";
 import Loader from "../../Components/Loader";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
@@ -172,11 +172,14 @@ const Courses = () => {
                         variant="h4"
                         color="blue-gray"
                         className="mb-2 cursor-pointer hover:text-[var(--golden)]"
-                        onClick={() => navigate("/course/course-details")}
                       >
-                        <span className="hover:text-[var(--golden)] transition-colors duration-300">
+                        <Link
+                          to="/course/course-details"
+                          className="hover:text-[var(--golden)] transition-colors duration-300"
+                          state={course}
+                        >
                           {course.title && course.title}
-                        </span>
+                        </Link>
                       </Typography>
                       <Typography className="mb-2">
                         {course.desc && course.desc}
