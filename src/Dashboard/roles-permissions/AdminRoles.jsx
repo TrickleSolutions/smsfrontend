@@ -158,7 +158,6 @@ const AdminRoles = () => {
     rolesPermission: true,
   });
 
-  console.log(data, 'check');
 
   const roles = [
     {
@@ -237,7 +236,6 @@ const AdminRoles = () => {
                 onChange={() => handleChange(role.id)}
               />
             </div>
-            {console.log(data, 'check')}
           </div>
         ))}
       </section>
