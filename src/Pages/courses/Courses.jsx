@@ -11,7 +11,7 @@ import {
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { functions } from "../../functions";
-import axios from "axios";
+// import axios from "axios";
 import Loader from "../../Components/Loader";
 import { Link, useNavigate } from "react-router-dom";
 
