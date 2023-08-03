@@ -1238,7 +1238,7 @@ const HomePage2 = () => {
                     </CardBody>
                     <CardFooter className="pt-0">
                       <div className=" flex justify-between items-center text-center">
-                        <div className="flex items-center text-sm m-1">
+                        {/* <div className="flex items-center text-sm m-1">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -1261,7 +1261,7 @@ const HomePage2 = () => {
                                 : ""}
                             </span>
                           </span>
-                        </div>
+                        </div> */}
                         <div className="flex items-center text-sm m-1">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"

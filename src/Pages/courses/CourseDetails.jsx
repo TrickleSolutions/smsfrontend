@@ -623,13 +623,13 @@ const CourseDetails = () => {
                             {course.title && course.title}
                           </Link>
                         </Typography>
-                        <Typography className="mb-2">
+                        <Typography className="mb-2 h-14 overflow-hidden">
                           {course.desc && course.desc}
                         </Typography>
                       </CardBody>
                       <CardFooter className="pt-0">
                         <div className=" flex justify-between items-center text-center">
-                          <div className="flex items-center text-sm m-1">
+                          {/* <div className="flex items-center text-sm m-1">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -652,7 +652,7 @@ const CourseDetails = () => {
                                   : ""}
                               </span>
                             </span>
-                          </div>
+                          </div> */}
                           <div className="flex items-center text-sm m-1">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
