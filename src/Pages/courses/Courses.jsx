@@ -162,7 +162,7 @@ const Courses = () => {
                       />
                       <div>Rs. 8K</div>
                     </CardHeader>
-                    <CardBody>
+                    <CardBody className="pb-2">
                       <Typography variant="h6" color="blue" className="mb-2">
                         {course.category
                           ? getCategoryName(course.category)
@@ -181,13 +181,13 @@ const Courses = () => {
                           {course.title && course.title}
                         </Link>
                       </Typography>
-                      <Typography className="mb-2">
+                      <Typography className="mb-2 h-14 overflow-hidden">
                         {course.desc && course.desc}
                       </Typography>
                     </CardBody>
                     <CardFooter className="pt-0">
                       <div className=" flex justify-between items-center text-center">
-                        <div className="flex items-center text-sm m-1">
+                        {/* <div className="flex items-center text-sm m-1">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -210,7 +210,7 @@ const Courses = () => {
                                 : ""}
                             </span>
                           </span>
-                        </div>
+                        </div> */}
                         <div className="flex items-center text-sm m-1">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"

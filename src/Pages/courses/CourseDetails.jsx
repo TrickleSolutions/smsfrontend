@@ -111,6 +111,8 @@ const CourseDetails = () => {
     });
     return name;
   }
+
+  window.scroll(0, 0);
   return (
     <>
       {/* Course Details Heading */}
@@ -138,7 +140,9 @@ const CourseDetails = () => {
             {/* Rating div */}
             <div className="flex items-center">
               <div className="mx-2 text-lg text-[var(--bg-dark-blue)] font-semibold">
-                Web Design
+                {courseData.category
+                  ? getCategoryName(courseData.category)
+                  : ""}
               </div>
               <div className="mx-2 py-1 px-2 bg-[var(--golden)] text-white rounded-full">
                 <span className="relative top-0.5">30% OFF</span>
@@ -531,7 +535,11 @@ const CourseDetails = () => {
                   </svg>
                   Category
                 </div>
-                <div className="font-bold">Networking</div>
+                <div className="font-bold">
+                  {courseData.category
+                    ? getCategoryName(courseData.category)
+                    : ""}
+                </div>
               </div>
               <div className="flex justify-between px-2 my-10">
                 <div className="flex items-center text-gray-800">

@@ -39,6 +39,7 @@ import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import baseurl from "./Config";
 import premise1 from "./assets/images/homepage/premises/premise1.JPG";
 import ModalJoinInstructor from "./Components/ModalJoinInstructor";
+import { Carousel } from "@material-tailwind/react";
 
 const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
@@ -253,8 +254,34 @@ const HomePage2 = () => {
     <>
       <main>
         {/* Hero Section */}
-        <section className=" relative top-[-96px] bg-cover bg-[#00000070] hero-container mb-10 sm:mb-5 flex items-start pb-3">
-          <div className="h-[140vh] relative  px-5 sm:px-6 md:px-8 lg:px-10 before:absolute before:top-0 before:left-0 before:content-[''] before:bg-[url('./assets/images/homepage/premises/premise1.JPG')] before:w-full before:h-[142vh] before:-z-10 hero-section w-full before:bg-cover before:bg-center before:opacity-100  flex justify-around items-center">
+        <section className=" relative top-[-96px] bg-cover bg-[#00000070] hero-container mb-10 sm:mb-5 flex items-start">
+          <Carousel
+            className="h-[140vh]"
+            autoplay
+            prevArrow={false}
+            nextArrow={false}
+            navigation={false}
+            loop={true}
+          >
+            <img
+              src={premise1}
+              alt="Premise"
+              className="h-full w-full object-cover"
+            />
+            <img
+              src={premise14}
+              alt="Premise"
+              className="h-full w-full object-cover"
+            />
+            <img
+              src={classroom6}
+              alt="Classroom"
+              className="h-full w-full object-cover"
+            />
+          </Carousel>
+
+          {/* Hero Section Content */}
+          <div className="h-[140vh] absolute top-0 left-0 bg-[#00000070] px-5 sm:px-6 md:px-8 lg:px-10 hero-section w-full flex justify-around items-center z-10">
             <div className="mt-28  flex sm:flex-row lg:flex-row items-center justify-around w-full flex-wrap space-x-5 sm:space-x-7 ">
               <div className="text-white max-w-2xl">
                 <div data-aos="fade-down" data-aos-delay="100">
@@ -387,8 +414,6 @@ const HomePage2 = () => {
               </div>
             </div>
           </div>
-
-          {/* <img src={heroLeftImg} className="absolute bottom-0 left-5" alt="" /> */}
         </section>
 
         <section className="fixed top-[30%] right-0 z-50">
@@ -515,6 +540,7 @@ const HomePage2 = () => {
             {/* left */}
             <div
               data-aos="fade-right"
+              data-aos-easing="linear"
               className="w-full lg:w-6/12 md:w-10/12 sm:w-9/12 mx-auto"
             >
               <div className="relative flex justify-end p-2">
@@ -549,7 +575,7 @@ const HomePage2 = () => {
             </div>
 
             {/* Right */}
-            <div data-aos="fade-up" className="p-2">
+            <div data-aos="fade-up" data-aos-easing="linear" className="p-2">
               <h3 className="text-[var(--bg-dark-blue)] text-xl font-bold">
                 About SMS
               </h3>
@@ -1187,7 +1213,7 @@ const HomePage2 = () => {
                         className="h-full w-full"
                       />
                     </CardHeader>
-                    <CardBody>
+                    <CardBody className="pb-2">
                       <Typography variant="h6" color="blue" className="mb-2">
                         {course.category
                           ? getCategoryName(course.category)
@@ -1198,9 +1224,15 @@ const HomePage2 = () => {
                         color="blue-gray"
                         className="mb-2"
                       >
-                        {course.title && course.title}
+                        <Link
+                          to="/course/course-details"
+                          className="hover:text-[var(--golden)] transition-colors duration-300"
+                          state={course}
+                        >
+                          {course.title && course.title}
+                        </Link>
                       </Typography>
-                      <Typography className="mb-2">
+                      <Typography className="mb-2 h-14 overflow-hidden">
                         {course.desc && course.desc}
                       </Typography>
                     </CardBody>

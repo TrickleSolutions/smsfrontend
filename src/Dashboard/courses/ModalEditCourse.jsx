@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Dialog,
@@ -12,6 +12,7 @@ import {
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import JoditEditor from "jodit-react";
 
 const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
   const [title, setTitle] = useState("");
@@ -27,6 +28,8 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
   const [category, setCategory] = useState("");
   const [instructor, setInstructor] = useState("");
   const [status, setStatus] = useState("");
+
+  const editor = useRef(null);
 
   useEffect(() => {
     getCategoryList();
@@ -136,7 +139,7 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
     <>
       <Dialog
         open={open}
-        handler={handleOpen}
+        // handler={handleOpen}
         className="min-w-[80%] md:min-w-[60%] lg:min-w-[50%]"
       >
         <DialogHeader className="text-center justify-center">
@@ -226,27 +229,7 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
                   })}
                 </Select>
               </div>
-              {/* Course Level */}
-              {/* <div className="w-full md:w-1/2 px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="level"
-                >
-                  Course Level
-                </label>
-                <Select
-                  id="level"
-                  label="Select Category"
-                  value={level}
-                  onChange={(e) => {
-                    setLevel(e.target.value);
-                  }}
-                >
-                  <Option value="Beginners">Beginners</Option>
-                  <Option value="Intermediate">Intermediate</Option>
-                  <Option value="Advanced">Advanced</Option>
-                </Select>
-              </div> */}
+
               {/* Course Level */}
               <div className="w-full px-3 mb-3">
                 <label
@@ -327,13 +310,18 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
                 >
                   Course Description
                 </label>
-                <Textarea
+                {/* <Textarea
                   resize={true}
                   label="Message"
                   value={desc}
                   onChange={(e) => {
                     setDesc(e.target.value);
                   }}
+                /> */}
+                <JoditEditor
+                  ref={editor}
+                  value={desc}
+                  onChange={(value) => setDesc(value)}
                 />
               </div>
               {/* Status */}

@@ -7,6 +7,7 @@ import {
   MenuList,
   MenuItem,
   Checkbox,
+  Tooltip,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -61,7 +62,15 @@ const CourseTable = ({ item, getCourseList }) => {
           </div>
         </th>
         {/* <td className="px-6 py-4">Development</td> */}
-        <td className="px-6 py-4 hidden md:table-cell max-w-xs">{item.desc}</td>
+        <td className="px-6 py-4 hidden md:table-cell max-w-xs truncate">
+          <Tooltip
+            className="max-w-xs bg-[var(--theme-color)] rounded-md text-sm"
+            content={item.desc}
+            placement="bottom-end"
+          >
+            {item.desc}
+          </Tooltip>
+        </td>
         <td className="px-6 py-4 hidden md:table-cell">{item.level}</td>
         <td className="px-6 py-4 hidden sm:table-cell">{item.lessons}</td>
         <td className="px-6 py-4 hidden sm:table-cell">{item.duration} Days</td>
