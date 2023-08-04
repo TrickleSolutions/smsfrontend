@@ -135,19 +135,27 @@ const App = () => {
         <Route
           path="/login-student"
           exact={true}
-          element={<LoginStudent updateAuth={updateAuth} />}
+          element={<LoginStudent updateAuth={updateAuth} auth={auth} />}
         />
         <Route
           path="/login-instructor"
           exact={true}
           element={
-            <LoginInstructor updateInstructorAuth={updateInstructorAuth} />
+            <LoginInstructor
+              updateInstructorAuth={updateInstructorAuth}
+              instructorAuth={instructorAuth}
+            />
           }
         />
         <Route
           path="/login-admin"
           exact={true}
-          element={<LoginAdmin updateAdminAuth={updateAdminAuth} />}
+          element={
+            <LoginAdmin
+              updateAdminAuth={updateAdminAuth}
+              adminAuth={adminAuth}
+            />
+          }
         />
       </Routes>
 

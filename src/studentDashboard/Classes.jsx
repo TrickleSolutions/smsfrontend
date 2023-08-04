@@ -214,7 +214,7 @@ const Classes = ({ auth, updateAuth }) => {
                 Scheduled Classes
               </h2>
               {/* Schedule - 1 */}
-              <div className=" sm:max-w-sm md:max-w-2xl lg:max-w-5xl flex flex-col md:flex-row items-center justify-around md:flex-wrap my-5 sm:my-7 md:my-10">
+              <div className="flex flex-col md:flex-row items-center justify-around md:flex-wrap my-5 sm:my-7 md:my-10">
                 {scheduleData.length == 0 ? (
                   <div className="text-3xl mx-auto text-center">No Classes</div>
                 ) : (
