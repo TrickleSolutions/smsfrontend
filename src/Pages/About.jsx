@@ -9,7 +9,7 @@ import DivyanshiSingh from "../assets/images/homepage/staff/Divyanshi-singh-(Tea
 import PratishthaDwivedi from "../assets/images/homepage/staff/Pratishtha-Dwivedi (Evening-manager).jpeg";
 import PrabhatKumarSharma from "../assets/images/homepage/staff/Prabhat-kumar Sharma-(Teacher).png";
 import MukeshKumar from "../assets/images/homepage/staff/Mukesh-kumar-(Teacher).jpeg";
-import KomalVerma from "../assets/images/homepage/staff/Komal-verma-(Morning-manager).jpeg";
+import KomalVerma from "../assets/images/homepage/staff/Komal-verma-(Morning-manager).jpg";
 import AnujSrivastava from "../assets/images/homepage/staff/Anuj-Srivastava-(Teacher).JPG";
 import premise14 from "../assets/images/homepage/premises/premise14.JPG";
 import classroom6 from "../assets/images/homepage/premises/classroom/classroom6.JPG";
