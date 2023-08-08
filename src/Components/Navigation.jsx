@@ -56,24 +56,25 @@ const Navigation = () => {
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color={page ? "white" : "black"}
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link to="/" className="text-lg flex items-center  justify-center">
           Home
         </Link>
       </Typography>
-
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color="white"
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link to="/about" className="text-lg flex items-center justify-center">
@@ -81,11 +82,12 @@ const Navigation = () => {
         </Link>
       </Typography>
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color="white"
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link
@@ -96,11 +98,12 @@ const Navigation = () => {
         </Link>
       </Typography>
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color="white"
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link
@@ -111,11 +114,12 @@ const Navigation = () => {
         </Link>
       </Typography>
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color="white"
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link
@@ -157,7 +161,7 @@ const Navigation = () => {
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="relative flex items-center gap-4">
             <div
-              className="absolute top-2 left-[-140px] font-semibold cursor-pointer hover:text-[var(--golden)] transition-all duration-300"
+              className="absolute top-2 left-[-140px] hidden lg:block font-semibold cursor-pointer hover:text-[var(--golden)] transition-all duration-300"
               onClick={handleOpen2}
             >
               Join as Instructor

@@ -19,8 +19,6 @@ import PrabhatKumarSharma from "./assets/images/homepage/staff/Prabhat-kumar Sha
 import MukeshKumar from "./assets/images/homepage/staff/Mukesh-kumar-(Teacher).jpeg";
 import KomalVerma from "./assets/images/homepage/staff/Komal-verma-(Morning-manager).jpg";
 import AnujSrivastava from "./assets/images/homepage/staff/Anuj-Srivastava-(Teacher).JPG";
-import premise7 from "./assets/images/homepage/premises/premise7.JPG";
-import premise8 from "./assets/images/homepage/premises/premise8.JPG";
 import premise14 from "./assets/images/homepage/premises/premise14.JPG";
 import classroom6 from "./assets/images/homepage/premises/classroom/classroom6.JPG";
 import classroom4 from "./assets/images/homepage/premises/classroom/classroom4.JPG";
@@ -1403,7 +1401,7 @@ const HomePage2 = () => {
                         </svg>
                         {event.event ? event.event : ""}
                       </div>
-                      <h3 className="max-w-sm max-h-10 truncate my-4  text-lg  text-[var(--dash-text-color)] hover:text-[var(--golden)] transition-colors duration-500">
+                      <h3 className="max-w-xs max-h-20 overflow-hidden my-4  text-lg  text-[var(--dash-text-color)] hover:text-[var(--golden)] transition-colors duration-500">
                         <Tooltip
                           content={event.desc ? event.desc : ""}
                           placement="bottom-end"

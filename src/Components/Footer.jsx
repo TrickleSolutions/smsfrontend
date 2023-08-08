@@ -8,7 +8,7 @@ const Footer = () => {
       <footer className="text-center bg-[var(--bg-dark-blue)] text-white lg:text-left">
         {/* Main container div: holds the entire content of the footer, including four sections (Tailwind Elements, Products, Useful links, and Contact), with responsive styling and appropriate padding/margins. */}
         <div className="mx-6 py-10 text-center md:text-left">
-          <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4 justify-center items-start">
+          <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-start">
             {/* Company info */}
             <div className="">
               <div className="mb-5 flex flex-col lg:flex-row justify-center lg:justify-start items-center">
