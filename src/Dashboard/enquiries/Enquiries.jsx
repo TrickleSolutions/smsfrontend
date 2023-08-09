@@ -146,56 +146,32 @@ const Enquiries = () => {
                         Name
                       </th>
 
-                      <th
-                        scope="col"
-                        className="px-6 py-3 hidden sm:table-cell"
-                      >
+                      <th scope="col" className="px-6 py-3 ">
                         Father Name
                       </th>
                       <th scope="col" className="px-6 py-3">
                         Contact
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 hidden md:table-cell"
-                      >
+                      <th scope="col" className="px-6 py-3 ">
                         Address
                       </th>
 
-                      <th
-                        scope="col"
-                        className="px-6 py-3 hidden lg:table-cell"
-                      >
+                      <th scope="col" className="px-6 py-3">
                         DOB
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 hidden lg:table-cell"
-                      >
+                      <th scope="col" className="px-6 py-3">
                         Gender
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 hidden lg:table-cell"
-                      >
+                      <th scope="col" className="px-6 py-3">
                         Expected DOJ
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 hidden lg:table-cell"
-                      >
+                      <th scope="col" className="px-6 py-3">
                         Counselor
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 hidden lg:table-cell"
-                      >
+                      <th scope="col" className="px-6 py-3">
                         Course
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 hidden lg:table-cell"
-                      >
+                      <th scope="col" className="px-6 py-3">
                         Note
                       </th>
                       <th scope="col" className="px-6 py-3">

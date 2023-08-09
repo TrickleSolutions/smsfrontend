@@ -145,88 +145,90 @@ const CourseList = () => {
           getCourseList={getCourseList}
         />
 
-        {/* Student Table */}
+        {/* Course Table */}
         <div className="my-10">
-          <div className="relative overflow-x-auto ">
+          <div className="relative mx-auto ">
             {loader ? (
               <div className="w-full h-[90vh] flex justify-center items-center">
                 <Loader />
               </div>
             ) : (
-              <table className="w-full text-sm text-left text-gray-500 ">
-                <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
-                  <tr>
-                    <th scope="col" className=" py-3">
-                      <Checkbox />
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Course
-                    </th>
-                    {/* <th scope="col" className="px-6 py-3">
+              <div className="relative overflow-x-scroll">
+                <table className="w-full text-sm text-left text-gray-500 ">
+                  <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
+                    <tr>
+                      <th scope="col" className=" py-3">
+                        <Checkbox />
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Course
+                      </th>
+                      {/* <th scope="col" className="px-6 py-3">
               Category
             </th> */}
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Description
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Level
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Lessons
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Duration
-                    </th>
-                    {/* <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="px-6 py-3">
+                        Description
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Level
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Lessons
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Duration
+                      </th>
+                      {/* <th scope="col" className="px-3 py-3">
               Status
             </th> */}
-                    <th scope="col" className="px-3 py-3 hidden sm:table-cell">
-                      Price
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Rating
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Status
-                    </th>
-                    {/* <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="px-3 py-3">
+                        Price
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Rating
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Status
+                      </th>
+                      {/* <th scope="col" className="px-6 py-3">
               Deadline
             </th> */}
-                    <th scope="col" className="px-1 py-3">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                        />
-                      </svg>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {pageData.map((item) => {
-                    if (
-                      item.title
-                        .toLowerCase()
-                        .includes(search.trim().toLowerCase())
-                    ) {
-                      return (
-                        <CourseTable
-                          item={item}
-                          getCourseList={getCourseList}
-                        />
-                      );
-                    }
-                  })}
-                </tbody>
-              </table>
+                      <th scope="col" className="px-1 py-3">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                          />
+                        </svg>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pageData.map((item) => {
+                      if (
+                        item.title
+                          .toLowerCase()
+                          .includes(search.trim().toLowerCase())
+                      ) {
+                        return (
+                          <CourseTable
+                            item={item}
+                            getCourseList={getCourseList}
+                          />
+                        );
+                      }
+                    })}
+                  </tbody>
+                </table>
+              </div>
             )}
 
             <div className="flex justify-end">

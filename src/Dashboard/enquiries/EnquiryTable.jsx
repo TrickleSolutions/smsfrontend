@@ -40,9 +40,9 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
         <div>{item.name}</div>
         <div className="font-light my-1 text-gray-500">{item.email}</div>
       </th>
-      <td className="px-1 py-4 hidden sm:table-cell">{item.fname}</td>
+      <td className="px-1 py-4">{item.fname}</td>
       <td className="px-1 py-4">{item.contact}</td>
-      <td className="px-1 py-4 max-w-0 truncate hidden md:table-cell">
+      <td className="px-1 py-4 max-w-0 truncate">
         <Tooltip
           content={item.address}
           className="max-w-xs text-white bg-[var(--theme-color)] rounded-md"
@@ -52,12 +52,12 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
         </Tooltip>
       </td>
       {/* <td className="px-1 py-4 hidden md:table-cell">{item.ref_by}</td> */}
-      <td className="px-1 py-4 hidden lg:table-cell">{item.dob}</td>
-      <td className="px-1 py-4 hidden lg:table-cell">{item.gender}</td>
-      <td className="px-1 py-4 hidden lg:table-cell">{item.epx_join}</td>
-      <td className="px-1 py-4 hidden lg:table-cell">{item.counseller}</td>
-      <td className="px-1 py-4 hidden lg:table-cell">{item.course}</td>
-      <td className="px-1 py-4 hidden lg:table-cell">{item.note}</td>
+      <td className="px-1 py-4">{item.dob}</td>
+      <td className="px-1 py-4">{item.gender}</td>
+      <td className="px-1 py-4">{item.epx_join}</td>
+      <td className="px-1 py-4">{item.counseller}</td>
+      <td className="px-1 py-4">{item.course}</td>
+      <td className="px-1 py-4">{item.note}</td>
       <td className="px-1 py-4">
         <Button size="sm" onClick={handleOpen}>
           Enroll

@@ -34,15 +34,13 @@ const AdminFeesTable = ({ item, getFeesList }) => {
           <Checkbox />
         </td>
         <td class="px-6 py-4 font-semibold text-black">{item.name}</td>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.regno}</td>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.amount}</td>
-        <td class="px-6 py-4 hidden md:table-cell">{item.mode}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.transId}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.paid}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">
-          {item.amount - item.paid}
-        </td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.date}</td>
+        <td class="px-6 py-4">{item.regno}</td>
+        <td class="px-6 py-4">{item.amount}</td>
+        <td class="px-6 py-4">{item.mode}</td>
+        <td class="px-3 py-4">{item.transId}</td>
+        <td class="px-3 py-4">{item.paid}</td>
+        <td class="px-3 py-4">{item.amount - item.paid}</td>
+        <td class="px-3 py-4">{item.date}</td>
         <td class="px-1 py-4">
           <div>
             <Menu>
