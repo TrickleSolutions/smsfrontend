@@ -6,6 +6,7 @@ import {
   MenuList,
   MenuItem,
   Checkbox,
+  Tooltip,
 } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import baseurl from "../../Config";
@@ -31,7 +32,15 @@ const AdminQueriesTable = ({ item, index, getQueriesList }) => {
       <tr key={item._id}>
         <td className="px-0 py-5 text-sm">{index + 1}.</td>
         <td className="px-3 py-5 hidden lg:table-cell ">{item.name}</td>
-        <td className="px-3 py-5 text-sm max-w-xs truncate">{item.query}</td>
+        <td className="px-3 py-5 text-sm max-w-xs truncate">
+          <Tooltip
+            className="max-w-xs bg-[var(--theme-color)] rounded-md"
+            content={item.query}
+            placement="bottom-end"
+          >
+            {item.query}
+          </Tooltip>
+        </td>
         <td className="px-3 py-5 hidden lg:table-cell ">{item.date}</td>
         <td className="px-3 py-5  text-sm">
           {item.status == "pending" ? (
