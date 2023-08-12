@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const LoginInstructor = ({ updateInstructorAuth, instructorAuth }) => {
   const [email, setEmail] = useState("");
@@ -48,6 +49,10 @@ const LoginInstructor = ({ updateInstructorAuth, instructorAuth }) => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

@@ -122,7 +122,7 @@ const Footer = () => {
                 </li>
                 <li className="mb-4">
                   <Link
-                    to="/instructor/instructor-dashboard"
+                    to="/login-instructor"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     Contact
@@ -130,7 +130,7 @@ const Footer = () => {
                 </li>
                 <li className="mb-4">
                   <Link
-                    to="/student/dashboard"
+                    to="/login-student"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     Blogs
@@ -138,7 +138,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    to="/admin/dashboard"
+                    to="/login-admin"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     FAQs

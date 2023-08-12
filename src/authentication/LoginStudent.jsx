@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const LoginStudent = ({ updateAuth, auth }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log("user Logged In", auth);
+  // console.log("user Logged In", auth);
 
   const navigate = useNavigate();
 
@@ -58,6 +59,10 @@ const LoginStudent = ({ updateAuth, auth }) => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

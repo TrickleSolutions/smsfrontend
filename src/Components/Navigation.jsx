@@ -167,7 +167,7 @@ const Navigation = () => {
               Join as Instructor
             </div>
             <ModalJoinInstructor open={open2} handleOpen={handleOpen2} />
-            <Link to="/student/dashboard">
+            <Link to="/login-student">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

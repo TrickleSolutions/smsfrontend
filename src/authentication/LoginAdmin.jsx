@@ -1,5 +1,5 @@
 import { Button } from "@material-tailwind/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import { toast } from "react-toastify";
@@ -48,6 +48,10 @@ const LoginAdmin = ({ updateAdminAuth, adminAuth }) => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
