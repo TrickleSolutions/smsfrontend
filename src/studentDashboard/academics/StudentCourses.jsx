@@ -7,8 +7,8 @@ const StudentCourses = ({ auth }) => {
   const [iname, setIname] = useState("");
   const [cname, setCname] = useState("");
 
-  console.log("Student ID", auth);
-  console.log("Courses list", studentData);
+  // console.log("Student ID", auth);
+  // console.log("Courses list", studentData);
 
   useEffect(() => {
     getStudentData();

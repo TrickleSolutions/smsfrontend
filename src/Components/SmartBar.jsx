@@ -4,7 +4,7 @@ const SmartBar = () => {
   return (
     <>
       <div
-        className="px-5 py-3 text-white  bg-[var(--bg-light-blue)] tracking-widest font-semibold flex items-center justify-center"
+        className="text-xs md:text-sm px-5 py-3 text-white  bg-[var(--bg-light-blue)] tracking-widest font-semibold flex items-center justify-center"
         style={{ fontFamily: "Nunito Sans" }}
       >
         <span>
@@ -23,7 +23,7 @@ const SmartBar = () => {
             />
           </svg>
         </span>{" "}
-        Working Hours : Monday - Sunday, 08am - 07pm
+        Working Hours : Mon - Sun, 07am - 09pm
       </div>
     </>
   );

@@ -137,6 +137,7 @@ const Students = () => {
             <Button onClick={handleOpen} className="h-fit">
               + Add Student
             </Button>
+            <AddStudent open={open} handleOpen={handleOpen} />
           </div>
         </div>
 
@@ -158,64 +159,34 @@ const Students = () => {
                       <th scope="col" className="px-3 py-3">
                         Student
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden md:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         Course
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden sm:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         Father Name
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden sm:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         Address
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden md:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         Contact
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden lg:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         Gender
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden lg:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         DOB
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden lg:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         Admission Date
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden md:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         Library
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden md:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         Shift
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3 hidden sm:table-cell"
-                      >
+                      <th scope="col" className="px-3 py-3">
                         Status
                       </th>
                       <th scope="col" className="px-1 py-3">

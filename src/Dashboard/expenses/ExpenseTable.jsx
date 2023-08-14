@@ -40,8 +40,8 @@ const ExpenseTable = ({ item, getExpenseList }) => {
           {item.desc}
         </Tooltip>
       </td>
-      <td class="px-6 py-4 hidden sm:table-cell">{item.date}</td>
-      <td class="px-6 py-4 hidden md:table-cell">{item.time}</td>
+      <td class="px-6 py-4">{item.date}</td>
+      <td class="px-6 py-4">{item.time}</td>
       <td class="px-6 py-4">Rs. {item.amount}</td>
       <td class="px-1 py-4">
         <div>

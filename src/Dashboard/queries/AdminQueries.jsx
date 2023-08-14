@@ -78,35 +78,37 @@ const AdminQueries = () => {
               <Loader />
             </div>
           ) : (
-            <table className="table-auto w-full">
-              <thead className="border-b border-b-gray-600  text-[var(--secondary-color)]">
-                <tr className="uppercase text-start">
-                  <th className="px-0 py-3 text-start ">Sr. No.</th>
-                  <th className="px-3 py-3 text-start hidden md:table-cell">
-                    Student
-                  </th>
-                  <th className="px-3 py-3 text-start">Query</th>
-                  <th className="px-3 py-3 text-start hidden md:table-cell">
-                    Date
-                  </th>
-                  <th className="px-3 py-3 text-start hidden md:table-cell">
-                    Status
-                  </th>
-                  <th className="px-0 py-3 text-start table-cell">Update</th>
-                </tr>
-              </thead>
-              <tbody className="">
-                {queryData.map((item, index) => {
-                  return (
-                    <AdminQueriesTable
-                      item={item}
-                      index={index}
-                      getQueriesList={getQueriesList}
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
+            <div className="relative overflow-x-scroll">
+              <table className=" w-full">
+                <thead className="border-b border-b-gray-600  text-[var(--secondary-color)]">
+                  <tr className="uppercase text-start">
+                    <th className="px-0 py-3 text-start ">Sr. No.</th>
+                    <th className="px-3 py-3 text-start hidden md:table-cell">
+                      Student
+                    </th>
+                    <th className="px-3 py-3 text-start">Query</th>
+                    <th className="px-3 py-3 text-start hidden md:table-cell">
+                      Date
+                    </th>
+                    <th className="px-3 py-3 text-start hidden md:table-cell">
+                      Status
+                    </th>
+                    <th className="px-0 py-3 text-start table-cell">Update</th>
+                  </tr>
+                </thead>
+                <tbody className="">
+                  {queryData.map((item, index) => {
+                    return (
+                      <AdminQueriesTable
+                        item={item}
+                        index={index}
+                        getQueriesList={getQueriesList}
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </section>

@@ -17,12 +17,11 @@ import DivyanshiSingh from "./assets/images/homepage/staff/Divyanshi-singh-(Teac
 import PratishthaDwivedi from "./assets/images/homepage/staff/Pratishtha-Dwivedi (Evening-manager).jpeg";
 import PrabhatKumarSharma from "./assets/images/homepage/staff/Prabhat-kumar Sharma-(Teacher).png";
 import MukeshKumar from "./assets/images/homepage/staff/Mukesh-kumar-(Teacher).jpeg";
-import KomalVerma from "./assets/images/homepage/staff/Komal-verma-(Morning-manager).jpeg";
+import KomalVerma from "./assets/images/homepage/staff/Komal-verma-(Morning-manager).jpg";
 import AnujSrivastava from "./assets/images/homepage/staff/Anuj-Srivastava-(Teacher).JPG";
-import premise7 from "./assets/images/homepage/premises/premise7.JPG";
-import premise8 from "./assets/images/homepage/premises/premise8.JPG";
 import premise14 from "./assets/images/homepage/premises/premise14.JPG";
 import classroom6 from "./assets/images/homepage/premises/classroom/classroom6.JPG";
+import classroom4 from "./assets/images/homepage/premises/classroom/classroom4.JPG";
 import director from "./assets/images/homepage/team/director.jpeg";
 import directorAvatar from "./assets/images/homepage/team/director-avatar.jpeg";
 import {
@@ -32,11 +31,13 @@ import {
   CardFooter,
   Typography,
   Button,
+  Tooltip,
 } from "@material-tailwind/react";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import baseurl from "./Config";
 import premise1 from "./assets/images/homepage/premises/premise1.JPG";
 import ModalJoinInstructor from "./Components/ModalJoinInstructor";
+import { Carousel } from "@material-tailwind/react";
 
 const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
@@ -46,14 +47,21 @@ const HomePage2 = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   const [courses, setCourses] = useState([]);
+  const [events, setEvents] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [catData, setCatData] = useState([]);
+  const [instData, setInstData] = useState([]);
   // const [studentOfMonth,]
   const navigate = useNavigate();
+  // console.log(events);
 
   useEffect(() => {
     StudentOfTheMonthList();
     InstructorOfTheMonthList();
     getCourseList();
+    getEventsList();
+    getCategoryData();
+    getInstructorData();
   }, []);
 
   const getCourseList = () => {
@@ -67,7 +75,9 @@ const HomePage2 = () => {
         return res.json();
       })
       .then((result) => {
-        setCourses(result);
+        // setCourses(result);
+        let filteredData = result.filter((course, i) => i < 3);
+        setCourses(filteredData);
         setLoader(false);
       })
       .catch((err) => {
@@ -111,6 +121,79 @@ const HomePage2 = () => {
       });
   };
 
+  const getEventsList = () => {
+    fetch(baseurl + "/api/event", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setEvents(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  function getCategoryData() {
+    fetch(baseurl + "/api/category", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setCatData(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function getInstructorData() {
+    fetch(baseurl + "/api/instructor", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setInstData(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function getCategoryName(id) {
+    let name = "";
+    catData.forEach((item) => {
+      if (item._id === id) {
+        name = item.name;
+      }
+    });
+    return name;
+  }
+  function getInstructorName(id) {
+    let name = "";
+    instData.forEach((item) => {
+      if (item._id === id) {
+        name = item.name;
+      }
+    });
+    return name;
+  }
+
   AOS.init({
     delay: 300,
     duration: 1000,
@@ -150,12 +233,53 @@ const HomePage2 = () => {
       position: "Teacher",
     },
   ];
+
+  const month = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   return (
     <>
       <main>
         {/* Hero Section */}
-        <section className=" relative top-[-96px] bg-cover bg-[#00000070] hero-container mb-10 sm:mb-5 flex items-start pb-3">
-          <div className="h-[140vh] relative  px-5 sm:px-6 md:px-8 lg:px-10 before:absolute before:top-0 before:left-0 before:content-[''] before:bg-[url('./assets/images/homepage/premises/premise1.JPG')] before:w-full before:h-[142vh] before:-z-10 hero-section w-full before:bg-cover before:bg-center before:opacity-100  flex justify-around items-center">
+        <section className=" relative top-[-96px] bg-cover bg-[#00000070] hero-container mb-10 sm:mb-5 flex items-start">
+          <Carousel
+            className="h-[140vh]"
+            autoplay
+            prevArrow={false}
+            nextArrow={false}
+            navigation={false}
+            loop={true}
+          >
+            <img
+              src={premise1}
+              alt="Premise"
+              className="h-full w-full object-cover"
+            />
+            <img
+              src={premise14}
+              alt="Premise"
+              className="h-full w-full object-cover"
+            />
+            <img
+              src={classroom6}
+              alt="Classroom"
+              className="h-full w-full object-cover"
+            />
+          </Carousel>
+
+          {/* Hero Section Content */}
+          <div className="h-[140vh] absolute top-0 left-0 bg-[#00000070] px-5 sm:px-6 md:px-8 lg:px-10 hero-section w-full flex justify-around items-center z-10">
             <div className="mt-28  flex sm:flex-row lg:flex-row items-center justify-around w-full flex-wrap space-x-5 sm:space-x-7 ">
               <div className="text-white max-w-2xl">
                 <div data-aos="fade-down" data-aos-delay="100">
@@ -288,8 +412,6 @@ const HomePage2 = () => {
               </div>
             </div>
           </div>
-
-          {/* <img src={heroLeftImg} className="absolute bottom-0 left-5" alt="" /> */}
         </section>
 
         <section className="fixed top-[30%] right-0 z-50">
@@ -412,11 +534,12 @@ const HomePage2 = () => {
         {/* About Us */}
         <section className="my-10 p-5">
           {/* About Container */}
-          <div className="flex flex-col lg:flex-row justify-around xl:max-w-[80%] mx-auto">
+          <div className="flex flex-col lg:flex-row justify-around xl:max-w-[90%] mx-auto">
             {/* left */}
             <div
               data-aos="fade-right"
-              className="w-full lg:w-5/12 md:w-10/12 sm:w-9/12 mx-auto"
+              data-aos-easing="linear"
+              className="w-full lg:w-6/12 md:w-10/12 sm:w-9/12 mx-auto"
             >
               <div className="relative flex justify-end p-2">
                 <img src={premise14} className="w-80 h-64 rounded-2xl" alt="" />
@@ -436,10 +559,21 @@ const HomePage2 = () => {
                   Experience Advisor
                 </div>
               </div>
+              <div className="relative -top-28 flex justify-end p-2">
+                <img
+                  src={classroom4}
+                  className="w-80 h-64 rounded-2xl"
+                  alt=""
+                />
+                <div className="absolute top-28 left-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
+                  <img src={abtIco} className="mr-2" alt="" />
+                  Experience Advisor
+                </div>
+              </div>
             </div>
 
             {/* Right */}
-            <div data-aos="fade-up" className="p-2">
+            <div data-aos="fade-up" data-aos-easing="linear" className="p-2">
               <h3 className="text-[var(--bg-dark-blue)] text-xl font-bold">
                 About SMS
               </h3>
@@ -576,21 +710,16 @@ const HomePage2 = () => {
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {staff.map((item) => {
                 return (
-                  <div>
-                    <div className="relative overflow-hidden transition duration-300 transform rounded shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
-                      <img
-                        className="object-cover object-top w-full h-56 md:h-64 xl:h-80"
-                        src={item.img}
-                        alt="Person"
-                      />
-                      <div className="absolute inset-0 flex flex-col justify-center px-5 py-4 text-center transition-opacity duration-300 bg-black bg-opacity-75 opacity-0 hover:opacity-100">
-                        <p className="mb-1 text-lg font-bold text-gray-100">
-                          {item.name}
-                        </p>
-                        <p className="mb-4 text-xs text-gray-100">
-                          {item.position}
-                        </p>
-                      </div>
+                  <div className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
+                    <img
+                      className="object-cover object-top w-full h-[100%] md:h-[100%] xl:h-[100%]"
+                      src={item.img}
+                      alt="Person"
+                    />
+                    <div className="absolute inset-0 flex flex-col justify-center px-5 py-4 text-center transition-opacity duration-300 bg-black bg-opacity-75 opacity-0 hover:opacity-100">
+                      <p className="mb-1 text-lg font-bold text-gray-100">
+                        {item.name}
+                      </p>
                     </div>
                   </div>
                 );
@@ -601,92 +730,50 @@ const HomePage2 = () => {
 
         {/* Location */}
         <section data-aos="fade-up" className="mt-20 mb-10 p-5">
-          <h1 className="text-5xl text-center font-semibold my-10">
+          <h1 className="text-5xl text-center font-semibold my-10 pb-10">
             Locations
           </h1>
-          <div className="flex flex-col lg:flex-row flex-wrap justify-around items-center mx-auto py-10">
-            <Card
-              data-aos="fade-up"
-              className="flex-col sm:flex-row w-[95%] sm:max-w-lg m-2 sm:m-5"
+
+          <Card
+            shadow={false}
+            className="relative grid h-[28rem] w-full max-w-[80rem] mx-auto items-center justify-center overflow-hidden text-center"
+          >
+            <CardHeader
+              floated={false}
+              shadow={false}
+              color="transparent"
+              className="absolute inset-0 m-0 h-full w-full rounded-none bg-[url('./assets/images/homepage/premises/premise7.JPG')] bg-cover bg-no-repeat bg-bottom"
             >
-              <CardHeader
-                shadow={false}
-                floated={false}
-                className=" w-full sm:w-2/5 shrink-0 m-0 rounded-r-none"
+              <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+            </CardHeader>
+            <CardBody className="relative py-14 px-6 md:px-12">
+              <Typography
+                variant="h1"
+                color="white"
+                className="mb-6 font-medium leading-[1.5]"
               >
-                <img
-                  src={premise7}
-                  alt="image"
-                  className="w-full h-full object-fill"
-                />
-              </CardHeader>
-              <CardBody>
-                <Typography
-                  variant="h6"
-                  color="blue"
-                  className="uppercase mb-4"
-                >
-                  Branch
-                </Typography>
-                <Typography variant="h4" color="blue-gray" className="mb-2">
-                  SMS - Sarojini nagar
-                </Typography>
-                <Typography color="gray" className="font-normal mb-8">
-                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
-                  226008
-                </Typography>
-                <a
-                  href="https://goo.gl/maps/NKysRroC4qWoepn86"
-                  target="_blank"
-                  className="inline-block"
-                >
-                  <Button variant="text" className="flex items-center gap-2">
-                    View on Map
-                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                  </Button>
-                </a>
-              </CardBody>
-            </Card>
-            <Card
-              data-aos="fade-up"
-              data-aos-delay="400"
-              className="flex-col sm:flex-row w-[95%] sm:max-w-lg m-2 sm:m-5"
-            >
-              <CardHeader
-                shadow={false}
-                floated={false}
-                className=" w-full sm:w-2/5 shrink-0 m-0 rounded-r-none"
+                SMS - Sarojini Nagar
+              </Typography>
+              <Typography
+                variant="h5"
+                color="white"
+                className="mb-6 font-medium leading-[1.5]"
               >
-                <img
-                  src={premise8}
-                  alt="image"
-                  className="w-full h-full object-fill object-center"
-                />
-              </CardHeader>
-              <CardBody>
-                <Typography
-                  variant="h6"
-                  color="blue"
-                  className="uppercase mb-4"
-                >
-                  Branch
-                </Typography>
-                <Typography variant="h4" color="blue-gray" className="mb-2">
-                  SMS - Hajratganj
-                </Typography>
-                <Typography color="gray" className="font-normal mb-8">
-                  Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh
-                  226008
-                </Typography>
-                <a href="#" className="inline-block">
-                  <Button variant="text" className="flex items-center gap-2">
-                    View on Map
-                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                  </Button>
-                </a>
-              </CardBody>
-            </Card>
-          </div>
+                Kudrat Vihar Colony, Sarojini Nagar, Lucknow, Uttar Pradesh -
+                226008
+              </Typography>
+              <a
+                href="https://goo.gl/maps/NKysRroC4qWoepn86"
+                target="_blank"
+                className="inline-block"
+              >
+                <Button variant="text" className="flex items-center gap-2">
+                  View on Map
+                  <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                </Button>
+              </a>
+            </CardBody>
+          </Card>
         </section>
 
         {/* SPECIAL FEATURES */}
@@ -882,16 +969,18 @@ const HomePage2 = () => {
             <div
               onMouseEnter={() => setViewAcheiver(true)}
               onMouseLeave={() => setViewAcheiver(false)}
-              className="relative w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all  duration-500"
+              className={`${
+                viewAcheiver ? "shadow-2xl" : "shadow-none"
+              } relative w-64 h-40 rounded-2xl border hover:h-96  transition-all  duration-500`}
             >
               <div
                 className={`${
                   viewAcheiver ? "-top-20" : ""
-                } relative -top-10 transition-all left-4 z-20`}
+                } relative -top-16 transition-all left-4 z-20`}
               >
                 <img
                   src={teacherMonth}
-                  className="w-56 h-56 rounded-2xl"
+                  className="w-56 h-56 rounded-full"
                   alt=""
                 />
                 <div className="text-xl font-bold my-1 ">
@@ -920,25 +1009,18 @@ const HomePage2 = () => {
             <div
               onMouseEnter={() => setViewAcheiver2(true)}
               onMouseLeave={() => setViewAcheiver2(false)}
-              className="relative top-40 md:top-0 w-64 h-40 rounded-2xl border hover:h-96 shadow-2xl transition-all duration-500"
+              className={`${
+                viewAcheiver2 ? "shadow-2xl" : "shadow-none"
+              } relative top-40 md:top-0 w-64 h-40 rounded-2xl border hover:h-96 transition-all duration-500`}
             >
               <div
                 className={`${
                   viewAcheiver2 ? "-top-20" : ""
-                } relative -top-10 transition-all left-4 z-20`}
+                } relative -top-16 transition-all left-4 z-20`}
               >
-                {/* <img
-                  src={
-                    studentMonth.img
-                      ? `${baseurl}/api/studentofmonth/${studentMonth.img}`
-                      : ""
-                  }
-                  className="w-56 h-56 rounded-2xl"
-                  alt=""
-                /> */}
                 <img
                   src={studentOfMonth}
-                  className="w-56 h-56 rounded-2xl"
+                  className="w-56 h-56 rounded-full"
                   alt=""
                 />
 
@@ -1104,7 +1186,7 @@ const HomePage2 = () => {
         </section>
 
         {/* Browse Latest Courses */}
-        <section className="my-10 p-5">
+        <section className="w-full flex flex-col items-center my-10 p-5">
           <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
             Latest Courses
           </h3>
@@ -1112,44 +1194,49 @@ const HomePage2 = () => {
             Browser Latest Courses
           </h1>
           {/* Oppotunities Container */}
-          <div className="flex justify-around items-center mt-20 py-5  flex-wrap md:px-10">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-around items-center mt-20 py-5 md:px-10">
             {courses &&
               courses.map((course) => {
                 return (
                   <Card
                     data-aos="fade-up"
                     data-aos-delay="100"
-                    className="m-10 w-96 mx-auto"
+                    className="m-10 w-72 sm:w-64 md:w-80 lg:w-72 xl:w-96 mx-auto"
                   >
                     <CardHeader color="blue-gray" className="relative h-56">
                       <img
                         src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
                         alt="img-blur-shadow"
                         layout="fill"
+                        className="h-full w-full"
                       />
-                      <div>Rs. 8K</div>
                     </CardHeader>
-                    <CardBody>
+                    <CardBody className="pb-2">
                       <Typography variant="h6" color="blue" className="mb-2">
-                        Networking{" "}
-                        {/* {course.category
-                        ? getSingleCategory(course.category)
-                        : ""} */}
+                        {course.category
+                          ? getCategoryName(course.category)
+                          : ""}
                       </Typography>
                       <Typography
                         variant="h4"
                         color="blue-gray"
                         className="mb-2"
                       >
-                        {course.title && course.title}
+                        <Link
+                          to="/course/course-details"
+                          className="hover:text-[var(--golden)] transition-colors duration-300"
+                          state={course}
+                        >
+                          {course.title && course.title}
+                        </Link>
                       </Typography>
-                      <Typography className="mb-2">
+                      <Typography className="mb-2 h-14 overflow-hidden">
                         {course.desc && course.desc}
                       </Typography>
                     </CardBody>
                     <CardFooter className="pt-0">
                       <div className=" flex justify-between items-center text-center">
-                        <div className="flex items-center text-sm m-1">
+                        {/* <div className="flex items-center text-sm m-1">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -1164,10 +1251,15 @@ const HomePage2 = () => {
                               d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
                             />
                           </svg>
-                          <span>
-                            By <span className="font-bold">Amit Singh</span>
+                          <span className=" text-start  pl-1">
+                            By{" "}
+                            <span className="font-bold">
+                              {course.instructor
+                                ? getInstructorName(course.instructor)
+                                : ""}
+                            </span>
                           </span>
-                        </div>
+                        </div> */}
                         <div className="flex items-center text-sm m-1">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -1184,7 +1276,10 @@ const HomePage2 = () => {
                             />
                           </svg>
 
-                          <span> {course && course.lessons} Lessons</span>
+                          <span className="text-start ">
+                            {" "}
+                            {course && course.lessons} Lessons
+                          </span>
                         </div>
                         <div className="flex items-center text-sm m-1">
                           <svg
@@ -1201,7 +1296,9 @@ const HomePage2 = () => {
                               d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                             />
                           </svg>
-                          <span>Rs. {course.price && course.price}/-</span>
+                          <span className="text-start ">
+                            Rs. {course.price && course.price}/-
+                          </span>
                         </div>
                       </div>
                     </CardFooter>
@@ -1209,6 +1306,9 @@ const HomePage2 = () => {
                 );
               })}
           </div>
+          <Button onClick={() => navigate("/courses")} className="w-fit float">
+            View more
+          </Button>
         </section>
 
         {/* Meet Our Director */}
@@ -1257,123 +1357,84 @@ const HomePage2 = () => {
           </h1>
           {/* Events Container */}
           <div className="flex justify-around items-center flex-wrap">
-            {/* Event - 1 */}
-            <div
-              data-aos="fade-up"
-              className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded"
-            >
-              <div className="flex justify-between w-full sm:w-fit">
-                <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
-                  <div>Mar</div>{" "}
-                  <div className="text-5xl text-black font-extrabold my-4">
-                    03
-                  </div>{" "}
-                  <div>2023</div>
-                </div>
-                <div className="py-4 mx-3 h-32 w-32">
-                  <img src={about2} className="h-32 w-32 rounded-full" alt="" />
-                </div>
-              </div>
-              <div className="mx-3">
-                {/* Address */}
-                <div className="my-4 flex items-center text-[var(--dash-text-color)] text-lg ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="var(--golden)"
-                    className="w-6 h-6 mr-2"
+            {events &&
+              events.map((event) => {
+                return (
+                  <div
+                    data-aos="fade-up"
+                    className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded"
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  55 Main Street, USA
-                </div>
-                <h3 className="max-w-sm my-4 text-3xl font-extrabold text-black hover:text-[var(--golden)] transition-colors duration-500">
-                  Useful VS Code Extensions Front-End Developers
-                </h3>
-                <div className="flex items-center m-3 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
-                  <div className="ml-3 font-semibold underline">Know More</div>
-                  <div className="flex items-center justify-center  w-10 h-12 rounded-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2.5}
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                      />
-                    </svg>
+                    <div className="flex justify-between w-full sm:w-fit">
+                      <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
+                        <div>
+                          {event.from
+                            ? month[Number(event.from.split("-")[1]) - 1]
+                            : ""}
+                        </div>{" "}
+                        <div className="text-5xl text-black font-extrabold my-4">
+                          {event.from ? event.from.split("-")[2] : ""}
+                        </div>{" "}
+                        <div>{event.from ? event.from.split("-")[0] : ""}</div>
+                      </div>
+                      <div className="py-4 mx-3 h-32 w-32">
+                        <img
+                          src={about2}
+                          className="h-32 w-32 rounded-full"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div className="mx-3">
+                      {/* Address */}
+                      <div className="my-4 flex items-center text-black font-extrabold  text-3xl ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          id="event-available"
+                          fill="var(--golden)"
+                          className=" mr-2"
+                        >
+                          <path fill="none" d="M0 0h24v24H0V0z"></path>
+                          <path d="M16 10.53c-.29-.29-.77-.29-1.06 0l-4.35 4.35L9 13.29c-.29-.29-.77-.29-1.06 0-.29.29-.29.77 0 1.06l1.94 1.94c.39.39 1.02.39 1.41 0l4.7-4.7c.3-.29.3-.77.01-1.06zM19 3h-1V2c0-.55-.45-1-1-1s-1 .45-1 1v1H8V2c0-.55-.45-1-1-1s-1 .45-1 1v1H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V8h14v10c0 .55-.45 1-1 1z"></path>
+                        </svg>
+                        {event.event ? event.event : ""}
+                      </div>
+                      <h3 className="max-w-xs max-h-20 overflow-hidden my-4  text-lg  text-[var(--dash-text-color)] hover:text-[var(--golden)] transition-colors duration-500">
+                        <Tooltip
+                          content={event.desc ? event.desc : ""}
+                          placement="bottom-end"
+                          className="max-w-lg bg-white text-black text-base"
+                        >
+                          {event.desc ? event.desc : ""}
+                        </Tooltip>
+                      </h3>
+                      {/* <div className="flex items-center m-3 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
+                        <div className="ml-3 font-semibold underline">
+                          Know More
+                        </div>
+                        <div className="flex items-center justify-center  w-10 h-12 rounded-full">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2.5}
+                            stroke="currentColor"
+                            className="w-5 h-5"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                            />
+                          </svg>
+                        </div>
+                      </div> */}
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            {/* Event - 2 */}
-            <div
-              data-aos="fade-up"
-              data-aos-delay="400"
-              className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded"
-            >
-              <div className="flex justify-between w-full sm:w-fit">
-                <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
-                  <div>Mar</div>{" "}
-                  <div className="text-5xl text-black font-extrabold my-4">
-                    03
-                  </div>{" "}
-                  <div>2023</div>
-                </div>
-                <div className="py-4 mx-3 h-32 w-32">
-                  <img src={about2} className="h-32 w-32 rounded-full" alt="" />
-                </div>
-              </div>
-              <div className="mx-3">
-                {/* Address */}
-                <div className="my-4 flex items-center text-[var(--dash-text-color)] text-lg ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="var(--golden)"
-                    className="w-6 h-6 mr-2"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  55 Main Street, USA
-                </div>
-                <h3 className="max-w-sm my-4 text-3xl font-extrabold text-black hover:text-[var(--golden)] transition-colors duration-500">
-                  Useful VS Code Extensions Front-End Developers
-                </h3>
-                <div className="flex items-center m-3 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
-                  <div className="ml-3 font-semibold underline">Know More</div>
-                  <div className="flex items-center justify-center  w-10 h-12 rounded-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2.5}
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
+                );
+              })}
           </div>
         </section>
 

@@ -123,81 +123,83 @@ const AdminFees = () => {
 
         {/* Result Table */}
         <div className="my-10">
-          <div className="relative overflow-x-auto ">
+          <div className="relative mx-auto ">
             {loader ? (
               <div className="w-full h-[60vh] flex justify-center items-center">
                 <Loader />
               </div>
             ) : (
-              <table className="w-full text-sm text-left text-gray-500 ">
-                <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
-                  <tr>
-                    <th scope="col" className=" py-3">
-                      <Checkbox />
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Student
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Reg. No.
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Amount
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Mode
-                    </th>
-                    <th scope="col" className="px-3 py-3 hidden lg:table-cell">
-                      Transaction Id
-                    </th>
-                    <th scope="col" className="px-3 py-3 hidden lg:table-cell">
-                      Paid
-                    </th>
-                    <th scope="col" className="px-3 py-3 hidden lg:table-cell">
-                      Pending
-                    </th>
-                    <th scope="col" className="px-3 py-3 hidden lg:table-cell">
-                      Date
-                    </th>
-                    <th scope="col" className="px-1 py-3">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                        />
-                      </svg>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* Dummy Data Starts Here */}
-
-                  {pageData.map((item) => {
-                    if (
-                      item.name
-                        .toLowerCase()
-                        .includes(search.trim().toLowerCase())
-                    ) {
-                      return (
-                        <>
-                          <AdminFeesTable
-                            item={item}
-                            getFeesList={getFeesList}
+              <div className="relative overflow-x-scroll">
+                <table className="w-full text-sm text-left text-gray-500 ">
+                  <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
+                    <tr>
+                      <th scope="col" className=" py-3">
+                        <Checkbox />
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Student
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Reg. No.
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Amount
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Mode
+                      </th>
+                      <th scope="col" className="px-3 py-3">
+                        Transaction Id
+                      </th>
+                      <th scope="col" className="px-3 py-3">
+                        Paid
+                      </th>
+                      <th scope="col" className="px-3 py-3">
+                        Pending
+                      </th>
+                      <th scope="col" className="px-3 py-3">
+                        Date
+                      </th>
+                      <th scope="col" className="px-1 py-3">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                           />
-                        </>
-                      );
-                    }
-                  })}
-                </tbody>
-              </table>
+                        </svg>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* Dummy Data Starts Here */}
+
+                    {pageData.map((item) => {
+                      if (
+                        item.name
+                          .toLowerCase()
+                          .includes(search.trim().toLowerCase())
+                      ) {
+                        return (
+                          <>
+                            <AdminFeesTable
+                              item={item}
+                              getFeesList={getFeesList}
+                            />
+                          </>
+                        );
+                      }
+                    })}
+                  </tbody>
+                </table>
+              </div>
             )}
 
             <div className="flex justify-end">

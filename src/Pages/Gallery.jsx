@@ -35,6 +35,7 @@ import team1 from "../assets/images/homepage/team/team1.JPG";
 import team2 from "../assets/images/homepage/team/team2.JPG";
 import team3 from "../assets/images/homepage/team/team3.JPG";
 import team4 from "../assets/images/homepage/team/team4.JPG";
+import { Link } from "react-router-dom";
 
 const Gallery = () => {
   AOS.init({
@@ -146,13 +147,41 @@ const Gallery = () => {
     <main>
       {/* Gallery Heading */}
       <section className=" hero-container mb-10 sm:mb-5 flex items-start pb-3">
-        <div className='h-[50vh] px-5 sm:px-6 md:px-8 lg:px-10 before:absolute before:top-0 before:left-0 before:content-[""] before:bg-[var(--bg-dark-blue)] before:w-full before:h-[70vh] before:-z-10 hero-section w-full before:bg-cover before:bg-center before:opacity-100  flex justify-around items-start'>
+        <div className='h-[60vh] px-5 sm:px-6 md:px-8 lg:px-10 before:absolute before:top-0 before:left-0 before:content-[""] before:bg-[var(--bg-dark-blue)] before:w-full before:h-[85vh] before:-z-10 hero-section w-full before:bg-cover before:bg-center before:opacity-100  flex justify-around items-start'>
           <div className="mt-36  flex sm:flex-row lg:flex-row items-center justify-around w-full flex-wrap space-x-5 sm:space-x-7 ">
             <div className="text-white max-w-2xl">
               <div data-aos="fade-down" data-aos-delay="100">
                 <h1 className="mb-2 text-4xl sm:text-6xl font-bold text-center leading-snug">
                   Gallery
                 </h1>
+                <h3 className="flex items-center justify-center text-xl">
+                  <Link
+                    to="/"
+                    className="hover:text-[var(--golden)] transition-colors duration-300"
+                  >
+                    Home
+                  </Link>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 120 120"
+                    id="arrow-right"
+                    height={16}
+                    width={16}
+                    className="mx-3"
+                  >
+                    <path
+                      fill="white"
+                      d="M99.9 59.3c0-.3-.1-.5-.1-.7 0-.2-.1-.5-.2-.7-.1-.2-.2-.5-.3-.7-.1-.2-.2-.5-.3-.7-.1-.2-.2-.4-.4-.6-.1-.2-.3-.5-.5-.7-.1-.1-.1-.2-.2-.3L70.7 24.3c-2.9-3.2-7.8-3.5-11.1-.6-3.2 2.9-3.5 7.8-.6 11.1L81.6 60 59 85.3c-2.9 3.2-2.6 8.2.6 11.1 1.5 1.3 3.4 2 5.2 2 2.2 0 4.3-.9 5.8-2.6L98 65.2c.1-.1.1-.2.2-.3.2-.2.3-.4.5-.7.1-.2.3-.4.4-.6.1-.2.2-.5.3-.7.1-.2.2-.5.3-.7.1-.2.1-.5.2-.7 0-.2.1-.5.1-.7v-.7c-.1-.4-.1-.6-.1-.8z"
+                    ></path>
+                    <path
+                      fill="white"
+                      d="M61.2 64.9c.2-.2.3-.4.5-.7.1-.2.3-.4.4-.6.1-.2.2-.5.3-.7.1-.2.2-.5.3-.7.1-.2.1-.5.2-.7 0-.2.1-.5.1-.7v-1.4c0-.3-.1-.5-.1-.7 0-.2-.1-.5-.2-.7-.1-.2-.2-.5-.3-.7-.1-.2-.2-.5-.3-.7-.1-.2-.2-.4-.4-.6-.1-.2-.3-.5-.5-.7-.1-.1-.1-.2-.2-.3L33.7 24.3c-2.9-3.2-7.8-3.5-11.1-.6-3.2 2.9-3.5 7.8-.6 11.1L44.7 60 22 85.3c-2.9 3.2-2.6 8.2.6 11.1 1.5 1.3 3.4 2 5.2 2 2.2 0 4.3-.9 5.8-2.6L61 65.2c.1-.1.1-.2.2-.3z"
+                    ></path>
+                  </svg>{" "}
+                  <span className="text-[var(--golden)] underline">
+                    Gallery
+                  </span>
+                </h3>
               </div>
             </div>
           </div>

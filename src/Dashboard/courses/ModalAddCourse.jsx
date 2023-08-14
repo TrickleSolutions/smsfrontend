@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Dialog,
@@ -12,6 +12,7 @@ import {
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import JoditEditor from "jodit-react";
 
 const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
   const [categoryData, setCategoryData] = useState([]);
@@ -27,7 +28,9 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
   const [duration, setDuration] = useState("");
   const [rating, setRating] = useState(2);
   const [status, setStatus] = useState("active");
-  console.log(status);
+
+  // Editor
+  const editor = useRef(null);
 
   useEffect(() => {
     getCategoryList();
@@ -122,7 +125,7 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
     <>
       <Dialog
         open={open}
-        handler={handleOpen}
+        // handler={handleOpen}
         className="min-w-[80%] md:min-w-[60%] lg:min-w-[50%]"
       >
         <DialogHeader className="text-center justify-center">
@@ -132,23 +135,6 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form onSubmit={handleSubmit} className="w-full px-5 sm:px-10 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
-              {/* <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-first-name"
-                >
-                  First Name
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  id="grid-first-name"
-                  type="text"
-                  placeholder="Jane"
-                />
-                <p className="text-red-500 text-xs italic">
-                  Please fill out this field.
-                </p>
-              </div> */}
               {/* Course Name */}
               <div className="w-full px-3 mb-3">
                 <label
@@ -210,27 +196,6 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                   })}
                 </Select>
               </div>
-              {/* Course Level */}
-              {/* <div className="w-full md:w-1/2 px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="level"
-                >
-                  Course Level
-                </label>
-                <Select
-                  id="level"
-                  label="Select Category"
-                  value={level}
-                  onChange={(e) => {
-                    setLevel(e.target.value);
-                  }}
-                >
-                  <Option value="Beginners">Beginners</Option>
-                  <Option value="Intermediate">Intermediate</Option>
-                  <Option value="Advanced">Advanced</Option>
-                </Select>
-              </div> */}
               {/* Course Level */}
               <div className="w-full px-3 mb-3">
                 <label
@@ -311,13 +276,18 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                 >
                   Course Description
                 </label>
-                <Textarea
+                {/* <Textarea
                   resize={true}
                   label="Message"
                   value={desc}
                   onChange={(e) => {
                     setDesc(e.target.value);
                   }}
+                /> */}
+                <JoditEditor
+                  ref={editor}
+                  value={desc}
+                  onChange={(value) => setDesc(value)}
                 />
               </div>
               {/* Status */}

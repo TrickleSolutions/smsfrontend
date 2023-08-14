@@ -167,179 +167,171 @@ const InstructorList = () => {
 
         {/* Student Table */}
         <div className="my-10">
-          <div className="relative overflow-x-auto ">
+          <div className="relative mx-auto ">
             {loader ? (
               <div className="w-full h-[90vh] flex justify-center items-center">
                 <Loader />
               </div>
             ) : (
-              <table className="w-full text-sm text-left text-gray-500 ">
-                <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
-                  <tr>
-                    <th scope="col" className=" py-3">
-                      <Checkbox />
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Instructor
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Address
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Contact
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Gender
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden lg:table-cell">
-                      DOB
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden lg:table-cell">
-                      Qualification
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden lg:table-cell">
-                      Degree
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden lg:table-cell">
-                      Status
-                    </th>
-                    <th class="px-1 py-4">
-                      <div>Action</div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {pageData.map((item) => {
-                    if (
-                      item.name
-                        .toLowerCase()
-                        .includes(search.trim().toLowerCase())
-                    ) {
-                      return (
-                        <tr class="bg-white border-b " key={item._id}>
-                          <td class=" py-4">
-                            <Checkbox />
-                          </td>
-                          <td
-                            scope="row"
-                            class="px-6 py-4 font-semibold text-black flex"
-                          >
-                            <div className="bg-[#4f61ff] w-fit h-fit p-3  mr-2 rounded-full text-white text-center">
-                              <span>P S</span>
-                            </div>
-                            <div>
-                              <div>{item.name}</div>
-                              <div className="font-light my-1 text-gray-500">
-                                {item.email}
+              <div className="relative overflow-x-scroll">
+                <table className="w-full text-sm text-left text-gray-500 ">
+                  <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
+                    <tr>
+                      <th scope="col" className=" py-3">
+                        <Checkbox />
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Instructor
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Address
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Contact
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Gender
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        DOB
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Qualification
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Degree
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Status
+                      </th>
+                      <th class="px-1 py-4">
+                        <div>Action</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pageData.map((item) => {
+                      if (
+                        item.name
+                          .toLowerCase()
+                          .includes(search.trim().toLowerCase())
+                      ) {
+                        return (
+                          <tr class="bg-white border-b " key={item._id}>
+                            <td class=" py-4">
+                              <Checkbox />
+                            </td>
+                            <td
+                              scope="row"
+                              class="px-6 py-4 font-semibold text-black flex"
+                            >
+                              <div className="bg-[#4f61ff] flex justify-center items-center w-10 h-10 p-2  mr-2 rounded-full text-white text-center">
+                                <span>P S</span>
                               </div>
-                            </div>
-                          </td>
-                          <td class="px-6 py-4 hidden sm:table-cell truncate max-w-xs">
-                            {item.address}
-                          </td>
-                          <td class="px-6 py-4 hidden md:table-cell">
-                            {item.contact}
-                          </td>
-                          <td class="px-6 py-4 hidden md:table-cell">
-                            {item.gender}
-                          </td>
-                          <td class="px-6 py-4 hidden lg:table-cell">
-                            {item.dob}
-                          </td>
-                          <td class="px-6 py-4 hidden lg:table-cell">
-                            {item.qualification}
-                          </td>
-                          <td class="px-6 py-4 hidden lg:table-cell">
-                            {item.degree}
-                          </td>
-                          <td
-                            className={`${
-                              item.status === "active"
-                                ? "text-teal-500"
-                                : item.status === "leave"
-                                ? "text-amber-500"
-                                : ""
-                            } px-6 py-4 hidden md:table-cell capitalize`}
-                          >
-                            {item.status}
-                          </td>
-                          <td class="px-1 py-4">
-                            <div>
-                              <Menu>
-                                <MenuHandler>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-6 h-6"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                                    />
-                                  </svg>
-                                </MenuHandler>
-                                <MenuList>
-                                  <MenuItem>
-                                    <Link
-                                      to={"/admin/editInstructor/" + item._id}
-                                      className="flex "
-                                      state={item}
+                              <div>
+                                <div>{item.name}</div>
+                                <div className="font-light my-1 text-gray-500">
+                                  {item.email}
+                                </div>
+                              </div>
+                            </td>
+                            <td class="px-6 py-4 truncate max-w-xs">
+                              {item.address}
+                            </td>
+                            <td class="px-6 py-4">{item.contact}</td>
+                            <td class="px-6 py-4">{item.gender}</td>
+                            <td class="px-6 py-4">{item.dob}</td>
+                            <td class="px-6 py-4">{item.qualification}</td>
+                            <td class="px-6 py-4">{item.degree}</td>
+                            <td
+                              className={`${
+                                item.status === "active"
+                                  ? "text-teal-500"
+                                  : item.status === "leave"
+                                  ? "text-amber-500"
+                                  : ""
+                              } px-6 py-4 hidden md:table-cell capitalize`}
+                            >
+                              {item.status}
+                            </td>
+                            <td class="px-1 py-4">
+                              <div>
+                                <Menu>
+                                  <MenuHandler>
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth={1.5}
+                                      stroke="currentColor"
+                                      className="w-6 h-6"
                                     >
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth={1.5}
-                                        stroke="currentColor"
-                                        className="w-4 h-4 mx-2"
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                                      />
+                                    </svg>
+                                  </MenuHandler>
+                                  <MenuList>
+                                    <MenuItem>
+                                      <Link
+                                        to={"/admin/editInstructor/" + item._id}
+                                        className="flex "
+                                        state={item}
                                       >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                                        />
-                                      </svg>
-                                      Edit
-                                    </Link>
-                                  </MenuItem>
-                                  <MenuItem>
-                                    <div
-                                      className="flex "
-                                      onClick={() => {
-                                        deleteData(item._id);
-                                      }}
-                                    >
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth={1.5}
-                                        stroke="currentColor"
-                                        className="w-4 h-4 mx-2"
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          fill="none"
+                                          viewBox="0 0 24 24"
+                                          strokeWidth={1.5}
+                                          stroke="currentColor"
+                                          className="w-4 h-4 mx-2"
+                                        >
+                                          <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                                          />
+                                        </svg>
+                                        Edit
+                                      </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                      <div
+                                        className="flex "
+                                        onClick={() => {
+                                          deleteData(item._id);
+                                        }}
                                       >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
-                                        />
-                                      </svg>
-                                      Delete
-                                    </div>
-                                  </MenuItem>
-                                </MenuList>
-                              </Menu>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    }
-                  })}
-                </tbody>
-              </table>
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          fill="none"
+                                          viewBox="0 0 24 24"
+                                          strokeWidth={1.5}
+                                          stroke="currentColor"
+                                          className="w-4 h-4 mx-2"
+                                        >
+                                          <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                                          />
+                                        </svg>
+                                        Delete
+                                      </div>
+                                    </MenuItem>
+                                  </MenuList>
+                                </Menu>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      }
+                    })}
+                  </tbody>
+                </table>
+              </div>
             )}
 
             <div className="flex justify-end">

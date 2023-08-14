@@ -74,7 +74,7 @@ const Roles = () => {
 
   return (
     <>
-      <div className="mt-5 sm:max-w-lg md:max-w-2xl lg:max-w-none mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
+      <div className="mt-5  mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] text-center sm:text-start ">
             Users
@@ -127,71 +127,85 @@ const Roles = () => {
 
         {/* Student Table */}
         <div className="my-10">
-          <div className="relative overflow-x-auto ">
+          <div className="relative mx-auto ">
             {loader ? (
               <div className="w-full h-[90vh] flex justify-center items-center">
                 <Loader />
               </div>
             ) : (
-              <table className="w-full text-sm text-left text-gray-500 ">
-                <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
-                  <tr>
-                    <th scope="col" className=" py-3">
-                      <Checkbox />
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Name
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Email
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Contact
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Gender
-                    </th>
-                    <th scope="col" className="px-3 py-3 hidden sm:table-cell">
-                      Address
-                    </th>
-                    <th scope="col" className="px-6 py-3 ">
-                      Role
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Permissions
-                    </th>
-                    <th scope="col" className="px-1 py-3">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
+              <div className="relative overflow-x-scroll">
+                <table className="w-full text-sm text-left text-gray-500 ">
+                  <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
+                    <tr>
+                      <th scope="col" className=" py-3">
+                        <Checkbox />
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Name
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 hidden md:table-cell"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                        />
-                      </svg>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {pageData.map((item) => {
-                    if (
-                      item.name
-                        .toLowerCase()
-                        .includes(search.trim().toLowerCase())
-                    ) {
-                      return (
-                        <UserTable item={item} getUserList={getUserList} />
-                      );
-                    }
-                  })}
-                </tbody>
-              </table>
+                        Email
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 hidden md:table-cell"
+                      >
+                        Contact
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 hidden sm:table-cell"
+                      >
+                        Gender
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-3 py-3 hidden sm:table-cell"
+                      >
+                        Address
+                      </th>
+                      <th scope="col" className="px-6 py-3 ">
+                        Role
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Permissions
+                      </th>
+                      <th scope="col" className="px-1 py-3">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                          />
+                        </svg>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pageData.map((item) => {
+                      if (
+                        item.name
+                          .toLowerCase()
+                          .includes(search.trim().toLowerCase())
+                      ) {
+                        return (
+                          <UserTable item={item} getUserList={getUserList} />
+                        );
+                      }
+                    })}
+                  </tbody>
+                </table>
+              </div>
             )}
 
             <div className="flex justify-end">

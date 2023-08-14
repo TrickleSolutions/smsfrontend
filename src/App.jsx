@@ -5,9 +5,8 @@ import Homepage from "./Homepage";
 import Navigation from "./Components/Navigation";
 import { Route, Routes, useLocation } from "react-router-dom";
 import About from "./Pages/About";
-import Courses from "./Pages/Courses";
+import Courses from "./Pages/courses/Courses";
 import Contact from "./Pages/Contact";
-import Blogs from "./Pages/Blogs";
 
 // Admin Dashboard Import
 import AdminHeader from "./Components/AdminHeader";
@@ -74,6 +73,9 @@ import HomePage2 from "./HomePage2";
 import SmartBar from "./Components/SmartBar";
 import InstituteHeader from "./Components/InstituteHeader";
 import Gallery from "./Pages/Gallery";
+import JoinAsInstructor from "./Dashboard/JoinInstructor/JoinAsInstructor";
+import ContactQueries from "./Dashboard/contactQueries/ContactQueries";
+import CourseDetails from "./Pages/courses/CourseDetails";
 
 const App = () => {
   const location = useLocation();
@@ -123,24 +125,37 @@ const App = () => {
         <Route path="/courses" exact={true} element={<Courses />} />
         <Route path="/contact" exact={true} element={<Contact />} />
         <Route path="/gallery" exact={true} element={<Gallery />} />
+        <Route
+          path="/course/course-details"
+          exact={true}
+          element={<CourseDetails />}
+        />
 
         {/* Auth Routes */}
         <Route
           path="/login-student"
           exact={true}
-          element={<LoginStudent updateAuth={updateAuth} />}
+          element={<LoginStudent updateAuth={updateAuth} auth={auth} />}
         />
         <Route
           path="/login-instructor"
           exact={true}
           element={
-            <LoginInstructor updateInstructorAuth={updateInstructorAuth} />
+            <LoginInstructor
+              updateInstructorAuth={updateInstructorAuth}
+              instructorAuth={instructorAuth}
+            />
           }
         />
         <Route
           path="/login-admin"
           exact={true}
-          element={<LoginAdmin updateAdminAuth={updateAdminAuth} />}
+          element={
+            <LoginAdmin
+              updateAdminAuth={updateAdminAuth}
+              adminAuth={adminAuth}
+            />
+          }
         />
       </Routes>
 
@@ -381,7 +396,6 @@ const App = () => {
                 />
               }
             />
-
             <Route
               path="/admin/enrollment"
               element={
@@ -409,7 +423,6 @@ const App = () => {
                 <AdminProtected adminAuth={adminAuth} Component={Income} />
               }
             />
-
             <Route
               path="/admin/admin-profile"
               element={
@@ -489,6 +502,24 @@ const App = () => {
               path="/admin/roles-and-permissions"
               element={
                 <AdminProtected adminAuth={adminAuth} Component={Roles} />
+              }
+            />
+            <Route
+              path="/admin/joinInstructor"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={JoinAsInstructor}
+                />
+              }
+            />
+            <Route
+              path="/admin/contactQueries"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={ContactQueries}
+                />
               }
             />
           </Routes>

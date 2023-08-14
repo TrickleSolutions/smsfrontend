@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
-const LoginStudent = ({ updateAuth }) => {
+const LoginStudent = ({ updateAuth, auth }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // console.log("user Logged In", auth);
 
   const navigate = useNavigate();
 
@@ -57,62 +60,75 @@ const LoginStudent = ({ updateAuth }) => {
       });
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
-      <section className=" p-5">
-        <div className=" w-96 my-10 rounded-lg border shadow-xl mx-auto">
-          <h1 className="px-5 sm:px-10 mt-5 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-            Login
-          </h1>
-          {/* Form */}
-          <form className="w-full px-5 sm:px-10 mt-5">
-            <div className="flex flex-wrap -mx-3 mb-6">
-              {/* email */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="email"
-                >
-                  Registered Email
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="email"
-                  type="email"
-                  placeholder="rohan644@gmail.com"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                />
+      {auth ? (
+        navigate("/student/dashboard")
+      ) : (
+        <section className=" p-5">
+          <div className=" w-96 my-10 rounded-lg border shadow-xl mx-auto">
+            <h1 className="px-5 sm:px-10 mt-5 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+              Login
+            </h1>
+            {/* Form */}
+            <form className="w-full px-5 sm:px-10 mt-5">
+              <div className="flex flex-wrap -mx-3 mb-6">
+                {/* email */}
+                <div className="w-full px-3 mb-3">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="email"
+                  >
+                    Registered Email
+                  </label>
+                  <input
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="email"
+                    type="email"
+                    placeholder="rohan644@gmail.com"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
+                </div>
+                {/* password */}
+                <div className="w-full px-3 mb-3">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="password"
+                  >
+                    Password
+                  </label>
+                  <input
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                </div>
+                <div>
+                  <Button
+                    type="submit"
+                    variant="gradient"
+                    color="blue"
+                    onClick={onLoginPress}
+                  >
+                    <span>Login</span>
+                  </Button>
+                </div>
               </div>
-              {/* password */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="password"
-                >
-                  Password
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                />
-              </div>
-              <div>
-                <Button variant="gradient" color="blue" onClick={onLoginPress}>
-                  <span>Login</span>
-                </Button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </section>
+            </form>
+          </div>
+        </section>
+      )}
     </>
   );
 };

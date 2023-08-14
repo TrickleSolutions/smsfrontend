@@ -10,6 +10,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import logo2 from "../assets/images/logo2.jpg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
+import ModalJoinInstructor from "./ModalJoinInstructor";
 
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -55,24 +56,25 @@ const Navigation = () => {
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color={page ? "white" : "black"}
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link to="/" className="text-lg flex items-center  justify-center">
           Home
         </Link>
       </Typography>
-
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color="white"
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link to="/about" className="text-lg flex items-center justify-center">
@@ -80,11 +82,12 @@ const Navigation = () => {
         </Link>
       </Typography>
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color="white"
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link
@@ -95,11 +98,12 @@ const Navigation = () => {
         </Link>
       </Typography>
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color="white"
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link
@@ -110,11 +114,12 @@ const Navigation = () => {
         </Link>
       </Typography>
       <Typography
+        onClick={() => setOpenNav(false)}
         as="li"
         variant="medium"
         color="white"
         className={`p-1 font-semibold ${
-          scrolled ? "text-[var(--secondary-color)]" : "text-white"
+          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
         } hover:underline hover:decoration-1 transition`}
       >
         <Link
@@ -126,6 +131,9 @@ const Navigation = () => {
       </Typography>
     </ul>
   );
+
+  const [open2, setOpen2] = useState(false);
+  const handleOpen2 = () => setOpen2(!open2);
 
   return (
     <>
@@ -146,13 +154,20 @@ const Navigation = () => {
             to="/"
             className={`${
               scrolled ? "shadow-xl " : ""
-            } relative top-1 -left-1 flex items-center px-1 py-2 rounded-lg bg-white transition-all`}
+            } relative top-2 -left-0 flex items-center px-1 py-2 rounded-lg bg-white transition-all`}
           >
             <img src={logo2} alt="" className="mx-1 h-20 w-20 rounded-full" />
           </Link>
           <div className="mr-4 hidden lg:block">{navList}</div>
-          <div className="flex items-center gap-4">
-            <Link to="/student/dashboard">
+          <div className="relative flex items-center gap-4">
+            <div
+              className="absolute top-2 left-[-140px] hidden lg:block font-semibold cursor-pointer hover:text-[var(--golden)] transition-all duration-300"
+              onClick={handleOpen2}
+            >
+              Join as Instructor
+            </div>
+            <ModalJoinInstructor open={open2} handleOpen={handleOpen2} />
+            <Link to="/login-student">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

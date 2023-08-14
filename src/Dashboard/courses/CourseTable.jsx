@@ -7,6 +7,7 @@ import {
   MenuList,
   MenuItem,
   Checkbox,
+  Tooltip,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -61,15 +62,23 @@ const CourseTable = ({ item, getCourseList }) => {
           </div>
         </th>
         {/* <td className="px-6 py-4">Development</td> */}
-        <td className="px-6 py-4 hidden md:table-cell max-w-xs">{item.desc}</td>
-        <td className="px-6 py-4 hidden md:table-cell">{item.level}</td>
-        <td className="px-6 py-4 hidden sm:table-cell">{item.lessons}</td>
-        <td className="px-6 py-4 hidden sm:table-cell">{item.duration} Days</td>
+        <td className="px-6 py-4  max-w-xs truncate">
+          <Tooltip
+            className="max-w-xs bg-[var(--theme-color)] rounded-md text-sm"
+            content={item.desc}
+            placement="bottom-end"
+          >
+            {item.desc}
+          </Tooltip>
+        </td>
+        <td className="px-6 py-4">{item.level}</td>
+        <td className="px-6 py-4">{item.lessons}</td>
+        <td className="px-6 py-4">{item.duration} Days</td>
         {/* <td className="px-3 py-4">
                           <span className="text-orange-600">Pending</span>
                         </td> */}
-        <td className="px-3 py-4 hidden sm:table-cell">{item.price}</td>
-        <td className="px-6 py-4 hidden md:table-cell">{item.rating}</td>
+        <td className="px-3 py-4">{item.price}</td>
+        <td className="px-6 py-4">{item.rating}</td>
         <td
           className={`${
             item.status === "active"
@@ -77,7 +86,7 @@ const CourseTable = ({ item, getCourseList }) => {
               : item.status === "paused"
               ? "text-amber-500"
               : ""
-          } px-6 py-4 hidden md:table-cell capitalize`}
+          } px-6 py-4 capitalize`}
         >
           {item.status}
         </td>

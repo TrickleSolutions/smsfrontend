@@ -49,23 +49,17 @@ const Student = ({ item, getStudentList }) => {
           </div>
           <ModalViewStudent open={open} handleOpen={handleOpen} item={item} />
         </td>
-        <td class="px-6 py-4 hidden md:table-cell">
-          {item.course ? item.course : "-"}
-        </td>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.fname}</td>
-        <td class="px-6 py-4 hidden sm:table-cell max-w-xs break-words truncate">
-          {item.address}
-        </td>
-        <td class="px-6 py-4 hidden md:table-cell">{item.contact}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.gender}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.dob}</td>
-        <td class="px-6 py-4 hidden lg:table-cell">{item.admdate}</td>
+        <td class="px-6 py-4">{item.course ? item.course : "-"}</td>
+        <td class="px-6 py-4">{item.fname}</td>
+        <td class="px-6 py-4 max-w-xs break-words truncate">{item.address}</td>
+        <td class="px-6 py-4">{item.contact}</td>
+        <td class="px-3 py-4">{item.gender}</td>
+        <td class="px-3 py-4">{item.dob}</td>
+        <td class="px-6 py-4">{item.admdate}</td>
 
-        <td class="px-6 py-4 hidden md:table-cell">
-          {item.library ? item.library : "-"}
-        </td>
-        <td class="px-6 py-4 hidden md:table-cell">{item.shift}</td>
-        <td class="px-6 py-4 hidden sm:table-cell">
+        <td class="px-6 py-4">{item.library ? item.library : "-"}</td>
+        <td class="px-6 py-4">{item.shift}</td>
+        <td class="px-6 py-4">
           <span
             className={
               item.status.toLowerCase() == "active"

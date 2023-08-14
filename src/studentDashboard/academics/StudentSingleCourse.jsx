@@ -16,7 +16,7 @@ const StudentSingleCourse = ({
 
   // console.log("Course Details", course);
   // console.log("Instructor Name", instName);
-  console.log("Category Name ", catName);
+  // console.log("Category Name ", catName);
 
   useEffect(() => {
     getCourseList();
