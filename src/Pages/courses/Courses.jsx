@@ -40,6 +40,7 @@ const Courses = () => {
         return res.json();
       })
       .then((result) => {
+        console.log(result)
         setCourses(result);
         setLoader(false);
       })
@@ -110,8 +111,6 @@ const Courses = () => {
     return name;
   }
 
-  console.log("Category Data", getCategoryName("648404f02c0a3dd73ea0144c"));
-
   return (
     <main>
       {/* Courses Heading */}
@@ -181,7 +180,7 @@ const Courses = () => {
                   >
                     <CardHeader color="blue-gray" className="relative h-56">
                       <img
-                        src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                        src={baseurl + "/api/coursepic/" + course.img}
                         alt="img-blur-shadow"
                         layout="fill"
                         className="h-full w-full"

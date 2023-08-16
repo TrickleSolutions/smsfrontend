@@ -106,23 +106,23 @@ const Footer = () => {
                 </li>
                 <li className="mb-4">
                   <Link
-                    href="/about"
+                    to="/about"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     About
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <a
-                    href="/courses"
+                  <Link
+                    to="/courses"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     Courses
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
                   <Link
-                    to="/login-instructor"
+                    to="/contact"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     Contact
@@ -130,18 +130,10 @@ const Footer = () => {
                 </li>
                 <li className="mb-4">
                   <Link
-                    to="/login-student"
+                    to="/gallery"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
-                    Blogs
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/login-admin"
-                    className="text-neutral-600 dark:text-neutral-200"
-                  >
-                    FAQs
+                    Gallery
                   </Link>
                 </li>
               </ul>

@@ -108,6 +108,9 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
     fetch(baseurl + "/api/course", {
       method: "POST",
       body: formData,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
       .then((res) => {
         return res.json();
@@ -133,7 +136,7 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
           Add Course
         </DialogHeader>
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
-          <form onSubmit={handleSubmit} className="w-full px-5 sm:px-10 mt-5">
+          <form className="w-full px-5 sm:px-10 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
               {/* Course Name */}
               <div className="w-full px-3 mb-3">
@@ -357,10 +360,11 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                   }}
                 />
               </div>
-              <input
+              <button
                 type="submit"
+                onClick={handleSubmit}
                 className="p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
-              />
+              >Submit</button>
             </div>
           </form>
         </DialogBody>

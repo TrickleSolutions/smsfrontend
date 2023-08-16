@@ -149,48 +149,7 @@ const About = () => {
               qualified professionals. SMS Education involves in preparing
               skilled computer professional environment.
             </p>
-            {/* Button and How it works*/}
-            <div className="flex items-center justify-start">
-              <button className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-lg px-10 py-4 rounded-md transition-colors duration-500">
-                <div className="flex items-center justify-center uppercase">
-                  Learn More
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2.5}
-                    stroke="currentColor"
-                    className="w-5 h-5 ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                    />
-                  </svg>
-                </div>
-              </button>
-              {/* How it Works */}
-              <div className="flex items-center m-4 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
-                <div className="ml-3 font-semibold underline">How it works</div>
-                <div className="flex items-center justify-center  w-10 h-12 rounded-full bg-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2.5}
-                    stroke="currentColor"
-                    className="w-5 h-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
+
             <div className="mt-5 flex justify-around items-center">
               {/* Counter 1 */}
               <div className="w-fit h-fit py-3 px-2 m-2 text-center">
