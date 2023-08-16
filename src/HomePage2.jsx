@@ -38,7 +38,7 @@ import baseurl from "./Config";
 import premise1 from "./assets/images/homepage/premises/premise1.JPG";
 import ModalJoinInstructor from "./Components/ModalJoinInstructor";
 import { Carousel } from "@material-tailwind/react";
-
+import { GlobalModal } from "./Components/GlobalModal";
 const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
   const [viewAcheiver2, setViewAcheiver2] = useState(false);
@@ -51,6 +51,10 @@ const HomePage2 = () => {
   const [loader, setLoader] = useState(true);
   const [catData, setCatData] = useState([]);
   const [instData, setInstData] = useState([]);
+
+  const [Modalopen, setModalOpen] = useState(false);
+
+  const ModalhandleOpen = () => setModalOpen(!Modalopen);
   // const [studentOfMonth,]
   const navigate = useNavigate();
   // console.log(events);
@@ -590,25 +594,25 @@ const HomePage2 = () => {
               <div className="flex items-center justify-center">
                 <Link to='/about'>
 
-                <button  className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-lg px-10 py-4 rounded-md transition-colors duration-500">
-                  <div className="flex items-center justify-center uppercase">
-                    Learn More
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2.5}
-                      stroke="currentColor"
-                      className="w-5 h-5 ml-2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                      />
-                    </svg>
-                  </div>
-                </button>
+                  <button className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-lg px-10 py-4 rounded-md transition-colors duration-500">
+                    <div className="flex items-center justify-center uppercase">
+                      Learn More
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                        className="w-5 h-5 ml-2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                        />
+                      </svg>
+                    </div>
+                  </button>
 
                 </Link>
               </div>
@@ -690,9 +694,12 @@ const HomePage2 = () => {
               </p>
             </div>
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              <GlobalModal handleOpen={ModalhandleOpen} open={Modalopen} />
               {staff.map((item) => {
                 return (
-                  <div className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
+                  <div  
+                  // onClick={ModalhandleOpen}
+                   className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
                     <img
                       className="object-cover object-top w-full h-[100%] md:h-[100%] xl:h-[100%]"
                       src={item.img}
@@ -720,15 +727,15 @@ const HomePage2 = () => {
             shadow={false}
             className="relative grid h-[28rem] w-full max-w-[80rem] mx-auto items-center justify-center overflow-hidden text-center"
           >
-            <CardHeader
+            {/* <CardHeader
               floated={false}
               shadow={false}
               color="transparent"
               className="absolute inset-0 m-0 h-full w-full rounded-none bg-[url('./assets/images/homepage/premises/premise7.JPG')] bg-cover bg-no-repeat bg-bottom"
             >
               <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
-            </CardHeader>
-            <CardBody className="relative py-14 px-6 md:px-12">
+            </CardHeader> */}
+            {/* <CardBody className="relative py-14 px-6 md:px-12">
               <Typography
                 variant="h1"
                 color="white"
@@ -754,7 +761,8 @@ const HomePage2 = () => {
                   <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
                 </Button>
               </a>
-            </CardBody>
+            </CardBody> */}
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3563.0134002976224!2d80.85737987516285!3d26.743948467323357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bf9c497a21e69%3A0xe6ed5041cf605d0e!2sSMS%20EDUCATION!5e0!3m2!1sen!2sin!4v1692184343262!5m2!1sen!2sin" height="450" width="1280" style={{ border: '0' }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </Card>
         </section>
 
@@ -764,7 +772,7 @@ const HomePage2 = () => {
             SPECIAL FEATURES
           </h1>
           <div className=" my-20">
-            <ul class="w-fit mx-5 sm:mx-10 md:mx-20 space-y-4 text-left text-[var(--para-color)] flex flex-col md:flex-row md:justify-start md:flex-wrap ">
+            <ul class="w-fit mx-5 sm:mx-10 md:mx-20 space-y-4 text-left text-black flex flex-col md:flex-row md:justify-start md:flex-wrap ">
               <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
                   class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
@@ -951,14 +959,12 @@ const HomePage2 = () => {
             <div
               onMouseEnter={() => setViewAcheiver(true)}
               onMouseLeave={() => setViewAcheiver(false)}
-              className={`${
-                viewAcheiver ? "shadow-2xl" : "shadow-none"
-              } relative w-64 h-40 rounded-2xl border hover:h-96  transition-all  duration-500`}
+              className={`${viewAcheiver ? "shadow-2xl" : "shadow-none"
+                } relative w-64 h-40 rounded-2xl border hover:h-96  transition-all  duration-500`}
             >
               <div
-                className={`${
-                  viewAcheiver ? "-top-20" : ""
-                } relative -top-16 transition-all left-4 z-20`}
+                className={`${viewAcheiver ? "-top-20" : ""
+                  } relative -top-16 transition-all left-4 z-20`}
               >
                 <img
                   src={teacherMonth}
@@ -970,9 +976,8 @@ const HomePage2 = () => {
                 </div>
               </div>
               <div
-                className={`${
-                  viewAcheiver ? "block" : "hidden"
-                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
+                className={`${viewAcheiver ? "block" : "hidden"
+                  } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
               >
                 <h2 className="text-2xl font-extrabold text-center text-[black]">
                   {instructorMonth.name ? instructorMonth.name : ""}
@@ -991,14 +996,12 @@ const HomePage2 = () => {
             <div
               onMouseEnter={() => setViewAcheiver2(true)}
               onMouseLeave={() => setViewAcheiver2(false)}
-              className={`${
-                viewAcheiver2 ? "shadow-2xl" : "shadow-none"
-              } relative top-40 md:top-0 w-64 h-40 rounded-2xl border hover:h-96 transition-all duration-500`}
+              className={`${viewAcheiver2 ? "shadow-2xl" : "shadow-none"
+                } relative top-40 md:top-0 w-64 h-40 rounded-2xl border hover:h-96 transition-all duration-500`}
             >
               <div
-                className={`${
-                  viewAcheiver2 ? "-top-20" : ""
-                } relative -top-16 transition-all left-4 z-20`}
+                className={`${viewAcheiver2 ? "-top-20" : ""
+                  } relative -top-16 transition-all left-4 z-20`}
               >
                 <img
                   src={studentOfMonth}
@@ -1011,9 +1014,8 @@ const HomePage2 = () => {
                 </div>
               </div>
               <div
-                className={`${
-                  viewAcheiver2 ? "block" : "hidden"
-                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
+                className={`${viewAcheiver2 ? "block" : "hidden"
+                  } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
               >
                 <h2 className="text-2xl font-extrabold text-center text-[black]">
                   {studentMonth.name ? studentMonth.name : ""}
@@ -1032,7 +1034,7 @@ const HomePage2 = () => {
         </section>
 
         {/* Success Mantra */}
-        <section data-aos="fade-up" className="bg-white mt-32 md:mt-0">
+        {/* <section data-aos="fade-up" className="bg-white mt-32 md:mt-0">
           <h1 className="text-5xl text-center font-semibold my-10">
             Success Mantra
           </h1>
@@ -1063,6 +1065,117 @@ const HomePage2 = () => {
                 src={testimonial1}
                 alt="office content 2"
               />
+            </div>
+          </div>
+        </section> */}
+
+        <section className="my-10 p-5">
+          {/* About Container */}
+          <div className="flex flex-col lg:flex-row justify-around xl:max-w-[90%] mx-auto">
+            {/* left */}
+            <div data-aos="fade-up" data-aos-easing="linear" className="p-2">
+              <h3 className="text-[var(--bg-dark-blue)] text-xl font-bold">
+                Our Library Facility
+              </h3>
+              <h1 className="text-5xl font-semibold my-5 lg:max-w-sm leading-tight">
+                Explore yourself in our Library
+              </h1>
+              <p className="lg:max-w-sm leading-7 mb-3 text-[var(--dash-text-color)]">
+                SMS Education provides you with a peaceful and serene environment. We offer you the opportunity to explore our reading library and escape unnecessary distractions, allowing you to focus on your reading and learning.
+              </p>
+              {/* Button and How it works*/}
+              <div className="flex items-center justify-center">
+                <Link to='/contact'>
+
+                  <button className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-lg px-10 py-4 rounded-md transition-colors duration-500">
+                    <div className="flex items-center justify-center uppercase">
+                      Explore
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                        className="w-5 h-5 ml-2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                        />
+                      </svg>
+                    </div>
+                  </button>
+
+                </Link>
+              </div>
+              <div className="mt-5 flex justify-around items-center">
+                {/* Counter 1 */}
+                <div className="w-fit h-fit py-3 px-2 m-2 text-center">
+                  <span className="text-4xl text-[var(--bg-dark-blue)] font-extrabold">
+                    2500 +
+                  </span>
+                  <p className="text-[var(--dash-text-color)] font-semibold mt-2">
+                    Enrolled Learner
+                  </p>
+                </div>
+                {/* Counter 2 */}
+                {/* <div className="w-fit h-fit py-3 px-2 m-2 text-center">
+                  <span className="text-4xl text-[var(--bg-dark-blue)] font-extrabold">
+                    25 +
+                  </span>
+                  <p className="text-[var(--dash-text-color)] font-semibold mt-2">
+                    Finished Session
+                  </p>
+                </div> */}
+                {/* Counter 3 */}
+                <div className="w-fit h-fit py-3 px-2 m-2 text-center">
+                  <span className="text-4xl text-[var(--bg-dark-blue)] font-extrabold">
+                    80 %
+                  </span>
+                  <p className="text-[var(--dash-text-color)] font-semibold mt-2">
+                    Satisfaction Rate
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+            {/* Right */}
+            <div
+              data-aos="fade-right"
+              data-aos-easing="linear"
+              className="w-full lg:w-6/12 md:w-10/12 sm:w-9/12 mx-auto"
+            >
+              <div className="relative flex justify-end p-2">
+                <img src={premise1} className="w-80 h-64 rounded-2xl" alt="" />
+                <div className="absolute top-24 left-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
+                  <img src={abtIco} className="mr-2" alt="" />
+                  Experience Advisor
+                </div>
+              </div>
+              <div className="relative -top-16 flex justify-start p-2">
+                <img
+                  src={'https://www.library.cornell.edu/wp-content/uploads/2023/07/107-scaled-aspect-ratio-453-342.jpeg'}
+                  className="w-80 h-64 rounded-2xl"
+                  alt=""
+                />
+                <div className="absolute top-28 right-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
+                  <img src={abtIco} className="mr-2" alt="" />
+                  Experience Advisor
+                </div>
+              </div>
+              <div className="relative -top-28 flex justify-end p-2">
+                <img
+                  src={'https://www.library.cornell.edu/wp-content/uploads/2022/11/Grad-Study-Desks-scaled-aspect-ratio-453-342.jpg'}
+                  className="w-80 h-64 rounded-2xl"
+                  alt=""
+                />
+                <div className="absolute top-28 left-0 px-5 py-3 rounded-full text-xl font-bold flex items-center bg-white h-fit w-fit">
+                  <img src={abtIco} className="mr-2" alt="" />
+                  Experience Advisor
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -1141,11 +1254,9 @@ const HomePage2 = () => {
               className="w-fit m-5 p-3"
             >
               <img src={oppor3} alt="" />
-              <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
+              <h3 className="font-bold text-xl my-3">Live Classes</h3>
               <p className="max-w-xs text-[var(--para-color)] pr-5">
-                Unlock your potential with our courses led by industry experts.
-                Gain invaluable knowledge and skills from seasoned professionals
-                who are at the forefront of their respective fields.
+                SMS Education offers you live classes with our best and expert faculty, enabling you to learn from basics to advanced levels and understand concepts comprehensively.
               </p>
               <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
                 <svg
@@ -1175,8 +1286,17 @@ const HomePage2 = () => {
           <h1 className="text-5xl text-center font-semibold my-10">
             Browser Latest Courses
           </h1>
+
           {/* Oppotunities Container */}
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-around items-center mt-20 py-5 md:px-10">
+            {/* <Carousel
+              className="h-[140vh] w-full"
+              autoplay
+              prevArrow={false}
+              nextArrow={false}
+              navigation={false}
+              loop={true}
+            > */}
             {courses &&
               courses.map((course) => {
                 return (
@@ -1285,8 +1405,11 @@ const HomePage2 = () => {
                       </div>
                     </CardFooter>
                   </Card>
+
                 );
               })}
+            {/* </Carousel> */}
+
           </div>
           <Button onClick={() => navigate("/courses")} className="w-fit float">
             View more
