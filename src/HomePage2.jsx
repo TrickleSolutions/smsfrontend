@@ -1284,7 +1284,7 @@ const HomePage2 = () => {
             Latest Courses
           </h3>
           <h1 className="text-5xl text-center font-semibold my-10">
-            Browser Latest Courses
+            Browse Latest Courses
           </h1>
 
           {/* Oppotunities Container */}
