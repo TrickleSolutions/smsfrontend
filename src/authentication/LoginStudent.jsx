@@ -83,13 +83,13 @@ const LoginStudent = ({ updateAuth, auth }) => {
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     htmlFor="email"
                   >
-                    Registered Email
+                    Enter Mobile No.
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="email"
                     type="email"
-                    placeholder="rohan644@gmail.com"
+                    placeholder="9999999999"
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
@@ -102,7 +102,7 @@ const LoginStudent = ({ updateAuth, auth }) => {
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     htmlFor="password"
                   >
-                    Password
+                    Enter Otp
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
