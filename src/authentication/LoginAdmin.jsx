@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import { toast } from "react-toastify";
 
-const LoginAdmin = ({ updateAdminAuth, adminAuth }) => {
+const LoginAdmin = ({ updateAdminAuth, adminAuth, value }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -55,10 +55,27 @@ const LoginAdmin = ({ updateAdminAuth, adminAuth }) => {
 
   return (
     <>
+      <div className='mx-5 flex gap-5 justify-evenly py-5'>
+        <a href="login-student">
+          <Button variant="gradient" color="blue" className="rounded-full">Student Login</Button>
+        </a>
+        <a href="login-instructor">
+          <Button variant="gradient" color="blue" className="rounded-full">Instructor Login</Button>
+        </a>
+        <a href="login-admin">
+          <Button variant="gradient" color="blue" className="rounded-full">Back Office Login</Button>
+        </a>
+        <a href="login-admin">
+          <Button variant="gradient" color="blue" className="rounded-full">Admin Login</Button>
+        </a>
+        <a href="login-admin">
+          <Button variant="gradient" color="blue" className="rounded-full">Super Admin Login</Button>
+        </a>
+      </div>
       {adminAuth ? (
         navigate("/admin/dashboard")
       ) : (
-        <section className=" p-5">
+        <section className="p-5">
           <div className=" w-96 my-10 rounded-lg border shadow-xl mx-auto">
             <h1 className="px-5 sm:px-10 mt-5 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
               Admin / Back Office Login

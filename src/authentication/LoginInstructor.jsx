@@ -56,6 +56,23 @@ const LoginInstructor = ({ updateInstructorAuth, instructorAuth }) => {
 
   return (
     <>
+      <div className='mx-5 flex gap-5 justify-evenly py-5'>
+        <a href="login-student">
+          <Button variant="gradient" color="blue" className="rounded-full">Student Login</Button>
+        </a>
+        <a href="login-instructor">
+          <Button variant="gradient" color="blue" className="rounded-full">Instructor Login</Button>
+        </a>
+        <a href="login-admin">
+          <Button variant="gradient" color="blue" className="rounded-full">Back Office Login</Button>
+        </a>
+        <a href="login-admin">
+          <Button variant="gradient" color="blue" className="rounded-full">Admin Login</Button>
+        </a>
+        <a href="login-admin">
+          <Button variant="gradient" color="blue" className="rounded-full">Super Admin Login</Button>
+        </a>
+      </div>
       {instructorAuth ? (
         navigate("/instructor/instructor-dashboard")
       ) : (
@@ -102,7 +119,7 @@ const LoginInstructor = ({ updateInstructorAuth, instructorAuth }) => {
                     onChange={(e) => {
                       setPassword(e.target.value);
                     }}
-                    // onKeyDown={(e) => onEnterPress(e)}
+                  // onKeyDown={(e) => onEnterPress(e)}
                   />
                 </div>
                 <div>
