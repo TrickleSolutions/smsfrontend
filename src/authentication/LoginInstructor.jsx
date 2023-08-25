@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import TeacherImage from '../assets/images/TeacherLogin.jpg'
 
 const LoginInstructor = ({ updateInstructorAuth, instructorAuth }) => {
   const [email, setEmail] = useState("");
@@ -56,94 +57,93 @@ const LoginInstructor = ({ updateInstructorAuth, instructorAuth }) => {
 
   return (
     <>
-      <div className="mx-5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 justify-evenly py-5">
-        <a href="login-student">
-          <Button variant="gradient" color="blue" className="rounded-full">
-            Student Login
-          </Button>
-        </a>
-        <a href="login-instructor">
-          <Button variant="gradient" color="blue" className="rounded-full">
-            Instructor Login
-          </Button>
-        </a>
-        <a href="login-admin">
-          <Button variant="gradient" color="blue" className="rounded-full">
-            Back Office Login
-          </Button>
-        </a>
-        <a href="login-admin">
-          <Button variant="gradient" color="blue" className="rounded-full">
-            Admin Login
-          </Button>
-        </a>
-        <a href="login-admin">
-          <Button variant="gradient" color="blue" className="rounded-full">
-            Super Admin Login
-          </Button>
-        </a>
-      </div>
       {instructorAuth ? (
         navigate("/instructor/instructor-dashboard")
       ) : (
-        <section className=" p-5">
-          <div className=" w-96 my-10 rounded-lg border shadow-xl mx-auto">
-            <h1 className="px-5 sm:px-10 mt-5 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-              Instructor Login
-            </h1>
-            {/* Form */}
-            <form className="w-full px-5 sm:px-10 mt-5">
-              <div className="flex flex-wrap -mx-3 mb-6">
-                {/* email */}
-                <div className="w-full px-3 mb-3">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="email"
-                  >
-                    Registered Email
-                  </label>
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="email"
-                    type="email"
-                    placeholder="rohan644@gmail.com"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                  />
+        <section className=" p-1">
+          <div className="mx-2 md:mx-5 flex flex-col md:flex-row gap-2 md:gap-5 justify-center md:justify-start py-5">
+            <div className="hidden lg:block xl:block w-full">
+              <img style={{ height: '565px', width: '670px' }} src={TeacherImage} alt="" />
+            </div>
+            <div className="grid place-items-center w-full">
+
+              <div className="w-full sm:px-0 lg:px-20">
+                <div className="mx-5 grid xs:grid-cols-2 text-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 py-2">
+                  <a href="login-student">
+                    <Button variant="gradient" color="blue" className="rounded-full my-2">
+                      Student Login
+                    </Button>
+                  </a>
+                  <a href="login-instructor">
+                    <Button variant="gradient" color="blue" className="rounded-full my-2">
+                      Instructor Login
+                    </Button>
+                  </a>
+                  <a href="login-admin">
+                    <Button variant="gradient" color="blue" className="rounded-full my-2">
+                      Back Office Login
+                    </Button>
+                  </a>
                 </div>
-                {/* password */}
-                <div className="w-full px-3 mb-3">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="password"
-                  >
-                    Password
-                  </label>
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  // onKeyDown={(e) => onEnterPress(e)}
-                  />
-                </div>
-                <div>
-                  <Button
-                    type="submit"
-                    variant="gradient"
-                    color="blue"
-                    onClick={(e) => onLoginPress(e)}
-                  >
-                    <span>Login</span>
-                  </Button>
-                </div>
+                <h1 className="px-5 sm:px-10 mt-5 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                  Instructor Login
+                </h1>
+                {/* Form */}
+                <form className="w-full px-5 sm:px-10 mt-5">
+                  <div className="flex flex-wrap -mx-3 mb-6">
+                    {/* email */}
+                    <div className="w-full px-3 mb-3">
+                      <label
+                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="email"
+                      >
+                        Registered Email
+                      </label>
+                      <input
+                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="email"
+                        type="email"
+                        placeholder="rohan644@gmail.com"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                        }}
+                      />
+                    </div>
+                    {/* password */}
+                    <div className="w-full px-3 mb-3">
+                      <label
+                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="password"
+                      >
+                        Password
+                      </label>
+                      <input
+                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                        }}
+                      // onKeyDown={(e) => onEnterPress(e)}
+                      />
+                    </div>
+                    <div className="pl-3">
+                      <Button
+                        type="submit"
+                        variant="gradient"
+                        color="blue"
+                        className="px-10"
+                        onClick={(e) => onLoginPress(e)}
+                      >
+                        <span>Login</span>
+                      </Button>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </form>
+            </div>
           </div>
         </section>
       )}
