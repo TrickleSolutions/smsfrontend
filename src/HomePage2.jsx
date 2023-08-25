@@ -773,7 +773,7 @@ const HomePage2 = () => {
             SPECIAL FEATURES
           </h1>
           <div className=" my-20">
-            <ul class="w-fit mx-5 sm:mx-10 md:mx-20 space-y-4 text-left text-black flex flex-col md:flex-row md:justify-start md:flex-wrap ">
+            <ul class="w-fit mx-5 sm:mx-10 md:mx-20 space-y-4 text-left font-semibold text-black flex flex-col md:flex-row md:justify-start md:flex-wrap ">
               <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
                   class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
@@ -1288,7 +1288,7 @@ const HomePage2 = () => {
             Browse Latest Courses
           </h1>
           {/* Oppotunities Container */}
-          <div className="w-full justify-around items-center mt-20 py-5 md:px-10">
+          <div className="w-full justify-around items-center mt-20 py-5 md:px-10 overflow-hidden">
 
           <TestSlider getCategoryName={getCategoryName} />
           {console.log(courses)}

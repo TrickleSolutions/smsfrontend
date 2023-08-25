@@ -8,7 +8,7 @@ import {
 import { Drawer, Button, Input, Textarea } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import logo2 from "../assets/images/logo2.jpg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
 import ModalJoinInstructor from "./ModalJoinInstructor";
 
@@ -60,9 +60,8 @@ const Navigation = () => {
         as="li"
         variant="medium"
         color={page ? "white" : "black"}
-        className={`p-1 font-semibold ${
-          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
-        } hover:underline hover:decoration-1 transition`}
+        className={`p-1 font-semibold ${scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
+          } hover:underline hover:decoration-1 transition`}
       >
         <Link to="/" className="text-lg flex items-center  justify-center">
           Home
@@ -73,9 +72,8 @@ const Navigation = () => {
         as="li"
         variant="medium"
         color="white"
-        className={`p-1 font-semibold ${
-          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
-        } hover:underline hover:decoration-1 transition`}
+        className={`p-1 font-semibold ${scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
+          } hover:underline hover:decoration-1 transition`}
       >
         <Link to="/about" className="text-lg flex items-center justify-center">
           About
@@ -86,9 +84,8 @@ const Navigation = () => {
         as="li"
         variant="medium"
         color="white"
-        className={`p-1 font-semibold ${
-          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
-        } hover:underline hover:decoration-1 transition`}
+        className={`p-1 font-semibold ${scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
+          } hover:underline hover:decoration-1 transition`}
       >
         <Link
           to="/courses"
@@ -102,9 +99,8 @@ const Navigation = () => {
         as="li"
         variant="medium"
         color="white"
-        className={`p-1 font-semibold ${
-          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
-        } hover:underline hover:decoration-1 transition`}
+        className={`p-1 font-semibold ${scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
+          } hover:underline hover:decoration-1 transition`}
       >
         <Link
           to="/gallery"
@@ -118,9 +114,8 @@ const Navigation = () => {
         as="li"
         variant="medium"
         color="white"
-        className={`p-1 font-semibold ${
-          scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
-        } hover:underline hover:decoration-1 transition`}
+        className={`p-1 font-semibold ${scrolled || openNav ? "text-[var(--secondary-color)]" : "text-white"
+          } hover:underline hover:decoration-1 transition`}
       >
         <Link
           to="/contact"
@@ -152,9 +147,8 @@ const Navigation = () => {
 
           <Link
             to="/"
-            className={`${
-              scrolled ? "shadow-xl " : ""
-            } relative top-2 -left-0 flex items-center px-1 py-2 rounded-lg bg-white transition-all`}
+            className={`${scrolled ? "shadow-xl " : ""
+              } relative top-2 -left-0 flex items-center px-1 py-2 rounded-lg bg-white transition-all`}
           >
             <img src={logo2} alt="" className="mx-1 h-20 w-20 rounded-full" />
           </Link>
@@ -231,6 +225,7 @@ const Navigation = () => {
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+              style={{ color: 'black' }}
               ripple={false}
               onClick={() => setOpenNav(!openNav)}
             >
@@ -267,10 +262,10 @@ const Navigation = () => {
             </IconButton>
           </div>
         </div>
-        <Collapse open={openNav} className="bg-white pr-5">
+        <Collapse open={openNav} className="bg-white px-2">
           {navList}
           <Button variant="gradient" size="sm" fullWidth className="mb-2">
-            <span>Login/Register</span>
+            <span><NavLink to='/login-student'>Login/Register</NavLink></span>
           </Button>
         </Collapse>
       </Navbar>

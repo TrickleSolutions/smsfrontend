@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const SmartBar = () => {
   return (
     <>
-      <div className='grid grid-cols-3 gap-4 text-xs md:text-sm px-5 py-3 text-white bg-[var(--bg-light-blue)] tracking-widest font-semibold'>
+      <div className='grid xs:grid-cols-1 lg:grid-cols-3 gap-4 text-xs md:text-sm px-5 py-3 text-white bg-[var(--bg-light-blue)] tracking-widest font-semibold'>
         <div></div>
         <div>
           <div
@@ -31,11 +31,13 @@ const SmartBar = () => {
           </div>
 
         </div>
-        <div
-          className=" flex items-center justify-end"
-          style={{ fontFamily: "Nunito Sans" }}
-        >
-          <NavLink to='/login-student'>LOGIN</NavLink>
+        <div className="hidden md:block lg:block xl:block">
+          <div
+            className=" flex items-center justify-end"
+            style={{ fontFamily: "Nunito Sans" }}
+          >
+            <NavLink to='/login-student'>LOGIN</NavLink>
+          </div>
         </div>
       </div>
     </>

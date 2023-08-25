@@ -30,7 +30,7 @@ const TestSlider = ({ getCategoryName }) => {
 
 
     return (
-        <div className="slider-container relative">
+        <div className="slider-container relative ">
             <div className="slider flex justify-evenly gap-5">
                 {Courses &&
                     // [...courses, ...courses.sort(() => Math.random() - 0.5).map((e) => e)].sort(() => Math.random() - 0.5).map((course, index) => {
