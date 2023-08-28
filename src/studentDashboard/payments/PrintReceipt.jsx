@@ -5,34 +5,36 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useLocation } from "react-router-dom";
 import baseurl from "../../Config";
+import { useAuthContext } from "../../context/useStateContext";
 
 const PrintReceipt = () => {
   const [loader, setLoader] = useState(false);
   const location = useLocation();
   const { auth, item } = location.state;
   const [studentData, setStudentData] = useState([]);
+  const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
 
-  useEffect(() => {
-    getStudentData();
-  }, []);
+  // useEffect(() => {
+  //   getStudentData();
+  // }, []);
 
-  const getStudentData = () => {
-    fetch(`${baseurl}/api/students/${auth}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setStudentData(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getStudentData = () => {
+  //   fetch(`${baseurl}/api/students/${auth}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((result) => {
+  //       setStudentData(result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   // Get Current Date
   function getCurrentDate() {
@@ -125,17 +127,17 @@ const PrintReceipt = () => {
                 {/* 1st detail */}
                 <div className="flex ">
                   <div className="font-extrabold w-36">Registration No:</div>
-                  <div>{studentData.regno}</div>
+                  <div>{currentUser.regno}</div>
                 </div>
                 {/* 2nd detail */}
                 <div className="flex ">
                   <div className="font-extrabold w-36">Name:</div>
-                  <div>{studentData.name}</div>
+                  <div>{currentUser.name}</div>
                 </div>
                 {/* 3rd detail */}
                 <div className="flex ">
                   <div className="font-extrabold w-36">Father's Name:</div>
-                  <div>{studentData.fname}</div>
+                  <div>{currentUser.fname}</div>
                 </div>
               </div>
               {/* Right block */}

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Loader";
+import { useAuthContext } from "../../context/useStateContext";
 
 const StudentQueries = ({ auth }) => {
   const [query, setQuery] = useState();
@@ -10,29 +11,30 @@ const StudentQueries = ({ auth }) => {
   const [queryData, setQueryData] = useState([]);
   const [feedBack, setFeedBack] = useState("");
   const [loader, setLoader] = useState(true);
+  const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
 
   useEffect(() => {
-    getStudentsList();
+    // getStudentsList();
     getQueriesList();
   }, []);
 
-  const getStudentsList = () => {
-    fetch(baseurl + "/api/students/" + auth, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setStudentData(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getStudentsList = () => {
+  //   fetch(baseurl + "/api/students/" + auth, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((result) => {
+  //       setStudentData(result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const getQueriesList = () => {
     fetch(baseurl + "/api/queries", {
@@ -46,7 +48,7 @@ const StudentQueries = ({ auth }) => {
       })
       .then((result) => {
         let filteredData = result.filter(
-          (query) => query.regno === studentData.regno
+          (query) => query.regno === currentUser.regno
         );
         setQueryData(filteredData);
         setLoader(false);
@@ -56,11 +58,16 @@ const StudentQueries = ({ auth }) => {
       });
   };
 
+  useEffect(() => {
+    // getStudentsList();
+    getQueriesList();
+  }, []);
+
   const date = getCurrentDate();
   const status = "pending";
   const response = "";
-  const regno = studentData.regno;
-  const name = studentData.name;
+  const regno = currentUser.regno;
+  const name = currentUser.name;
 
   // Get Current Date
   function getCurrentDate() {

@@ -5,32 +5,34 @@ import baseurl from "../../Config";
 import { Link } from "react-router-dom";
 import AssignmentTable from "./AssignmentTable";
 import Loader from "../../Components/Loader";
+import { useAuthContext } from "../../context/useStateContext";
 
 const StudentAssignments = ({ auth }) => {
   const [assignmentData, setAssignmentData] = useState([]);
   const [studentData, setStudentData] = useState("");
   const [loader, setLoader] = useState(true);
-  useEffect(() => {
-    getStudentData();
-  }, []);
+  const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
+  // useEffect(() => {
+  //   getStudentData();
+  // }, []);
 
-  const getStudentData = () => {
-    fetch(`${baseurl}/api/students/${auth}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setStudentData(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getStudentData = () => {
+  //   fetch(`${baseurl}/api/students/${auth}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((result) => {
+  //       setStudentData(result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   useEffect(() => {
     getAssignmentData();
@@ -88,7 +90,7 @@ const StudentAssignments = ({ auth }) => {
                 {assignmentData.map((item) => {
                   return (
                     <>
-                      <AssignmentTable studentData={studentData} item={item} />
+                      <AssignmentTable studentData={currentUser} item={item} />
                     </>
                   );
                 })}

@@ -4,33 +4,35 @@ import man from "../../assets/images/man.jpg";
 import ModalUpdateProfile from "./ModalUpdateProfile";
 import { Button, Tooltip } from "@material-tailwind/react";
 import baseurl from "../../Config";
+import { useAuthContext } from "../../context/useStateContext";
 
 const StudentProfile = ({ auth }) => {
   const [studentData, setStudentData] = useState([]);
+  const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
-  useEffect(() => {
-    getStudentData();
-  }, []);
+  // const getStudentData = () => {
+  //   fetch(`${baseurl}/api/students/${auth}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((result) => {
+  //       setStudentData(result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const getStudentData = () => {
-    fetch(`${baseurl}/api/students/${auth}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setStudentData(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // useEffect(() => {
+  //   getStudentData();
+  // }, []);
 
   return (
     <>
@@ -39,12 +41,12 @@ const StudentProfile = ({ auth }) => {
         <div className=" mt-1">
           <div className="flex flex-col items-center justify-center">
             <img
-              src={`${baseurl}/api/stprofilepic/${studentData.profilePic}`}
+              src={`${baseurl}/api/stprofilepic/${currentUser.profilePic}`}
               className="w-28 h-28 rounded-full shadow-xl ring-white ring-2"
               alt=""
             />
             <h4 className="text-black text-lg font-semibold my-3">
-              {studentData.name}
+              {currentUser.name}
             </h4>
             {/* <p className="text-black">@student</p> */}
             {/* <Button onClick={handleOpen} className="h-fit my-3">
@@ -54,7 +56,7 @@ const StudentProfile = ({ auth }) => {
           <ModalUpdateProfile
             open={open}
             handleOpen={handleOpen}
-            studentData={studentData}
+            studentData={currentUser}
             getStudentData={getStudentData}
           />
         </div>
@@ -93,14 +95,14 @@ const StudentProfile = ({ auth }) => {
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Name :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {studentData.name}
+                  {currentUser.name}
                 </div>
               </div>
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Father Name :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {studentData.fname}
+                  {currentUser.fname}
                 </div>
               </div>
             </div>
@@ -110,14 +112,14 @@ const StudentProfile = ({ auth }) => {
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Admission Date :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {studentData.admdate}
+                  {currentUser.admdate}
                 </div>
               </div>
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Registration No. :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {studentData.regno}
+                  {currentUser.regno}
                 </div>
               </div>
             </div>
@@ -127,14 +129,14 @@ const StudentProfile = ({ auth }) => {
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Email :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {studentData.email}
+                  {currentUser.email}
                 </div>
               </div>
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Contact :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {studentData.contact}
+                  {currentUser.contact}
                 </div>
               </div>
             </div>
@@ -144,14 +146,14 @@ const StudentProfile = ({ auth }) => {
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Locker No :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {studentData.locker_no}
+                  {currentUser.locker_no}
                 </div>
               </div>
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Birthday :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {studentData.dob}
+                  {currentUser.dob}
                 </div>
               </div>
             </div>
@@ -161,14 +163,14 @@ const StudentProfile = ({ auth }) => {
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Address :</div>
                 <div className="my-1 text-[var(--dash-heading)] max-w-none break-words ">
-                  {studentData.address}
+                  {currentUser.address}
                 </div>
               </div>
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Gender :</div>
                 <div className="my-1 text-[var(--dash-heading)] capitalize">
-                  {studentData.gender}
+                  {currentUser.gender}
                 </div>
               </div>
             </div>

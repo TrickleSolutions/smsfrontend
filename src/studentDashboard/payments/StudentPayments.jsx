@@ -5,21 +5,23 @@ import { Link } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PrintReceipt from "./PrintReceipt";
 import html2canvas from "html2canvas";
+import { useAuthContext } from "../../context/useStateContext";
 
 const StudentPayments = ({ auth }) => {
   const [studentFees, setStudentFees] = useState([]);
   const [studentData, setStudentData] = useState([]);
   const [totalpaid, setTotalpaid] = useState([]);
+  const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
   const [loader, setLoader] = useState(true);
 
-  useEffect(() => {
-    getStudentData();
-  }, []);
+  // useEffect(() => {
+  //   getStudentData();
+  // }, []);
 
   useEffect(() => {
     getStudentFees();
     getTotalpaid();
-  }, [studentData]);
+  }, [currentUser]);
 
   const getStudentFees = () => {
     fetch(`${baseurl}/api/fee`, {
@@ -33,7 +35,7 @@ const StudentPayments = ({ auth }) => {
       })
       .then((result) => {
         let filteredData = result.filter(
-          (fee) => fee.regno == studentData.regno
+          (fee) => fee.regno == currentUser.regno
         );
         setStudentFees(filteredData);
         // setStudentFees(result);
@@ -44,23 +46,23 @@ const StudentPayments = ({ auth }) => {
       });
   };
 
-  const getStudentData = () => {
-    fetch(`${baseurl}/api/students/${auth}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setStudentData(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getStudentData = () => {
+  //   fetch(`${baseurl}/api/students/${auth}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((result) => {
+  //       setStudentData(result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const getTotalpaid = () => {
     fetch(`${baseurl}/api/totalpaidfee`, {
@@ -74,7 +76,7 @@ const StudentPayments = ({ auth }) => {
       })
       .then((result) => {
         let filteredData = result.filter(
-          (paid) => paid._id == studentData.regno
+          (paid) => paid._id == currentUser.regno
         );
         setTotalpaid(filteredData);
       })

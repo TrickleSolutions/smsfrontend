@@ -8,40 +8,25 @@ import StudentAssignments from "./assignments/StudentAssignments";
 import StudentPayments from "./payments/StudentPayments";
 import StudentQueries from "./queries/StudentQueries";
 import baseurl from "../Config";
+import { useAuthContext } from "../context/useStateContext";
 
 const StudentDashboard = ({ auth }) => {
   const [student, setStudent] = useState([]);
+
   const navigate = useNavigate();
   // console.log(student);
 
+  const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
   useEffect(() => {
-    getStudentData();
+    getStudentData(auth);
   }, []);
-
-  const getStudentData = () => {
-    fetch(`${baseurl}/api/students/${auth}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setStudent(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   const goto = (url) => {
     navigate(url);
   };
   return (
     <>
-      {student ? (
+      {currentUser ? (
         <section className=" px-5 py-2 bg-[var(--body-color)]">
           <div className="bg-[var(--theme-color)] mt-5 mb-5">
             <h1 className="font-extrabold text-3xl text-center text-white px-2 py-5">
@@ -49,20 +34,20 @@ const StudentDashboard = ({ auth }) => {
             </h1>
           </div>
           {/* Profile */}
-          <StudentProfile auth={auth} />
+          <StudentProfile />
           <hr />
           <Classes />
           <hr />
-          <StudentAcademics auth={auth} />
+          <StudentAcademics />
           <hr />
 
-          <StudentMarks auth={auth} />
+          {/* <StudentMarks  /> */}
           <hr />
-          <StudentAssignments auth={auth} />
+          <StudentAssignments />
           <hr />
-          <StudentPayments auth={auth} />
+          <StudentPayments  />
           <hr />
-          <StudentQueries auth={auth} />
+          <StudentQueries/>
 
           {/* Footer */}
           <div className="bg-[var(--theme-color)] mt-5">

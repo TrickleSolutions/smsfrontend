@@ -21,6 +21,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import logo from "../assets/images/logo.png";
 import avatar from "../assets/images/avatar.jpg";
+import axios from "axios";
 
 const StudentHeader = ({ updateAuth, auth }) => {
   const [dashBtn, setDashBtn] = useState(null);
@@ -33,27 +34,25 @@ const StudentHeader = ({ updateAuth, auth }) => {
     setDashBtn(location.pathname.startsWith("/student/dashboard"));
   }, [location.pathname]);
 
+  const getStudentData = async () => {
+    try {
+      const response = await axios.get(`${baseurl}/api/students/${auth}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = response.data;
+      setStudentData(result);
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getStudentData();
   }, []);
-
-  const getStudentData = () => {
-    fetch(`${baseurl}/api/students/${auth}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setStudentData(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <>
       <div className=" px-5 bg-white py-0.5 shadow-xl">
