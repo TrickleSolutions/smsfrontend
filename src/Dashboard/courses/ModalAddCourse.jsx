@@ -89,9 +89,21 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
     formData.append("category", category);
     formData.append("instructor", instructor);
     formData.append("status", status);
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+
+    // Post Api For Posting Data
+    fetch(baseurl + "/api/course", {
+      method: "POST",
+      body: formData, // Send formData directly
+    })
+      .then((res) => res.json())
+      .then(() => {
+        toast.success("Course Added Successfully");
+        getCourseList();
+        handleOpen();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // Empty the value of fields
     setImg("");
@@ -103,27 +115,8 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
     setPrice("");
     setCategory("");
     setInstructor("");
-
-    // Post Api For Posting Data
-    fetch(baseurl + "/api/course", {
-      method: "POST",
-      body: formData,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then(() => {
-        toast.success("Course Added Successfully");
-        getCourseList();
-        handleOpen();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
+
   return (
     <>
       <Dialog
@@ -364,7 +357,9 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                 type="submit"
                 onClick={handleSubmit}
                 className="p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
-              >Submit</button>
+              >
+                Submit
+              </button>
             </div>
           </form>
         </DialogBody>
