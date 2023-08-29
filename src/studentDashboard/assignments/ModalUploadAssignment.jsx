@@ -50,7 +50,7 @@ const ModalUploadAssignment = ({ studentData, item, open, handleOpen }) => {
   };
 
   return (
-    <Dialog open={open} handler={handleOpen} size="sm">
+    <Dialog open={open} handler={handleOpen} size="xl">
       <DialogHeader className="text-center justify-center">
         {" "}
         Submit Assignment
@@ -77,7 +77,7 @@ const ModalUploadAssignment = ({ studentData, item, open, handleOpen }) => {
             </div>
             <input
               type="submit"
-              className="p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
+              className="p-2 ml-3 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
             />
           </div>
         </form>

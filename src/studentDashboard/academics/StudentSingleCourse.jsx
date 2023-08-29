@@ -75,7 +75,7 @@ const StudentSingleCourse = ({
           >
             {course.img ? (
               <img
-                src={`${baseurl}/coursepic/${course.img}`}
+                src={`${baseurl}/api/coursepic/${course.img}`}
                 className="h-40 w-full rounded-tr-lg rounded-tl-lg"
                 alt=""
               />
@@ -85,7 +85,7 @@ const StudentSingleCourse = ({
 
             <div className="py-5 px-3 flex flex-col justify-center items-center flex-grow">
               <h5 className="text-lg font-bold ">{course.title}</h5>
-              <p>{course.desc}</p>
+              {/* <p>{course.desc}</p> */}
               <p className="text-xs flex items-center my-2">
                 {/* <img src={man} className="h-5 w-5 rounded-full mx-2" alt="" /> */}
                 Instructor : {instName ? instName : "-"}

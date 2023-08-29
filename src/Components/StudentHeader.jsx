@@ -74,7 +74,7 @@ const StudentHeader = ({ updateAuth, auth }) => {
             </Link>
           </div>
           {/* Right Box */}
-          <div className="flex items-center">
+          <div className="flex justify-evenly items-center">
             {/* Language */}
             <div className="mx-0 sm:mx-2 flex justify-center items-center">
               <Menu>
@@ -100,7 +100,7 @@ const StudentHeader = ({ updateAuth, auth }) => {
               </Menu>
             </div>
             {/* Chat Icon */}
-            <div className="mx-0 sm:mx-2">
+            {/* <div className="mx-0 sm:mx-2">
               <Menu>
                 <MenuHandler>
                   <IconButton variant="text">
@@ -261,9 +261,9 @@ const StudentHeader = ({ updateAuth, auth }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-            </div>
+            </div> */}
             {/* Bell Icon */}
-            <div className="mx-0 sm:mx-2">
+            {/* <div className="mx-0 sm:mx-2">
               <Menu>
                 <MenuHandler>
                   <IconButton variant="text">
@@ -427,7 +427,7 @@ const StudentHeader = ({ updateAuth, auth }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-            </div>
+            </div> */}
             {/* Profile */}
             <div>
               <Menu>

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import baseurl from "../Config";
-import { Link, useNavigate } from "react-router-dom";
-import StudentHeader from "../Components/StudentHeader";
+import { useNavigate } from "react-router-dom";
+// import StudentHeader from "../Components/StudentHeader";
 import { Tooltip } from "@material-tailwind/react";
+import moment from "moment/moment";
 
 const Classes = ({ auth, updateAuth }) => {
   const [scheduleData, setScheduleData] = useState([]);
   const [eventsData, setEventsData] = useState([]);
-  const navigate = useNavigate();
   // console.log(eventsData);
 
   useEffect(() => {
@@ -170,13 +170,14 @@ const Classes = ({ auth, updateAuth }) => {
               {eventsData.map((item) => {
                 return (
                   <div className="my-5 bg-white px-3 py-2 rounded-md sm:max-w-xl">
+                    {console.log(`${baseurl}/api/eventpic/${item.img}`)}
                     <h3 className="my-5 sm:my-1 text-center text-[var(--secondary-color)] text-xl font-bold">
                       {item.event}
                     </h3>
                     <div className="flex items-center flex-wrap">
                       <div>
                         <img
-                          src={`${baseurl}/eventpic/${item.img}`}
+                          src={`${baseurl}/api/eventpic/${item.img}`}
                           className="w-28 h-20 rounded-lg"
                           alt=""
                         />
@@ -221,8 +222,9 @@ const Classes = ({ auth, updateAuth }) => {
                   scheduleData.map((item) => {
                     return (
                       <>
+                        {console.log(item.date)}
                         <div className="sm:max-w-xs bg-white flex flex-row items-center shadow-lg rounded-lg">
-                          <div className="m-4 flex flex-col items-center  w-fit ">
+                          <div className="m-4 flex flex-col items-center">
                             <div className="text-6xl text-[var(--theme-color)] font-bold">
                               {date(item.date)[0]}
                             </div>
@@ -272,11 +274,11 @@ const Classes = ({ auth, updateAuth }) => {
                                     />
                                   </svg>
                                 </div>
-                                <div>{time(item.time)}</div>
+                                <div>{moment(item.date).format('LT')}</div>
                               </div>
                             </div>
                             <p className="my-2 text-[var(--para-color)]">
-                              <Link to={item.link}>Join here</Link>
+                              {/* <Link to={item.link}>Join here</Link> */}
                             </p>
                           </div>
                         </div>
