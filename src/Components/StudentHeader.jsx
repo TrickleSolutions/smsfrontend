@@ -504,7 +504,8 @@ const StudentHeader = ({ updateAuth, auth }) => {
                       variant="small"
                       className="font-normal"
                       onClick={() => {
-                        localStorage.removeItem("auth");
+                        // localStorage.removeItem("auth");
+                        sessionStorage.clear();
                         updateAuth();
                         navigate("/");
                       }}

@@ -95,7 +95,7 @@ const App = () => {
   });
 
   const updateAuth = () => {
-    setAuth(JSON.parse(window.localStorage.getItem("auth")));
+    setAuth(JSON.parse(sessionStorage.getItem("auth")));
   };
   const updateInstructorAuth = () => {
     setInstructorAuth(

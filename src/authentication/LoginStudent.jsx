@@ -24,6 +24,7 @@ const LoginStudent = ({ updateAuth, auth }) => {
         setMobileOtp(true);
         setOtpCredentials(response.data.data);
         toast.success(`sended otp on number ${number}`);
+        setRemainingTime(45);
       }
     } catch (error) {
       console.log(error);
@@ -35,7 +36,7 @@ const LoginStudent = ({ updateAuth, auth }) => {
     e.preventDefault();
 
     const formdata = {
-      contacts: email,
+      contact: email,
       otp: otp,
       otpid: otpCredentials,
     };
@@ -52,18 +53,22 @@ const LoginStudent = ({ updateAuth, auth }) => {
         }
       );
 
+      console.log(response, baseurl + "/api/studentlogin?" + urlQuery);
       if (response.status === 200) {
         const result = response.data;
-        window.localStorage.setItem("auth", JSON.stringify(result.data._id));
+        // window.localStorage.setItem("auth", JSON.stringify(result.data._id));
+        sessionStorage.setItem("auth", JSON.stringify(result.data._id));
         updateAuth();
         toast.success("Successfully LoggedIn");
         navigate("/student/dashboard");
-      } else {
-        console.log(response.data.message);
-        toast.error(`${response.data.message}`);
+      } else if (response.status === 404) {
+        toast.error(`User not found`);
+        setMobileOtp(false);
       }
     } catch (error) {
       console.error(error);
+      toast.error("no user found");
+      setMobileOtp(false);
     }
   };
 
@@ -124,13 +129,29 @@ const LoginStudent = ({ updateAuth, auth }) => {
     window.scrollTo(0, 0);
   }, []);
 
+  // timer function
+  const otpExpirationTime = 45; // 45 seconds in milliseconds
+  const [remainingTime, setRemainingTime] = useState(otpExpirationTime);
+
+  useEffect(() => {
+    if (remainingTime > 0) {
+      const timer = setTimeout(() => {
+        setRemainingTime((prevTime) => prevTime - 1);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [remainingTime]);
+
+  const seconds = Math.floor(remainingTime / 1000);
   return (
     <>
       {auth ? (
         navigate("/student/dashboard")
       ) : (
         <section className=" p-1">
-          {console.log(otpCredentials)}
           <div className="mx-2 md:mx-5 flex flex-col md:flex-row gap-2 md:gap-5 justify-center md:justify-start py-5">
             <div className="hidden lg:block xl:block w-full">
               <img
@@ -178,14 +199,15 @@ const LoginStudent = ({ updateAuth, auth }) => {
                   <div className="flex flex-wrap -mx-3 mb-6">
                     {/* password */}
                     {MobileOtp ? (
-                      <div className="w-full px-3 mb-3">
-                        <label
-                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="password"
-                        >
-                          Enter Otp
-                        </label>
-                        {/* <input
+                      <>
+                        <div className="w-full px-3 mb-3">
+                          <label
+                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            htmlFor="password"
+                          >
+                            Enter Otp&nbsp;&nbsp; {remainingTime}&nbsp;seconds
+                          </label>
+                          {/* <input
                         className="appearance-none block w-full my-5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="password"
                         type="password"
@@ -194,27 +216,31 @@ const LoginStudent = ({ updateAuth, auth }) => {
                           setPassword(e.target.value);
                         }}
                       /> */}
-                        <MuiOtpInput value={otp} onChange={handleChange} />
-                        <div className="pt-5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3">
-                          <Button
-                            type="submit"
-                            variant="gradient"
-                            color="blue"
-                            onClick={(e) => onLoginPress(e)}
-                            // onClick={onLoginPress}
-                          >
-                            <span>Login</span>
-                          </Button>
-                          <Button
-                            type="submit"
-                            variant="text"
-                            color="blue"
-                            // onClick={onLoginPress}
-                          >
-                            <span> Resend Otp</span>
-                          </Button>
+                          <MuiOtpInput value={otp} onChange={handleChange} />
+                          <div className="pt-5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3">
+                            <Button
+                              type="submit"
+                              variant="gradient"
+                              color="blue"
+                              onClick={(e) => onLoginPress(e)}
+                              // onClick={onLoginPress}
+                            >
+                              <span>Login</span>
+                            </Button>
+                            <Button
+                              variant="text"
+                              color="blue"
+                              onClick={() => {
+                                sendOtp(email);
+                              }}
+                              disabled={remainingTime < 4 ? false : true}
+                              // onClick={onLoginPress}
+                            >
+                              <span> Resend Otp</span>
+                            </Button>
+                          </div>
                         </div>
-                      </div>
+                      </>
                     ) : (
                       <div className="w-full px-3 mb-3">
                         <label
