@@ -104,7 +104,7 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
               </Menu>
             </div>
             {/* Chat Icon */}
-            <div className="mx-0 sm:mx-2">
+            {/* <div className="mx-0 sm:mx-2">
               <Menu>
                 <MenuHandler>
                   <IconButton variant="text">
@@ -265,9 +265,9 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-            </div>
+            </div> */}
             {/* Bell Icon */}
-            <div className="mx-0 sm:mx-2">
+            {/* <div className="mx-0 sm:mx-2">
               <Menu>
                 <MenuHandler>
                   <IconButton variant="text">
@@ -431,7 +431,7 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-            </div>
+            </div> */}
             {/* Profile */}
             <div>
               <Menu>

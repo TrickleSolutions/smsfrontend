@@ -96,7 +96,7 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
               </Menu>
             </div>
             {/* Chat Icon */}
-            <div className="mx-0 sm:mx-2">
+            {/* <div className="mx-0 sm:mx-2">
               <Menu>
                 <MenuHandler>
                   <IconButton variant="text">
@@ -257,9 +257,9 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-            </div>
+            </div> */}
             {/* Bell Icon */}
-            <div className="mx-0 sm:mx-2">
+            {/* <div className="mx-0 sm:mx-2">
               <Menu>
                 <MenuHandler>
                   <IconButton variant="text">
@@ -423,7 +423,7 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-            </div>
+            </div> */}
             {/* Profile */}
             <div>
               <Menu>

@@ -134,6 +134,7 @@ const CourseDetails = () => {
 
       {/* Course Details Container */}
       <section>
+        {console.log(courseData.category)}
         <div className="max-w-[90%] mx-auto flex flex-col lg:flex-row items-start">
           {/* Left */}
           <div className="w-full lg:w-4/6">
@@ -355,10 +356,10 @@ const CourseDetails = () => {
 
             {/* course Image  */}
             <div className="my-10">
-              <img src={courseLearn} className="w-full h-96 my-10" alt="" />
-              <p className="text-[var(--para2)]">
+              <img src={`${baseurl}/api/coursepic/${courseData.img}`} className="w-full h-96 my-10" alt="" />
+              {/* <p className="text-[var(--para2)]">
                 {courseData.desc ? courseData.desc : ""}
-              </p>
+              </p> */}
             </div>
 
             {/* Requirements */}
@@ -421,7 +422,7 @@ const CourseDetails = () => {
           </div>
           {/* Right */}
           <div className="w-full lg:w-2/6 p-10">
-            <div className="relative">
+            {/* <div className="relative">
               <img src={courseVideo} className="rounded-lg" alt="" />
               <div className="absolute top-[40%] left-[40%]">
                 <svg
@@ -445,9 +446,9 @@ const CourseDetails = () => {
                   ></path>
                 </svg>
               </div>
-            </div>
+            </div> */}
             {/* Price */}
-            <div className="flex items-center space-x-5 my-5 p-3">
+            <div className="flex items-center space-x-5 my-5 p-3 border">
               <div className="text-3xl font-extrabold text-[var(--golden)]">
                 ₹{courseData.price ? courseData.price : ""}
               </div>
@@ -494,7 +495,7 @@ const CourseDetails = () => {
                   Duration
                 </div>
                 <div className="font-bold">
-                  {courseData.duration ? courseData.duration : ""} Days
+                  {courseData.duration ? courseData.duration : ""}
                 </div>
               </div>
               <div className="flex justify-between px-2 my-10">
@@ -597,7 +598,7 @@ const CourseDetails = () => {
                     >
                       <CardHeader color="blue-gray" className="relative h-56">
                         <img
-                          src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                          src={`${baseurl}/api/coursepic/${course.img}`}
                           alt="img-blur-shadow"
                           layout="fill"
                           className="h-full w-full"
@@ -623,9 +624,9 @@ const CourseDetails = () => {
                             {course.title && course.title}
                           </Link>
                         </Typography>
-                        <Typography className="mb-2 h-14 overflow-hidden">
+                        {/* <Typography className="mb-2 h-14 overflow-hidden">
                           {course.desc && course.desc}
-                        </Typography>
+                        </Typography> */}
                       </CardBody>
                       <CardFooter className="pt-0">
                         <div className=" flex justify-between items-center text-center">
