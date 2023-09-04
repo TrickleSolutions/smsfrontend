@@ -132,7 +132,8 @@ const InstructorOfTheMonth = () => {
                       <td class="px-6 py-4 hidden sm:table-cell ">
                         {instructorMonth.img ? (
                           <img
-                            src={`${baseurl}/api/studentofmonth/${instructorMonth.img}`}
+                          className="h-20 w-20"
+                            src={`${baseurl}/api/instructorofmonths/${instructorMonth.img}`}
                             alt=""
                           />
                         ) : (

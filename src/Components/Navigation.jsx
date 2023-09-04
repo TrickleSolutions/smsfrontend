@@ -4,6 +4,8 @@ import {
   Collapse,
   Typography,
   IconButton,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import { Drawer, Button, Input, Textarea } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -11,6 +13,7 @@ import logo2 from "../assets/images/logo2.jpg";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
 import ModalJoinInstructor from "./ModalJoinInstructor";
+import baseurl from "../Config";
 
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -20,6 +23,8 @@ const Navigation = () => {
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
+  const [loader, setLoader] = useState(true);
+  const [courses, setCourses] = useState([]);
 
   const navigate = useNavigate();
 
@@ -52,6 +57,53 @@ const Navigation = () => {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
+  useEffect(() => {
+    getCourseList();
+  }, []);
+
+  const getCourseList = () => {
+    fetch(baseurl + "/api/course ", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        // setCourses(result);
+        let filteredData = result;
+        setCourses(filteredData);
+        setLoader(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [formData, setFormData] = useState({
+    fullName: '',
+    mobileNo: '',
+    email: '',
+    subject: '',
+    selectedCourse: '',
+    message: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form Data:', formData);
+  };
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
@@ -214,12 +266,65 @@ const Navigation = () => {
                   <XMarkIcon strokeWidth={2} className="h-5 w-5" />
                 </IconButton>
               </div>
-              <form className="flex flex-col gap-6 p-4 !bg-white">
-                <Input type="email" label="Email" />
-                <Input label="Subject" />
-                <Textarea rows={6} label="Message" />
-                <Button>Send Message</Button>
+              <form className="flex flex-col gap-6 p-4 !bg-white" onSubmit={handleSubmit}>
+                <Input
+                  type="text"
+                  name="fullName"
+                  label="Full Name"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  required
+                />
+                <Input
+                  type="text"
+                  name="mobileNo"
+                  label="Mobile No."
+                  value={formData.mobileNo}
+                  onChange={handleInputChange}
+                  required
+                />
+                <Input
+                  type="email"
+                  name="email"
+                  label="Email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+                <Input
+                  type="text"
+                  name="subject"
+                  label="Subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                />
+                <div className="w-72">
+                  <Select
+                    name="selectedCourse"
+                    label="Select Course"
+                    value={formData.selectedCourse}
+                    onChange={handleInputChange}
+                  >
+                    <Option value="" disabled>
+                      Choose Course
+                    </Option>
+                    {courses.map((item, index) => (
+                      <Option key={index} value={item.title}>
+                        {item.title}
+                      </Option>
+                    ))}
+                  </Select>
+                </div>
+                <Textarea
+                  name="message"
+                  label="Message"
+                  rows={6}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                />
+                <Button type="submit">Send Message</Button>
               </form>
+
             </Drawer>
             {/* ///////////////////////////////// Drawer //////////////////////////////////////// */}
             <IconButton

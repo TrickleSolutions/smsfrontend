@@ -5,11 +5,17 @@ import baseurl from "../Config";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import TeacherImage from '../assets/images/TeacherLogin.jpg'
+import { MuiOtpInput } from "mui-one-time-password-input";
 
 const LoginInstructor = ({ updateInstructorAuth, instructorAuth }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [MobileOtp, setMobileOtp] = useState(false);
+  const [otp, setOtp] = React.useState('')
 
+  const handleChange = (newValue) => {
+    setOtp(newValue)
+  }
   const navigate = useNavigate();
 
   const onLoginPress = (e) => {
@@ -91,6 +97,36 @@ const LoginInstructor = ({ updateInstructorAuth, instructorAuth }) => {
                 {/* Form */}
                 <form className="w-full px-5 sm:px-10 mt-5">
                   <div className="flex flex-wrap -mx-3 mb-6">
+
+                    {
+                      MobileOtp ? <>
+                        <div className="w-full px-3 mb-3">
+                          <label
+                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            htmlFor="password"
+                          >
+                            Enter Otp&nbsp;&nbsp; 01:59&nbsp;seconds
+                          </label>
+
+                          <MuiOtpInput value={otp} onChange={handleChange} />
+                          <div className="pt-5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3">
+                            <Button
+                              type="submit"
+                              variant="gradient"
+                              color="blue"
+                            >
+                              <span>Login</span>
+                            </Button>
+                            <Button
+                              variant="text"
+                              color="blue"
+                            >
+                              <span> Resend Otp</span>
+                            </Button>
+                          </div>
+                        </div>
+                      </> : null
+                    }
                     {/* email */}
                     <div className="w-full px-3 mb-3">
                       <label
