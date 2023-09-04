@@ -40,7 +40,6 @@ const Courses = () => {
         return res.json();
       })
       .then((result) => {
-        console.log(result)
         setCourses(result);
         setLoader(false);
       })
@@ -166,7 +165,7 @@ const Courses = () => {
             Latest Courses
           </h3>
           <h1 className="text-5xl text-center font-semibold my-10">
-            Browser Latest Courses
+            Browse Latest Courses
           </h1>
           {/* Oppotunities Container */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-around items-center mt-20 py-5  md:px-10">

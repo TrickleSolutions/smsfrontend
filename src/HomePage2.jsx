@@ -1289,7 +1289,6 @@ const HomePage2 = () => {
           <div className="w-full justify-around items-center py-5 md:px-10 overflow-hidden">
 
             <TestSlider getCategoryName={getCategoryName} courses={courses} />
-            {console.log(courses)}
           </div>
           <Button onClick={() => navigate("/courses")} className="w-fit float">
             View more
