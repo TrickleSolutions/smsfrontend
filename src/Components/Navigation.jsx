@@ -14,6 +14,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
 import ModalJoinInstructor from "./ModalJoinInstructor";
 import baseurl from "../Config";
+import { toast } from "react-toastify";
 
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -25,8 +26,9 @@ const Navigation = () => {
   const closeDrawer = () => setOpen(false);
   const [loader, setLoader] = useState(true);
   const [courses, setCourses] = useState([]);
-
+  const [selectedCourse, setSelectedCourse] = useState(""); // Step 1: State for selected course
   const navigate = useNavigate();
+  const [courseSelected, setCourseSelected] = useState("")
 
   const location = useLocation();
   const [page, setPage] = useState("");
@@ -84,12 +86,11 @@ const Navigation = () => {
   };
 
   const [formData, setFormData] = useState({
-    fullName: '',
-    mobileNo: '',
-    email: '',
-    subject: '',
-    selectedCourse: '',
-    message: '',
+    name: "",
+    email: "",
+    contact: "",
+    desc: "",
+    subject: ""
   });
 
   const handleInputChange = (e) => {
@@ -100,10 +101,48 @@ const Navigation = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Data:', formData);
+  const clearFormData = () => {
+    setFormData({
+      name: "",
+      email: "",
+      contact: "",
+      desc: "",
+      subject: ""
+    });
+    setCourseSelected(""); // Clear the selected course as well
   };
+
+  const submitEnquiry = () => {
+    // Step 3: Merge selected course into form data
+    const formDataWithCourse = {
+      ...formData,
+    };
+
+    fetch(baseurl + "/api/contact", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formDataWithCourse), // Send the merged form data
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        if (result.status === true && result.code === 200) {
+          toast.success("Enquiry Submitted Successfully");
+          setOpen(false)
+          clearFormData()
+        } else {
+          toast.error(`${result.message}`);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
@@ -181,6 +220,11 @@ const Navigation = () => {
 
   const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(!open2);
+
+
+  useEffect(() => {
+    formData.subject = courseSelected
+  }, [courseSelected])
 
   return (
     <>
@@ -266,21 +310,27 @@ const Navigation = () => {
                   <XMarkIcon strokeWidth={2} className="h-5 w-5" />
                 </IconButton>
               </div>
-              <form className="flex flex-col gap-6 p-4 !bg-white" onSubmit={handleSubmit}>
+              <form
+                className="flex flex-col gap-6 p-4 !bg-white"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  submitEnquiry();
+                }}
+              >
                 <Input
                   type="text"
-                  name="fullName"
+                  name="name"
                   label="Full Name"
-                  value={formData.fullName}
-                  onChange={handleInputChange}
+                  value={formData.name}
+                  onChange={(e) => handleInputChange(e)}
                   required
                 />
                 <Input
                   type="text"
-                  name="mobileNo"
+                  name="contact"
                   label="Mobile No."
-                  value={formData.mobileNo}
-                  onChange={handleInputChange}
+                  value={formData.contact}
+                  onChange={(e) => handleInputChange(e)}
                   required
                 />
                 <Input
@@ -288,39 +338,23 @@ const Navigation = () => {
                   name="email"
                   label="Email"
                   value={formData.email}
-                  onChange={handleInputChange}
+                  onChange={(e) => handleInputChange(e)}
                   required
                 />
-                <Input
-                  type="text"
-                  name="subject"
-                  label="Subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                />
-                <div className="w-72">
-                  <Select
-                    name="selectedCourse"
-                    label="Select Course"
-                    value={formData.selectedCourse}
-                    onChange={handleInputChange}
-                  >
-                    <Option value="" disabled>
-                      Choose Course
-                    </Option>
-                    {courses.map((item, index) => (
-                      <Option key={index} value={item.title}>
-                        {item.title}
-                      </Option>
-                    ))}
-                  </Select>
-                </div>
+
+                {/* <div className="w-72"> */}
+                <select style={{ border: '1px solid rgb(176, 190, 197, 0.8)', borderRadius: '5px', padding: '8px', color: 'black' }} value={courseSelected} onChange={(e) => setCourseSelected(e.target.value)}>
+                  {courses.map((item) => (
+                    <option value={item.title}> {item.title}</option>
+                  ))}
+                </select>
+                {/* </div> */}
                 <Textarea
-                  name="message"
-                  label="Message"
+                  name="desc"
+                  label="DESCRIPTION"
                   rows={6}
-                  value={formData.message}
-                  onChange={handleInputChange}
+                  value={formData.desc}
+                  onChange={(e) => handleInputChange(e)}
                 />
                 <Button type="submit">Send Message</Button>
               </form>
