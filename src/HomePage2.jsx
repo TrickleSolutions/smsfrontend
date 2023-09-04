@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Link, useNavigate } from "react-router-dom";
-import adminImage from "./assets/images/homepage/admin.jpg";
-import studentOfMonth from "./assets/images/homepage/student-month.jpg";
-import teacherMonth from "./assets/images/homepage/teacher-month.jpg";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import oppor1 from "./assets/images/homepage/oppor1.png";
 import oppor2 from "./assets/images/homepage/oppor2.png";
 import oppor3 from "./assets/images/homepage/oppor3.png";
 import about2 from "./assets/images/homepage/about-img-2.jpg";
 import abtIco from "./assets/images/homepage/abt-ico.png";
-import testimonial1 from "./assets/images/homepage/testi-1.jpg";
 import asInstructor from "./assets/images/homepage/join-instructor.png";
 import asStudent from "./assets/images/homepage/join-student.png";
 import DivyanshiSingh from "./assets/images/homepage/staff/Divyanshi-singh-(Teacher).jpeg";
@@ -28,12 +24,10 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Typography,
   Button,
   Tooltip,
 } from "@material-tailwind/react";
-import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import baseurl from "./Config";
 import premise1 from "./assets/images/homepage/premises/premise1.JPG";
 import ModalJoinInstructor from "./Components/ModalJoinInstructor";
@@ -81,7 +75,7 @@ const HomePage2 = () => {
       })
       .then((result) => {
         // setCourses(result);
-        let filteredData = result.filter((course, i) => i < 3);
+        let filteredData = result;
         setCourses(filteredData);
         setLoader(false);
       })
@@ -89,7 +83,6 @@ const HomePage2 = () => {
         console.log(err);
       });
   };
-
   const StudentOfTheMonthList = () => {
     fetch(baseurl + "/api/studentofmonth ", {
       method: "GET",
@@ -695,7 +688,10 @@ const HomePage2 = () => {
               </p>
             </div>
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-              <GlobalModal handleOpen={ModalhandleOpen} open={Modalopen} />
+              <GlobalModal
+                content={"modal"}
+                handleOpen={ModalhandleOpen} open={Modalopen}
+              />
               {staff.map((item) => {
                 return (
                   <div
@@ -968,7 +964,7 @@ const HomePage2 = () => {
                   } relative -top-16 transition-all left-4 z-20`}
               >
                 <img
-                  src={teacherMonth}
+                  src={`${baseurl}/api/instructorofmonths/${instructorMonth.img}`}
                   className="w-56 h-56 rounded-full"
                   alt=""
                 />
@@ -1005,7 +1001,7 @@ const HomePage2 = () => {
                   } relative -top-16 transition-all left-4 z-20`}
               >
                 <img
-                  src={studentOfMonth}
+                  src={`${baseurl}/api/studentofmonth/${studentMonth.img}`}
                   className="w-56 h-56 rounded-full"
                   alt=""
                 />
@@ -1197,27 +1193,27 @@ const HomePage2 = () => {
               className="w-fit m-5 p-3"
             >
               <img src={oppor1} alt="" />
-              <h3 className="font-bold text-xl my-3">Courses From Experts</h3>
+              <h3 className="font-bold text-xl my-3">Experience Advisor</h3>
               <p className="max-w-xs text-[var(--para-color)] pr-5">
-                Unlock your potential with our courses led by industry experts.
-                Gain invaluable knowledge and skills from seasoned professionals
-                who are at the forefront of their respective fields.
+                Elevate your learning journey with SMS Education's classes led by our team of seasoned experts. Gain an educational experience like never before.
               </p>
               <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  />
-                </svg>
+                <NavLink to='/gallery'>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                    />
+                  </svg>
+                </NavLink>
               </div>
             </div>
             <div
@@ -1233,20 +1229,22 @@ const HomePage2 = () => {
                 who are at the forefront of their respective fields.
               </p>
               <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  />
-                </svg>
+                <NavLink to='/courses'>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                    />
+                  </svg>
+                </NavLink>
               </div>
             </div>
             <div
@@ -1259,7 +1257,7 @@ const HomePage2 = () => {
               <p className="max-w-xs text-[var(--para-color)] pr-5">
                 SMS Education offers you live classes with our best and expert faculty, enabling you to learn from basics to advanced levels and understand concepts comprehensively.
               </p>
-              <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
+              {/* <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -1274,7 +1272,7 @@ const HomePage2 = () => {
                     d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
                   />
                 </svg>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -1288,10 +1286,10 @@ const HomePage2 = () => {
             Browse Latest Courses
           </h1>
           {/* Oppotunities Container */}
-          <div className="w-full justify-around items-center mt-20 py-5 md:px-10 overflow-hidden">
+          <div className="w-full justify-around items-center py-5 md:px-10 overflow-hidden">
 
-          <TestSlider getCategoryName={getCategoryName} />
-          {console.log(courses)}
+            <TestSlider getCategoryName={getCategoryName} courses={courses} />
+            {console.log(courses)}
           </div>
           <Button onClick={() => navigate("/courses")} className="w-fit float">
             View more

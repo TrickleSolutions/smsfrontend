@@ -7,7 +7,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
-export function GlobalModal({ handleOpen, open }) {
+export function GlobalModal({ handleOpen, open, content }) {
 
 
   return (
@@ -15,7 +15,7 @@ export function GlobalModal({ handleOpen, open }) {
       <Dialog size="xl" open={open} handler={handleOpen}>
         <DialogHeader>TestModal</DialogHeader>
         <DialogBody divider>
-          Modal
+          {content}
         </DialogBody>
         <DialogFooter>
           <Button

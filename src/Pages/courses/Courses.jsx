@@ -206,9 +206,9 @@ const Courses = () => {
                           {course.title && course.title}
                         </Link>
                       </Typography>
-                      <Typography className="mb-2 h-14 overflow-hidden">
+                      {/* <Typography className="mb-2 h-14 overflow-hidden">
                         {course.desc && course.desc}
-                      </Typography>
+                      </Typography> */}
                     </CardBody>
                     <CardFooter className="pt-0">
                       <div className=" flex justify-between items-center text-center">
