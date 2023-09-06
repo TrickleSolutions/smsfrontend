@@ -272,19 +272,19 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                 >
                   Course Description
                 </label>
-                {/* <Textarea
+                <Textarea
                   resize={true}
                   label="Message"
                   value={desc}
                   onChange={(e) => {
                     setDesc(e.target.value);
                   }}
-                /> */}
-                <JoditEditor
+                />
+                {/* <JoditEditor
                   ref={editor}
                   value={desc}
                   onChange={(value) => setDesc(value)}
-                />
+                /> */}
               </div>
               {/* Status */}
               <div className="w-full px-3 mb-3">

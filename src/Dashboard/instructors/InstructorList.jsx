@@ -210,6 +210,7 @@ const InstructorList = () => {
                     </tr>
                   </thead>
                   <tbody>
+                    {console.log(pageData)}
                     {pageData.map((item) => {
                       if (
                         item.name
@@ -225,8 +226,8 @@ const InstructorList = () => {
                               scope="row"
                               class="px-6 py-4 font-semibold text-black flex"
                             >
-                              <div className="bg-[#4f61ff] flex justify-center items-center w-10 h-10 p-2  mr-2 rounded-full text-white text-center">
-                                <span>P S</span>
+                              <div className="flex justify-center items-center mr-2 rounded-full text-center">
+                                <img className="rounded-full w-12 h-12" src={`${baseurl}/api/teacherpic/${item.profilePic}`} alt="teacherimg" />
                               </div>
                               <div>
                                 <div>{item.name}</div>
@@ -244,13 +245,12 @@ const InstructorList = () => {
                             <td class="px-6 py-4">{item.qualification}</td>
                             <td class="px-6 py-4">{item.degree}</td>
                             <td
-                              className={`${
-                                item.status === "active"
+                              className={`${item.status === "active"
                                   ? "text-teal-500"
                                   : item.status === "leave"
-                                  ? "text-amber-500"
-                                  : ""
-                              } px-6 py-4 hidden md:table-cell capitalize`}
+                                    ? "text-amber-500"
+                                    : ""
+                                } px-6 py-4 hidden md:table-cell capitalize`}
                             >
                               {item.status}
                             </td>

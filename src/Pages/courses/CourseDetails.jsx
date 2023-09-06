@@ -235,7 +235,7 @@ const CourseDetails = () => {
             </div>
 
             {/* Instructor */}
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <div className="text-lg font-bold text-gray-900 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -352,7 +352,7 @@ const CourseDetails = () => {
                 </svg>
                 <span className="relative top-0.5 w-fit">25 Enrolled</span>
               </div>
-            </div>
+            </div> */}
 
             {/* course Image  */}
             <div className="my-10">
@@ -365,60 +365,14 @@ const CourseDetails = () => {
             {/* Requirements */}
             <div className="my-10">
               <h2 className="text-3xl text-gray-900 font-extrabold">
-                Requirements
+                Description
               </h2>
 
               <div className="">
-                <div className="flex items-center my-3">
-                  <img src={pointingFinger} className="w-6 h-6 mr-2" alt="" />
-                  <p className="text-[var(--para2)] relative top-0.5">
-                    DevTools Debugging Tips And Shortcuts (Chrome, Firefox,
-                    Edge)
-                  </p>
-                </div>
-                <div className="flex items-center my-3">
-                  <img src={pointingFinger} className="w-6 h-6 mr-2" alt="" />
-                  <p className="text-[var(--para2)] relative top-0.5">
-                    Front-End Performance Checklist 2021 (PDF, Apple Pages, MS
-                    Word)
-                  </p>
-                </div>
-                <div className="flex items-center my-3">
-                  <img src={pointingFinger} className="w-6 h-6 mr-2" alt="" />
-                  <p className="text-[var(--para2)] relative top-0.5">
-                    A Smashing Guide To The World Of Search Engine Optimization
-                  </p>
-                </div>
+              {courseData.desc ? courseData.desc : ""}
               </div>
             </div>
 
-            {/* Target Audience */}
-            <div className="my-10">
-              <h2 className="text-3xl text-gray-900 font-extrabold">
-                Target Audience
-              </h2>
-
-              <div className="">
-                <div className="flex items-center my-3">
-                  <img src={pointingFinger} className="w-6 h-6 mr-2" alt="" />
-                  <p className="text-[var(--para2)] relative top-0.5">
-                    Any Job Holders, Students
-                  </p>
-                </div>
-                <div className="flex items-center my-3">
-                  <img src={pointingFinger} className="w-6 h-6 mr-2" alt="" />
-                  <p className="text-[var(--para2)] relative top-0.5">
-                    Corporate Trainer
-                  </p>
-                </div>
-                <div className="flex items-center my-3">
-                  <img src={pointingFinger} className="w-6 h-6 mr-2" alt="" />
-                  <p className="text-[var(--para2)] relative top-0.5">
-                    Educators (Teachers, Lecturer, Faculty)
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
           {/* Right */}
           <div className="w-full lg:w-2/6 p-10">
@@ -561,14 +515,11 @@ const CourseDetails = () => {
                 <div className="font-bold">Hindi</div>
               </div>
             </div>
-            <p className="px-3 my-5">
-              Sit amet consectetur adipiscin sed eiusmod tempor incidide
-            </p>
             <Button
               onClick={() => navigate("/contact")}
               className="w-full py-4 bg-[var(--bg-dark-blue)] hover:bg-[var(--golden)] uppercase transition-colors duration-500"
             >
-              add to cart
+              Enquiry Now
             </Button>
           </div>
         </div>

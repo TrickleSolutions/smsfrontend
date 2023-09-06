@@ -72,14 +72,6 @@ const Footer = () => {
                     DCA
                   </a>
                 </li>
-                <li className="mb-4">
-                  <a
-                    href="#!"
-                    className="text-neutral-600 dark:text-neutral-200"
-                  >
-                    CCNA
-                  </a>
-                </li>
                 <li className="">
                   <a
                     href="#!"

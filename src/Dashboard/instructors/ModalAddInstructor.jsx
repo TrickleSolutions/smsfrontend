@@ -21,24 +21,48 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
   const [degree, setDegree] = useState("");
   const [exp, setExp] = useState("");
   const [status, setStatus] = useState("active");
+  const [profilePic, setProfilePic] = useState(null); // Use null to represent no image selected
 
-  const data = {
-    name,
-    email,
-    address,
-    contact,
-    gender,
-    dob,
-    qualification,
-    degree,
-    exp,
-    status,
-  };
+  const data = new FormData(); // Create a FormData object
 
-  console.log(data);
+  // Append the profile picture if it's selected
+  if (profilePic) {
+    data.append("profilePic", profilePic);
+  }
+
+  // Append other form data fields
+  data.append("name", name);
+  data.append("email", email);
+  data.append("address", address);
+  data.append("contact", contact);
+  data.append("gender", gender);
+  data.append("dob", dob);
+  data.append("qualification", qualification);
+  data.append("degree", degree);
+  data.append("exp", exp);
+  data.append("status", status);
 
   const onSubmitClick = () => {
-    // Empty the value of fields
+    // Post Api For Posting Data
+    fetch(baseurl + "/api/instructor", {
+      method: "POST",
+      body: data, // Use the FormData object here
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.status === true && result.code === 200) {
+          toast.success("Instructor Added Successfully");
+          handleOpen();
+          getInstructorList();
+        } else {
+          toast.error(`${result.message}`);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    // Clear form fields (except profilePic)
     setName("");
     setEmail("");
     setAddress("");
@@ -48,31 +72,6 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
     setQualification("");
     setDegree("");
     setExp("");
-
-    // Post Api For Posting Data
-    fetch(baseurl + "/api/instructor", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        if (result.status === true && result.code === 200) {
-          toast.success("Instructor Added Successfully");
-          handleOpen();
-          getInstructorList();
-        } else {
-          toast.success(`${result.message}`);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
   return (
     <>
@@ -124,6 +123,50 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                   }}
                 />
               </div>
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="gender"
+                >
+                  Gender
+                </label>
+                <div className="flex gap-10">
+                  <Radio
+                    id="male"
+                    name="type"
+                    label="Male"
+                    value={gender}
+                    onChange={(e) => {
+                      setGender("male");
+                    }}
+                  />
+                  <Radio
+                    id="female"
+                    name="type"
+                    label="Female"
+                    value={gender}
+                    onChange={(e) => {
+                      setGender("female");
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="profilePic"
+                >
+                  Profile Pic
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="profilePic"
+                  type="file"
+                  onChange={(e) => {
+                    setProfilePic(e.target.files[0]);
+                  }}
+                />
+              </div>
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -163,30 +206,23 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="gender"
+                  htmlFor="exp"
                 >
-                  Gender
+                  Experience
+                  <span className="text-xs mx-1 text-gray-500 lowercase font-light">
+                    (in years)
+                  </span>
                 </label>
-                <div className="flex gap-10">
-                  <Radio
-                    id="male"
-                    name="type"
-                    label="Male"
-                    value={gender}
-                    onChange={(e) => {
-                      setGender("male");
-                    }}
-                  />
-                  <Radio
-                    id="female"
-                    name="type"
-                    label="Female"
-                    value={gender}
-                    onChange={(e) => {
-                      setGender("female");
-                    }}
-                  />
-                </div>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="exp"
+                  type="number"
+                  placeholder="2.5"
+                  value={exp}
+                  onChange={(e) => {
+                    setExp(e.target.value);
+                  }}
+                />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <label
@@ -245,28 +281,6 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                 />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="exp"
-                >
-                  Experience
-                  <span className="text-xs mx-1 text-gray-500 lowercase font-light">
-                    (in years)
-                  </span>
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="exp"
-                  type="number"
-                  placeholder="2.5"
-                  value={exp}
-                  onChange={(e) => {
-                    setExp(e.target.value);
-                  }}
-                />
-              </div>
-              {/* Status */}
-              <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="status"
