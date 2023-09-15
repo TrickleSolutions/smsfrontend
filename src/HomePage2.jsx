@@ -167,6 +167,7 @@ const HomePage2 = () => {
       })
       .then((result) => {
         setInstData(result);
+        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -586,8 +587,7 @@ const HomePage2 = () => {
               </p>
               {/* Button and How it works*/}
               <div className="flex items-center justify-center">
-                <Link to='/about'>
-
+                <Link to="/about">
                   <button className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-lg px-10 py-4 rounded-md transition-colors duration-500">
                     <div className="flex items-center justify-center uppercase">
                       Learn More
@@ -607,7 +607,6 @@ const HomePage2 = () => {
                       </svg>
                     </div>
                   </button>
-
                 </Link>
               </div>
               <div className="mt-5 flex justify-around items-center">
@@ -690,16 +689,18 @@ const HomePage2 = () => {
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               <GlobalModal
                 content={"modal"}
-                handleOpen={ModalhandleOpen} open={Modalopen}
+                handleOpen={ModalhandleOpen}
+                open={Modalopen}
               />
-              {staff.map((item) => {
+              {instData.map((item) => {
                 return (
                   <div
                     // onClick={ModalhandleOpen}
-                    className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
+                    className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl"
+                  >
                     <img
-                      className="object-cover object-top w-full h-[100%] md:h-[100%] xl:h-[100%]"
-                      src={item.img}
+                      className="object-cover object-top rounded-full !aspect-square w-full h-[100%] md:h-[100%] xl:h-[100%]"
+                      src={baseurl + "/api/teacherpic/" + item.profilePic}
                       alt="Person"
                     />
                     <div className="absolute inset-0 flex flex-col justify-center px-5 py-4 text-center transition-opacity duration-300 bg-black bg-opacity-75 opacity-0 hover:opacity-100">
@@ -759,7 +760,15 @@ const HomePage2 = () => {
                 </Button>
               </a>
             </CardBody> */}
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3563.0134002976224!2d80.85737987516285!3d26.743948467323357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bf9c497a21e69%3A0xe6ed5041cf605d0e!2sSMS%20EDUCATION!5e0!3m2!1sen!2sin!4v1692184343262!5m2!1sen!2sin" height="450" width="1280" style={{ border: '0' }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3563.0134002976224!2d80.85737987516285!3d26.743948467323357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bf9c497a21e69%3A0xe6ed5041cf605d0e!2sSMS%20EDUCATION!5e0!3m2!1sen!2sin!4v1692184343262!5m2!1sen!2sin"
+              height="450"
+              width="1280"
+              style={{ border: "0" }}
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
           </Card>
         </section>
 
@@ -956,12 +965,14 @@ const HomePage2 = () => {
             <div
               onMouseEnter={() => setViewAcheiver(true)}
               onMouseLeave={() => setViewAcheiver(false)}
-              className={`${viewAcheiver ? "shadow-2xl" : "shadow-none"
-                } relative w-64 h-40 rounded-2xl border hover:h-96  transition-all  duration-500`}
+              className={`${
+                viewAcheiver ? "shadow-2xl" : "shadow-none"
+              } relative w-64 h-40 rounded-2xl border hover:h-96  transition-all  duration-500`}
             >
               <div
-                className={`${viewAcheiver ? "-top-20" : ""
-                  } relative -top-16 transition-all left-4 z-20`}
+                className={`${
+                  viewAcheiver ? "-top-20" : ""
+                } relative -top-16 transition-all left-4 z-20`}
               >
                 <img
                   src={`${baseurl}/api/instructorofmonths/${instructorMonth.img}`}
@@ -973,8 +984,9 @@ const HomePage2 = () => {
                 </div>
               </div>
               <div
-                className={`${viewAcheiver ? "block" : "hidden"
-                  } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
+                className={`${
+                  viewAcheiver ? "block" : "hidden"
+                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
               >
                 <h2 className="text-2xl font-extrabold text-center text-[black]">
                   {instructorMonth.name ? instructorMonth.name : ""}
@@ -993,12 +1005,14 @@ const HomePage2 = () => {
             <div
               onMouseEnter={() => setViewAcheiver2(true)}
               onMouseLeave={() => setViewAcheiver2(false)}
-              className={`${viewAcheiver2 ? "shadow-2xl" : "shadow-none"
-                } relative top-40 md:top-0 w-64 h-40 rounded-2xl border hover:h-96 transition-all duration-500`}
+              className={`${
+                viewAcheiver2 ? "shadow-2xl" : "shadow-none"
+              } relative top-40 md:top-0 w-64 h-40 rounded-2xl border hover:h-96 transition-all duration-500`}
             >
               <div
-                className={`${viewAcheiver2 ? "-top-20" : ""
-                  } relative -top-16 transition-all left-4 z-20`}
+                className={`${
+                  viewAcheiver2 ? "-top-20" : ""
+                } relative -top-16 transition-all left-4 z-20`}
               >
                 <img
                   src={`${baseurl}/api/studentofmonth/${studentMonth.img}`}
@@ -1011,8 +1025,9 @@ const HomePage2 = () => {
                 </div>
               </div>
               <div
-                className={`${viewAcheiver2 ? "block" : "hidden"
-                  } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
+                className={`${
+                  viewAcheiver2 ? "block" : "hidden"
+                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
               >
                 <h2 className="text-2xl font-extrabold text-center text-[black]">
                   {studentMonth.name ? studentMonth.name : ""}
@@ -1078,12 +1093,14 @@ const HomePage2 = () => {
                 Explore yourself in our Library
               </h1>
               <p className="lg:max-w-sm leading-7 mb-3 text-[var(--dash-text-color)]">
-                SMS Education provides you with a peaceful and serene environment. We offer you the opportunity to explore our reading library and escape unnecessary distractions, allowing you to focus on your reading and learning.
+                SMS Education provides you with a peaceful and serene
+                environment. We offer you the opportunity to explore our reading
+                library and escape unnecessary distractions, allowing you to
+                focus on your reading and learning.
               </p>
               {/* Button and How it works*/}
               <div className="flex items-center justify-center">
-                <Link to='/contact'>
-
+                <Link to="/contact">
                   <button className="text-white hover:text-[var(--golden)] bg-[var(--golden)] hover:bg-[#204ecf] text-lg px-10 py-4 rounded-md transition-colors duration-500">
                     <div className="flex items-center justify-center uppercase">
                       Explore
@@ -1103,7 +1120,6 @@ const HomePage2 = () => {
                       </svg>
                     </div>
                   </button>
-
                 </Link>
               </div>
               <div className="mt-5 flex justify-around items-center">
@@ -1137,7 +1153,6 @@ const HomePage2 = () => {
               </div>
             </div>
 
-
             {/* Right */}
             <div
               data-aos="fade-right"
@@ -1153,7 +1168,9 @@ const HomePage2 = () => {
               </div>
               <div className="relative -top-16 flex justify-start p-2">
                 <img
-                  src={'https://www.library.cornell.edu/wp-content/uploads/2023/07/107-scaled-aspect-ratio-453-342.jpeg'}
+                  src={
+                    "https://www.library.cornell.edu/wp-content/uploads/2023/07/107-scaled-aspect-ratio-453-342.jpeg"
+                  }
                   className="w-80 h-64 rounded-2xl"
                   alt=""
                 />
@@ -1164,7 +1181,9 @@ const HomePage2 = () => {
               </div>
               <div className="relative -top-28 flex justify-end p-2">
                 <img
-                  src={'https://www.library.cornell.edu/wp-content/uploads/2022/11/Grad-Study-Desks-scaled-aspect-ratio-453-342.jpg'}
+                  src={
+                    "https://www.library.cornell.edu/wp-content/uploads/2022/11/Grad-Study-Desks-scaled-aspect-ratio-453-342.jpg"
+                  }
                   className="w-80 h-64 rounded-2xl"
                   alt=""
                 />
@@ -1195,10 +1214,12 @@ const HomePage2 = () => {
               <img src={oppor1} alt="" />
               <h3 className="font-bold text-xl my-3">Experience Advisor</h3>
               <p className="max-w-xs text-[var(--para-color)] pr-5">
-                Elevate your learning journey with SMS Education's classes led by our team of seasoned experts. Gain an educational experience like never before.
+                Elevate your learning journey with SMS Education's classes led
+                by our team of seasoned experts. Gain an educational experience
+                like never before.
               </p>
               <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
-                <NavLink to='/gallery'>
+                <NavLink to="/gallery">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -1229,7 +1250,7 @@ const HomePage2 = () => {
                 who are at the forefront of their respective fields.
               </p>
               <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
-                <NavLink to='/courses'>
+                <NavLink to="/courses">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -1255,7 +1276,9 @@ const HomePage2 = () => {
               <img src={oppor3} alt="" />
               <h3 className="font-bold text-xl my-3">Live Classes</h3>
               <p className="max-w-xs text-[var(--para-color)] pr-5">
-                SMS Education offers you live classes with our best and expert faculty, enabling you to learn from basics to advanced levels and understand concepts comprehensively.
+                SMS Education offers you live classes with our best and expert
+                faculty, enabling you to learn from basics to advanced levels
+                and understand concepts comprehensively.
               </p>
               {/* <div className="hover:text-[var(--golden)] transition-all my-2 cursor-pointer">
                 <svg
@@ -1287,7 +1310,6 @@ const HomePage2 = () => {
           </h1>
           {/* Oppotunities Container */}
           <div className="w-full justify-around items-center py-5 md:px-10 overflow-hidden">
-
             <TestSlider getCategoryName={getCategoryName} courses={courses} />
           </div>
           <Button onClick={() => navigate("/courses")} className="w-fit float">

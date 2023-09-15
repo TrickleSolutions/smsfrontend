@@ -15,6 +15,10 @@ const ContactQueries = () => {
   const [loader, setLoader] = useState(true);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  const [filterDate, setFilterDate] = useState({
+    from: new Date(),
+    to: new Date(),
+  });
 
   useEffect(() => {
     getContactQueriesList();
@@ -50,19 +54,56 @@ const ContactQueries = () => {
     if (page === 1) return page;
     setPage(page - 1);
   };
-  //console.log(pageCount)
+  const filterAndPaginateProducts = (products, filterDate, page) => {
+    const selectedDateFrom = filterDate?.from
+      ? new Date(filterDate.from)
+      : null;
+    const selectedDateTo = filterDate?.to ? new Date(filterDate.to) : null;
 
-  useEffect(() => {
-    const pagedatacount = Math.ceil(product.length / 5);
-    setPageCount(pagedatacount);
-
-    if (page) {
-      const LIMIT = 5;
-      const skip = LIMIT * page;
-      const dataskip = product.slice(page === 1 ? 0 : skip - LIMIT, skip);
-      setPageData(dataskip);
+    // Set the time component of selectedDateFrom to the start of the day (midnight)
+    if (selectedDateFrom) {
+      selectedDateFrom.setHours(0, 0, 0, 0);
     }
-  }, [product]);
+
+    // Set the time component of selectedDateTo to the end of the day (just before midnight)
+    if (selectedDateTo) {
+      selectedDateTo.setHours(23, 59, 59, 999);
+    }
+
+    const filteredList = products.filter((product) => {
+      const createdAt = new Date(product?.createdAt);
+      if (selectedDateFrom && selectedDateTo) {
+        return createdAt >= selectedDateFrom && createdAt <= selectedDateTo;
+      } else {
+        return true; // Include all products if no date range is specified
+      }
+    });
+
+    const LIMIT = 5;
+    const pagedatacount = Math.ceil(filteredList.length / LIMIT);
+
+    // Ensure that the page number is within a valid range
+    const validPage = Math.min(Math.max(1, page), pagedatacount);
+
+    const skip = (validPage - 1) * LIMIT;
+    const paginatedData = filteredList.slice(skip, skip + LIMIT);
+
+    return {
+      pageCount: pagedatacount,
+      pageData: paginatedData,
+    };
+  };
+
+  // Usage in your component:
+  useEffect(() => {
+    const { pageCount, pageData } = filterAndPaginateProducts(
+      product,
+      filterDate,
+      page
+    );
+    setPageCount(pageCount);
+    setPageData(pageData);
+  }, [product, filterDate, page]);
 
   return (
     <>
@@ -71,13 +112,50 @@ const ContactQueries = () => {
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
             Contact Queries
           </h2>
+          {/* <div className="flex items-center gap-2">
+            <h6 className="text-gray-500">Filter</h6>
+            <select
+              className="p-2 rounded-xl bg-light-blue-500 text-white outline-none"
+              defaultValue="All"
+              name=""
+              id=""
+            >
+              <option value="All">All</option>
+              <option value="last months">last months</option>
+              <option value="6 months">6 months</option>
+              <option value="8 months">8 months</option>
+              <option value="this year">this year</option>
+            </select>
+          </div> */}
+          <div className="flex items-center gap-2">
+            <h6 className="text-gray-500">from Date</h6>
+            <input
+              type="date"
+              className="p-2 rounded-lg"
+              value={filterDate.from}
+              max={filterDate.to}
+              onChange={(e) => {
+                setFilterDate({ ...filterDate, from: e.target.value });
+              }}
+            />
+            <h6 className="text-gray-500">To Date</h6>
+            <input
+              type="date"
+              className="p-2 rounded-lg"
+              value={filterDate.to}
+              min={filterDate.from}
+              onChange={(e) => {
+                setFilterDate({ ...filterDate, to: e.target.value });
+              }}
+            />
+          </div>
           {/* Students */}
           <div className="flex items-center flex-col sm:flex-row">
             <div className=" w-48 mx-2">
               <div className="relative flex w-full flex-wrap items-stretch">
                 <input
                   type="textarea"
-                  className="relative m-0 block w-[1%] min-w-0 pl-2 pr-8 py-2  flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-[var(--theme-color)] focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
+                  className="relative m-0 block w-[1%] min-w-0  pl-2 pr-8 py-2  flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-[var(--theme-color)] focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
                   placeholder="Search by name"
                   value={search}
                   onChange={(event) => {
