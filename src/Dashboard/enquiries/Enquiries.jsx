@@ -17,6 +17,10 @@ const Enquiries = () => {
   const handleOpen = () => setOpen(!open);
   const [selectAll, setSelectAll] = useState(false);
   const [filterStatus, setFilterStatus] = useState('');
+  const [filterDate, setFilterDate] = useState({
+    from: new Date(),
+    to: new Date(),
+  });
 
 
   const handleSelectAll = () => {
@@ -93,6 +97,30 @@ const Enquiries = () => {
     const pagedatacount = Math.ceil(product.length / 5);
     setPageCount(pagedatacount);
 
+    const selectedDateFrom = filterDate?.from
+      ? new Date(filterDate.from)
+      : null;
+    const selectedDateTo = filterDate?.to ? new Date(filterDate.to) : null;
+
+    // Set the time component of selectedDateFrom to the start of the day (midnight)
+    if (selectedDateFrom) {
+      selectedDateFrom.setHours(0, 0, 0, 0);
+    }
+
+    // Set the time component of selectedDateTo to the end of the day (just before midnight)
+    if (selectedDateTo) {
+      selectedDateTo.setHours(23, 59, 59, 999);
+    }
+
+    const filteredList = product.filter((product) => {
+      const createdAt = new Date(product?.createdAt);
+      if (selectedDateFrom && selectedDateTo) {
+        return createdAt >= selectedDateFrom && createdAt <= selectedDateTo;
+      } else {
+        return true; // Include all products if no date range is specified
+      }
+    });
+
     if (page) {
       const LIMIT = 5;
       const skip = LIMIT * page;
@@ -108,6 +136,28 @@ const Enquiries = () => {
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
             Enquiries
           </h2>
+          <div className="flex items-center gap-2">
+            <h6 className="text-gray-500">from Date</h6>
+            <input
+              type="date"
+              className="p-2 rounded-lg"
+              value={filterDate.from}
+              max={filterDate.to}
+              onChange={(e) => {
+                setFilterDate({ ...filterDate, from: e.target.value });
+              }}
+            />
+            <h6 className="text-gray-500">To Date</h6>
+            <input
+              type="date"
+              className="p-2 rounded-lg"
+              value={filterDate.to}
+              min={filterDate.from}
+              onChange={(e) => {
+                setFilterDate({ ...filterDate, to: e.target.value });
+              }}
+            />
+          </div>
           {/* Enquiries */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center">
             <div className="flex items-center">
@@ -198,6 +248,9 @@ const Enquiries = () => {
                         />
                       </th>
                       <th scope="col" className="px-6 py-3">
+                        Sr. No.
+                      </th>
+                      <th scope="col" className="px-6 py-3">
                         Name
                       </th>
 
@@ -265,6 +318,7 @@ const Enquiries = () => {
                           <EnquiryTable
                             key={item.id}
                             item={item}
+                            index={index}
                             getEnquiryList={getEnquiryList}
                             handleRowSelect={() => handleRowSelect(index)}
                             checked={selectAll}

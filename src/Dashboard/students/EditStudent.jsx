@@ -250,7 +250,7 @@ const EditStudent = () => {
                     }}
                   />
                 </div>
-                <div className="w-full md:w-1/2 px-3 mb-3">
+                <div className="w-full md:w-1/3 px-3 mb-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     htmlFor="gender"
@@ -277,6 +277,49 @@ const EditStudent = () => {
                       }}
                     />
                   </div>
+                </div>
+
+                {/* Status */}
+                <div className="md:w-1/2 px-3 mb-3">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="status"
+                  >
+                    Status
+                  </label>
+                  <select
+                    label="Select Status"
+                    className="p-2 border focus-visible:outline-none"
+                    value={status}
+                    onChange={(e) => {
+                      setStatus(e.target.value);
+                    }}
+                  >
+                    <option
+                      value="active"
+                      selected={stuData.status === "active" ? true : false}
+                    >
+                      Active
+                    </option>
+                    <option
+                      value="pending"
+                      selected={stuData.status === "pending" ? true : false}
+                    >
+                      Pending{" "}
+                    </option>
+                    <option
+                      value="completed"
+                      selected={stuData.status === "completed" ? true : false}
+                    >
+                      Completed{" "}
+                    </option>
+                    <option
+                      value="absconded"
+                      selected={stuData.status === "absconded" ? true : false}
+                    >
+                      Break{" "}
+                    </option>
+                  </select>
                 </div>
 
                 <div className="w-full md:w-1/2 px-3 mb-3">
@@ -332,7 +375,7 @@ const EditStudent = () => {
                   />
                 </div>
                 {/* Password */}
-                <div className="w-full md:w-1/2 px-3 mb-3">
+                <div className="md:w-1/2 px-3 mb-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     htmlFor="password"
@@ -350,7 +393,7 @@ const EditStudent = () => {
                   />
                 </div>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none block w-1/2 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="profilePic"
                   type="file"
                   onChange={(e) => {
@@ -371,7 +414,7 @@ const EditStudent = () => {
                       onChange={() => setOpt("course")}
                       name="type"
                       label="Course"
-                      // defaultChecked={stuData.course ? true : false}
+                    // defaultChecked={stuData.course ? true : false}
                     />
                     <Radio
                       id="library"
@@ -472,49 +515,6 @@ const EditStudent = () => {
                       }
                     />
                   </div>
-                </div>
-
-                {/* Status */}
-                <div className="w-full md:w-1/2 px-3 mb-3">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="status"
-                  >
-                    Status
-                  </label>
-                  <select
-                    label="Select Status"
-                    className="p-2 border focus-visible:outline-none"
-                    value={status}
-                    onChange={(e) => {
-                      setStatus(e.target.value);
-                    }}
-                  >
-                    <option
-                      value="active"
-                      selected={stuData.status === "active" ? true : false}
-                    >
-                      Active
-                    </option>
-                    <option
-                      value="pending"
-                      selected={stuData.status === "pending" ? true : false}
-                    >
-                      Pending{" "}
-                    </option>
-                    <option
-                      value="completed"
-                      selected={stuData.status === "completed" ? true : false}
-                    >
-                      Completed{" "}
-                    </option>
-                    <option
-                      value="absconded"
-                      selected={stuData.status === "absconded" ? true : false}
-                    >
-                      Absconded{" "}
-                    </option>
-                  </select>
                 </div>
                 <input
                   type="submit"

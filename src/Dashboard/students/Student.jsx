@@ -11,7 +11,7 @@ import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import ModalViewStudent from "./ModalViewStudent";
 
-const Student = ({ item, getStudentList }) => {
+const Student = ({ item, getStudentList, index, checked }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -30,11 +30,13 @@ const Student = ({ item, getStudentList }) => {
 
   return (
     <>
-      <tr class="bg-white border-b">
-        <td class=" py-4">
-          <Checkbox />
+      <tr className="bg-white border-b">
+        <td className=" py-4">
+          <Checkbox
+            checked={checked} />
         </td>
-        <td scope="row" class="px-6 py-4 font-semibold text-black">
+        <td className="px-6 py-4">{index + 1}</td>
+        <td scope="row" className="px-6 py-4 font-semibold text-black">
           <div onClick={handleOpen} className="flex cursor-pointer">
             <div className="bg-[#524fff] flex justify-center items-center w-10 h-10 p-2   mr-2 rounded-full text-white text-center">
               {item.name.charAt(0).toUpperCase()}{" "}
@@ -49,34 +51,35 @@ const Student = ({ item, getStudentList }) => {
           </div>
           <ModalViewStudent open={open} handleOpen={handleOpen} item={item} />
         </td>
-        <td class="px-6 py-4">{item.course ? item.course : "-"}</td>
-        <td class="px-6 py-4">{item.fname}</td>
-        <td class="px-6 py-4 max-w-xs break-words truncate">{item.address}</td>
-        <td class="px-6 py-4">{item.contact}</td>
-        <td class="px-3 py-4">{item.gender}</td>
-        <td class="px-3 py-4">{item.dob}</td>
-        <td class="px-6 py-4">{item.admdate}</td>
+        <td onClick={handleOpen} className="px-6 py-4">{item.regno}</td>
+        <td className="px-6 py-4">{item.course ? item.course : "-"}</td>
+        <td className="px-6 py-4">{item.fname}</td>
+        <td className="px-6 py-4 max-w-xs break-words truncate">{item.address}</td>
+        <td className="px-6 py-4">{item.contact}</td>
+        <td className="px-3 py-4">{item.gender}</td>
+        <td className="px-3 py-4">{item.dob}</td>
+        <td className="px-6 py-4">{item.admdate}</td>
 
-        <td class="px-6 py-4">{item.library ? item.library : "-"}</td>
-        <td class="px-6 py-4">{item.shift}</td>
-        <td class="px-6 py-4">
+        <td className="px-6 py-4">{item.library ? item.library : "-"}</td>
+        <td className="px-6 py-4">{item.shift}</td>
+        <td className="px-6 py-4">
           <span
             className={
               item.status.toLowerCase() == "active"
                 ? "text-teal-500"
                 : item.status.toLowerCase() == "pending"
-                ? "text-yellow-500"
-                : item.status.toLowerCase() == "completed"
-                ? "text-green-500"
-                : item.status.toLowerCase() == "absconded"
-                ? "text-red-500"
-                : ""
+                  ? "text-yellow-500"
+                  : item.status.toLowerCase() == "completed"
+                    ? "text-green-500"
+                    : item.status.toLowerCase() == "absconded"
+                      ? "text-red-500"
+                      : ""
             }
           >
             {item.status}
           </span>
         </td>
-        <td class="px-1 py-4">
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

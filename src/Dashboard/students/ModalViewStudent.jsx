@@ -14,7 +14,7 @@ const ModalViewStudent = ({ open, handleOpen, item }) => {
       <Dialog
         open={open}
         handler={handleOpen}
-        className="min-w-[80%] md:min-w-[60%] lg:min-w-[50%] focus-visible:outline-none"
+        className="min-w-[80%] md:min-w-[60%] lg:min-w-[60%] focus-visible:outline-none"
         animate={{
           mount: { scale: 1, y: 0 },
           unmount: { scale: 0.9, y: -100 },

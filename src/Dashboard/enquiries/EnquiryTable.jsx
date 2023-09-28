@@ -13,7 +13,7 @@ import ModalEditEnquiry from "./ModalEditEnquiry";
 import { useNavigate } from "react-router-dom";
 import { object } from "yup";
 
-const EnquiryTable = ({ item, getEnquiryList, checked }) => {
+const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   const [open2, setOpen2] = useState(false);
@@ -75,6 +75,7 @@ const EnquiryTable = ({ item, getEnquiryList, checked }) => {
           checked={checked}
         />
       </td>
+      <td className="px-1 py-4">{index + 1}</td>
       <th scope="row" className="px-6 py-4 font-semibold text-black">
         <div>{item.name}</div>
         <div className="font-light my-1 text-gray-500">{item.email}</div>

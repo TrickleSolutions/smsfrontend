@@ -5,6 +5,7 @@ import { Checkbox } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import Student from "./Student";
 import Loader from "../../Components/Loader";
+import { CSVLink } from "react-csv";
 
 const Students = () => {
   const [product, setProduct] = useState([]);
@@ -16,10 +17,30 @@ const Students = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   const [filterBy, setFilterBy] = useState("all");
+  const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
     getStudentList(filterBy);
   }, [page, open, filterBy]);
+
+
+  const handleSelectAll = () => {
+    setSelectAll(!selectAll);
+    const updatedPageData = pageData.map((item) => ({
+      ...item,
+      selected: !selectAll,
+    }));
+    setPageData(updatedPageData);
+  };
+
+  const handleRowSelect = (index) => {
+    const updatedPageData = [...pageData];
+    updatedPageData[index].selected = !updatedPageData[index].selected;
+    setPageData(updatedPageData);
+
+    const allSelected = updatedPageData.every((item) => item.selected);
+    setSelectAll(allSelected);
+  };
 
   const getStudentList = (filterby) => {
     fetch(baseurl + "/api/students ", {
@@ -67,10 +88,21 @@ const Students = () => {
     if (page) {
       const LIMIT = 5;
       const skip = LIMIT * page;
-      const dataskip = product.slice(page === 1 ? 0 : skip - LIMIT, skip);
+
+      // Sort the product data by name in alphabetical order
+      const sortedData = [...product].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+
+      const dataskip = sortedData.slice(
+        page === 1 ? 0 : skip - LIMIT,
+        skip
+      );
+
       setPageData(dataskip);
     }
-  }, [product]);
+  }, [product, page]);
+
 
   return (
     <>
@@ -100,7 +132,7 @@ const Students = () => {
                   <option value="active">Active</option>
                   <option value="pending">Pending</option>
                   <option value="completed">Completed</option>
-                  <option value="absconded">Absconded</option>
+                  <option value="absconded">Break</option>
                 </select>
               </div>
             </div>
@@ -137,6 +169,11 @@ const Students = () => {
             <Button onClick={handleOpen} className="h-fit">
               + Add Student
             </Button>
+            <Button className="h-fit ml-1">
+              <CSVLink data={pageData} filename={"enquiries.csv"}>
+                Download CSV
+              </CSVLink>
+            </Button>
             <AddStudent open={open} handleOpen={handleOpen} />
           </div>
         </div>
@@ -153,43 +190,52 @@ const Students = () => {
                 <table className=" w-full text-sm text-left text-gray-500 ">
                   <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
                     <tr>
-                      <th scope="col" className=" py-3">
-                        <Checkbox />
+                      <th scope="col" className="">
+                        <Checkbox
+                          checked={selectAll}
+                          onChange={handleSelectAll}
+                        />
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
+                        Sr. No.
+                      </th>
+                      <th scope="col" className="">
                         Student
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
+                        Reg. No.
+                      </th>
+                      <th scope="col" className="">
                         Course
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
                         Father Name
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
                         Address
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
                         Contact
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
                         Gender
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
                         DOB
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
                         Admission Date
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
                         Library
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
                         Shift
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" className="">
                         Status
                       </th>
-                      <th scope="col" className="px-1 py-3">
+                      <th scope="col" className="">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -208,8 +254,9 @@ const Students = () => {
                     </tr>
                   </thead>
                   <tbody>
+                    {console.log(pageData)}
                     {/* Dummy Data Ends Here */}
-                    {pageData.map((item) => {
+                    {pageData.map((item, index) => {
                       if (
                         item.name
                           .toLowerCase()
@@ -217,9 +264,12 @@ const Students = () => {
                       ) {
                         return (
                           <Student
+                            index={index}
                             item={item}
                             key={item._id}
                             getStudentList={getStudentList}
+                            handleRowSelect={() => handleRowSelect(index)}
+                            checked={selectAll}
                           />
                         );
                       }
