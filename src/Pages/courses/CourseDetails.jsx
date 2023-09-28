@@ -1,8 +1,8 @@
 import Aos from "aos";
 import React, { useEffect, useState } from "react";
-import courseLearn from "../../assets/images/course-details/course-video.jpg";
-import courseVideo from "../../assets/images/course-details/course-learn.jpg";
-import pointingFinger from "../../assets/images/course-details/pointing-finger.png";
+// import courseVideo from "../../assets/images/course-details/course-learn.jpg";
+// import courseLearn from "../../assets/images/course-details/course-video.jpg";
+// import pointingFinger from "../../assets/images/course-details/pointing-finger.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Card,
@@ -23,8 +23,6 @@ const CourseDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [courseData, setCourseData] = useState(location.state);
-  console.log("location", location);
-  console.log("CourseDetails", courseData);
   Aos.init({
     delay: 300,
     duration: 1000,
@@ -102,15 +100,15 @@ const CourseDetails = () => {
     });
     return name;
   }
-  function getInstructorName(id) {
-    let name = "";
-    instData.forEach((item) => {
-      if (item._id === id) {
-        name = item.name;
-      }
-    });
-    return name;
-  }
+  // function getInstructorName(id) {
+  //   let name = "";
+  //   instData.forEach((item) => {
+  //     if (item._id === id) {
+  //       name = item.name;
+  //     }
+  //   });
+  //   return name;
+  // }
 
   window.scroll(0, 0);
   return (
@@ -369,7 +367,7 @@ const CourseDetails = () => {
               </h2>
 
               <div className="">
-              {courseData.desc ? courseData.desc : ""}
+                {courseData.desc ? courseData.desc : ""}
               </div>
             </div>
 

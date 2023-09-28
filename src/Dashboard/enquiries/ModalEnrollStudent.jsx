@@ -10,7 +10,7 @@ import {
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
-const ModalEnrollStudent = ({ open, handleOpen, item }) => {
+const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => {
   const { name, fname, address, contact, email, gender, dob, refby } = item;
   const [regno, setRegno] = useState("");
   const [admdate, setAdmdate] = useState("");
@@ -79,6 +79,7 @@ const ModalEnrollStudent = ({ open, handleOpen, item }) => {
       })
       .then((result) => {
         if (result.status === true && result.code === 200) {
+          HandleEnquiryStatus(item._id, 'joined')
           toast.success("Student Enrolled Successfully");
           handleOpen();
         } else {

@@ -6,35 +6,74 @@ import {
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import ModalEnrollStudent from "./ModalEnrollStudent";
 import ModalEditEnquiry from "./ModalEditEnquiry";
+import { useNavigate } from "react-router-dom";
+import { object } from "yup";
 
-const EnquiryTable = ({ item, getEnquiryList }) => {
+const EnquiryTable = ({ item, getEnquiryList, checked }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(!open2);
 
-  function deleteData(id) {
-    if (window.confirm("Are you sure You want to delete ?")) {
-      fetch(baseurl + `/api/students/` + id, {
+  const navigate = useNavigate()
+
+
+  async function deleteData(contact) {
+    const confirmed = window.confirm("Are you sure you want to delete?");
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${baseurl}/api/enquiry/${contact}`, {
         method: "DELETE",
-      })
-        .then((res) => res.json()) // or res.json()
-        .then((res) => {
-          toast.success("Deleted Successfully");
-          getEnquiryList();
-        });
+      });
+
+      if (response.ok) {
+        await response.json();
+        toast.success("Deleted Successfully");
+        getEnquiryList();
+      } else {
+        throw new Error("Failed to delete data");
+      }
+    } catch (error) {
+      console.error("Error deleting data:", error);
     }
   }
+
+
+  async function HandleEnquiryStatus(id, status) {
+    const statusQuery = new URLSearchParams({ status: status }).toString()
+    try {
+      const response = await fetch(`${baseurl}/api/enquiry/${id}?${statusQuery}`, {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        await response.json();
+        toast.success("Status Update Successfully");
+        getEnquiryList();
+
+      } else {
+        toast.error("failed to update status ")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
 
   return (
     <tr className="bg-white border-b" key={item._id}>
       <td className=" py-4">
-        <Checkbox />
+        <Checkbox
+          checked={checked}
+        />
       </td>
       <th scope="row" className="px-6 py-4 font-semibold text-black">
         <div>{item.name}</div>
@@ -58,12 +97,28 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
       <td className="px-1 py-4">{item.counseller}</td>
       <td className="px-1 py-4">{item.course}</td>
       <td className="px-1 py-4">{item.note}</td>
-      <td className="px-1 py-4">
-        <Button size="sm" onClick={handleOpen}>
-          Enroll
-        </Button>
+      <td className={`${item.status === 'pending' ? 'text-yellow-700' :
+        item.status === 'joined' ? 'text-green-700' :
+          item.status === 'not-interested' ? 'text-red-700' : ''
+        } px-1 py-4`}>{
+          item.status === 'pending' ? 'Pending' :
+            item.status === 'joined' ? 'Joined' :
+              item.status === 'not-interested' ? 'Not Interested' : ''
+        }
       </td>
-      <ModalEnrollStudent open={open} handleOpen={handleOpen} item={item} />
+
+      <td className="px-1 py-4">
+        {
+          item.status === 'joined' ?
+            <Button size="sm" onClick={() => navigate('/admin/students')}>
+              Check
+            </Button>
+            : <Button size="sm" onClick={handleOpen}>
+              Enroll
+            </Button>
+        }
+      </td>
+      <ModalEnrollStudent open={open} handleOpen={handleOpen} item={item} HandleEnquiryStatus={HandleEnquiryStatus} />
       <td className="px-1 py-4">
         <Menu>
           <MenuHandler>
@@ -83,7 +138,7 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
             </svg>
           </MenuHandler>
           <MenuList>
-            <MenuItem>
+            <MenuItem onClick={handleOpen2}>
               <div onClick={handleOpen2} className="flex ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -102,8 +157,23 @@ const EnquiryTable = ({ item, getEnquiryList }) => {
                 Edit
               </div>
             </MenuItem>
-            <MenuItem>
-              <div className="flex " onClick={() => deleteData(item._id)}>
+            {item.status === 'joined' ? null : <MenuItem onClick={() => { HandleEnquiryStatus(item?._id, 'not-interested') }}>
+              <div className="flex ">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="w-4 h-4 mx-2">
+                  <circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+                Not Intrested
+              </div>
+            </MenuItem>}
+            <MenuItem onClick={() => deleteData(item?.contact)}>
+              <div className="flex ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

@@ -7,13 +7,10 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
-import { functions } from "../../functions";
-// import axios from "axios";
 import Loader from "../../Components/Loader";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
@@ -21,7 +18,6 @@ const Courses = () => {
   const [catData, setCatData] = useState([]);
   const [instData, setInstData] = useState([]);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     getCourseList();
@@ -100,15 +96,15 @@ const Courses = () => {
     });
     return name;
   }
-  function getInstructorName(id) {
-    let name = "";
-    instData.forEach((item) => {
-      if (item._id === id) {
-        name = item.name;
-      }
-    });
-    return name;
-  }
+  // function getInstructorName(id) {
+  //   let name = "";
+  //   instData.forEach((item) => {
+  //     if (item._id === id) {
+  //       name = item.name;
+  //     }
+  //   });
+  //   return name;
+  // }
 
   return (
     <main>

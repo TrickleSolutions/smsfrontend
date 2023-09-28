@@ -10,7 +10,6 @@ import axios from "axios";
 
 const LoginInstructor = ({ updateInstructorAuth, instructorAuth }) => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [MobileOtp, setMobileOtp] = useState(false);
   const [otp, setOtp] = React.useState("");
   const [otpCredentials, setOtpCredentials] = useState({});

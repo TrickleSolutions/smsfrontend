@@ -4,6 +4,7 @@ import baseurl from "../../Config";
 import EnquiryTable from "./EnquiryTable";
 import Loader from "../../Components/Loader";
 import ModalAddEnquiry from "./ModalAddEnquiry";
+import { CSVLink } from "react-csv";
 
 const Enquiries = () => {
   const [product, setProduct] = useState([]);
@@ -14,6 +15,31 @@ const Enquiries = () => {
   const [loader, setLoader] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  const [selectAll, setSelectAll] = useState(false);
+  const [filterStatus, setFilterStatus] = useState('');
+
+
+  const handleSelectAll = () => {
+    setSelectAll(!selectAll);
+    const updatedPageData = pageData.map((item) => ({
+      ...item,
+      selected: !selectAll,
+    }));
+    setPageData(updatedPageData);
+  };
+
+  const handleSelectChange = (event) => {
+    setFilterStatus(event.target.value);
+  };
+
+  const handleRowSelect = (index) => {
+    const updatedPageData = [...pageData];
+    updatedPageData[index].selected = !updatedPageData[index].selected;
+    setPageData(updatedPageData);
+
+    const allSelected = updatedPageData.every((item) => item.selected);
+    setSelectAll(allSelected);
+  };
 
   useEffect(() => {
     getEnquiryList();
@@ -85,6 +111,25 @@ const Enquiries = () => {
           {/* Enquiries */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center">
             <div className="flex items-center">
+              <label
+                className="uppercase tracking-wide text-gray-700 text-xs font-bold"
+                htmlFor="course"
+              >
+                Filter Status
+              </label>
+              <select
+                id="courseSelect"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                value={filterStatus}
+                onChange={handleSelectChange}
+              >
+                <option value="">All</option>
+                <option value="joined">Joined</option>
+                <option value="pending">Pending</option>
+                <option value="not-interested">Not Interested</option>
+              </select>
+            </div>
+            <div className="flex items-center">
               <div className=" w-48 mx-2">
                 <div className="relative flex w-full flex-wrap items-stretch">
                   <input
@@ -116,10 +161,17 @@ const Enquiries = () => {
                 </div>
               </div>
             </div>
+
             <Button onClick={handleOpen} className="h-fit">
               + Add Enquiry
             </Button>
+            <Button className="h-fit ml-1">
+              <CSVLink data={pageData} filename={"enquiries.csv"}>
+                Download CSV
+              </CSVLink>
+            </Button>
           </div>
+
           <ModalAddEnquiry
             open={open}
             handleOpen={handleOpen}
@@ -140,7 +192,10 @@ const Enquiries = () => {
                   <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
                     <tr>
                       <th scope="col" className=" py-3">
-                        <Checkbox />
+                        <Checkbox
+                          checked={selectAll}
+                          onChange={handleSelectAll}
+                        />
                       </th>
                       <th scope="col" className="px-6 py-3">
                         Name
@@ -175,6 +230,9 @@ const Enquiries = () => {
                         Note
                       </th>
                       <th scope="col" className="px-6 py-3">
+                        Status
+                      </th>
+                      <th scope="col" className="px-6 py-3">
                         Enroll
                       </th>
                       <th scope="col" className="px-1 py-3">
@@ -196,21 +254,28 @@ const Enquiries = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {pageData.map((item) => {
-                      if (
-                        item.name
-                          .toLowerCase()
-                          .includes(search.trim().toLowerCase())
-                      ) {
+                    {pageData.map((item, index) => {
+                      const isNameMatch = item.name.toLowerCase().includes(search.trim().toLowerCase());
+                      const isStatusMatch = item.status.toLowerCase().includes(search.trim().toLowerCase());
+                      const dobMatch = item.dob.toLowerCase().includes(search.trim().toLowerCase());
+                      const isFilterStatusMatch = filterStatus === '' || item.status === filterStatus;
+
+                      if ((isNameMatch || isStatusMatch || dobMatch) && isFilterStatusMatch) {
                         return (
                           <EnquiryTable
+                            key={item.id}
                             item={item}
                             getEnquiryList={getEnquiryList}
+                            handleRowSelect={() => handleRowSelect(index)}
+                            checked={selectAll}
                           />
                         );
                       }
+
+                      return null;
                     })}
                   </tbody>
+
                 </table>
               </div>
             )}

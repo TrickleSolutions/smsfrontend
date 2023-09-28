@@ -63,6 +63,10 @@ const ModalAddEnquiry = ({ open, handleOpen, getEnquiryList }) => {
       });
   };
 
+  const handleSelectChange = (event) => {
+    setCourse(event.target.value);
+  };
+
   const onSubmitClick = () => {
     // Empty the value of fields
     setName("");
@@ -174,7 +178,7 @@ const ModalAddEnquiry = ({ open, handleOpen, getEnquiryList }) => {
                 />
               </div>
               {/* Dob */}
-              <div className="w-full md:w-1/2 px-3 mb-3">
+              <div className=" w-1/2 md:w-1/2 px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="dob"
@@ -192,7 +196,7 @@ const ModalAddEnquiry = ({ open, handleOpen, getEnquiryList }) => {
                 />
               </div>
               {/* Epx Join */}
-              <div className="w-full px-3 mb-3">
+              <div className=" w-1/2 md:w-1/2 px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="epx_join"
@@ -217,21 +221,34 @@ const ModalAddEnquiry = ({ open, handleOpen, getEnquiryList }) => {
                 >
                   Course
                 </label>
-                <Select
+                {/* <Select
                   label="Select Course"
                   className="p-2 border focus-visible:outline-none"
                   value={course}
                   onChange={(e) => {
                     setCourse(e);
                   }}
-                  // selected={course}
                 >
                   <Option value="">Select Course</Option>
                   {courseData.map((item) => {
-                    return <Option value={item.title}>{item.title}</Option>;
+                    return <Option key={item._id} className="text-black" value={item.title}>{item.title}</Option>;
                   })}
                   <Option value="other">Other</Option>
-                </Select>
+                </Select> */}
+                <select
+                  id="courseSelect"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  value={course}
+                  onChange={handleSelectChange}
+                >
+                  <option value="">Select Course</option>
+                  {courseData.map((item) => (
+                    <option key={item._id} value={item.title}>
+                      {item.title}
+                    </option>
+                  ))}
+                  <option value="other">Other</option>
+                </select>
               </div>
               {/* Contact */}
               <div className="w-full md:w-1/2 px-3 mb-3">
