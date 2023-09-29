@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import ModalEnrollStudent from "./ModalEnrollStudent";
 import ModalEditEnquiry from "./ModalEditEnquiry";
 import { useNavigate } from "react-router-dom";
-import { object } from "yup";
 
 const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
   const [open, setOpen] = useState(false);

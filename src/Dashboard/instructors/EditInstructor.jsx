@@ -16,9 +16,12 @@ const EditInstructor = () => {
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState("");
+  const [salary, setSalary] = useState("")
   const [status, setStatus] = useState("");
   const location = useLocation();
   const instData = location.state;
+  const [selectedProfilePic, setSelectedProfilePic] = useState(null);
+
   console.log(instData);
 
   const navigate = useNavigate();
@@ -36,6 +39,7 @@ const EditInstructor = () => {
     setPassword(instData.password);
     setProfilePic(instData.profilePic);
     setStatus(instData.status);
+    setSalary(instData.salary)
   }, [instData]);
 
   const handleSubmit = (e) => {
@@ -52,6 +56,7 @@ const EditInstructor = () => {
     setContact("");
     setPassword("");
     setProfilePic("");
+    setSalary("");
 
     const formData = new FormData();
     formData.append("name", name);
@@ -65,6 +70,7 @@ const EditInstructor = () => {
     formData.append("contact", contact);
     formData.append("password", password);
     formData.append("profilePic", profilePic);
+    formData.append("salary", salary)
     formData.append("status", status);
 
     // Post Api For Posting Data
@@ -72,18 +78,28 @@ const EditInstructor = () => {
       method: "PUT",
       body: formData,
     })
-      .then((response) => response.json())
-      .then(() => {
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
         toast.info("Updated Successfully");
         navigate("/admin/instructorList");
+      })
+      .catch((error) => {
+        console.error('There was a problem with the fetch operation:', error);
+        toast.error("Failed to update instructor data. Please try again.");
       });
+
   };
   return (
     <>
       <div className=" max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto p-5">
         <h2 className="text-3xl text-center font-bold my-5">Edit Instructor</h2>
         <div className="w-[80%] md:px-5 lg:px-10 mx-auto mt-20">
-          <form onSubmit={handleSubmit} className="w-full px-10 mt-5">
+          <form onSubmit={handleSubmit} className="w-full px-10 mt-5 border py-3">
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <label
@@ -149,23 +165,23 @@ const EditInstructor = () => {
                 <div className="flex gap-10">
                   <Radio
                     id="male"
-                    name="type"
+                    name="gender"
                     label="Male"
                     value={gender}
                     onChange={(e) => {
                       setGender("male");
                     }}
-                    defaultChecked
+                    checked={gender === "male"}
                   />
                   <Radio
                     id="female"
-                    name="type"
+                    name="gender"
                     label="Female"
                     value={gender}
                     onChange={(e) => {
                       setGender("female");
                     }}
-                    // defaultChecked={instData.gender === "female"}
+                    checked={gender === "female"}
                   />
                 </div>
               </div>
@@ -264,7 +280,7 @@ const EditInstructor = () => {
                   }}
                 />
               </div>
-              <div className="w-full md:w-1/2 px-3 mb-3">
+              <div className="w-1/2 px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="profilePic"
@@ -276,9 +292,32 @@ const EditInstructor = () => {
                   id="profilePic"
                   type="file"
                   onChange={(e) => {
+                    setSelectedProfilePic(e.target.files[0]);
                     setProfilePic(e.target.files[0]);
                   }}
                 />
+              </div>
+              <div className="w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="salary"
+                >
+                  Salary
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="salary"
+                  type="text"
+                  placeholder="(in Month)"
+                  value={salary}
+                  onChange={(e) => {
+                    setSalary(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="w-full px-3 mb-3">
+
+
                 {/* Status */}
                 <div className="w-full px-3 mb-3">
                   <label
@@ -308,8 +347,29 @@ const EditInstructor = () => {
                       }}
                       defaultChecked={instData.status === "leave"}
                     />
+                    <Radio
+                      id="hold"
+                      name="type"
+                      label="Hold"
+                      value="hold"
+                      onChange={(e) => {
+                        setStatus(e.target.value);
+                      }}
+                      defaultChecked={instData.status === "hold"}
+                    />
+                    <Radio
+                      id="break"
+                      name="type"
+                      label="Break"
+                      value="break"
+                      onChange={(e) => {
+                        setStatus(e.target.value);
+                      }}
+                      defaultChecked={instData.status === "break"}
+                    />
                   </div>
                 </div>
+
 
                 <input
                   type="submit"

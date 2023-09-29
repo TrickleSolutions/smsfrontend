@@ -213,20 +213,24 @@ const CourseList = () => {
                   </thead>
                   <tbody>
                     {pageData.map((item) => {
-                      if (
-                        item.title
-                          .toLowerCase()
-                          .includes(search.trim().toLowerCase())
-                      ) {
+                      const isTitleMatch = item.title.toLowerCase().includes(search.trim().toLowerCase());
+                      const isDurationMatch = item.duration.toLowerCase().includes(search.trim().toLowerCase());
+                      const isPriceMatch = item.price.toString().toLowerCase().includes(search.trim().toLowerCase());
+
+                      if (isTitleMatch || isDurationMatch || isPriceMatch) {
                         return (
                           <CourseTable
+                            key={item.id}
                             item={item}
                             getCourseList={getCourseList}
                           />
                         );
                       }
+
+                      return null;
                     })}
                   </tbody>
+
                 </table>
               </div>
             )}

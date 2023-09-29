@@ -2,8 +2,6 @@ import React, { useEffect, Fragment, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { Checkbox } from "@material-tailwind/react";
 import baseurl from "../../Config";
-
-import { Link } from "react-router-dom";
 import IncomeTable from "./IncomeTable";
 import Loader from "../../Components/Loader";
 import Expenses from "../expenses/Expenses";
@@ -16,15 +14,7 @@ const Income = () => {
   const [pageCount, setPageCount] = useState(0);
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
-
-  const [totInc, setTotInc] = useState(null);
-  const [totExp, setTotExp] = useState("");
-
-  const calcTotInc = (totInc, amt) => setTotInc(totInc + amt);
-
-  useEffect(() => {
-    getIncomeList();
-  }, [page]);
+  const [allExpenseData, setAllExpenseData] = useState([]);
 
   const getIncomeList = () => {
     fetch(baseurl + "/api/income ", {
@@ -44,6 +34,25 @@ const Income = () => {
         console.log(err);
       });
   };
+  const getExpenseList = () => {
+    fetch(baseurl + "/api/expense", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setAllExpenseData(result);
+        setLoader(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   //handle Next
   const handleNext = () => {
@@ -58,6 +67,11 @@ const Income = () => {
   //console.log(pageCount)
 
   useEffect(() => {
+    getIncomeList();
+    getExpenseList();
+  }, [page]);
+
+  useEffect(() => {
     const pagedatacount = Math.ceil(product.length / 5);
     setPageCount(pagedatacount);
 
@@ -70,6 +84,17 @@ const Income = () => {
   }, [product]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+
+  const IncomeResult = pageData.map((item) => item.amount);
+  const incomeLabels = IncomeResult.join("+");
+  const income = incomeLabels.split('+').map(Number);
+  const totalIncome = income.reduce((total, currentValue) => total + currentValue, 0);
+
+  const ExpenseResult = allExpenseData.map((item) => item.amount);
+  const expenseLabels = ExpenseResult.join("+");
+  const expense = expenseLabels.split('+').map(Number);
+  const totalExpense = expense.reduce((total, currentValue) => total + currentValue, 0);
+
 
   return (
     <>
@@ -92,7 +117,7 @@ const Income = () => {
               />
             </svg>
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">{35656}</div>
+              <div className="text-[var(--theme-color)] text-3xl">{totalIncome}</div>
               <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
                 Total Expense
               </div>
@@ -115,7 +140,7 @@ const Income = () => {
             </svg>
 
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">71845</div>
+              <div className="text-[var(--theme-color)] text-3xl">{totalExpense}</div>
               <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
                 Total Income
               </div>
@@ -138,7 +163,7 @@ const Income = () => {
             </svg>
 
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">23000</div>
+              <div className="text-[var(--theme-color)] text-3xl">{totalExpense - totalIncome}</div>
               <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
                 Total Revenue
               </div>
@@ -240,6 +265,7 @@ const Income = () => {
                   </thead>
                   <tbody>
                     {/* Dummy Data Ends Here */}
+                    {console.log(pageData)}
                     {pageData.map((item) => {
                       if (
                         item.desc

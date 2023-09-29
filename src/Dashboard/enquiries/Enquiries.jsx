@@ -94,9 +94,6 @@ const Enquiries = () => {
   //console.log(pageCount)
 
   useEffect(() => {
-    const pagedatacount = Math.ceil(product.length / 5);
-    setPageCount(pagedatacount);
-
     const selectedDateFrom = filterDate?.from
       ? new Date(filterDate.from)
       : null;
@@ -112,8 +109,8 @@ const Enquiries = () => {
       selectedDateTo.setHours(23, 59, 59, 999);
     }
 
-    const filteredList = product.filter((product) => {
-      const createdAt = new Date(product?.createdAt);
+    const filteredList = product.filter((item) => {
+      const createdAt = new Date(item?.createdAt);
       if (selectedDateFrom && selectedDateTo) {
         return createdAt >= selectedDateFrom && createdAt <= selectedDateTo;
       } else {
@@ -121,13 +118,16 @@ const Enquiries = () => {
       }
     });
 
+    setPageCount(Math.ceil(filteredList.length / 5)); // Update pageCount based on filteredList
+
     if (page) {
       const LIMIT = 5;
       const skip = LIMIT * page;
-      const dataskip = product.slice(page === 1 ? 0 : skip - LIMIT, skip);
+      const dataskip = filteredList.slice(page === 1 ? 0 : skip - LIMIT, skip); // Use filteredList here
       setPageData(dataskip);
     }
-  }, [product]);
+  }, [product, filterDate, page]);
+
 
   return (
     <div>
@@ -142,7 +142,6 @@ const Enquiries = () => {
               type="date"
               className="p-2 rounded-lg"
               value={filterDate.from}
-              max={filterDate.to}
               onChange={(e) => {
                 setFilterDate({ ...filterDate, from: e.target.value });
               }}
@@ -247,48 +246,48 @@ const Enquiries = () => {
                           onChange={handleSelectAll}
                         />
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Sr. No.
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Name
                       </th>
 
-                      <th scope="col" className="px-6 py-3 ">
+                      <th scope="col" className=" ">
                         Father Name
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Contact
                       </th>
-                      <th scope="col" className="px-6 py-3 ">
+                      <th scope="col" className=" ">
                         Address
                       </th>
 
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         DOB
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Gender
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Expected DOJ
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Counselor
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Course
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Note
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Status
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Enroll
                       </th>
-                      <th scope="col" className="px-1 py-3">
+                      <th scope="col" className="">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -310,10 +309,9 @@ const Enquiries = () => {
                     {pageData.map((item, index) => {
                       const isNameMatch = item.name.toLowerCase().includes(search.trim().toLowerCase());
                       const isStatusMatch = item.status.toLowerCase().includes(search.trim().toLowerCase());
-                      const dobMatch = item.dob.toLowerCase().includes(search.trim().toLowerCase());
                       const isFilterStatusMatch = filterStatus === '' || item.status === filterStatus;
 
-                      if ((isNameMatch || isStatusMatch || dobMatch) && isFilterStatusMatch) {
+                      if ((isNameMatch || isStatusMatch) && isFilterStatusMatch) {
                         return (
                           <EnquiryTable
                             key={item.id}
@@ -329,6 +327,7 @@ const Enquiries = () => {
                       return null;
                     })}
                   </tbody>
+
 
                 </table>
               </div>

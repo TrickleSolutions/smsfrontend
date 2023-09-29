@@ -347,7 +347,7 @@ const AdminDashboard = ({ adminAuth }) => {
                       />
                     </svg>
                   </div>
-                  <div>Queries</div>
+                  <div>Student & Teacher Queries</div>
                 </div>
                 {/* Manage Student */}
                 {userPermissions.manageStudent ? (

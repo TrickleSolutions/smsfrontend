@@ -202,6 +202,9 @@ const InstructorList = () => {
                         Degree
                       </th>
                       <th scope="col" className="px-6 py-3">
+                        Salary
+                      </th>
+                      <th scope="col" className="px-6 py-3">
                         Status
                       </th>
                       <th class="px-1 py-4">
@@ -244,12 +247,13 @@ const InstructorList = () => {
                             <td class="px-6 py-4">{item.dob}</td>
                             <td class="px-6 py-4">{item.qualification}</td>
                             <td class="px-6 py-4">{item.degree}</td>
+                            <td class="px-6 py-4">{item.salary}</td>
                             <td
                               className={`${item.status === "active"
-                                  ? "text-teal-500"
-                                  : item.status === "leave"
-                                    ? "text-amber-500"
-                                    : ""
+                                ? "text-teal-500"
+                                : item.status === "leave"
+                                  ? "text-amber-500"
+                                  : ""
                                 } px-6 py-4 hidden md:table-cell capitalize`}
                             >
                               {item.status}

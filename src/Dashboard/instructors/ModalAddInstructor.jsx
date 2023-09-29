@@ -21,7 +21,8 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
   const [degree, setDegree] = useState("");
   const [exp, setExp] = useState("");
   const [status, setStatus] = useState("active");
-  const [profilePic, setProfilePic] = useState(null); // Use null to represent no image selected
+  const [salary, setSalary] = useState("")
+  const [profilePic, setProfilePic] = useState(null);
 
   const data = new FormData(); // Create a FormData object
 
@@ -41,6 +42,7 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
   data.append("degree", degree);
   data.append("exp", exp);
   data.append("status", status);
+  data.append("salary", salary);
 
   const onSubmitClick = () => {
     // Post Api For Posting Data
@@ -72,6 +74,7 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
     setQualification("");
     setDegree("");
     setExp("");
+    setSalary("")
   };
   return (
     <>
@@ -167,7 +170,7 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                   }}
                 />
               </div>
-              <div className="w-full px-3 mb-3">
+              <div className="w-1/2 px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="address"
@@ -182,6 +185,24 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                   value={address}
                   onChange={(e) => {
                     setAddress(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="address"
+                >
+                  Salary
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="salary"
+                  type="text"
+                  placeholder="(in Month)"
+                  value={salary}
+                  onChange={(e) => {
+                    setSalary(e.target.value);
                   }}
                 />
               </div>

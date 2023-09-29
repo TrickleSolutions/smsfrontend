@@ -169,7 +169,7 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                 </div>
               </div>
               {/* Course */}
-              {opt == "course" || opt == "both" ? (
+              {opt === "course" || opt === "both" ? (
                 <div className="w-full md:w-1/2 px-3 mb-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -187,7 +187,7 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                   >
                     <option value="">Select Course</option>
                     {courseData.map((item) => {
-                      return <option value={item._id}>{item.title}</option>;
+                      return <option value={item.title}>{item.title}</option>;
                     })}
                   </select>
                 </div>
@@ -195,7 +195,7 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                 ""
               )}
               {/* Locker No. */}
-              {opt == "library" || opt == "both" ? (
+              {opt === "library" || opt === "both" ? (
                 <div className="w-full md:w-1/2 px-3 mb-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
