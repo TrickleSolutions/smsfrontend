@@ -61,7 +61,7 @@ const CourseTable = ({ item, getCourseList }) => {
             <div className="text-md">{item.title}</div>
           </div>
         </th>
-        {/* <td className="px-6 py-4">Development</td> */}
+        <td className="px-6 py-4">{item.category}</td>
         <td className="px-6 py-4  max-w-xs truncate">
           <Tooltip
             className="max-w-xs bg-[var(--theme-color)] rounded-md text-sm"
@@ -73,20 +73,19 @@ const CourseTable = ({ item, getCourseList }) => {
         </td>
         <td className="px-6 py-4">{item.level}</td>
         <td className="px-6 py-4">{item.lessons}</td>
-        <td className="px-6 py-4">{item.duration} Days</td>
+        <td className="px-6 py-4">{item.duration}</td>
         {/* <td className="px-3 py-4">
                           <span className="text-orange-600">Pending</span>
                         </td> */}
         <td className="px-3 py-4">{item.price}</td>
         <td className="px-6 py-4">{item.rating}</td>
         <td
-          className={`${
-            item.status === "active"
+          className={`${item.status === "active"
               ? "text-teal-500"
               : item.status === "paused"
-              ? "text-amber-500"
-              : ""
-          } px-6 py-4 capitalize`}
+                ? "text-amber-500"
+                : ""
+            } px-6 py-4 capitalize`}
         >
           {item.status}
         </td>

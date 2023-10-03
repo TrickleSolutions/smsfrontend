@@ -48,7 +48,7 @@ const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
   async function HandleEnquiryStatus(id, status) {
     const statusQuery = new URLSearchParams({ status: status }).toString()
     try {
-      const response = await fetch(`${baseurl}/api/enquiry/${id}?${statusQuery}`, {
+      const response = await fetch(`${baseurl}/api/enquiry?${statusQuery}`, {
         method: 'GET',
       });
 
@@ -74,7 +74,7 @@ const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
           checked={checked}
         />
       </td>
-      <td className="px-1 py-4">{index + 1}</td>
+      <td className="px-1 py-4">{item.enquiryNo}</td>
       <th scope="row" className="px-6 py-4 font-semibold text-black">
         <div>{item.name}</div>
         <div className="font-light my-1 text-gray-500">{item.email}</div>

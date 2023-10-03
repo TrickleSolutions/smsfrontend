@@ -4,6 +4,7 @@ import { Checkbox, Button } from "@material-tailwind/react";
 import ModalAddCourse from "./ModalAddCourse";
 import CourseTable from "./CourseTable";
 import Loader from "../../Components/Loader";
+import ModalAddCategory from "./categories/ModalAddCategory";
 
 const CourseList = () => {
   const [product, setProduct] = useState([]);
@@ -13,36 +14,74 @@ const CourseList = () => {
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
   const [filterBy, setFilterBy] = useState("all");
+  const [filterDuration, setFilterDuration] = useState('');
+  const [filterPrice, setFilterPrice] = useState('');
+  const [duration, setDuration] = useState('all')
 
   useEffect(() => {
     getCourseList(filterBy);
   }, [page, filterBy]);
 
+  // useEffect(() => {
+  //   getCategoryList();
+  // }, []);
+
   const getCourseList = (filterBy) => {
-    fetch(baseurl + "/api/course ", {
+    fetch(baseurl + "/api/course", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((result) => {
-        // setProduct(result);
-        if (filterBy === "all") {
+        if (filterBy === "all" && duration === 'all') {
+          // If both filterBy and duration are 'all', set the product to the entire result.
           setProduct(result);
         } else {
-          let filteredData = result.filter(
-            (course) => course.status == filterBy
-          );
-          setProduct(filteredData);
+          let filterData;
+          // Filter the result based on filterBy and duration criteria.
+          filterData = result.filter((course) => course.status === filterBy);
+          if (duration !== 'all') return filterData = filterData.filter((course) => course.duration === duration)
+          setProduct(filterData);
         }
         setLoader(false);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
+  };
+
+  const productDurationsSet = new Set(pageData?.map(x => x.duration));
+  const productDurations = Array.from(productDurationsSet);
+
+
+
+  // const getCategoryList = () => {
+  //   fetch(baseurl + "/api/category ", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((result) => {
+  //       setProduct(result);
+  //       setLoader(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  const handleSelectChange = (event) => {
+    setDuration(event.target.value);
+  };
+
+  const handleSelectPriceChange = (event) => {
+    setFilterPrice(event.target.value);
   };
 
   //handle Next
@@ -70,6 +109,11 @@ const CourseList = () => {
   }, [product]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+
+  const [categotyModalOpen, setcategotyModalOpen] = useState(false);
+  const handlecategotyOpen = () => setcategotyModalOpen(!categotyModalOpen);
+
+
 
   return (
     <>
@@ -134,8 +178,11 @@ const CourseList = () => {
                 </div>
               </div>
             </div>
-            <Button onClick={handleOpen} className="h-fit">
-              + Add
+            <Button onClick={handlecategotyOpen} className="h-fit">
+              + Add Category
+            </Button>
+            <Button onClick={handleOpen} className="h-fit ml-1">
+              + Add Courses
             </Button>
           </div>
         </div>
@@ -143,6 +190,11 @@ const CourseList = () => {
           open={open}
           handleOpen={handleOpen}
           getCourseList={getCourseList}
+        />
+        <ModalAddCategory
+          open={categotyModalOpen}
+          handleOpen={handlecategotyOpen}
+        // getCategoryList={getCategoryList}
         />
 
         {/* Course Table */}
@@ -163,9 +215,9 @@ const CourseList = () => {
                       <th scope="col" className="px-6 py-3">
                         Course
                       </th>
-                      {/* <th scope="col" className="px-6 py-3">
-              Category
-            </th> */}
+                      <th scope="col" className="px-6 py-3">
+                        Category
+                      </th>
                       <th scope="col" className="px-6 py-3">
                         Description
                       </th>
@@ -176,7 +228,19 @@ const CourseList = () => {
                         Lessons
                       </th>
                       <th scope="col" className="px-6 py-3">
-                        Duration
+                        <select
+                          name="durationFilter"
+                          id="durationFilter"
+                          value={duration}
+                          onChange={handleSelectChange}
+                          className="w-32 p-2 mx-2"
+                        >
+                          <option value="all">Duration</option>
+                          {productDurations?.map((item) => (
+                            <option value={item}>{item}</option>
+                          ))}
+
+                        </select>
                       </th>
                       {/* <th scope="col" className="px-3 py-3">
               Status
@@ -212,10 +276,11 @@ const CourseList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {pageData.map((item) => {
+                    {console.log(pageData)}
+                    {pageData?.filter(course => duration === 'all' ? course : course.duration === duration)?.map((item) => {
                       const isTitleMatch = item.title.toLowerCase().includes(search.trim().toLowerCase());
-                      const isDurationMatch = item.duration.toLowerCase().includes(search.trim().toLowerCase());
                       const isPriceMatch = item.price.toString().toLowerCase().includes(search.trim().toLowerCase());
+                      const isDurationMatch = filterDuration === 'all' || item.duration.toString() === filterDuration;
 
                       if (isTitleMatch || isDurationMatch || isPriceMatch) {
                         return (
@@ -229,6 +294,8 @@ const CourseList = () => {
 
                       return null;
                     })}
+
+
                   </tbody>
 
                 </table>

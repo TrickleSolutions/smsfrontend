@@ -38,31 +38,28 @@ const Student = ({ item, getStudentList, index, checked }) => {
         <td className="px-6 py-4">{index + 1}</td>
         <td scope="row" className="px-6 py-4 font-semibold text-black">
           <div onClick={handleOpen} className="flex cursor-pointer">
-            <div className="bg-[#524fff] flex justify-center items-center w-10 h-10 p-2   mr-2 rounded-full text-white text-center">
-              {item.name.charAt(0).toUpperCase()}{" "}
-              {item.name.split(" ")[1]
-                ? item.name.split(" ")[1].charAt(0).toUpperCase()
-                : ""}
+            <div className=" text-white">
+              <img className="rounded-full w-10 h-10" src={item?.profilePic || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
             </div>
-            <div>
+            <div className="ml-2">
               <div>{item.name}</div>
               <div className="font-light my-1 text-gray-500">{item.email}</div>
             </div>
           </div>
           <ModalViewStudent open={open} handleOpen={handleOpen} item={item} />
         </td>
-        <td onClick={handleOpen} className="px-6 py-4">{item.regno}</td>
-        <td className="px-6 py-4">{item.course ? item.course : "-"}</td>
-        <td className="px-6 py-4">{item.fname}</td>
-        <td className="px-6 py-4 max-w-xs break-words truncate">{item.address}</td>
-        <td className="px-6 py-4">{item.contact}</td>
+        <td onClick={handleOpen} className="">{item.regno}</td>
+        <td className="">{item.course ? item.course : "-"}</td>
+        <td className="">{item.fname}</td>
+        <td className=" max-w-xs break-words truncate">{item.address}</td>
+        <td className="">{item.contact}</td>
         <td className="px-3 py-4">{item.gender}</td>
         <td className="px-3 py-4">{item.dob}</td>
-        <td className="px-6 py-4">{item.admdate}</td>
+        <td className="">{item.admdate}</td>
 
-        <td className="px-6 py-4">{item.library ? item.library : "-"}</td>
-        <td className="px-6 py-4">{item.shift}</td>
-        <td className="px-6 py-4">
+        <td className="">{item.library ? item.library : "-"}</td>
+        <td className="">{item.shift}</td>
+        <td className="">
           <span
             className={
               item.status.toLowerCase() == "active"

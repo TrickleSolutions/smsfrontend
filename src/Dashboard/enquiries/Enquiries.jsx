@@ -5,6 +5,7 @@ import EnquiryTable from "./EnquiryTable";
 import Loader from "../../Components/Loader";
 import ModalAddEnquiry from "./ModalAddEnquiry";
 import { CSVLink } from "react-csv";
+import PrintableEnquiryForm from "./PrintableEnquiryForm";
 
 const Enquiries = () => {
   const [product, setProduct] = useState([]);
@@ -221,7 +222,12 @@ const Enquiries = () => {
             </Button>
           </div>
 
-          <ModalAddEnquiry
+          {/* <ModalAddEnquiry
+            open={open}
+            handleOpen={handleOpen}
+            getEnquiryList={getEnquiryList}
+          /> */}
+          <PrintableEnquiryForm
             open={open}
             handleOpen={handleOpen}
             getEnquiryList={getEnquiryList}
