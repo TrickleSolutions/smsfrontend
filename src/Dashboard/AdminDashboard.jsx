@@ -129,8 +129,7 @@ const AdminDashboard = ({ adminAuth }) => {
                   ""
                 )}
 
-                {/* CAtegories */}
-                {userPermissions.categories ? (
+                {/* {userPermissions.categories ? (
                   <div
                     onClick={() => goto("/admin/categories")}
                     className=" w-48 h-48 p-10 m-3 text-xl text-[#af7b94] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#af7b94] ring-offset-1"
@@ -155,7 +154,7 @@ const AdminDashboard = ({ adminAuth }) => {
                   </div>
                 ) : (
                   ""
-                )}
+                )} */}
 
                 {/* Students */}
                 {userPermissions.studentList ? (

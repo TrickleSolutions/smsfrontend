@@ -1,37 +1,109 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from '@material-tailwind/react';
+import { Button, Checkbox, Dialog, DialogBody, DialogFooter, DialogHeader, Input, Option, Radio, Select, Textarea } from '@material-tailwind/react';
+import SMSLOGO from '../../assets/images/logo.png'
+import baseurl from '../../Config';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
-    const [formData, setFormData] = useState({
-        name: '',
-        fatherName: '',
-        postalAddress: '',
-        phoneNumber: '',
-        maritalStatus: '',
-        dob: '',
-        academicQualifications: '',
-        computerAwareness: '',
-        previousknowledge: '',
-    });
+    const [name, setName] = useState("");
+    const [fatherName, setFatherName] = useState("");
+    const [postalAddress, setPostalAddress] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [dob, setDob] = useState("");
+    const [maritalStatus, setMaritalStatus] = useState("");
+    const [academicQualifications, setAcademicQualifications] = useState("");
+    const [computerAwareness, setComputerAwareness] = useState("");
+    const [previousknowledge, setPreviousknowledge] = useState("");
+    const [pdClasses, setPdClasses] = useState("");
+    const [carrierClasses, setCarrierClasses] = useState("");
+    const [email, setEmail] = useState("");
+    const [course, setCourse] = useState("");
+    const [gender, setGender] = useState("");
+    const [counseller, setCounseller] = useState("");
+    const [referenced, setReferenced] = useState("")
+    const [courseData, setCourseData] = useState([]);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    const data = {
+        name: name,
+        fatherName: fatherName,
+        postalAddress: postalAddress,
+        phoneNumber: phoneNumber,
+        maritalStatus: maritalStatus,
+        dob: dob,
+        academicQualifications: academicQualifications,
+        computerAwareness: computerAwareness,
+        previousknowledge: previousknowledge,
+        email: email,
+        course: course,
+        counseller: counseller,
+        referenced: referenced
     };
 
-    const handleSubmit = (e) => {
+    const onSubmitClick = (e) => {
+        setName("");
+        setFatherName("");
+        setPostalAddress("");
+        setDob("");
+        setCourse("");
+        setPhoneNumber("");
+        setMaritalStatus("");
+        setAcademicQualifications("");
+        setComputerAwareness("");
+        setPreviousknowledge("");
+        setEmail("");
+        setGender("");
+        setCounseller("");
         e.preventDefault();
-        // You can handle form submission here, e.g., send data to an API or perform other actions.
-        console.log(formData);
+        console.log(data)
+        // Post Api For Posting Data
+        fetch(baseurl + "/api/enquiry", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                if (result.status === true && result.code === 200) {
+                    toast.success("Enquiry Added Successfully");
+                    getEnquiryList();
+                    handleOpen();
+                } else {
+                    toast.info(`${result.message}`);
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     };
 
-    const Roll = () => {
-        (
-            <div>
-                lol
-            </div>
-        )
-    }
+    const getCourseData = () => {
+        fetch(baseurl + "/api/course", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((result) => {
+                setCourseData(result);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    useEffect(() => {
+        getCourseData();
+    }, []);
+
+    // handelPrint
+
 
     const handlePrint = () => {
         const printWindow = window.open('', '', 'width=800,height=800');
@@ -58,18 +130,21 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
         
         <body>
             <div style="border: double 5px black; padding: 20px;">
-                <div style="display: flex; align-items: center; justify-content: center;">
-                    <div>
-                        <img src="https://www.smseducationlko.com/Images/LogoSmall.png" alt="">
+                <div style="max-height: 200px;">
+                    <div style="display: flex; justify-content: center;">
+                        <img src=${SMSLOGO} style="width: 150px; min-width: 150px;"
+                            alt="mainLogo">
+                        <div>
+                            <h1 style="font-weight: 800; font-size: 50px;margin-left: 10px;">SMS EDUCATION</h1>
+                        </div>
                     </div>
-                    <div style="margin-left: 20px;">
-                        <h1 style="font-weight: 800; font-size: 60px;">SMS EDUCATION</h1>
+                    <center style="margin-left: 20px;">
                         <p style="font-size: larger;">Opp. Laxman Nursery, Gauri, Sarojini Nagar, Kanpur Road, Lucknow. E-mail
                             :smseducation@outlook.com
                             Ph. : (0522) 6004415, 3274415</p>
-                    </div>
+                    </center>
                 </div>
-                <center style="margin-top: 10px;">
+                <center style="margin-top: 30px;">
                     <div style="text-align: center; color: white; max-width: fit-content;">
                         <center style="background-color: black; padding: 5px; font-size: x-large;">ENQUIRY FORM</center>
                     </div>
@@ -169,11 +244,11 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                             <div
                                 style="border: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; width: 20%;">
                             </div>
-                            <h6 style="font-size: x-large; padding: 0px 50px;">Yes</h6>
+                            <h6 style="font-size: x-large; padding: 0px 25px;">Yes</h6>
                             <div
                                 style="border: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; width: 20%">
                             </div>
-                            <h6 style="font-size: x-large; padding: 0px 50px;">No</h6>
+                            <h6 style="font-size: x-large; padding: 0px 25px;">No</h6>
                         </div>
                     </div>
                     <div style="display: flex; justify-content: space-between; max-height: 65px;">
@@ -182,18 +257,18 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                         </div>
                         <div style="width: 50%; height: 25px; margin-top: 20px; display: flex; align-items: center;">
                             <div
-                                style="border: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; width: 20%;">
+                                style="border: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; min-width: 20%;">
                             </div>
-                            <h6 style="font-size: x-large; padding: 0px 50px;">Yes</h6>
+                            <h6 style="font-size: x-large; padding: 0px 25px;">Yes</h6>
                             <div
-                                style="border: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; width: 20%">
+                                style="border: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; min-width: 20%">
                             </div>
-                            <h6 style="font-size: x-large; padding: 0px 50px;">No</h6>
+                            <h6 style="font-size: x-large; padding: 0px 25px;">No</h6>
                         </div>
                     </div>
                     <div style="display: flex; max-height: 60px; align-items: baseline;">
-                        <div style="width: 20%;">
-                            <h5 style="font-size: x-large;">Expected Joining Date</h5>
+                        <div style="min-width: 20%;">
+                            <h5 style="font-size: x-large;">Expected Joining Date </h5>
                         </div>
                         <div
                             style="border-bottom: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; width: 10%;">
@@ -209,25 +284,25 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                     </div>
                     <div style="display: flex; align-items: center; margin-top: 20px;">
                         <div>
-                            <h5 style="font-size: x-large;">Reference :</h5>
+                            <h5 style="font-size: large;">Reference :</h5>
                         </div>
                         <div
-                            style="border: 2px solid black; height: 50px; display: flex; align-items: center; min-width: 10%; margin: 0px 50px;">
+                            style="border: 2px solid black; height: 50px; display: flex; align-items: center; min-width: 12%; margin: 0px 5px;">
                         </div>
                         <div>
-                            <h5 style="font-size: x-large;">Advertisement :</h5>
+                            <h5 style="font-size: large;">Advertisement :</h5>
                         </div>
                         <div
-                            style="border: 2px solid black; height: 50px; display: flex; align-items: center; min-width: 10%; margin: 0px 50px;">
+                            style="border: 2px solid black; height: 50px; display: flex; align-items: center; min-width: 12%; margin: 0px 5px;">
                         </div>
                         <div>
-                            <h5 style="font-size: x-large;">Student :</h5>
+                            <h5 style="font-size: large;">Student :</h5>
                         </div>
                         <div
-                            style="border: 2px solid black; height: 50px; display: flex; align-items: center; min-width: 10%; margin: 0px 50px;">
+                            style="border: 2px solid black; height: 50px; display: flex; align-items: center; min-width: 12%; margin: 0px 5px;">
                         </div>
                         <div>
-                            <h5 style="font-size: x-large;">Advertisement :</h5>
+                            <h5 style="font-size: large;">others</h5>
                         </div>
                     </div>
                     <div style="display: flex; justify-content: space-between; max-height: 50px; padding: 0px 100px;">
@@ -249,27 +324,27 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                     </center>
         
                     <div style="display: flex; max-height: 60px; align-items: baseline;">
-                        <div>
+                        <div style="min-width: 15%;">
                             <h5 style="font-size: x-large;">Course :</h5>
                         </div>
                         <div
-                            style="border-bottom: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; width: 40%;">
+                            style="border-bottom: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; min-width: 30%;">
                         </div>
-                        <div style="width: 10%;">
+                        <div style="min-width: 20%;">
                             <h5 style="font-size: x-large;">Accepted By :</h5>
                         </div>
                         <div
-                            style="border-bottom: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; width: 40%;">
+                            style="border-bottom: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; width: 30%;">
                         </div>
                     </div>
                     <div style="display: flex; max-height: 60px; align-items: baseline; margin: 20px 0px;">
-                        <div>
+                        <div style="min-width: 10%;">
                             <h5 style="font-size: x-large;">Date :</h5>
                         </div>
                         <div
                             style="border-bottom: 2px solid black; height: 50px; margin-top: 20px; display: flex; align-items: center; width: 40%;">
                         </div>
-                        <div style="width: 10%;">
+                        <div style="min-width: 20%;">
                             <h5 style="font-size: x-large;">Signature :</h5>
                         </div>
                         <div
@@ -282,28 +357,21 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
         </body>
         
         </html>`);
-        // printWindow.document.write('<h1>Student Form</h1>');
-        // printWindow.document.write('<pre>Name: ' + formData.name + '</pre>');
-        // printWindow.document.write('<pre>Father\'s Name: ' + formData.fatherName + '</pre>');
-        // printWindow.document.write('<pre>Postal Address: ' + formData.postalAddress + '</pre>');
-        // printWindow.document.write('<pre>Phone Number: ' + formData.phoneNumber + '</pre>');
-        // printWindow.document.write('<pre>Marital Status: ' + formData.maritalStatus + '</pre>');
-        // printWindow.document.write('<pre>Date of Birth: ' + formData.dob + '</pre>');
-        // printWindow.document.write('<pre>Academic Qualifications: ' + formData.academicQualifications + '</pre>');
-        // printWindow.document.write('<pre>Dummy Field 1: ' + formData.computerAwareness + '</pre>');
-        // printWindow.document.write('<pre>Dummy Field 2: ' + formData.previousknowledge + '</pre>');
-        // printWindow.document.write('</body></html>');
-        // printWindow.document.close();
         printWindow.print();
         printWindow.close();
+    };
+
+    const handleSelectChange = (newValue) => {
+        setCourse(newValue);
     };
 
 
     return (
         <Dialog
             open={open}
+            size='xxl'
             handler={handleOpen}
-            className="min-w-[80%] md:min-w-[60%] lg:min-w-[60%]"
+            className="min-w-[80%] md:min-w-[60%] lg:min-w-[90%]"
         >
             <DialogHeader className="flex justify-between items-center">
 
@@ -316,103 +384,389 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                     Print Form
                 </Button>
             </DialogHeader>
-            <DialogBody divider className="h-[25rem] overflow-y-scroll">
+            <DialogBody divider className="h-[40rem] overflow-y-scroll">
 
-                <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="block mb-2">Name:</label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                className="border rounded w-full py-2 px-3"
+                <div className="border-double border-5 border-black p-10">
+                    <div className="max-h-200">
+                        <div className="flex justify-center items-center">
+                            <img
+                                src="https://www.smseducationlko.com/Images/LogoSmall.png"
+                                className="w-32 min-w-32"
+                                alt="mainLogo"
                             />
+                            <div>
+                                <h1 className="font-bold text-6xl mt-2 ml-5 mb-8">SMS EDUCATION</h1>
+                            </div>
                         </div>
-                        <div>
-                            <label className="block mb-2">Father's Name:</label>
-                            <input
-                                type="text"
-                                name="fatherName"
-                                value={formData.fatherName}
-                                onChange={handleChange}
-                                className="border rounded w-full py-2 px-3"
-                            />
+                        <div className="text-center">
+                            <p className="text-lg">
+                                Opp. Laxman Nursery, Gauri, Sarojini Nagar, Kanpur Road, Lucknow. E-mail :smseducation@outlook.com
+                                Ph. : (0522) 6004415, 3274415
+                            </p>
                         </div>
-                        <div>
-                            <label className="block mb-2">Postal Address:</label>
-                            <input
-                                type="text"
-                                name="postalAddress"
-                                value={formData.postalAddress}
-                                onChange={handleChange}
-                                className="border rounded w-full py-2 px-3"
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-2">Phone Number:</label>
-                            <input
-                                type="text"
-                                name="phoneNumber"
-                                value={formData.phoneNumber}
-                                onChange={handleChange}
-                                className="border rounded w-full py-2 px-3"
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-2">Marital Status:</label>
-                            <input
-                                type="text"
-                                name="maritalStatus"
-                                value={formData.maritalStatus}
-                                onChange={handleChange}
-                                className="border rounded w-full py-2 px-3"
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-2">Date of Birth:</label>
-                            <input
-                                type="text"
-                                name="dob"
-                                value={formData.dob}
-                                onChange={handleChange}
-                                className="border rounded w-full py-2 px-3"
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-2">Academic Qualifications:</label>
-                            <input
-                                type="text"
-                                name="academicQualifications"
-                                value={formData.academicQualifications}
-                                onChange={handleChange}
-                                className="border rounded w-full py-2 px-3"
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-2">Computer Awareness in Family (if Any) :</label>
-                            <input
-                                type="text"
-                                name="computerAwareness"
-                                value={formData.computerAwareness}
-                                onChange={handleChange}
-                                className="border rounded w-full py-2 px-3"
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-2">Previous knowledge of Computer, Give Institute Name (if Yes) :</label>
-                            <input
-                                type="text"
-                                name="previousknowledge"
-                                value={formData.previousknowledge}
-                                onChange={handleChange}
-                                className="border rounded w-full py-2 px-3"
-                            />
+                    </div>
+                    <div className="mt-10 text-center">
+                        <div className="bg-black text-white max-w-max mx-auto p-3 text-2xl font-bold">
+                            ENQUIRY FORM
                         </div>
                     </div>
 
-                </form>
+                    {/* Form fields */}
+                    <form onSubmit={onSubmitClick} className="mt-10 space-y-6">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="col-span-2">
+                                <label htmlFor="name" className="block text-xl font-medium text-gray-700">
+                                    Name
+                                </label>
+                                <Input variant='static'
+                                    type="text"
+                                    id="name"
+                                    value={name}
+                                    placeholder="Enter your name"
+                                    onChange={(e) => {
+                                        setName(e.target.value);
+                                    }}
+                                />
+                            </div>
+
+                            <div className="col-span-2">
+                                <label htmlFor="fatherName" className="block text-xl font-medium text-gray-700">
+                                    Father's Name
+                                </label>
+                                <Input variant='static'
+                                    type="text"
+                                    id="fatherName"
+                                    value={fatherName}
+                                    placeholder="Enter your father's name"
+                                    onChange={(e) => {
+                                        setFatherName(e.target.value);
+                                    }}
+                                />
+                            </div>
+
+                            <div className="col-span-2">
+                                <label htmlFor="postalAddress" className="block text-xl font-medium text-gray-700">
+                                    Postal Address
+                                </label>
+                                <Input variant='static'
+                                    type="text"
+                                    id="postalAddress"
+                                    value={postalAddress}
+                                    placeholder="Enter your postal address"
+                                    onChange={(e) => {
+                                        setPostalAddress(e.target.value);
+                                    }}
+                                />
+                            </div>
+
+
+                            <div className="w-full md:w-1/2 px-3 mb-3">
+                                <label htmlFor="maritalStatus" className="block text-xl font-medium text-gray-700">
+                                    Marital Status
+                                </label>
+                                <div className="flex flex-wrap">
+                                    <Radio
+                                        id="single"
+                                        name="maritalStatus"
+                                        label="Single"
+                                        value={maritalStatus}
+                                        onChange={(e) => {
+                                            setMaritalStatus("single");
+                                        }}
+                                    />
+                                    <Radio
+                                        id="married"
+                                        name="maritalStatus"
+                                        label="Married"
+                                        value={maritalStatus}
+                                        onChange={(e) => {
+                                            setMaritalStatus("married");
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="w-full md:w-1/2 px-3 mb-3">
+                                <label htmlFor="maritalStatus" className="block text-xl font-medium text-gray-700">
+                                    Gender
+                                </label>
+                                <div className="flex flex-wrap">
+                                    <Radio
+                                        id="male"
+                                        name="type"
+                                        label="Male"
+                                        value={gender}
+                                        onChange={(e) => {
+                                            setGender("male");
+                                        }}
+                                    />
+                                    <Radio
+                                        id="female"
+                                        name="type"
+                                        label="Female"
+                                        value={gender}
+                                        onChange={(e) => {
+                                            setGender("female");
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-span-2">
+                                <label htmlFor="dob" className="block text-xl font-medium text-gray-700">
+                                    Date of Birth
+                                </label>
+                                <input
+                                    className="scroll-smooth appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    id="dob"
+                                    type="date"
+                                    value={dob}
+                                    onChange={(e) => {
+                                        setDob(e.target.value);
+                                    }}
+                                />
+                            </div>
+
+                            <div className="col-span-2">
+                                <label htmlFor="academicQualification" className="block text-xl font-medium text-gray-700">
+                                    Academic Qualification
+                                </label>
+                                <Input variant='static'
+                                    type="text"
+                                    id="academicQualification"
+                                    value={academicQualifications}
+                                    placeholder="Enter your academic qualification"
+                                    onChange={(e) => {
+                                        setAcademicQualifications(e.target.value);
+                                    }}
+                                />
+                            </div>
+
+                            <div className="col-span-2">
+                                <label htmlFor="computerAwareness" className="block text-xl font-medium text-gray-700">
+                                    Computer Awareness in Family (if Any)
+                                </label>
+                                <Input variant='static'
+                                    type="text"
+                                    id="computerAwareness"
+                                    value={computerAwareness}
+                                    placeholder="Enter computer awareness details"
+                                    onChange={(e) => {
+                                        setComputerAwareness(e.target.value);
+                                    }}
+                                />
+                            </div>
+
+                            <div className="col-span-2">
+                                <label htmlFor="previousKnowledge" className="block text-xl font-medium text-gray-700">
+                                    Previous knowledge of Computer, Give Institute Name (if Yes)
+                                </label>
+                                <Input variant='static'
+                                    type="text"
+                                    id="previousKnowledge"
+                                    value={previousknowledge}
+                                    placeholder="Enter previous knowledge details"
+                                    onChange={(e) => {
+                                        setPreviousknowledge(e.target.value);
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Additional fields */}
+                        <div className="grid grid-cols-2 gap-4">
+                            {/* Interest in Personality Development Classes */}
+                            <div className='w-full'>
+                                <label className="block text-xl font-medium text-gray-700">
+                                    Phone Number
+                                </label>
+                                <div className="w-full">
+                                    <Input variant='static'
+                                        type="text"
+                                        id="phoneNumber"
+                                        value={phoneNumber}
+                                        placeholder="Enter phone number"
+                                        onChange={(e) => {
+                                            setPhoneNumber(e.target.value);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Interest in Carrier Classes */}
+                            <div className='w-full'>
+                                <div className="block text-xl font-medium text-gray-700 w-full">
+                                    Email Address
+                                </div>
+                                <div className='w-full'>
+                                    <Input variant='static'
+                                        type="text"
+                                        id="email"
+                                        value={email}
+                                        placeholder="Enter email address"
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            {/* Interest in Personality Development Classes */}
+                            <div className='flex items-center w-full'>
+                                <label className="block text-xl font-medium text-gray-700">
+                                    Interest to attend Personality Development Classes
+                                </label>
+                                <div className="flex justify-around w-full">
+                                    <div className="flex mt-2 items-center">
+                                        <Radio value={pdClasses}
+                                            variant='static'
+                                            type="radio"
+                                            id="yesPD"
+                                            name="pdInterest"
+                                            className="form-radio h-6 w-6"
+                                            onChange={(e) => {
+                                                setPdClasses("yesPD");
+                                            }}
+                                        />
+                                        <label htmlFor="yesPD" className="ml-2 text-lg">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div className="flex mt-2 items-center">
+                                        <Radio
+                                            value={pdClasses}
+                                            variant='static'
+                                            type="radio"
+                                            id="noPD"
+                                            name="pdInterest"
+                                            className="form-radio h-6 w-6"
+                                            onChange={(e) => {
+                                                setPdClasses("noPD");
+                                            }}
+                                        />
+                                        <label htmlFor="noPD" className="ml-2 text-lg">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Interest in Carrier Classes */}
+                            <div className='flex items-center justify-around'>
+                                <div className="block text-xl font-medium text-gray-700 w-full">
+                                    Interest to attend Carrier Classes
+                                </div>
+                                <div className='flex justify-around w-full'>
+                                    <div className="flex items-center">
+                                        <Radio
+                                            variant='static'
+                                            type="radio"
+                                            id="yesCarrier"
+                                            name="carrierInterest"
+                                            className="form-radio h-6 w-6"
+                                            value={carrierClasses}
+                                            onChange={(e) => {
+                                                setCarrierClasses("yesCarrier");
+                                            }}
+                                        />
+                                        <label htmlFor="yesCarrier" className="ml-2 text-lg">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <Radio
+                                            variant='static'
+                                            type="radio"
+                                            id="noCarrier"
+                                            name="carrierInterest"
+                                            className="form-radio h-6 w-6"
+                                            value={carrierClasses}
+                                            onChange={(e) => {
+                                                setCarrierClasses("noCarrier");
+                                            }}
+                                        />
+                                        <label htmlFor="noCarrier" className="ml-2 text-lg">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr />
+
+                        {/* Main fields */}
+                        <div className="grid grid-cols-2 gap-4">
+                            {/* Interest in Personality Development Classes */}
+                            <div className='w-full'>
+                                <label className="block text-xl font-medium text-gray-700">
+                                    Select Intrested Courses
+                                </label>
+                                <div className="w-full">
+                                    <Select value={course} onChange={handleSelectChange}>
+                                        <Option value="">Select Course</Option>
+                                        {courseData?.map((item) => (
+                                            <Option key={item._id} value={item.title}>
+                                                {item.title}
+                                            </Option>
+                                        ))}
+                                        <Option value="other">Other</Option>
+                                    </Select>
+
+
+                                    <div className="flex items-center mt-5 justify-around">
+
+                                        <label className="block text-xl font-medium text-gray-700">
+                                            Referenced By :
+                                        </label>
+
+                                        <Checkbox
+                                            value={referenced}
+                                            label='Advertisement'
+                                            onChange={(e) => {
+                                                setReferenced("advertisement");
+                                            }}
+                                        />
+                                        <Checkbox
+                                            value={referenced}
+                                            label='Student'
+                                            onChange={(e) => {
+                                                setReferenced("student");
+                                            }}
+                                        />
+                                        <Checkbox
+                                            value={referenced}
+                                            label='Others'
+                                            onChange={(e) => {
+                                                setReferenced("others");
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Interest in Carrier Classes */}
+                            <div className=''>
+                                <div className="block text-xl font-medium text-gray-700 w-full">
+                                    Counseller
+                                </div>
+                                <div className='flex justify-around w-full'>
+                                    <Textarea
+                                        value={counseller}
+                                        label="Message"
+                                        onChange={(e) => {
+                                            setCounseller(e.target.value);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+
             </DialogBody>
             <DialogFooter>
                 <Button
@@ -423,7 +777,7 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                 >
                     <span>Cancel</span>
                 </Button>
-                <Button variant="gradient" color="blue" onClick={handleSubmit}>
+                <Button variant="gradient" type='submit' color="blue" onClick={onSubmitClick}>
                     <span>Submit</span>
                 </Button>
             </DialogFooter>
