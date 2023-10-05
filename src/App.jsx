@@ -357,7 +357,7 @@ const App = () => {
               path="/admin/students"
               exact={true}
               element={
-                <AdminProtected adminAuth={adminAuth} Component={Students} />
+                <AdminProtected adminAuth={adminAuth} Component={Students} updateAuth={updateAuth} />
               }
             />
             <Route

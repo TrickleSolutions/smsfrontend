@@ -43,26 +43,25 @@ const ManageStudentTable = ({ item, getStudentStatusList }) => {
         <td class=" py-4">
           <Checkbox />
         </td>
-        <td class="px-6 py-4 font-semibold text-black">{item.name}</td>
+        <td class="px-6 py-4 font-semibold text-black">{item?.name || 'test' }</td>
         {/* <td class="px-6 py-4 hidden sm:table-cell max-w-xs">CCC</td> */}
-        <td class="px-6 py-4 hidden sm:table-cell">{item.regno}</td>
-        <td class="px-6 py-4 max-w-xs">{item.status}</td>
+        <td class="px-6 py-4 hidden sm:table-cell">{item?.regno || '123456'}</td>
+        <td class="px-6 py-4 max-w-xs">{item?.status || 'Active'}</td>
         <td class="px-1 py-4">
           <div className="flex flex-wrap md:flex-nowrap ">
             <Button
               className="m-1 h-fit w-24"
               size="sm"
-              onClick={() => onApproveClick(item.regno, item.status)}
+              
             >
-              Approove
+              Prmotion
             </Button>
             <Button
               className="m-1 h-fit w-24"
               size="sm"
               color="red"
-              onClick={() => deleteData(item._id)}
             >
-              Reject
+              Demotion
             </Button>
           </div>
         </td>

@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Loader";
+import InstructorDocument from "./InstructorDocument";
 
 const InstructorList = () => {
   const [product, setProduct] = useState([]);
@@ -21,6 +22,10 @@ const InstructorList = () => {
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
   const [filterBy, setFilterBy] = useState("all");
+
+  const [documentopen, setDocumentOpen] = useState(false);
+
+  const handleDocumentOpen = () => setDocumentOpen(!documentopen);
 
   useEffect(() => {
     getInstructorList();
@@ -205,6 +210,9 @@ const InstructorList = () => {
                         Salary
                       </th>
                       <th scope="col" className="px-6 py-3">
+                        Document
+                      </th>
+                      <th scope="col" className="px-6 py-3">
                         Status
                       </th>
                       <th class="px-1 py-4">
@@ -222,6 +230,11 @@ const InstructorList = () => {
                       ) {
                         return (
                           <tr class="bg-white border-b " key={item._id}>
+                            <InstructorDocument
+                              item={item}
+                              open={documentopen}
+                              handleDocumentOpen={handleDocumentOpen}
+                            />
                             <td class=" py-4">
                               <Checkbox />
                             </td>
@@ -248,6 +261,7 @@ const InstructorList = () => {
                             <td class="px-6 py-4">{item.qualification}</td>
                             <td class="px-6 py-4">{item.degree}</td>
                             <td class="px-6 py-4">{item.salary}</td>
+                            <td className=""><Button onClick={handleDocumentOpen} size="sm" >View</Button></td>
                             <td
                               className={`${item.status === "active"
                                 ? "text-teal-500"
@@ -333,6 +347,7 @@ const InstructorList = () => {
                         );
                       }
                     })}
+
                   </tbody>
                 </table>
               </div>

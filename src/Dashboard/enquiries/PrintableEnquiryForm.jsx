@@ -7,9 +7,9 @@ import { toast } from 'react-toastify';
 
 const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
     const [name, setName] = useState("");
-    const [fatherName, setFatherName] = useState("");
-    const [postalAddress, setPostalAddress] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
+    const [fname, setFatherName] = useState("");
+    const [address, setPostalAddress] = useState("");
+    const [contact, setPhoneNumber] = useState("");
     const [dob, setDob] = useState("");
     const [maritalStatus, setMaritalStatus] = useState("");
     const [academicQualifications, setAcademicQualifications] = useState("");
@@ -21,14 +21,15 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
     const [course, setCourse] = useState("");
     const [gender, setGender] = useState("");
     const [counseller, setCounseller] = useState("");
-    const [referenced, setReferenced] = useState("")
+    const [ref_by, setReferenced] = useState("")
     const [courseData, setCourseData] = useState([]);
 
     const data = {
         name: name,
-        fatherName: fatherName,
-        postalAddress: postalAddress,
-        phoneNumber: phoneNumber,
+        fname: fname,
+        address: address,
+        gender: gender,
+        contact: contact,
         maritalStatus: maritalStatus,
         dob: dob,
         academicQualifications: academicQualifications,
@@ -37,7 +38,7 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
         email: email,
         course: course,
         counseller: counseller,
-        referenced: referenced
+        ref_by: ref_by
     };
 
     const onSubmitClick = (e) => {
@@ -430,13 +431,13 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                             </div>
 
                             <div className="col-span-2">
-                                <label htmlFor="fatherName" className="block text-xl font-medium text-gray-700">
+                                <label htmlFor="fname" className="block text-xl font-medium text-gray-700">
                                     Father's Name
                                 </label>
                                 <Input variant='static'
                                     type="text"
-                                    id="fatherName"
-                                    value={fatherName}
+                                    id="fname"
+                                    value={fname}
                                     placeholder="Enter your father's name"
                                     onChange={(e) => {
                                         setFatherName(e.target.value);
@@ -445,13 +446,13 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                             </div>
 
                             <div className="col-span-2">
-                                <label htmlFor="postalAddress" className="block text-xl font-medium text-gray-700">
+                                <label htmlFor="address" className="block text-xl font-medium text-gray-700">
                                     Postal Address
                                 </label>
                                 <Input variant='static'
                                     type="text"
-                                    id="postalAddress"
-                                    value={postalAddress}
+                                    id="address"
+                                    value={address}
                                     placeholder="Enter your postal address"
                                     onChange={(e) => {
                                         setPostalAddress(e.target.value);
@@ -581,8 +582,8 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                                 <div className="w-full">
                                     <Input variant='static'
                                         type="text"
-                                        id="phoneNumber"
-                                        value={phoneNumber}
+                                        id="contact"
+                                        value={contact}
                                         placeholder="Enter phone number"
                                         onChange={(e) => {
                                             setPhoneNumber(e.target.value);
@@ -718,25 +719,25 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                                     <div className="flex items-center mt-5 justify-around">
 
                                         <label className="block text-xl font-medium text-gray-700">
-                                            Referenced By :
+                                            ref_by By :
                                         </label>
 
                                         <Checkbox
-                                            value={referenced}
+                                            value={ref_by}
                                             label='Advertisement'
                                             onChange={(e) => {
                                                 setReferenced("advertisement");
                                             }}
                                         />
                                         <Checkbox
-                                            value={referenced}
+                                            value={ref_by}
                                             label='Student'
                                             onChange={(e) => {
                                                 setReferenced("student");
                                             }}
                                         />
                                         <Checkbox
-                                            value={referenced}
+                                            value={ref_by}
                                             label='Others'
                                             onChange={(e) => {
                                                 setReferenced("others");
@@ -749,7 +750,7 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                             {/* Interest in Carrier Classes */}
                             <div className=''>
                                 <div className="block text-xl font-medium text-gray-700 w-full">
-                                    Counseller
+                                    counseller
                                 </div>
                                 <div className='flex justify-around w-full'>
                                     <Textarea

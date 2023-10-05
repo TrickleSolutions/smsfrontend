@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AdminProtected = (props) => {
-  const { adminAuth, Component } = props;
+  const { adminAuth, Component, updateAuth } = props;
   let navigate = useNavigate();
   useEffect(() => {
     // let login = localStorage.getItem("login");
@@ -14,7 +14,7 @@ const AdminProtected = (props) => {
 
   return (
     <>
-      <Component adminAuth={adminAuth} />
+      <Component adminAuth={adminAuth} updateAuth={updateAuth} />
     </>
   );
 };

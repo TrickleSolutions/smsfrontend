@@ -130,9 +130,9 @@ const ManageStudentStatus = () => {
                 </div>
               </div>
             </div>
-            {/* <Button onClick={handleOpen} className="h-fit">
+            <Button onClick={handleOpen} className="h-fit">
               + Add Assignment
-            </Button> */}
+            </Button>
           </div>
         </div>
 
@@ -153,17 +153,17 @@ const ManageStudentStatus = () => {
                     <th scope="col" className="px-6 py-3">
                       Name
                     </th>
-                    {/* <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Course
-                    </th> */}
                     <th scope="col" className="px-6 py-3 hidden md:table-cell">
                       Regno
+                    </th>
+                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
+                      Course
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Status
                     </th>
                     <th scope="col" className="px-1 py-3 w-[200px]">
-                      Change
+                      Result
                     </th>
                   </tr>
                 </thead>

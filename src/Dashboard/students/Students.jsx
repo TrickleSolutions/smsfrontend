@@ -7,7 +7,7 @@ import Student from "./Student";
 import Loader from "../../Components/Loader";
 import { CSVLink } from "react-csv";
 
-const Students = () => {
+const Students = ({ updateAuth }) => {
   const [product, setProduct] = useState([]);
   const [pageData, setPageData] = useState([]);
   const [page, setPage] = useState(1);
@@ -196,46 +196,49 @@ const Students = () => {
                           onChange={handleSelectAll}
                         />
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Sr. No.
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Student
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Reg. No.
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Course
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Father Name
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Address
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Contact
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Gender
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         DOB
                       </th>
                       <th scope="col" className="">
                         Admission Date
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Library
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
+                        Documents
+                      </th>
+                      <th scope="col" className="px-2">
                         Shift
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         Status
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="px-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -266,6 +269,7 @@ const Students = () => {
                           <Student
                             index={index}
                             item={item}
+                            updateAuth={updateAuth}
                             key={item._id}
                             getStudentList={getStudentList}
                             handleRowSelect={() => handleRowSelect(index)}
@@ -278,7 +282,6 @@ const Students = () => {
                 </table>
               </div>
             )}
-
             <div className="flex justify-end">
               <nav aria-label="Page navigation example">
                 <ul className="pagination flex space-x-5 border w-fit px-2 py-1 mx-5 mt-5">

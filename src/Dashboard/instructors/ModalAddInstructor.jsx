@@ -330,6 +330,38 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                   />
                 </div>
               </div>
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="profilePic"
+                >
+                  Upload Aadhar card / PAN card
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="profilePic"
+                  type="file"
+                  onChange={(e) => {
+                    setProfilePic(e.target.files[0]);
+                  }}
+                />
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="profilePic"
+                >
+                  Upload CV
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="profilePic"
+                  type="file"
+                  onChange={(e) => {
+                    setProfilePic(e.target.files[0]);
+                  }}
+                />
+              </div>
             </div>
           </form>
         </DialogBody>

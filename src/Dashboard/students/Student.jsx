@@ -5,15 +5,22 @@ import {
   MenuList,
   MenuItem,
   Checkbox,
+  Button,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import ModalViewStudent from "./ModalViewStudent";
+import StudenDocument from "./StudenDocument";
 
-const Student = ({ item, getStudentList, index, checked }) => {
+const Student = ({ item, getStudentList, index, checked, updateAuth }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const handleOpen = () => setOpen(!open);
+
+  const [documentopen, setDocumentOpen] = useState(false);
+
+  const handleDocumentOpen = () => setDocumentOpen(!documentopen);
 
   function deleteData(id) {
     if (window.confirm("Are you sure You want to delete ?")) {
@@ -26,6 +33,12 @@ const Student = ({ item, getStudentList, index, checked }) => {
           getStudentList();
         });
     }
+  }
+
+  const ShowStudent = (student) => {
+    sessionStorage.setItem("auth", JSON.stringify(student._id));
+    updateAuth()
+    navigate('/student/dashboard')
   }
 
   return (
@@ -42,7 +55,7 @@ const Student = ({ item, getStudentList, index, checked }) => {
               <img className="rounded-full w-10 h-10" src={item?.profilePic || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
             </div>
             <div className="ml-2">
-              <div>{item.name}</div>
+              <div onClick={() => ShowStudent(item)} >{item.name}</div>
               <div className="font-light my-1 text-gray-500">{item.email}</div>
             </div>
           </div>
@@ -51,13 +64,14 @@ const Student = ({ item, getStudentList, index, checked }) => {
         <td onClick={handleOpen} className="">{item.regno}</td>
         <td className="">{item.course ? item.course : "-"}</td>
         <td className="">{item.fname}</td>
-        <td className=" max-w-xs break-words truncate">{item.address}</td>
+        <td className="max-w-xs break-words truncate">{item.address}</td>
         <td className="">{item.contact}</td>
         <td className="px-3 py-4">{item.gender}</td>
         <td className="px-3 py-4">{item.dob}</td>
         <td className="">{item.admdate}</td>
 
         <td className="">{item.library ? item.library : "-"}</td>
+        <td className=""><Button onClick={handleDocumentOpen} size="sm" >View</Button></td>
         <td className="">{item.shift}</td>
         <td className="">
           <span
@@ -148,6 +162,11 @@ const Student = ({ item, getStudentList, index, checked }) => {
           </div>
         </td>
       </tr>
+      <StudenDocument
+        item={item}
+        open={documentopen}
+        handleDocumentOpen={handleDocumentOpen}
+      />
     </>
   );
 };

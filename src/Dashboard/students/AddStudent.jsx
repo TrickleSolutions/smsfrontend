@@ -26,6 +26,10 @@ const AddStudent = ({ open, handleOpen }) => {
   const [shift, setShift] = useState("");
   const [locker_no, setLocker_no] = useState("");
   const [courseData, setCourseData] = useState([]);
+  const [profilePic, setProfilePic] = useState(null);
+  const [idCardimg, setIdCardimg] = useState(null)
+  const [tenthMarksheet, setTenthMarksheet] = useState(null)
+  const [twelthMarksheet, setTwelthMarksheet] = useState(null)
   const data = {
     regno,
     name,
@@ -40,6 +44,10 @@ const AddStudent = ({ open, handleOpen }) => {
     course,
     locker_no,
     shift,
+    profilePic,
+    idCardimg,
+    tenthMarksheet,
+    twelthMarksheet
   };
 
   useEffect(() => {
@@ -75,7 +83,10 @@ const AddStudent = ({ open, handleOpen }) => {
     setAdmdate("");
     setRefby("");
     setContact("");
+    setProfilePic("");
     setDob("");
+    setIdCardimg("");
+    setTenthMarksheet("");
     // Post Api For Posting Data
     fetch(baseurl + "/api/students", {
       method: "POST",
@@ -404,6 +415,74 @@ const AddStudent = ({ open, handleOpen }) => {
                     label="2nd Shift"
                   />
                 </div>
+              </div>
+              {/* profile pic */}
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="profilePic"
+                >
+                  Profile Pic
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="profilePic"
+                  type="file"
+                  onChange={(e) => {
+                    setProfilePic(e.target.files[0]);
+                  }}
+                />
+              </div>
+              {/* Aadhar card / PAN card  */}
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="idCard"
+                >
+                  Aadhar card / PAN card
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="idCard"
+                  type="file"
+                  onChange={(e) => {
+                    setIdCardimg(e.target.files[0]);
+                  }}
+                />
+              </div>
+              {/* Upload 10th Marksheet */}
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="idCard"
+                >
+                  Upload 10th Marksheet
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="idCard"
+                  type="file"
+                  onChange={(e) => {
+                    setTenthMarksheet(e.target.files[0]);
+                  }}
+                />
+              </div>
+              {/* 12th marksheet or above  */}
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="idCard"
+                >
+                  12th marksheet or above
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="idCard"
+                  type="file"
+                  onChange={(e) => {
+                    setTwelthMarksheet(e.target.files[0]);
+                  }}
+                />
               </div>
             </div>
           </form>
