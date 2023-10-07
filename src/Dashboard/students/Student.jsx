@@ -52,7 +52,7 @@ const Student = ({ item, getStudentList, index, checked, updateAuth }) => {
         <td scope="row" className="px-6 py-4 font-semibold text-black">
           <div onClick={handleOpen} className="flex cursor-pointer">
             <div className=" text-white">
-              <img className="rounded-full w-10 h-10" src={item?.profilePic || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
+              <img className="rounded-full w-10 h-10" src={baseurl + `/${item?.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
             </div>
             <div className="ml-2">
               <div onClick={() => ShowStudent(item)} >{item.name}</div>

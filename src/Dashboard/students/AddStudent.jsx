@@ -30,6 +30,7 @@ const AddStudent = ({ open, handleOpen }) => {
   const [idCardimg, setIdCardimg] = useState(null)
   const [tenthMarksheet, setTenthMarksheet] = useState(null)
   const [twelthMarksheet, setTwelthMarksheet] = useState(null)
+  const [imageUploads, setImageUploads] = useState({})
   const data = {
     regno,
     name,
@@ -44,10 +45,10 @@ const AddStudent = ({ open, handleOpen }) => {
     course,
     locker_no,
     shift,
-    profilePic,
-    idCardimg,
-    tenthMarksheet,
-    twelthMarksheet
+    profilePic: imageUploads.profilePic,
+    idCardimg: imageUploads.idCardimg,
+    tenthMarksheet: imageUploads.tenthMarksheet,
+    twelthMarksheet: imageUploads.twelthMarksheet
   };
 
   useEffect(() => {
@@ -83,10 +84,11 @@ const AddStudent = ({ open, handleOpen }) => {
     setAdmdate("");
     setRefby("");
     setContact("");
-    setProfilePic("");
     setDob("");
+    setProfilePic("");
     setIdCardimg("");
     setTenthMarksheet("");
+    setTwelthMarksheet("")
     // Post Api For Posting Data
     fetch(baseurl + "/api/students", {
       method: "POST",
@@ -111,6 +113,29 @@ const AddStudent = ({ open, handleOpen }) => {
         console.log(err);
       });
   };
+
+
+  const UploadImage = (e) => {
+    const file = e.target.files[0];
+    const fd = new FormData();
+    fd.append("myfile", file);
+    fetch(baseurl + "/api/uploadfile", {
+      method: "POST",
+      body: fd,
+    }).then((res) => {
+      if (res.status == 200) {
+        res.json().then((data) => {
+          console.log(data);
+          const value = { [e.target.name]: data.fileName }
+          setImageUploads({ ...imageUploads, ...value })
+          console.log(imageUploads)
+        });
+      }
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+
   return (
     <>
       <Dialog
@@ -326,19 +351,19 @@ const AddStudent = ({ open, handleOpen }) => {
                   <Radio
                     id="course"
                     onChange={() => setOpt("course")}
-                    name="type"
+                    name="course"
                     label="Course"
                   />
                   <Radio
                     id="library"
                     onChange={() => setOpt("library")}
-                    name="type"
+                    name="course"
                     label="Library"
                   />
                   <Radio
                     id="both"
                     onChange={() => setOpt("both")}
-                    name="type"
+                    name="course"
                     label="Both"
                   />
                 </div>
@@ -428,8 +453,9 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="profilePic"
                   type="file"
+                  name="profilePic"
                   onChange={(e) => {
-                    setProfilePic(e.target.files[0]);
+                    UploadImage(e);
                   }}
                 />
               </div>
@@ -445,8 +471,9 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
+                  name="idCard"
                   onChange={(e) => {
-                    setIdCardimg(e.target.files[0]);
+                    UploadImage(e);
                   }}
                 />
               </div>
@@ -462,8 +489,9 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
+                  name="HighSchoolmarksheet"
                   onChange={(e) => {
-                    setTenthMarksheet(e.target.files[0]);
+                    UploadImage(e);
                   }}
                 />
               </div>
@@ -479,8 +507,9 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
+                  name="intermediatemarksheet"
                   onChange={(e) => {
-                    setTwelthMarksheet(e.target.files[0]);
+                    UploadImage(e);
                   }}
                 />
               </div>

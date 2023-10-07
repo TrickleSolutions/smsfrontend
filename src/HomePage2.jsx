@@ -965,14 +965,12 @@ const HomePage2 = () => {
             <div
               onMouseEnter={() => setViewAcheiver(true)}
               onMouseLeave={() => setViewAcheiver(false)}
-              className={`${
-                viewAcheiver ? "shadow-2xl" : "shadow-none"
-              } relative w-64 h-40 rounded-2xl border hover:h-96  transition-all  duration-500`}
+              className={`${viewAcheiver ? "shadow-2xl" : "shadow-none"
+                } relative w-64 h-40 rounded-2xl border hover:h-96  transition-all  duration-500`}
             >
               <div
-                className={`${
-                  viewAcheiver ? "-top-20" : ""
-                } relative -top-16 transition-all left-4 z-20`}
+                className={`${viewAcheiver ? "-top-20" : ""
+                  } relative -top-16 transition-all left-4 z-20`}
               >
                 <img
                   src={`${baseurl}/api/instructorofmonths/${instructorMonth.img}`}
@@ -984,9 +982,8 @@ const HomePage2 = () => {
                 </div>
               </div>
               <div
-                className={`${
-                  viewAcheiver ? "block" : "hidden"
-                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
+                className={`${viewAcheiver ? "block" : "hidden"
+                  } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
               >
                 <h2 className="text-2xl font-extrabold text-center text-[black]">
                   {instructorMonth.name ? instructorMonth.name : ""}
@@ -1005,14 +1002,12 @@ const HomePage2 = () => {
             <div
               onMouseEnter={() => setViewAcheiver2(true)}
               onMouseLeave={() => setViewAcheiver2(false)}
-              className={`${
-                viewAcheiver2 ? "shadow-2xl" : "shadow-none"
-              } relative top-40 md:top-0 w-64 h-40 rounded-2xl border hover:h-96 transition-all duration-500`}
+              className={`${viewAcheiver2 ? "shadow-2xl" : "shadow-none"
+                } relative top-40 md:top-0 w-64 h-40 rounded-2xl border hover:h-96 transition-all duration-500`}
             >
               <div
-                className={`${
-                  viewAcheiver2 ? "-top-20" : ""
-                } relative -top-16 transition-all left-4 z-20`}
+                className={`${viewAcheiver2 ? "-top-20" : ""
+                  } relative -top-16 transition-all left-4 z-20`}
               >
                 <img
                   src={`${baseurl}/api/studentofmonth/${studentMonth.img}`}
@@ -1025,9 +1020,8 @@ const HomePage2 = () => {
                 </div>
               </div>
               <div
-                className={`${
-                  viewAcheiver2 ? "block" : "hidden"
-                } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
+                className={`${viewAcheiver2 ? "block" : "hidden"
+                  } relative -top-20 text-center p-3 animate__animated animate__fadeIn animate__slow`}
               >
                 <h2 className="text-2xl font-extrabold text-center text-[black]">
                   {studentMonth.name ? studentMonth.name : ""}
@@ -1353,97 +1347,6 @@ const HomePage2 = () => {
           </div>
         </section>
 
-        {/* Events */}
-        <section className="mt-20 mb-10 p-5">
-          <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
-            Event & Program
-          </h3>
-          <h1 className="text-5xl text-center font-semibold my-10">
-            Upcoming Events & Program
-          </h1>
-          {/* Events Container */}
-          <div className="flex justify-around items-center flex-wrap">
-            {events &&
-              events.map((event) => {
-                return (
-                  <div
-                    data-aos="fade-up"
-                    className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded"
-                  >
-                    <div className="flex justify-between w-full sm:w-fit">
-                      <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
-                        <div>
-                          {event.from
-                            ? month[Number(event.from.split("-")[1]) - 1]
-                            : ""}
-                        </div>{" "}
-                        <div className="text-5xl text-black font-extrabold my-4">
-                          {event.from ? event.from.split("-")[2] : ""}
-                        </div>{" "}
-                        <div>{event.from ? event.from.split("-")[0] : ""}</div>
-                      </div>
-                      <div className="py-4 mx-3 h-32 w-32">
-                        <img
-                          src={about2}
-                          className="h-32 w-32 rounded-full"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="mx-3">
-                      {/* Address */}
-                      <div className="my-4 flex items-center text-black font-extrabold  text-3xl ">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          id="event-available"
-                          fill="var(--golden)"
-                          className=" mr-2"
-                        >
-                          <path fill="none" d="M0 0h24v24H0V0z"></path>
-                          <path d="M16 10.53c-.29-.29-.77-.29-1.06 0l-4.35 4.35L9 13.29c-.29-.29-.77-.29-1.06 0-.29.29-.29.77 0 1.06l1.94 1.94c.39.39 1.02.39 1.41 0l4.7-4.7c.3-.29.3-.77.01-1.06zM19 3h-1V2c0-.55-.45-1-1-1s-1 .45-1 1v1H8V2c0-.55-.45-1-1-1s-1 .45-1 1v1H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V8h14v10c0 .55-.45 1-1 1z"></path>
-                        </svg>
-                        {event.event ? event.event : ""}
-                      </div>
-                      <h3 className="max-w-xs max-h-20 overflow-hidden my-4  text-lg  text-[var(--dash-text-color)] hover:text-[var(--golden)] transition-colors duration-500">
-                        <Tooltip
-                          content={event.desc ? event.desc : ""}
-                          placement="bottom-end"
-                          className="max-w-lg bg-white text-black text-base"
-                        >
-                          {event.desc ? event.desc : ""}
-                        </Tooltip>
-                      </h3>
-                      {/* <div className="flex items-center m-3 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
-                        <div className="ml-3 font-semibold underline">
-                          Know More
-                        </div>
-                        <div className="flex items-center justify-center  w-10 h-12 rounded-full">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2.5}
-                            stroke="currentColor"
-                            className="w-5 h-5"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                            />
-                          </svg>
-                        </div>
-                      </div> */}
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-        </section>
-
         {/* Join Us */}
         <section className="mt-20 mb-10 p-5">
           <h1 className="text-5xl text-center font-semibold my-10">Join Us</h1>
@@ -1546,6 +1449,181 @@ const HomePage2 = () => {
               </CardBody>
             </Card>
           </div>
+        </section>
+
+        {/* Events */}
+        <section className="mt-20 mb-10 p-5">
+          <h3 className="text-[var(--bg-dark-blue)] text-xl text-center font-bold">
+            Event & Program
+          </h3>
+          <h1 className="text-5xl text-center font-semibold my-10">
+            Upcoming Events & Program
+          </h1>
+          {/* Events Container */}
+          <div className="w-full flex">
+            <div className="flex justify-around items-center flex-wrap w-1/2">
+              {events &&
+                events.map((event) => {
+                  return (
+                    <div
+                      data-aos="fade-up"
+                      className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded"
+                    >
+                      <div className="flex justify-between w-full sm:w-fit">
+                        <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
+                          <div>
+                            {event.from
+                              ? month[Number(event.from.split("-")[1]) - 1]
+                              : ""}
+                          </div>{" "}
+                          <div className="text-5xl text-black font-extrabold my-4">
+                            {event.from ? event.from.split("-")[2] : ""}
+                          </div>{" "}
+                          <div>{event.from ? event.from.split("-")[0] : ""}</div>
+                        </div>
+                        <div className="py-4 mx-3 h-32 w-32">
+                          <img
+                            src={baseurl + "/api/event/1696595423495WhatsApp Image 2023-09-30 at 17.17.58_7de43aca.jpg"}
+                            className="h-32 w-32 rounded-full"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <div className="mx-3">
+                        {/* Address */}
+                        <div className="my-4 flex items-center text-black font-extrabold  text-3xl ">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            id="event-available"
+                            fill="var(--golden)"
+                            className=" mr-2"
+                          >
+                            <path fill="none" d="M0 0h24v24H0V0z"></path>
+                            <path d="M16 10.53c-.29-.29-.77-.29-1.06 0l-4.35 4.35L9 13.29c-.29-.29-.77-.29-1.06 0-.29.29-.29.77 0 1.06l1.94 1.94c.39.39 1.02.39 1.41 0l4.7-4.7c.3-.29.3-.77.01-1.06zM19 3h-1V2c0-.55-.45-1-1-1s-1 .45-1 1v1H8V2c0-.55-.45-1-1-1s-1 .45-1 1v1H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V8h14v10c0 .55-.45 1-1 1z"></path>
+                          </svg>
+                          {event.event ? event.event : ""}
+                        </div>
+                        <h3 className="max-w-xs max-h-20 overflow-hidden my-4  text-lg  text-[var(--dash-text-color)] hover:text-[var(--golden)] transition-colors duration-500">
+                          <Tooltip
+                            content={event.desc ? event.desc : ""}
+                            placement="bottom-end"
+                            className="max-w-lg bg-white text-black text-base"
+                          >
+                            {event.desc ? event.desc : ""}
+                          </Tooltip>
+                        </h3>
+                        {/* <div className="flex items-center m-3 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
+                        <div className="ml-3 font-semibold underline">
+                          Know More
+                        </div>
+                        <div className="flex items-center justify-center  w-10 h-12 rounded-full">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2.5}
+                            stroke="currentColor"
+                            className="w-5 h-5"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                            />
+                          </svg>
+                        </div>
+                      </div> */}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+            <hr />
+            <div className="flex justify-around items-center flex-wrap w-1/2">
+              {events &&
+                events.map((event) => {
+                  return (
+                    <div
+                      data-aos="fade-up"
+                      className="mx-3 my-5 flex flex-col sm:flex-row items-center w-[95%] sm:w-fit shadow-xl rounded"
+                    >
+                      <div className="flex justify-between w-full sm:w-fit">
+                        <div className="mx-3 my-2 text-[var(--dash-text-color)] font-bold text-xl w-fit">
+                          <div>
+                            {event.from
+                              ? month[Number(event.from.split("-")[1]) - 1]
+                              : ""}
+                          </div>{" "}
+                          <div className="text-5xl text-black font-extrabold my-4">
+                            {event.from ? event.from.split("-")[2] : ""}
+                          </div>{" "}
+                          <div>{event.from ? event.from.split("-")[0] : ""}</div>
+                        </div>
+                        <div className="py-4 mx-3 h-32 w-32">
+                          <img
+                            src={about2}
+                            className="h-32 w-32 rounded-full"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <div className="mx-3">
+                        {/* Address */}
+                        <div className="my-4 flex items-center text-black font-extrabold  text-3xl ">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            id="event-available"
+                            fill="var(--golden)"
+                            className=" mr-2"
+                          >
+                            <path fill="none" d="M0 0h24v24H0V0z"></path>
+                            <path d="M16 10.53c-.29-.29-.77-.29-1.06 0l-4.35 4.35L9 13.29c-.29-.29-.77-.29-1.06 0-.29.29-.29.77 0 1.06l1.94 1.94c.39.39 1.02.39 1.41 0l4.7-4.7c.3-.29.3-.77.01-1.06zM19 3h-1V2c0-.55-.45-1-1-1s-1 .45-1 1v1H8V2c0-.55-.45-1-1-1s-1 .45-1 1v1H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V8h14v10c0 .55-.45 1-1 1z"></path>
+                          </svg>
+                          {event.event ? event.event : ""}
+                        </div>
+                        <h3 className="max-w-xs max-h-20 overflow-hidden my-4  text-lg  text-[var(--dash-text-color)] hover:text-[var(--golden)] transition-colors duration-500">
+                          <Tooltip
+                            content={event.desc ? event.desc : ""}
+                            placement="bottom-end"
+                            className="max-w-lg bg-white text-black text-base"
+                          >
+                            {event.desc ? event.desc : ""}
+                          </Tooltip>
+                        </h3>
+                        {/* <div className="flex items-center m-3 hover:text-[var(--golden)] transition-all duration-500 underline hover:no-underline cursor-pointer">
+                        <div className="ml-3 font-semibold underline">
+                          Know More
+                        </div>
+                        <div className="flex items-center justify-center  w-10 h-12 rounded-full">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2.5}
+                            stroke="currentColor"
+                            className="w-5 h-5"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                            />
+                          </svg>
+                        </div>
+                      </div> */}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+
         </section>
       </main>
     </>

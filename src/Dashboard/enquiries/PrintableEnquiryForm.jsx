@@ -35,6 +35,8 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
         academicQualifications: academicQualifications,
         computerAwareness: computerAwareness,
         previousknowledge: previousknowledge,
+        pdClasses: pdClasses,
+        carrierClasses: carrierClasses,
         email: email,
         course: course,
         counseller: counseller,
@@ -52,6 +54,8 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
         setAcademicQualifications("");
         setComputerAwareness("");
         setPreviousknowledge("");
+        setPdClasses("");
+        setCarrierClasses("");
         setEmail("");
         setGender("");
         setCounseller("");
@@ -627,7 +631,7 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                                             name="pdInterest"
                                             className="form-radio h-6 w-6"
                                             onChange={(e) => {
-                                                setPdClasses("yesPD");
+                                                setPdClasses(true);
                                             }}
                                         />
                                         <label htmlFor="yesPD" className="ml-2 text-lg">
@@ -643,7 +647,7 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                                             name="pdInterest"
                                             className="form-radio h-6 w-6"
                                             onChange={(e) => {
-                                                setPdClasses("noPD");
+                                                setPdClasses(false);
                                             }}
                                         />
                                         <label htmlFor="noPD" className="ml-2 text-lg">
@@ -668,7 +672,7 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                                             className="form-radio h-6 w-6"
                                             value={carrierClasses}
                                             onChange={(e) => {
-                                                setCarrierClasses("yesCarrier");
+                                                setCarrierClasses(true);
                                             }}
                                         />
                                         <label htmlFor="yesCarrier" className="ml-2 text-lg">
@@ -684,7 +688,7 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                                             className="form-radio h-6 w-6"
                                             value={carrierClasses}
                                             onChange={(e) => {
-                                                setCarrierClasses("noCarrier");
+                                                setCarrierClasses(false);
                                             }}
                                         />
                                         <label htmlFor="noCarrier" className="ml-2 text-lg">
@@ -719,7 +723,7 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                                     <div className="flex items-center mt-5 justify-around">
 
                                         <label className="block text-xl font-medium text-gray-700">
-                                            ref_by By :
+                                            Refered By :
                                         </label>
 
                                         <Checkbox

@@ -19,6 +19,11 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
   const [shift, setShift] = useState("");
   const [locker_no, setLocker_no] = useState("");
   const [courseData, setCourseData] = useState([]);
+  const [profilePic, setProfilePic] = useState(null);
+  const [idCardimg, setIdCardimg] = useState(null)
+  const [tenthMarksheet, setTenthMarksheet] = useState(null)
+  const [twelthMarksheet, setTwelthMarksheet] = useState(null)
+  const [imageUploads, setImageUploads] = useState({})
   const data = {
     regno,
     name,
@@ -33,6 +38,10 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
     course,
     locker_no,
     shift,
+    profilePic: imageUploads.profilePic,
+    idCardimg: imageUploads.idCardimg,
+    tenthMarksheet: imageUploads.tenthMarksheet,
+    twelthMarksheet: imageUploads.twelthMarksheet
   };
 
   useEffect(() => {
@@ -65,6 +74,10 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
     setCourse("");
     setShift("");
     setLocker_no("");
+    setProfilePic("");
+    setIdCardimg("");
+    setTenthMarksheet("");
+    setTwelthMarksheet("");
     // Post Api For Posting Data
     fetch(baseurl + "/api/students", {
       method: "POST",
@@ -90,6 +103,30 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
         console.log(err);
       });
   };
+
+
+  const UploadImage = (e) => {
+    const file = e.target.files[0];
+    const fd = new FormData();
+    fd.append("myfile", file);
+    fetch(baseurl + "/api/uploadfile/", {
+      method: "POST",
+      body: fd,
+    }).then((res) => {
+      if (res.status == 200) {
+        res.json().then((data) => {
+          console.log(data);
+          const value = { [e.target.name]: data.fileName }
+          setImageUploads({ ...imageUploads, ...value })
+          console.log(imageUploads)
+        });
+      }
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+
+
   return (
     <>
       <Dialog
@@ -240,6 +277,78 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                     label="2nd Shift"
                   />
                 </div>
+              </div>
+              {/* profile pic */}
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="profilePic"
+                >
+                  Profile Pic
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="profilePic"
+                  type="file"
+                  name="profilePic"
+                  onChange={(e) => {
+                    UploadImage(e);
+                  }}
+                />
+              </div>
+              {/* Aadhar card / PAN card  */}
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="idCard"
+                >
+                  Aadhar card / PAN card
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="idCard"
+                  type="file"
+                  name="idCard"
+                  onChange={(e) => {
+                    UploadImage(e);
+                  }}
+                />
+              </div>
+              {/* Upload 10th Marksheet */}
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="idCard"
+                >
+                  Upload 10th Marksheet
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="idCard"
+                  type="file"
+                  name="HighSchoolmarksheet"
+                  onChange={(e) => {
+                    UploadImage(e);
+                  }}
+                />
+              </div>
+              {/* 12th marksheet or above  */}
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="idCard"
+                >
+                  12th marksheet or above
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="idCard"
+                  type="file"
+                  name="intermediatemarksheet"
+                  onChange={(e) => {
+                    UploadImage(e);
+                  }}
+                />
               </div>
             </div>
           </form>

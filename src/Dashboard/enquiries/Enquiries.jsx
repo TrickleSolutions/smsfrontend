@@ -63,6 +63,7 @@ const Enquiries = () => {
       })
       .then((result) => {
         setProduct(result);
+        console.log(result)
         setLoader(false);
       })
       .catch((err) => {
@@ -246,54 +247,70 @@ const Enquiries = () => {
                 <table className="w-full  text-sm text-left text-gray-500 ">
                   <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
                     <tr>
-                      <th scope="col" className=" py-3">
+                      <th scope="col" className="px-3">
                         <Checkbox
                           checked={selectAll}
                           onChange={handleSelectAll}
                         />
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="min-w-[60px]">
                         Sr. No.
                       </th>
                       <th scope="col" className="">
                         Name
                       </th>
-
-                      <th scope="col" className=" ">
+                      <th scope="col" className="min-w-[120px]">
                         Father Name
                       </th>
-                      <th scope="col" className="">
-                        Contact
-                      </th>
-                      <th scope="col" className=" ">
+                      <th scope="col" className="min-w-[100px]">
                         Address
                       </th>
-
-                      <th scope="col" className="">
-                        DOB
+                      <th scope="col" className="min-w-[100px]">
+                        Contact
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="min-w-[70px]">
                         Gender
                       </th>
-                      <th scope="col" className="">
-                        Expected DOJ
+                      <th scope="col" className="min-w-[100px]">
+                        Martial Status
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="min-w-[100px]">
+                        DOB
+                      </th>
+                      <th scope="col" className="min-w-[150px]">
+                        Academic Qualifications
+                      </th>
+                      <th scope="col" className="min-w-[150px]">
+                        Computer Awareness
+                      </th>
+                      <th scope="col" className="min-w-[100px]">
+                        Previous knowledge
+                      </th>
+                      <th scope="col" className="min-w-[100px]">
                         Counselor
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="min-w-[100px]">
                         Course
                       </th>
-                      <th scope="col" className="">
-                        Note
+                      <th scope="col" className="min-w-[150px]">
+                        Personality Development
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="min-w-[100px]">
+                        Carrier Classes
+                      </th>
+                      <th scope="col" className="min-w-[100px]">
+                        Refered By
+                      </th>
+                      <th scope="col" className="min-w-[100px]">
+                        Enq. Date
+                      </th>
+                      <th scope="col" className="min-w-[100px]">
                         Status
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="min-w-[60px]">
                         Enroll
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="min-w-[50px]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

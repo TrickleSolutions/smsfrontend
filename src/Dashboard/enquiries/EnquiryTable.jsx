@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import ModalEnrollStudent from "./ModalEnrollStudent";
 import ModalEditEnquiry from "./ModalEditEnquiry";
 import { useNavigate } from "react-router-dom";
+import moment from "moment/moment";
 
 const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
   const [open, setOpen] = useState(false);
@@ -46,9 +47,10 @@ const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
 
 
   async function HandleEnquiryStatus(id, status) {
-    const statusQuery = new URLSearchParams({ status: status }).toString()
+    const statusQuery = new URLSearchParams({ status }).toString()
     try {
-      const response = await fetch(`${baseurl}/api/enquiry?${statusQuery}`, {
+      console.log(`${baseurl}/api/enquiry?${statusQuery}`)
+      const response = await fetch(`${baseurl}/api/enquiry/${id}?${statusQuery}`, {
         method: 'GET',
       });
 
@@ -74,14 +76,13 @@ const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
           checked={checked}
         />
       </td>
-      <td className="px-1 py-4">{item.enquiryNo}</td>
+      <td className="">{item.enquiryNo}</td>
       <th scope="row" className="px-6 py-4 font-semibold text-black">
         <div>{item.name}</div>
         <div className="font-light my-1 text-gray-500">{item.email}</div>
       </th>
-      <td className="px-1 py-4">{item.fname}</td>
-      <td className="px-1 py-4">{item.contact}</td>
-      <td className="px-1 py-4 max-w-0 truncate">
+      <td className="">{item.fname}</td>
+      <td className="max-w-0 truncate">
         <Tooltip
           content={item.address}
           className="max-w-xs text-white bg-[var(--theme-color)] rounded-md"
@@ -90,13 +91,23 @@ const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
           {item.address}
         </Tooltip>
       </td>
-      {/* <td className="px-1 py-4 hidden md:table-cell">{item.ref_by}</td> */}
-      <td className="px-1 py-4">{item.dob}</td>
-      <td className="px-1 py-4">{item.gender}</td>
-      <td className="px-1 py-4">{item.epx_join}</td>
-      <td className="px-1 py-4">{item.counseller}</td>
-      <td className="px-1 py-4">{item.course}</td>
-      <td className="px-1 py-4">{item.note}</td>
+      <td className="">{item.contact}</td>
+      <td className="">{item.gender}</td>
+      <td className="">{item.maritalStatus}</td>
+      {/* <td className=" hidden md:table-cell">{item.ref_by}</td> */}
+      <td className="">{item.dob}</td>
+      <td className="">{item.academicQualifications}</td>
+      <td className="">{item.computerAwareness}</td>
+      <td className="">{item.previousknowledge}</td>
+      <td className="">{item.counseller}</td>
+      <td className="">{item.course}</td>
+      <td className="">{item.pdClasses ? 'Yes' : 'No'}</td>
+      <td className="">{item.carrierClasses ? 'Yes' : 'No'}</td>
+      <td className="">{item.ref_by}</td>
+      <td className="">
+        <p>{moment(item.updatedAt).format('MMM Do YY')}</p>
+        {moment(item.updatedAt).format('h:mm:ss a')}
+      </td>
       <td className={`${item.status === 'pending' ? 'text-yellow-700' :
         item.status === 'joined' ? 'text-green-700' :
           item.status === 'not-interested' ? 'text-red-700' : ''
@@ -106,8 +117,7 @@ const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
               item.status === 'not-interested' ? 'Not Interested' : ''
         }
       </td>
-
-      <td className="px-1 py-4">
+      <td className="">
         {
           item.status === 'joined' ?
             <Button size="sm" onClick={() => navigate('/admin/students')}>
