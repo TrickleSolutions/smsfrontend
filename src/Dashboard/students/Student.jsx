@@ -12,6 +12,7 @@ import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import ModalViewStudent from "./ModalViewStudent";
 import StudenDocument from "./StudenDocument";
+import moment from "moment/moment";
 
 const Student = ({ item, getStudentList, index, checked, updateAuth }) => {
   const [open, setOpen] = useState(false);
@@ -67,8 +68,11 @@ const Student = ({ item, getStudentList, index, checked, updateAuth }) => {
         <td className="max-w-xs break-words truncate">{item.address}</td>
         <td className="">{item.contact}</td>
         <td className="px-3 py-4">{item.gender}</td>
-        <td className="px-3 py-4">{item.dob}</td>
-        <td className="">{item.admdate}</td>
+        <td className="px-3 py-4">{moment(item.dob).format('MMMM Do YYYY')}</td>
+        <td className="">
+          <p>{moment(item.admdate).format('MMMM Do YYYY')}</p>
+          {moment(item.admdate).format('h:mm:ss a')}
+        </td>
 
         <td className="">{item.library ? item.library : "-"}</td>
         <td className=""><Button onClick={handleDocumentOpen} size="sm" >View</Button></td>

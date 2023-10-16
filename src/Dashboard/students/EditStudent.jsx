@@ -27,11 +27,11 @@ const EditStudent = () => {
   const [shift, setShift] = useState("");
   const [locker_no, setLocker_no] = useState("");
   const [courseData, setCourseData] = useState([]);
+  const location = useLocation();
   const [imageUploads, setImageUploads] = useState({})
+  const stuData = location.state;
 
   const [formData, setFormData] = useState({})
-  const location = useLocation();
-  const stuData = location.state;
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -60,31 +60,11 @@ const EditStudent = () => {
       });
   };
 
-  // useEffect(() => {
-  //   setRegno(stuData.regno);
-  //   setName(stuData.name);
-  //   setFname(stuData.fname);
-  //   setAddress(stuData.address);
-  //   setContact(stuData.contact);
-  //   setEmail(stuData.email);
-  //   setGender(stuData.gender);
-  //   setDob(stuData.dob);
-  //   setAdmdate(stuData.admdate);
-  //   setRefby(stuData.refby);
-  //   setPassword(stuData.password);
-  //   setProfilePic(stuData.profilePic);
-  //   setStatus(stuData.status);
-  //   setCourse(stuData.course);
-  //   setShift(stuData.shift);
-  //   setLocker_no(stuData.locker_no);
-  // }, [stuData]);
-
   // PUT Api For Updating Data
 
   const handleSubmit = async (e) => {
     const newFormData = {
-      name: name,
-      profilePic: imageUploads.profilePic,
+      // profilePic: imageUploads.profilePic,
       gender: gender,
       shift: shift,
       ...formData,
@@ -92,70 +72,16 @@ const EditStudent = () => {
 
     try {
       const response = await axios.patch(baseurl + "/api/students/" + stuData._id, newFormData);
+      console.log(newFormData)
       if (response.status === 200) {
-        console.log(response.data.data);
-        // navigate("/admin/students")
+        toast.success("Updated Successfully");
+        setLoader(false);
+        navigate("/admin/students");
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-
-  //   // e.preventDefault();
-  //   // setLoader(true);
-  //   // const formData = new FormData();
-  //   // formData.append("regno", regno);
-  //   // formData.append("name", name);
-  //   // formData.append("fname", fname);
-  //   // formData.append("address", address);
-  //   // formData.append("contact", contact);
-  //   // formData.append("email", email);
-  //   // formData.append("gender", gender);
-  //   // formData.append("dob", dob);
-  //   // formData.append("admdate", admdate);
-  //   // formData.append("refby", refby);
-  //   // formData.append("password", password);
-  //   // formData.append("status", status);
-  //   // formData.append("course", course);
-  //   // formData.append("shift", shift);
-  //   // formData.append("locker_no", locker_no);
-
-  //   // formData.append("profilePic", imageUploads.profilePic)
-  //   // for (var pair of formData.entries()) {
-  //   //   console.log(pair[0] + ", " + pair[1]);
-  //   // }
-
-  //   // // Empty the value of fields
-  //   // setName("");
-  //   // setEmail("");
-  //   // setRegno("");
-  //   // setFname("");
-  //   // setAddress("");
-  //   // setGender("");
-  //   // setAdmdate("");
-  //   // setRefby("");
-  //   // setDob("");
-  //   // setPassword("");
-  //   // setProfilePic("");
-
-  //   // Post Api For Updating Data
-  //   fetch(baseurl + "/api/students/" + stuData?._id, {
-  //     method: "PATCH",
-  //     body: JSON.stringify(formData),
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then(() => {
-  //       toast.success("Updated Successfully");
-  //       setLoader(false);
-  //       navigate("/admin/students");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   const UploadImage = (e) => {
     const file = e.target.files[0];
@@ -176,7 +102,15 @@ const EditStudent = () => {
       console.log(error)
     });
   }
-  console.log(formData, imageUploads)
+
+  useEffect(() => {
+    setFormData({ ...formData, ...stuData })
+  }, [])
+  useEffect(() => {
+    if (imageUploads.profilePic) {
+      setFormData({ ...formData, profilePic: imageUploads.profilePic })
+    }
+  }, [imageUploads])
   return (
     <>
       {loader ? (
@@ -187,7 +121,7 @@ const EditStudent = () => {
         <div className="max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-5xl mx-auto p-5">
           <h2 className="text-3xl text-center font-bold my-5">Edit Student</h2>
           <div className=" md:px-5 lg:px-10 mt-20">
-            <form onSubmit={handleSubmit}>
+            <form >
               <div className="flex flex-wrap -mx-3 mb-6">
 
                 <div className="w-full md:w-1/2 px-3 mb-3">
@@ -323,21 +257,19 @@ const EditStudent = () => {
                       id="male"
                       name="gender"
                       label="Male"
-                      value={gender}
-                      // onChange={(e) => {
-                      //   setGender("male");
-                      // }}
-                      onChange={() => setGender("male")}
+                      value={formData.gender || ""}
+                      defaultChecked={
+                        formData.gender
+                      }
+                      onChange={() => setFormData({ ...formData, gender: "male" })}
                     />
                     <Radio
                       id="female"
                       name="gender"
                       label="Female"
-                      value={gender}
-                      // onChange={(e) => {
-                      //   setGender("female");
-                      // }}
-                      onChange={() => setGender("female")}
+                      value={formData.gender || ""}
+                      defaultChecked={formData.gender}
+                      onChange={() => setFormData({ ...formData, gender: "female" })}
                     />
                   </div>
                 </div>
@@ -465,15 +397,23 @@ const EditStudent = () => {
                     onChange={handleFormData}
                   />
                 </div>
-                <input
-                  className="appearance-none block w-1/2 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="profilePic"
-                  name="profilePic"
-                  type="file"
-                  onChange={(e) => {
-                    UploadImage(e);
-                  }}
-                />
+                <div className="md:w-1/2 px-3 mb-3">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="password"
+                  >
+                    Upload Profile
+                  </label>
+                  <input
+                    className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="profilePic"
+                    name="profilePic"
+                    type="file"
+                    onChange={(e) => {
+                      UploadImage(e);
+                    }}
+                  />
+                </div>
                 {/* Option */}
                 <div className="w-full md:w-1/2 px-3 mb-3">
                   <label
@@ -527,7 +467,7 @@ const EditStudent = () => {
                       {courseData.map((item) => {
                         return (
                           <option
-                            value={item._id}
+                            value={item.title}
                             selected={item._id === stuData?.course ? true : false}
                           >
                             {item.title}
@@ -599,7 +539,8 @@ const EditStudent = () => {
                   </div>
                 </div>
                 <input
-                  type="submit"
+                  type="button"
+                  onClick={handleSubmit}
                   className="h-fit p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
                 />
               </div>
