@@ -4,6 +4,7 @@ import baseurl from "../../Config";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Loader";
+import axios from "axios";
 
 const EditStudent = () => {
   const [loader, setLoader] = useState(false);
@@ -26,9 +27,15 @@ const EditStudent = () => {
   const [shift, setShift] = useState("");
   const [locker_no, setLocker_no] = useState("");
   const [courseData, setCourseData] = useState([]);
+  const [imageUploads, setImageUploads] = useState({})
+
+  const [formData, setFormData] = useState({})
   const location = useLocation();
   const stuData = location.state;
 
+  const handleFormData = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,82 +60,123 @@ const EditStudent = () => {
       });
   };
 
-  useEffect(() => {
-    setRegno(stuData.regno);
-    setName(stuData.name);
-    setFname(stuData.fname);
-    setAddress(stuData.address);
-    setContact(stuData.contact);
-    setEmail(stuData.email);
-    setGender(stuData.gender);
-    setDob(stuData.dob);
-    setAdmdate(stuData.admdate);
-    setRefby(stuData.refby);
-    setPassword(stuData.password);
-    setProfilePic(stuData.profilePic);
-    setStatus(stuData.status);
-    setCourse(stuData.course);
-    setShift(stuData.shift);
-    setLocker_no(stuData.locker_no);
-  }, [stuData]);
+  // useEffect(() => {
+  //   setRegno(stuData.regno);
+  //   setName(stuData.name);
+  //   setFname(stuData.fname);
+  //   setAddress(stuData.address);
+  //   setContact(stuData.contact);
+  //   setEmail(stuData.email);
+  //   setGender(stuData.gender);
+  //   setDob(stuData.dob);
+  //   setAdmdate(stuData.admdate);
+  //   setRefby(stuData.refby);
+  //   setPassword(stuData.password);
+  //   setProfilePic(stuData.profilePic);
+  //   setStatus(stuData.status);
+  //   setCourse(stuData.course);
+  //   setShift(stuData.shift);
+  //   setLocker_no(stuData.locker_no);
+  // }, [stuData]);
 
   // PUT Api For Updating Data
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoader(true);
-    const formData = new FormData();
-    formData.append("regno", regno);
-    formData.append("name", name);
-    formData.append("fname", fname);
-    formData.append("address", address);
-    formData.append("contact", contact);
-    formData.append("email", email);
-    formData.append("gender", gender);
-    formData.append("dob", dob);
-    formData.append("admdate", admdate);
-    formData.append("refby", refby);
-    formData.append("password", password);
-    formData.append("profilePic", profilePic);
-    formData.append("status", status);
-    formData.append("course", course);
-    formData.append("shift", shift);
-    formData.append("locker_no", locker_no);
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+  const handleSubmit = async (e) => {
+    const newFormData = {
+      name: name,
+      profilePic: imageUploads.profilePic,
+      gender: gender,
+      shift: shift,
+      ...formData,
+    };
+
+    try {
+      const response = await axios.patch(baseurl + "/api/students/" + stuData._id, newFormData);
+      if (response.status === 200) {
+        console.log(response.data.data);
+        // navigate("/admin/students")
+      }
+    } catch (error) {
+      console.log(error);
     }
-
-    // Empty the value of fields
-    setName("");
-    setEmail("");
-    setRegno("");
-    setFname("");
-    setAddress("");
-    setGender("");
-    setAdmdate("");
-    setRefby("");
-    setDob("");
-    setPassword("");
-    setProfilePic("");
-
-    // Post Api For Updating Data
-    fetch(baseurl + "/api/students/" + stuData._id, {
-      method: "PUT",
-      body: formData,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then(() => {
-        toast.success("Updated Successfully");
-        setLoader(false);
-        navigate("/admin/students");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
+
+  //   // e.preventDefault();
+  //   // setLoader(true);
+  //   // const formData = new FormData();
+  //   // formData.append("regno", regno);
+  //   // formData.append("name", name);
+  //   // formData.append("fname", fname);
+  //   // formData.append("address", address);
+  //   // formData.append("contact", contact);
+  //   // formData.append("email", email);
+  //   // formData.append("gender", gender);
+  //   // formData.append("dob", dob);
+  //   // formData.append("admdate", admdate);
+  //   // formData.append("refby", refby);
+  //   // formData.append("password", password);
+  //   // formData.append("status", status);
+  //   // formData.append("course", course);
+  //   // formData.append("shift", shift);
+  //   // formData.append("locker_no", locker_no);
+
+  //   // formData.append("profilePic", imageUploads.profilePic)
+  //   // for (var pair of formData.entries()) {
+  //   //   console.log(pair[0] + ", " + pair[1]);
+  //   // }
+
+  //   // // Empty the value of fields
+  //   // setName("");
+  //   // setEmail("");
+  //   // setRegno("");
+  //   // setFname("");
+  //   // setAddress("");
+  //   // setGender("");
+  //   // setAdmdate("");
+  //   // setRefby("");
+  //   // setDob("");
+  //   // setPassword("");
+  //   // setProfilePic("");
+
+  //   // Post Api For Updating Data
+  //   fetch(baseurl + "/api/students/" + stuData?._id, {
+  //     method: "PATCH",
+  //     body: JSON.stringify(formData),
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then(() => {
+  //       toast.success("Updated Successfully");
+  //       setLoader(false);
+  //       navigate("/admin/students");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  const UploadImage = (e) => {
+    const file = e.target.files[0];
+    const fd = new FormData();
+    fd.append("myfile", file);
+    fetch(baseurl + "/api/uploadfile", {
+      method: "POST",
+      body: fd,
+    }).then((res) => {
+      if (res.status == 200) {
+        res.json().then((data) => {
+          console.log(data);
+          const value = { [e.target.name]: data.fileName }
+          setImageUploads({ ...imageUploads, ...value })
+        });
+      }
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+  console.log(formData, imageUploads)
   return (
     <>
       {loader ? (
@@ -141,6 +189,7 @@ const EditStudent = () => {
           <div className=" md:px-5 lg:px-10 mt-20">
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap -mx-3 mb-6">
+
                 <div className="w-full md:w-1/2 px-3 mb-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -153,10 +202,12 @@ const EditStudent = () => {
                     id="fullName"
                     type="text"
                     placeholder="John Doe"
-                    value={name}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
+                    name="name"
+                    value={formData.name || ""}
+                    // onChange={(e) => {
+                    //   setName(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-3">
@@ -171,10 +222,12 @@ const EditStudent = () => {
                     id="fatherName"
                     type="text"
                     placeholder="Harry Doe"
-                    value={fname}
-                    onChange={(e) => {
-                      setFname(e.target.value);
-                    }}
+                    name="fname"
+                    value={formData.fname || ""}
+                    // onChange={(e) => {
+                    //   setFname(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-3">
@@ -189,10 +242,12 @@ const EditStudent = () => {
                     id="email"
                     type="email"
                     placeholder="john@gmail.com"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
+                    name="email"
+                    value={formData.email || ""}
+                    // onChange={(e) => {
+                    //   setEmail(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-3">
@@ -207,10 +262,12 @@ const EditStudent = () => {
                     id="regno"
                     type="number"
                     placeholder="7643858"
-                    value={regno}
-                    onChange={(e) => {
-                      setRegno(e.target.value);
-                    }}
+                    name="regno"
+                    value={formData.regno || ""}
+                    // onChange={(e) => {
+                    //   setRegno(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
                 <div className="w-full px-3 mb-3">
@@ -225,10 +282,12 @@ const EditStudent = () => {
                     id="address"
                     type="text"
                     placeholder="7th Street, Mexico, USA"
-                    value={address}
-                    onChange={(e) => {
-                      setAddress(e.target.value);
-                    }}
+                    name="address"
+                    value={formData.address || ""}
+                    // onChange={(e) => {
+                    //   setAddress(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
 
@@ -244,10 +303,12 @@ const EditStudent = () => {
                     id="contact"
                     type="number"
                     placeholder="9257643858"
-                    value={contact}
-                    onChange={(e) => {
-                      setContact(e.target.value);
-                    }}
+                    name="contact"
+                    value={formData.contact || ""}
+                    // onChange={(e) => {
+                    //   setContact(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-3">
@@ -260,21 +321,23 @@ const EditStudent = () => {
                   <div className="flex gap-10">
                     <Radio
                       id="male"
-                      name="type"
+                      name="gender"
                       label="Male"
                       value={gender}
-                      onChange={(e) => {
-                        setGender("male");
-                      }}
+                      // onChange={(e) => {
+                      //   setGender("male");
+                      // }}
+                      onChange={() => setGender("male")}
                     />
                     <Radio
                       id="female"
-                      name="type"
+                      name="gender"
                       label="Female"
                       value={gender}
-                      onChange={(e) => {
-                        setGender("female");
-                      }}
+                      // onChange={(e) => {
+                      //   setGender("female");
+                      // }}
+                      onChange={() => setGender("female")}
                     />
                   </div>
                 </div>
@@ -289,33 +352,35 @@ const EditStudent = () => {
                   </label>
                   <select
                     label="Select Status"
+                    name="status"
                     className="p-2 border focus-visible:outline-none"
-                    value={status}
-                    onChange={(e) => {
-                      setStatus(e.target.value);
-                    }}
+                    value={formData.status || ""}
+                    // onChange={(e) => {
+                    //   setStatus(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   >
                     <option
                       value="active"
-                      selected={stuData.status === "active" ? true : false}
+                      selected={formData.status === "active" ? true : false}
                     >
                       Active
                     </option>
                     <option
                       value="pending"
-                      selected={stuData.status === "pending" ? true : false}
+                      selected={formData.status === "pending" ? true : false}
                     >
                       Pending{" "}
                     </option>
                     <option
                       value="completed"
-                      selected={stuData.status === "completed" ? true : false}
+                      selected={formData.status === "completed" ? true : false}
                     >
                       Completed{" "}
                     </option>
                     <option
                       value="absconded"
-                      selected={stuData.status === "absconded" ? true : false}
+                      selected={formData.status === "absconded" ? true : false}
                     >
                       Break{" "}
                     </option>
@@ -333,10 +398,12 @@ const EditStudent = () => {
                     className="scroll-smooth appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="dob"
                     type="date"
-                    value={dob}
-                    onChange={(e) => {
-                      setDob(e.target.value);
-                    }}
+                    name="dob"
+                    value={formData.dob || ""}
+                    // onChange={(e) => {
+                    //   setDob(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-3">
@@ -350,10 +417,12 @@ const EditStudent = () => {
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="admdate"
                     type="date"
-                    value={admdate}
-                    onChange={(e) => {
-                      setAdmdate(e.target.value);
-                    }}
+                    name="admdate"
+                    value={formData.admdate || ""}
+                    // onChange={(e) => {
+                    //   setAdmdate(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-3">
@@ -367,11 +436,13 @@ const EditStudent = () => {
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="refBy"
                     type="text"
+                    name="refby"
                     placeholder="Suman Yadav"
-                    value={refby}
-                    onChange={(e) => {
-                      setRefby(e.target.value);
-                    }}
+                    value={formData.refby || ""}
+                    // onChange={(e) => {
+                    //   setRefby(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
                 {/* Password */}
@@ -386,18 +457,21 @@ const EditStudent = () => {
                     className="scroll-smooth appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="password"
                     type="password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
+                    value={formData.password || ""}
+                    name="password"
+                    // onChange={(e) => {
+                    //   setPassword(e.target.value);
+                    // }}
+                    onChange={handleFormData}
                   />
                 </div>
                 <input
                   className="appearance-none block w-1/2 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="profilePic"
+                  name="profilePic"
                   type="file"
                   onChange={(e) => {
-                    setProfilePic(e.target.files[0]);
+                    UploadImage(e);
                   }}
                 />
                 {/* Option */}
@@ -431,7 +505,7 @@ const EditStudent = () => {
                   </div>
                 </div>
                 {/* Course */}
-                {opt == "course" || opt == "both" ? (
+                {opt === "course" || opt === "both" ? (
                   <div className="w-full md:w-1/2 px-3 mb-3">
                     <label
                       className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -442,17 +516,19 @@ const EditStudent = () => {
                     <select
                       label="Select Course"
                       className="p-2 border focus-visible:outline-none"
-                      value={course}
-                      onChange={(e) => {
-                        setCourse(e.target.value);
-                      }}
+                      value={formData?.course || ""}
+                      name="course"
+                      // onChange={(e) => {
+                      //   setCourse(e.target.value);
+                      // }}
+                      onChange={handleFormData}
                     >
                       <option value="">Select Course</option>
                       {courseData.map((item) => {
                         return (
                           <option
                             value={item._id}
-                            selected={item._id == stuData.course ? true : false}
+                            selected={item._id === stuData?.course ? true : false}
                           >
                             {item.title}
                           </option>
@@ -476,11 +552,13 @@ const EditStudent = () => {
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="locker_no"
                       type="number"
+                      name="locker_no"
                       placeholder="544543"
-                      value={locker_no}
-                      onChange={(e) => {
-                        setLocker_no(e.target.value);
-                      }}
+                      value={formData.locker_no || ""}
+                      // onChange={(e) => {
+                      //   setLocker_no(e.target.value);
+                      // }}
+                      onChange={handleFormData}
                     />
                   </div>
                 ) : (
@@ -499,20 +577,24 @@ const EditStudent = () => {
                     <Radio
                       id="shift"
                       onChange={() => setShift("1st Shift")}
-                      name="type2"
+                      name="shift"
+                      value={shift}
+                      // onChange={handleFormData}
                       label="1st Shift"
-                      defaultChecked={
-                        stuData.shift == "1st Shift" ? true : false
-                      }
+                    // defaultChecked={
+                    //   formData.shift == "1st Shift" ? true : false
+                    // }
                     />
                     <Radio
                       id="shift"
                       onChange={() => setShift("2nd Shift")}
-                      name="type2"
+                      // onChange={handleFormData}
+                      value={shift}
+                      name="shift"
                       label="2nd Shift"
-                      defaultChecked={
-                        stuData.shift == "2nd Shift" ? true : false
-                      }
+                    // defaultChecked={
+                    //   formData.shift == "2nd Shift" ? true : false
+                    // }
                     />
                   </div>
                 </div>

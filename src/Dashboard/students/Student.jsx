@@ -48,7 +48,7 @@ const Student = ({ item, getStudentList, index, checked, updateAuth }) => {
           <Checkbox
             checked={checked} />
         </td>
-        <td className="px-6 py-4">{index + 1}</td>
+        {/* <td className="px-6 py-4">{index}</td> */}
         <td scope="row" className="px-6 py-4 font-semibold text-black">
           <div onClick={handleOpen} className="flex cursor-pointer">
             <div className=" text-white">

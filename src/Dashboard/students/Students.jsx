@@ -6,8 +6,11 @@ import baseurl from "../../Config";
 import Student from "./Student";
 import Loader from "../../Components/Loader";
 import { CSVLink } from "react-csv";
+import Pagination from "../../Components/Pagination";
+import { GlobalPagination } from "../../Components/GlobalPagination";
 
 const Students = ({ updateAuth }) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const [product, setProduct] = useState([]);
   const [pageData, setPageData] = useState([]);
   const [page, setPage] = useState(1);
@@ -21,7 +24,7 @@ const Students = ({ updateAuth }) => {
 
   useEffect(() => {
     getStudentList(filterBy);
-  }, [page, open, filterBy]);
+  }, [currentPage]);
 
 
   const handleSelectAll = () => {
@@ -43,7 +46,8 @@ const Students = ({ updateAuth }) => {
   };
 
   const getStudentList = (filterby) => {
-    fetch(baseurl + "/api/students ", {
+    const query = new URLSearchParams({ page: currentPage, limit: 5 }).toString()
+    fetch(baseurl + "/api/students?" + query, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -69,40 +73,13 @@ const Students = ({ updateAuth }) => {
       });
   };
 
-  //handle Next
-  const handleNext = () => {
-    if (page === pageCount) return page;
-    setPage(page + 1);
+
+  // Replace with the actual total number of pages in your dataset.
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can also fetch data for the new page here.
   };
-  //handlePrevious
-  const handlePrevious = () => {
-    if (page === 1) return page;
-    setPage(page - 1);
-  };
-  //console.log(pageCount)
-
-  useEffect(() => {
-    const pagedatacount = Math.ceil(product.length / 5);
-    setPageCount(pagedatacount);
-
-    if (page) {
-      const LIMIT = 5;
-      const skip = LIMIT * page;
-
-      // Sort the product data by name in alphabetical order
-      const sortedData = [...product].sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
-
-      const dataskip = sortedData.slice(
-        page === 1 ? 0 : skip - LIMIT,
-        skip
-      );
-
-      setPageData(dataskip);
-    }
-  }, [product, page]);
-
 
   return (
     <>
@@ -196,9 +173,9 @@ const Students = ({ updateAuth }) => {
                           onChange={handleSelectAll}
                         />
                       </th>
-                      <th scope="col" className="px-2">
+                      {/* <th scope="col" className="px-2">
                         Sr. No.
-                      </th>
+                      </th> */}
                       <th scope="col" className="px-2">
                         Student
                       </th>
@@ -257,9 +234,7 @@ const Students = ({ updateAuth }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(pageData)}
-                    {/* Dummy Data Ends Here */}
-                    {pageData.map((item, index) => {
+                    {product?.data?.map((item, index) => {
                       if (
                         item.name
                           .toLowerCase()
@@ -283,12 +258,11 @@ const Students = ({ updateAuth }) => {
               </div>
             )}
             <div className="flex justify-end">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination flex space-x-5 border w-fit px-2 py-1 mx-5 mt-5">
+              {/* <nav aria-label="Page navigation example">
+                <ul className="pagination flex space-x-5 border w-1/4 px-2 py-1 mx-5 mt-5">
                   <li className="page-item">
                     <a
                       className="page-link"
-                      sty
                       href="#"
                       aria-label="Previous"
                       onClick={handlePrevious}
@@ -307,11 +281,10 @@ const Students = ({ updateAuth }) => {
                     .fill(null)
                     .map((ele, index) => {
                       return (
-                        <li className="page-item">
+                        <li className="page-item" key={index}>
                           <a
-                            className="page-link"
+                            className={page === index + 1 ? "page-link active" : "page-link"}
                             href="#"
-                            active={page === index + 1 ? true : false}
                             onClick={() => {
                               setPage(index + 1);
                             }}
@@ -324,7 +297,6 @@ const Students = ({ updateAuth }) => {
                   <li className="page-item">
                     <a
                       className="page-link"
-                      href="#"
                       aria-label="Next"
                       onClick={handleNext}
                       disabled={page === pageCount}
@@ -339,17 +311,23 @@ const Students = ({ updateAuth }) => {
                     </a>
                   </li>
                 </ul>
-              </nav>
+              </nav> */}
+              <GlobalPagination
+                currentPage={product?.currentPage}
+                totalPages={product?.totalPages}
+                onChange={handlePageChange}
+              />
             </div>
+
           </div>
         </div>
-      </div>
+      </div >
       {/* Footer */}
-      <div className="bg-[var(--theme-color)]">
+      <div div className="bg-[var(--theme-color)]" >
         <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
           &#169; 2023 SMS Education | All Rights Reserved
         </h1>
-      </div>
+      </div >
     </>
   );
 };
