@@ -151,6 +151,7 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                 />
               </div>
               {/* Category */}
+              {console.log(categoryData)}
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -167,7 +168,7 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                   }}
                 >
                   {categoryData.map((item) => {
-                    return <Option value={item._id}>{item.name}</Option>;
+                    return <Option value={item.name}>{item.name}</Option>;
                   })}
                 </Select>
               </div>
@@ -297,7 +298,7 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                 <div className="flex flex-wrap gap-2">
                   <Radio
                     id="Active"
-                    name="type"
+                    name="status"
                     label="Active"
                     value="active"
                     onChange={(e) => {
@@ -307,7 +308,7 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                   />
                   <Radio
                     id="Paused"
-                    name="type"
+                    name="status"
                     label="Paused"
                     value="paused"
                     onChange={(e) => {

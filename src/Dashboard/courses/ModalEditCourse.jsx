@@ -203,7 +203,7 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
                   }}
                 >
                   {categoryData.map((item) => {
-                    return <Option value={item._id}>{item.name}</Option>;
+                    return <Option value={item.name}>{item.name}</Option>;
                   })}
                 </Select>
               </div>
@@ -310,19 +310,19 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
                 >
                   Course Description
                 </label>
-                {/* <Textarea
+                <Textarea
                   resize={true}
                   label="Message"
                   value={desc}
                   onChange={(e) => {
                     setDesc(e.target.value);
                   }}
-                /> */}
-                <JoditEditor
+                />
+                {/* <JoditEditor
                   ref={editor}
                   value={desc}
                   onChange={(value) => setDesc(value)}
-                />
+                /> */}
               </div>
               {/* Status */}
               <div className="w-full px-3 mb-3">
@@ -335,7 +335,7 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
                 <div className="flex flex-wrap gap-2">
                   <Radio
                     id="Active"
-                    name="type"
+                    name="types"
                     label="Active"
                     value="active"
                     onChange={(e) => {
@@ -345,7 +345,7 @@ const ModalEditCourse = ({ item, open, handleOpen, getCourseList }) => {
                   />
                   <Radio
                     id="Paused"
-                    name="type"
+                    name="types"
                     label="Paused"
                     value="paused"
                     onChange={(e) => {
