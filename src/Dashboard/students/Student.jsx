@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Menu,
   MenuHandler,
@@ -14,7 +14,7 @@ import ModalViewStudent from "./ModalViewStudent";
 import StudenDocument from "./StudenDocument";
 import moment from "moment/moment";
 
-const Student = ({ item, getStudentList, index, checked, updateAuth }) => {
+const Student = ({ item, getStudentList, checked, updateAuth }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const handleOpen = () => setOpen(!open);
@@ -50,7 +50,7 @@ const Student = ({ item, getStudentList, index, checked, updateAuth }) => {
             checked={checked} />
         </td>
         {/* <td className="px-6 py-4">{index}</td> */}
-        <td scope="row" className="px-6 py-4 font-semibold text-black">
+        <td className="px-6 py-4 font-semibold text-black">
           <div onClick={handleOpen} className="flex cursor-pointer">
             <div className=" text-white">
               <img className="rounded-full w-10 h-10" src={baseurl + `/${item?.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
@@ -71,7 +71,7 @@ const Student = ({ item, getStudentList, index, checked, updateAuth }) => {
         <td className="px-3 py-4">{moment(item.dob).format('MMMM Do YYYY')}</td>
         <td className="">
           <p>{moment(item.admdate).format('MMMM Do YYYY')}</p>
-          {moment(item.admdate).format('h:mm:ss a')}
+          {/* {moment(item.admdate).format('h:mm:ss a')} */}
         </td>
 
         <td className="">{item.library ? item.library : "-"}</td>
@@ -80,13 +80,13 @@ const Student = ({ item, getStudentList, index, checked, updateAuth }) => {
         <td className="">
           <span
             className={
-              item.status.toLowerCase() == "active"
+              item.status.toLowerCase() === "active"
                 ? "text-teal-500"
-                : item.status.toLowerCase() == "pending"
+                : item.status.toLowerCase() === "pending"
                   ? "text-yellow-500"
-                  : item.status.toLowerCase() == "completed"
+                  : item.status.toLowerCase() === "completed"
                     ? "text-green-500"
-                    : item.status.toLowerCase() == "absconded"
+                    : item.status.toLowerCase() === "absconded"
                       ? "text-red-500"
                       : ""
             }

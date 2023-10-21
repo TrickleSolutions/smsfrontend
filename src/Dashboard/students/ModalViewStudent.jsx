@@ -1,12 +1,10 @@
 import React from "react";
 import {
-  Button,
   Dialog,
-  DialogHeader,
   DialogBody,
-  DialogFooter,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
+import moment from "moment";
 
 const ModalViewStudent = ({ open, handleOpen, item }) => {
   return (
@@ -47,7 +45,8 @@ const ModalViewStudent = ({ open, handleOpen, item }) => {
           <div className=" mt-1">
             <div className="flex flex-col items-center justify-center">
               <img
-                src={`${baseurl}/api/stprofilepic/${item.profilePic}`}
+                // src={`${baseurl}/api/stprofilepic/${item.profilePic}`}
+                src={baseurl + `/${item.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'}
                 className="w-28 h-28 rounded-full shadow-xl ring-white ring-2"
                 alt=""
               />
@@ -61,15 +60,15 @@ const ModalViewStudent = ({ open, handleOpen, item }) => {
               >
                 <span
                   className={
-                    item.status.toLowerCase() == "active"
+                    item.status.toLowerCase() === "active"
                       ? "text-teal-500"
-                      : item.status.toLowerCase() == "pending"
-                      ? "text-yellow-500"
-                      : item.status.toLowerCase() == "completed"
-                      ? "text-green-500"
-                      : item.status.toLowerCase() == "absconded"
-                      ? "text-red-500"
-                      : ""
+                      : item.status.toLowerCase() === "pending"
+                        ? "text-yellow-500"
+                        : item.status.toLowerCase() === "completed"
+                          ? "text-green-500"
+                          : item.status.toLowerCase() === "absconded"
+                            ? "text-red-500"
+                            : ""
                   }
                 >
                   {item.status}
@@ -103,6 +102,7 @@ const ModalViewStudent = ({ open, handleOpen, item }) => {
                   <div className="my-1 font-bold text-md">Course :</div>
                   <div className="my-1 text-[var(--dash-heading)]">
                     {item.course}
+                    {console.log(item.course)}
                   </div>
                 </div>
                 {/* Info */}
@@ -119,7 +119,7 @@ const ModalViewStudent = ({ open, handleOpen, item }) => {
                 <div className="text-sm w-full md:w-1/2 m-2">
                   <div className="my-1 font-bold">Admission Date :</div>
                   <div className="my-1 text-[var(--dash-heading)]">
-                    {item.admdate}
+                    {moment(item.admdate).format('MMMM Do YYYY')}
                   </div>
                 </div>
                 {/* Info */}
@@ -136,7 +136,7 @@ const ModalViewStudent = ({ open, handleOpen, item }) => {
                 <div className="text-sm w-full md:w-1/2 m-2">
                   <div className="my-1 font-bold">Email :</div>
                   <div className="my-1 text-[var(--dash-heading)]">
-                    {item.email}
+                    {item?.email || 'NA'}
                   </div>
                 </div>
                 {/* Info */}
@@ -153,14 +153,14 @@ const ModalViewStudent = ({ open, handleOpen, item }) => {
                 <div className="text-sm w-full md:w-1/2 m-2">
                   <div className="my-1 font-bold">Locker No :</div>
                   <div className="my-1 text-[var(--dash-heading)]">
-                    {item.locker_no}
+                    {item?.locker_no || 'NA'}
                   </div>
                 </div>
                 {/* Info */}
                 <div className="text-sm w-full md:w-1/2 m-2">
-                  <div className="my-1 font-bold">Birthday :</div>
+                  <div className="my-1 font-bold">Date of Birth :</div>
                   <div className="my-1 text-[var(--dash-heading)]">
-                    {item.dob}
+                    {moment(item.dob).format('MMMM Do YYYY')}
                   </div>
                 </div>
               </div>

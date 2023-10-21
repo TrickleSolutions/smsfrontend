@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
-import stuBg from "../../assets/images/student-bg.jpg";
-import man from "../../assets/images/man.jpg";
+import React, { useState } from "react";
 import ModalUpdateProfile from "./ModalUpdateProfile";
-import { Button, Tooltip } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { useAuthContext } from "../../context/useStateContext";
+import moment from "moment";
 
 const StudentProfile = ({ auth }) => {
-  const [studentData, setStudentData] = useState([]);
-  const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
+  const { currentUser, getStudentData } = useAuthContext();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -41,7 +38,8 @@ const StudentProfile = ({ auth }) => {
         <div className=" mt-1">
           <div className="flex flex-col items-center justify-center">
             <img
-              src={`${baseurl}/api/stprofilepic/${currentUser.profilePic}`}
+              // src={`${baseurl}/api/stprofilepic/${currentUser.profilePic}`}
+              src={baseurl + `/${currentUser?.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'}
               className="w-28 h-28 rounded-full shadow-xl ring-white ring-2"
               alt=""
             />
@@ -112,7 +110,7 @@ const StudentProfile = ({ auth }) => {
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Admission Date :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {currentUser.admdate}
+                  {moment(currentUser.admdate).format('MMMM Do YYYY')}
                 </div>
               </div>
               {/* Info */}
@@ -146,14 +144,14 @@ const StudentProfile = ({ auth }) => {
               <div className="text-sm w-full md:w-1/2 m-2">
                 <div className="my-1">Locker No :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {currentUser.locker_no}
+                  {currentUser?.locker_no || 'NA'}
                 </div>
               </div>
               {/* Info */}
               <div className="text-sm w-full md:w-1/2 m-2">
-                <div className="my-1">Birthday :</div>
+                <div className="my-1">Date of Birth :</div>
                 <div className="my-1 text-[var(--dash-heading)]">
-                  {currentUser.dob}
+                  {moment(currentUser.dob).format('MMMM Do YYYY')}
                 </div>
               </div>
             </div>
