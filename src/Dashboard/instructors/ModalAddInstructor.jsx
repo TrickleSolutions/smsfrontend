@@ -311,7 +311,7 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                 <div className="flex flex-wrap gap-2">
                   <Radio
                     id="Active"
-                    name="type"
+                    name="types"
                     label="Active"
                     value="active"
                     onChange={(e) => {
@@ -321,7 +321,7 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                   />
                   <Radio
                     id="leave"
-                    name="type"
+                    name="types"
                     label="Leave"
                     value="leave"
                     onChange={(e) => {
