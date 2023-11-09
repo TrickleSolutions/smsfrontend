@@ -34,6 +34,7 @@ import ModalJoinInstructor from "./Components/ModalJoinInstructor";
 import { Carousel } from "@material-tailwind/react";
 import { GlobalModal } from "./Components/GlobalModal";
 import TestSlider from "./Components/TestSlider";
+import InstructorList from "./Components/InstructorList";
 const HomePage2 = () => {
   const [viewAcheiver, setViewAcheiver] = useState(false);
   const [viewAcheiver2, setViewAcheiver2] = useState(false);
@@ -424,11 +425,11 @@ const HomePage2 = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 width={50}
                 height={50}
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                image-rendering="optimizeQuality"
-                shape-rendering="geometricPrecision"
-                text-rendering="geometricPrecision"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                imageRendering="optimizeQuality"
+                shapeRendering="geometricPrecision"
+                textRendering="geometricPrecision"
                 viewBox="0 0 13333.33 13333.33"
                 id="whatsapp-logo"
               >
@@ -686,7 +687,8 @@ const HomePage2 = () => {
                 world with confidence
               </p>
             </div>
-            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <InstructorList />
+            {/* <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               <GlobalModal
                 content={"modal"}
                 handleOpen={ModalhandleOpen}
@@ -695,7 +697,7 @@ const HomePage2 = () => {
               {instData.map((item) => {
                 return (
                   <div
-                    // onClick={ModalhandleOpen}
+                    onClick={ModalhandleOpen}
                     className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl"
                   >
                     <img
@@ -711,7 +713,7 @@ const HomePage2 = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </section>
 

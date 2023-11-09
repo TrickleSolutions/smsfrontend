@@ -4,8 +4,6 @@ import {
   Collapse,
   Typography,
   IconButton,
-  Select,
-  Option,
 } from "@material-tailwind/react";
 import { Drawer, Button, Input, Textarea } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -109,11 +107,10 @@ const Navigation = () => {
       desc: "",
       subject: ""
     });
-    setCourseSelected(""); // Clear the selected course as well
+    setCourseSelected("");
   };
 
   const submitEnquiry = () => {
-    // Step 3: Merge selected course into form data
     const formDataWithCourse = {
       ...formData,
     };
@@ -124,7 +121,7 @@ const Navigation = () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formDataWithCourse), // Send the merged form data
+      body: JSON.stringify(formDataWithCourse),
     })
       .then((res) => {
         return res.json();
@@ -295,7 +292,7 @@ const Navigation = () => {
               placement="right"
               open={open}
               onClose={closeDrawer}
-              className={`!bg-white ${open ? "block" : "hidden"} `}
+              className={`!bg-white min-h-screen ${open ? "block" : "hidden"} `}
               overlay={false}
             >
               <div className="mb-2 flex items-center justify-between p-4 !bg-white">
@@ -343,7 +340,7 @@ const Navigation = () => {
                 />
 
                 {/* <div className="w-72"> */}
-                <select style={{ border: '1px solid rgb(176, 190, 197, 0.8)', borderRadius: '5px', padding: '8px', color: 'black' }} value={courseSelected} onChange={(e) => setCourseSelected(e.target.value)}>
+                <select placeholder="Select Intrested Course" style={{ border: '1px solid rgb(176, 190, 197, 0.8)', borderRadius: '5px', padding: '8px', color: 'black' }} value={courseSelected} onChange={(e) => setCourseSelected(e.target.value)}>
                   {courses.map((item) => (
                     <option value={item.title}> {item.title}</option>
                   ))}

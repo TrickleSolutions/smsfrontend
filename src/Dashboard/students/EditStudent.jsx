@@ -538,11 +538,14 @@ const EditStudent = () => {
                     />
                   </div>
                 </div>
-                <input
+
+                <button className="h-fit p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all" onClick={handleSubmit}>Sumbit</button>
+                {/* <input
                   type="button"
                   onClick={handleSubmit}
+                  placeholder="Sumbit"
                   className="h-fit p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
-                />
+                /> */}
               </div>
             </form>
           </div>

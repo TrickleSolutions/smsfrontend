@@ -15,6 +15,7 @@ import premise14 from "../assets/images/homepage/premises/premise14.JPG";
 import classroom6 from "../assets/images/homepage/premises/classroom/classroom6.JPG";
 import classroom4 from "../assets/images/homepage/premises/classroom/classroom4.JPG";
 import { Link } from "react-router-dom";
+import InstructorList from "../Components/InstructorList";
 
 const About = () => {
   // toast("Wow so easy!");
@@ -263,7 +264,7 @@ const About = () => {
               world with confidence
             </p>
           </div>
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {/* <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {staff.map((item) => {
               return (
                 <div className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
@@ -280,7 +281,8 @@ const About = () => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
+          <InstructorList />
         </div>
       </section>
     </main>

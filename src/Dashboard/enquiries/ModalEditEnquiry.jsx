@@ -92,7 +92,7 @@ const ModalEditEnquiry = ({ item, open, handleOpen, getEnquiryList }) => {
     setNote("");
 
     // Post Api For Posting Data
-    fetch(baseurl + "/api/enquiry/" + item._id, {
+    fetch(baseurl + "/api/enquiry/" + item.contact, {
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -107,8 +107,9 @@ const ModalEditEnquiry = ({ item, open, handleOpen, getEnquiryList }) => {
         if (result.status === true && result.code === 200) {
           toast.success("Enquiry Updated Successfully");
           getEnquiryList();
-          handleOpen();
+          handleOpen(false);
         } else {
+          console.log(result?.message)
           toast.info(`${result.message}`);
         }
       })
@@ -238,7 +239,7 @@ const ModalEditEnquiry = ({ item, open, handleOpen, getEnquiryList }) => {
                   onChange={(e) => {
                     setCourse(e);
                   }}
-                  // selected={course}
+                // selected={course}
                 >
                   <Option value="">Select Course</Option>
                   {courseData.map((item) => {

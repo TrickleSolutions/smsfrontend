@@ -59,7 +59,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
   };
 
   const data = { name, regno, amount, mode, transId, paid, date };
-  console.log(data);
+  console.log(studentsData);
 
   const onSubmitClick = () => {
     // Empty the fields
@@ -123,7 +123,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
                     setRegno(value);
                   }}
                 >
-                  {studentsData.map((student) => (
+                  {studentsData.data?.map((student) => (
                     <Option value={student.regno}>
                       {student.regno} | {student.name}
                     </Option>
