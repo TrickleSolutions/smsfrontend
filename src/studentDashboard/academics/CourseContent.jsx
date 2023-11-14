@@ -27,7 +27,7 @@ const CourseContent = () => {
         return res.json();
       })
       .then((result) => {
-        let filteredData = result.filter((video) => video.course == id);
+        let filteredData = result.filter((video) => video.course === id);
         setVideos(filteredData);
       })
       .catch((err) => {
@@ -45,7 +45,7 @@ const CourseContent = () => {
         return res.json();
       })
       .then((result) => {
-        let filteredData = result.filter((link) => link.course == id);
+        let filteredData = result.filter((link) => link.course === id);
         setLinks(filteredData);
       })
       .catch((err) => {
@@ -63,7 +63,7 @@ const CourseContent = () => {
         return res.json();
       })
       .then((result) => {
-        let filteredData = result.filter((docs) => docs.course == id);
+        let filteredData = result.filter((docs) => docs.course === id);
         setDocs(filteredData);
       })
       .catch((err) => {

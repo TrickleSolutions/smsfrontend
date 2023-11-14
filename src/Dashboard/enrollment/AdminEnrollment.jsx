@@ -143,7 +143,7 @@ const AdminEnrollment = () => {
 
   const getStudentName = (id) => {
     console.log("id is " + id, "data = " + studentsData);
-    let obj = studentsData.filter((student) => student._id == id)[0].name;
+    let obj = studentsData.filter((student) => student._id === id)[0].name;
     // setName(obj);
     // setName(studentsData.filter((student) => student._id == id)[0].name);
     return obj;

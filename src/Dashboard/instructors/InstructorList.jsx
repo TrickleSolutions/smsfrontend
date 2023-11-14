@@ -47,7 +47,7 @@ const InstructorList = () => {
           setProduct(result);
         } else {
           let filteredData = result.filter(
-            (instructor) => instructor.status == filterBy
+            (instructor) => instructor.status === filterBy
           );
           setProduct(filteredData);
         }

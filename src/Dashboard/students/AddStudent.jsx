@@ -123,7 +123,7 @@ const AddStudent = ({ open, handleOpen }) => {
       method: "POST",
       body: fd,
     }).then((res) => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         res.json().then((data) => {
           console.log(data);
           const value = { [e.target.name]: data.fileName }

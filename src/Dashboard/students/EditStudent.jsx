@@ -91,7 +91,7 @@ const EditStudent = () => {
       method: "POST",
       body: fd,
     }).then((res) => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         res.json().then((data) => {
           console.log(data);
           const value = { [e.target.name]: data.fileName }
@@ -480,7 +480,7 @@ const EditStudent = () => {
                   ""
                 )}
                 {/* Locker No. */}
-                {opt == "library" || opt == "both" ? (
+                {opt === "library" || opt === "both" ? (
                   <div className="w-full md:w-1/2 px-3 mb-3">
                     <label
                       className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"

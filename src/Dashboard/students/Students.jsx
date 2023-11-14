@@ -72,7 +72,7 @@ const Students = ({ updateAuth }) => {
           setProduct(result);
         } else {
           let filteredData = result.filter(
-            (student) => student.status == filterBy
+            (student) => student.status === filterBy
           );
           setProduct(filteredData);
         }

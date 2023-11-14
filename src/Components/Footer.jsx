@@ -42,7 +42,7 @@ const Footer = () => {
               <ul className="md:list-disc">
                 <li className="mb-4">
                   <a
-                    href="#!"
+                    href="/courses"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     ADCA
@@ -50,7 +50,7 @@ const Footer = () => {
                 </li>
                 <li className="mb-4">
                   <a
-                    href="#!"
+                    href="/courses"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     O Level
@@ -58,7 +58,7 @@ const Footer = () => {
                 </li>
                 <li className="mb-4">
                   <a
-                    href="#!"
+                    href="/courses"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     CCC
@@ -66,7 +66,7 @@ const Footer = () => {
                 </li>
                 <li className="mb-4">
                   <a
-                    href="#!"
+                    href="/courses"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     DCA
@@ -74,7 +74,7 @@ const Footer = () => {
                 </li>
                 <li className="">
                   <a
-                    href="#!"
+                    href="/courses"
                     className="text-neutral-600 dark:text-neutral-200"
                   >
                     C++

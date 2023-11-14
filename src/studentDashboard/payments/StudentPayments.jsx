@@ -35,7 +35,7 @@ const StudentPayments = ({ auth }) => {
       })
       .then((result) => {
         let filteredData = result.filter(
-          (fee) => fee.regno == currentUser.regno
+          (fee) => fee.regno === currentUser.regno
         );
         setStudentFees(filteredData);
         // setStudentFees(result);
@@ -76,7 +76,7 @@ const StudentPayments = ({ auth }) => {
       })
       .then((result) => {
         let filteredData = result.filter(
-          (paid) => paid._id == currentUser.regno
+          (paid) => paid._id === currentUser.regno
         );
         setTotalpaid(filteredData);
       })

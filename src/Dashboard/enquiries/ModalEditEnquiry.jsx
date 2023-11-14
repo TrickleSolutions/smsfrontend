@@ -303,7 +303,7 @@ const ModalEditEnquiry = ({ item, open, handleOpen, getEnquiryList }) => {
                     onChange={(e) => {
                       setGender("male");
                     }}
-                    defaultChecked={gender == "male"}
+                    defaultChecked={gender === "male"}
                   />
                   <Radio
                     id="female"
@@ -313,7 +313,7 @@ const ModalEditEnquiry = ({ item, open, handleOpen, getEnquiryList }) => {
                     onChange={(e) => {
                       setGender("female");
                     }}
-                    defaultChecked={gender == "female"}
+                    defaultChecked={gender === "female"}
                   />
                 </div>
               </div>

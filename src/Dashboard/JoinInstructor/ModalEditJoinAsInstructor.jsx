@@ -33,6 +33,7 @@ const ModalEditJoinAsInstructor = ({
   }, [item]);
 
   const onSubmitClick = () => {
+    // Create FormData and append form data
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
@@ -40,7 +41,8 @@ const ModalEditJoinAsInstructor = ({
     formData.append("qualification", qualification);
     formData.append("exp", exp);
     formData.append("cv", cv);
-    // Empty the value of fields
+
+    // Clear form fields
     setName("");
     setEmail("");
     setContact("");
@@ -48,27 +50,33 @@ const ModalEditJoinAsInstructor = ({
     setExp("");
     setCv("");
 
-    // Post Api For Posting Data
-    fetch(baseurl + "/api/joininstructor", {
-      method: "POST",
+    // Define API endpoint
+    const apiUrl = `${baseurl}/api/joininstructor/${item._id}`;
+
+    // Post data using fetch
+    fetch(apiUrl, {
+      method: "PUT",
       body: formData,
     })
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((result) => {
         if (result.status === true && result.code === 200) {
+          // Update instructor list on success
           getJoinInstructorList();
           toast.success("Lead Updated Successfully");
           handleOpen();
         } else {
+          // Display error message on failure
           toast.info(`${result.message}`);
         }
       })
       .catch((err) => {
-        console.log(err);
+        // Handle network or other errors
+        console.error("Error:", err);
+        toast.error("An error occurred while updating lead.");
       });
   };
+
   return (
     <>
       <Dialog
@@ -173,7 +181,7 @@ const ModalEditJoinAsInstructor = ({
                   }}
                 />
               </div>
-              <div className="w-full md:w-1/2 px-3 mb-3">
+              {/* <div className="w-full md:w-1/2 px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="cv"
@@ -188,11 +196,13 @@ const ModalEditJoinAsInstructor = ({
                     setCv(e.target.files[0]);
                   }}
                 />
+              </div> */}
+              <div className="w-full md:w-1/2 px-3 mb-3 flex items-center justify-center">
+                <Button variant="gradient" color="blue" onClick={onSubmitClick}>
+                  <span>Submit</span>
+                </Button>
               </div>
             </div>
-            <Button variant="gradient" color="blue" onClick={onSubmitClick}>
-              <span>Submit</span>
-            </Button>
           </form>
         </DialogBody>
         <DialogFooter>

@@ -438,11 +438,11 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
                     />
                     <div className=" mx-2 hidden sm:block">
                       <h6 className="text-xs text-[var(--theme-color)]">
-                        {adminData.role == "0"
+                        {adminData.role === "0"
                           ? "Super Admin"
-                          : adminData.role == "1"
+                          : adminData.role === "1"
                           ? "Admin"
-                          : adminData.role == "2"
+                          : adminData.role === "2"
                           ? "Back Office"
                           : ""}
                       </h6>

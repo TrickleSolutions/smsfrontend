@@ -7,11 +7,10 @@ import { useAuthContext } from "../../context/useStateContext";
 
 const StudentQueries = ({ auth }) => {
   const [query, setQuery] = useState();
-  const [studentData, setStudentData] = useState([]);
   const [queryData, setQueryData] = useState([]);
   const [feedBack, setFeedBack] = useState("");
   const [loader, setLoader] = useState(true);
-  const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
+  const { currentUser } = useAuthContext();
 
   useEffect(() => {
     // getStudentsList();
@@ -149,7 +148,7 @@ const StudentQueries = ({ auth }) => {
                             {item.date}
                           </td>
                           <td className="px-3 py-5  text-sm">
-                            {item.status == "pending" ? (
+                            {item.status === "pending" ? (
                               <div className="text-red-500 py-1">Pending</div>
                             ) : (
                               <div className="text-teal-500 py-1">Solved</div>

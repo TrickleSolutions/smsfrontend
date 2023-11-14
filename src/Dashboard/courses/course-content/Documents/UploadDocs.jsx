@@ -27,7 +27,7 @@ const UploadVideos = ({ id }) => {
         return res.json();
       })
       .then((result) => {
-        let filteredData = result.filter((docs) => docs.course == id);
+        let filteredData = result.filter((docs) => docs.course === id);
         setDocs(filteredData);
         setLoader(false);
       })

@@ -43,7 +43,7 @@ const AdminQueriesTable = ({ item, index, getQueriesList }) => {
         </td>
         <td className="px-3 py-5 hidden lg:table-cell ">{item.date}</td>
         <td className="px-3 py-5  text-sm">
-          {item.status == "pending" ? (
+          {item.status === "pending" ? (
             <div className="text-red-500 py-1">Pending</div>
           ) : (
             <div className="text-teal-500 py-1">Solved</div>

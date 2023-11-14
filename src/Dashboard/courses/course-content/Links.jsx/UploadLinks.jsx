@@ -27,7 +27,7 @@ const UploadLinks = ({ id }) => {
         return res.json();
       })
       .then((result) => {
-        let filteredData = result.filter((link) => link.course == id);
+        let filteredData = result.filter((link) => link.course === id);
         setLinks(filteredData);
         setLoader(false);
       })

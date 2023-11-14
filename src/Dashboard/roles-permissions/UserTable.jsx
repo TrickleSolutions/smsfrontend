@@ -53,7 +53,7 @@ const UserTable = ({ item, getUserList }) => {
         return res.json();
       })
       .then((result) => {
-        if (result.code == 200) {
+        if (result.code === 200) {
           toast.success("Permissions initialised Successfully");
         }
       })
@@ -99,11 +99,11 @@ const UserTable = ({ item, getUserList }) => {
                         </td> */}
         <td className="px-3 py-4 hidden sm:table-cell">{item.gender}</td>
         <td className="px-6 py-4">
-          {item.role == 0
+          {item.role === 0
             ? "Super Admin"
-            : item.role == 1
+            : item.role === 1
             ? "Admin"
-            : item.role == 2
+            : item.role === 2
             ? "Back Office"
             : "-"}
         </td>

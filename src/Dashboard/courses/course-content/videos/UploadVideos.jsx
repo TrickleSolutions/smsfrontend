@@ -29,7 +29,7 @@ const UploadVideos = ({ id }) => {
         return res.json();
       })
       .then((result) => {
-        let filteredData = result.filter((video) => video.course == id);
+        let filteredData = result.filter((video) => video.course === id);
         setVideos(filteredData);
         setLoader(false);
       })
