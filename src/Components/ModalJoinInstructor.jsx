@@ -20,46 +20,50 @@ const ModalJoinInstructor = ({ open, handleOpen }) => {
   const [qualification, setQualification] = useState("");
   const [exp, setExp] = useState("");
   const [cv, setCv] = useState("");
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("contact", contact);
-    formData.append("qualification", qualification);
-    formData.append("exp", exp);
-    formData.append("cv", cv);
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("contact", contact);
+      formData.append("qualification", qualification);
+      formData.append("exp", exp);
+      formData.append("cv", cv);
 
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+      for (const pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
 
-    // Empty the value of fields
-    setName("");
-    setEmail("");
-    setContact("");
-    setQualification("");
-    setExp("");
-    setCv("");
+      // Empty the value of fields
+      setName("");
+      setEmail("");
+      setContact("");
+      setQualification("");
+      setExp("");
+      setCv("");
 
-    // Post Api For Posting Data
-    fetch(baseurl + "/api/joininstructor", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then(() => {
-        toast.success("Request Submitted Successfully");
-        // getCourseList();
-        handleOpen();
-      })
-      .catch((err) => {
-        console.log(err);
+      // Post Api For Posting Data
+      const response = await fetch(baseurl + "/api/joininstructor", {
+        method: "POST",
+        body: formData,
       });
+
+      if (!response.ok) {
+        throw new Error(`Failed to submit request. Status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      toast.success("Request Submitted Successfully");
+      // getCourseList(); // Uncomment if needed
+      handleOpen();
+    } catch (err) {
+      console.error("Error submitting request:", err);
+      // Handle the error (e.g., display an error message)
+    }
   };
+
   return (
     <>
       <Dialog
