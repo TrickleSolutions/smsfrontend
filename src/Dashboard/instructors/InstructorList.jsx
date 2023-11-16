@@ -23,9 +23,14 @@ const InstructorList = () => {
   const [loader, setLoader] = useState(true);
   const [filterBy, setFilterBy] = useState("all");
 
+  const [selectedData, setSelectedData] = useState(null);
+
   const [documentopen, setDocumentOpen] = useState(false);
 
-  const handleDocumentOpen = () => setDocumentOpen(!documentopen);
+  const handleDocumentOpen = (data) => {
+    setDocumentOpen(!documentopen);
+    setSelectedData(data);
+  };
 
   useEffect(() => {
     getInstructorList();
@@ -231,7 +236,7 @@ const InstructorList = () => {
                         return (
                           <tr class="bg-white border-b " key={item._id}>
                             <InstructorDocument
-                              item={item}
+                              item={selectedData}
                               open={documentopen}
                               handleDocumentOpen={handleDocumentOpen}
                             />
@@ -243,7 +248,11 @@ const InstructorList = () => {
                               class="px-6 py-4 font-semibold text-black flex"
                             >
                               <div className="flex justify-center items-center mr-2 rounded-full text-center">
-                                <img className="rounded-full w-12 h-12" src={`${baseurl}/api/teacherpic/${item.profilePic}`} alt="teacherimg" />
+                                <img
+                                  className="rounded-full w-12 h-12"
+                                  src={`${baseurl}/${item.profilePic}`}
+                                  alt="teacherimg"
+                                />
                               </div>
                               <div>
                                 <div>{item.name}</div>
@@ -261,14 +270,22 @@ const InstructorList = () => {
                             <td class="px-6 py-4">{item.qualification}</td>
                             <td class="px-6 py-4">{item.degree}</td>
                             <td class="px-6 py-4">{item.salary}</td>
-                            <td className=""><Button onClick={handleDocumentOpen} size="sm" >View</Button></td>
+                            <td className="">
+                              <Button
+                                onClick={() => handleDocumentOpen(item)}
+                                size="sm"
+                              >
+                                View
+                              </Button>
+                            </td>
                             <td
-                              className={`${item.status === "active"
-                                ? "text-teal-500"
-                                : item.status === "leave"
+                              className={`${
+                                item.status === "active"
+                                  ? "text-teal-500"
+                                  : item.status === "leave"
                                   ? "text-amber-500"
                                   : ""
-                                } px-6 py-4 hidden md:table-cell capitalize`}
+                              } px-6 py-4 hidden md:table-cell capitalize`}
                             >
                               {item.status}
                             </td>
@@ -347,7 +364,6 @@ const InstructorList = () => {
                         );
                       }
                     })}
-
                   </tbody>
                 </table>
               </div>

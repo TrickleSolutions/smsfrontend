@@ -9,8 +9,10 @@ import {
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import { useAuthContext } from "../../context/useStateContext";
 
 const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
+  const { imageUploads, UploadImage, setImageUploads } = useAuthContext();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -21,34 +23,69 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
   const [degree, setDegree] = useState("");
   const [exp, setExp] = useState("");
   const [status, setStatus] = useState("active");
-  const [salary, setSalary] = useState("")
+  const [salary, setSalary] = useState("");
   const [profilePic, setProfilePic] = useState(null);
 
-  const data = new FormData(); // Create a FormData object
+  // const data = new FormData(); // Create a FormData object
 
-  // Append the profile picture if it's selected
-  if (profilePic) {
-    data.append("profilePic", profilePic);
-  }
+  // // Append the profile picture if it's selected
+  // if (profilePic) {
+  //   data.append("profilePic", profilePic);
+  // }
 
-  // Append other form data fields
-  data.append("name", name);
-  data.append("email", email);
-  data.append("address", address);
-  data.append("contact", contact);
-  data.append("gender", gender);
-  data.append("dob", dob);
-  data.append("qualification", qualification);
-  data.append("degree", degree);
-  data.append("exp", exp);
-  data.append("status", status);
-  data.append("salary", salary);
+  // // Append other form data fields
+  // data.append("name", name);
+  // data.append("email", email);
+  // data.append("address", address);
+  // data.append("contact", contact);
+  // data.append("gender", gender);
+  // data.append("dob", dob);
+  // data.append("qualification", qualification);
+  // data.append("degree", degree);
+  // data.append("exp", exp);
+  // data.append("status", status);
+  // data.append("salary", salary);
 
-  const onSubmitClick = () => {
+  const onSubmitClick = ({
+    name,
+    email,
+    address,
+    contact,
+    gender,
+    dob,
+    qualification,
+    degree,
+    exp,
+    status,
+    salary,
+    profilePic,
+    cv,
+    aadhar,
+  }) => {
+    const formData = {
+      name,
+      email,
+      address,
+      contact,
+      gender,
+      dob,
+      qualification,
+      degree,
+      exp,
+      status,
+      salary,
+      profilePic: profilePic,
+      cv: cv,
+      aadhar: aadhar,
+    };
+
     // Post Api For Posting Data
     fetch(baseurl + "/api/instructor", {
       method: "POST",
-      body: data, // Use the FormData object here
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      }, // Use the FormData object here
     })
       .then((res) => res.json())
       .then((result) => {
@@ -74,7 +111,7 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
     setQualification("");
     setDegree("");
     setExp("");
-    setSalary("")
+    setSalary("");
   };
   return (
     <>
@@ -164,9 +201,10 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="profilePic"
+                  name="profilePic"
                   type="file"
                   onChange={(e) => {
-                    setProfilePic(e.target.files[0]);
+                    UploadImage(e);
                   }}
                 />
               </div>
@@ -339,10 +377,11 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="profilePic"
+                  id="aadhar"
+                  name="aadhar"
                   type="file"
                   onChange={(e) => {
-                    setProfilePic(e.target.files[0]);
+                    UploadImage(e);
                   }}
                 />
               </div>
@@ -355,10 +394,11 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="profilePic"
+                  id="cv"
+                  name="cv"
                   type="file"
                   onChange={(e) => {
-                    setProfilePic(e.target.files[0]);
+                    UploadImage(e);
                   }}
                 />
               </div>
@@ -374,7 +414,28 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="blue" onClick={onSubmitClick}>
+          <Button
+            variant="gradient"
+            color="blue"
+            onClick={() =>
+              onSubmitClick({
+                name: name,
+                email: email,
+                aadhar: imageUploads.aadhar,
+                address: address,
+                contact: contact,
+                cv: imageUploads.cv,
+                degree: degree,
+                dob: dob,
+                exp: exp,
+                gender: gender,
+                profilePic: imageUploads.profilePic,
+                qualification: qualification,
+                salary: salary,
+                status: status,
+              })
+            }
+          >
             <span>Submit</span>
           </Button>
         </DialogFooter>
