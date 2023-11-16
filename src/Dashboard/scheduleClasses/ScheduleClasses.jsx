@@ -143,9 +143,7 @@ const ScheduleClasses = () => {
                     <th scope="col" className="px-6 py-3 hidden md:table-cell">
                       Date
                     </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Time
-                    </th>
+
                     <th scope="col" className="px-3 py-3 hidden lg:table-cell">
                       Link
                     </th>

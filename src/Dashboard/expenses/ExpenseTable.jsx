@@ -27,11 +27,11 @@ const ExpenseTable = ({ item, getExpenseList }) => {
     }
   }
   return (
-    <tr class="bg-white border-b" key={item._id}>
-      <td class=" py-4">
+    <tr className="bg-white border-b" key={item._id}>
+      <td className=" py-4">
         <Checkbox />
       </td>
-      <td scope="row" class="px-6 py-4 max-w-[100px] truncate">
+      <td scope="row" className="px-6 py-4 max-w-[100px] truncate">
         <Tooltip
           content={item.desc}
           placement="bottom-end"
@@ -40,10 +40,10 @@ const ExpenseTable = ({ item, getExpenseList }) => {
           {item.desc}
         </Tooltip>
       </td>
-      <td class="px-6 py-4">{item.date}</td>
-      <td class="px-6 py-4">{item.time}</td>
-      <td class="px-6 py-4">Rs. {item.amount}</td>
-      <td class="px-1 py-4">
+      <td className="px-6 py-4">{item.date}</td>
+      <td className="px-6 py-4">{item.time}</td>
+      <td className="px-6 py-4">Rs. {item.amount}</td>
+      <td className="px-1 py-4">
         <div>
           <Menu>
             <MenuHandler>

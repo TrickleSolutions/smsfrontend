@@ -98,13 +98,13 @@ const CourseContent = () => {
           </h2>
 
           <div className="w-full">
-            <table class="w-full">
+            <table className="w-full">
               <tbody className="border border-black">
                 <tr className="border border-black">
                   <td className="px-2 border-r border-black">1</td>
                   <td className="px-2"> M1-R5 : Introduction to Computer</td>
                   <td>
-                    <table class="w-full">
+                    <table className="w-full">
                       <thead>
                         <tr className="border border-black">
                           <th className="px-2 py-2 border border-black text-start">
@@ -169,7 +169,7 @@ const CourseContent = () => {
                   <td className="px-2 border-r border-black">1</td>
                   <td className="px-2"> M1-R5 : Introduction to Computer</td>
                   <td>
-                    <table class="w-full">
+                    <table className="w-full">
                       <thead>
                         <tr className="border border-black">
                           <th className="px-2 py-2 border border-black text-start">

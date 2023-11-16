@@ -46,9 +46,9 @@ const AddStudent = ({ open, handleOpen }) => {
     locker_no,
     shift,
     profilePic: imageUploads.profilePic,
-    idCardimg: imageUploads.idCardimg,
+    idCardimg: imageUploads.idCard,
     tenthMarksheet: imageUploads.tenthMarksheet,
-    twelthMarksheet: imageUploads.twelthMarksheet
+    twelthMarksheet: imageUploads.intermediatemarksheet
   };
 
   useEffect(() => {
@@ -104,6 +104,7 @@ const AddStudent = ({ open, handleOpen }) => {
       .then((result) => {
         if (result.status === true && result.code === 200) {
           toast.success("Student Enrolled Successfully");
+          console.log(result)
           handleOpen();
         } else {
           toast.info(`${result.message}`);
@@ -489,7 +490,7 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
-                  name="HighSchoolmarksheet"
+                  name="tenthMarksheet"
                   onChange={(e) => {
                     UploadImage(e);
                   }}

@@ -22,7 +22,6 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
   const [paid, setPaid] = useState("");
   const [date, setDate] = useState("");
 
-  console.log(name);
 
   useEffect(() => {
     getStudentList();
@@ -59,7 +58,6 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
   };
 
   const data = { name, regno, amount, mode, transId, paid, date };
-  console.log(studentsData);
 
   const onSubmitClick = () => {
     // Empty the fields

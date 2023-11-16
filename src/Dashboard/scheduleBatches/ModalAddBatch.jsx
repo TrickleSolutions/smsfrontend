@@ -10,14 +10,12 @@ import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
 const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
-  const [batch, setBatch] = useState("");
+  const [topic, setTopic] = useState("");
   const [course, setCourse] = useState("");
   const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
   const [contact_instructor, setContact_instructor] = useState("");
 
-  const data = { course, batch, date, time, contact_instructor };
-  console.log(data);
+  const data = { course, topic, date, contact_instructor };
 
   const onsubmitClick = () => {
     // Empty the fields
@@ -61,22 +59,22 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form className="w-full px-5 sm:px-10 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
-              {/* batch */}
+              {/* topic */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="batch"
+                  htmlFor="topic"
                 >
                   Batch Name
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="batch"
+                  id="topic"
                   type="text"
                   placeholder="Udaan Batch"
-                  value={batch}
+                  value={topic}
                   onChange={(e) => {
-                    setBatch(e.target.value);
+                    setTopic(e.target.value);
                   }}
                 />
               </div>
@@ -110,28 +108,10 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="date"
-                  type="date"
+                  type="datetime-local"
                   value={date}
                   onChange={(e) => {
                     setDate(e.target.value);
-                  }}
-                />
-              </div>
-              {/* time */}
-              <div className="w-full px-3 mb-3">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="time"
-                >
-                  Time
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="time"
-                  type="time"
-                  value={time}
-                  onChange={(e) => {
-                    setTime(e.target.value);
                   }}
                 />
               </div>

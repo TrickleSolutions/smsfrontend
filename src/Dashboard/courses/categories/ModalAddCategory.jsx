@@ -19,7 +19,6 @@ const ModalAddCategory = ({ open, handleOpen, getCategoryList }) => {
     desc,
   };
 
-  console.log(data);
 
   const onSubmitClick = () => {
     // Empty the value of fields

@@ -780,10 +780,10 @@ const HomePage2 = () => {
             SPECIAL FEATURES
           </h1>
           <div className=" my-20">
-            <ul class="w-fit mx-5 sm:mx-10 md:mx-20 space-y-4 text-left font-semibold text-black flex flex-col md:flex-row md:justify-start md:flex-wrap ">
-              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+            <ul className="w-fit mx-5 sm:mx-10 md:mx-20 space-y-4 text-left font-semibold text-black flex flex-col md:flex-row md:justify-start md:flex-wrap ">
+              <li className="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
-                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -793,15 +793,15 @@ const HomePage2 = () => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>
                 <span>Highly qualified and dedicated faculty.</span>
               </li>
-              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+              <li className="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
-                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -811,15 +811,15 @@ const HomePage2 = () => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>
                 <span>Most modern computer lab.</span>
               </li>
-              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+              <li className="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
-                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -829,15 +829,15 @@ const HomePage2 = () => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>
                 <span>Latest hardware and software.</span>
               </li>
-              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+              <li className="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
-                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -847,15 +847,15 @@ const HomePage2 = () => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>
                 <span>Courses are designed to impart job-oriented skills.</span>
               </li>
-              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+              <li className="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
-                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -865,7 +865,7 @@ const HomePage2 = () => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>
@@ -874,9 +874,9 @@ const HomePage2 = () => {
                   and educated housewives.
                 </span>
               </li>
-              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+              <li className="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
-                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -886,15 +886,15 @@ const HomePage2 = () => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>
                 <span>Internet access</span>
               </li>
-              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+              <li className="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
-                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -904,7 +904,7 @@ const HomePage2 = () => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>
@@ -912,9 +912,9 @@ const HomePage2 = () => {
                   Multimedia supported tutorial package based on "DO YOURSELF"
                 </span>
               </li>
-              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+              <li className="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
-                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -924,15 +924,15 @@ const HomePage2 = () => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>
                 <span>Special practical timing for meritorious students.</span>
               </li>
-              <li class="flex items-center space-x-3 w-full md:w-1/2 p-2">
+              <li className="flex items-center space-x-3 w-full md:w-1/2 p-2">
                 <svg
-                  class="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-500  "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -942,7 +942,7 @@ const HomePage2 = () => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>

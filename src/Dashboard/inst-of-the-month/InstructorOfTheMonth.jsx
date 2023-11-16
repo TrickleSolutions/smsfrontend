@@ -111,14 +111,14 @@ const InstructorOfTheMonth = () => {
                 <tbody>
                   {/* Dummy Data Starts Here */}
                   {instructorMonth ? (
-                    <tr class="bg-white border-b " key={"dsf56df"}>
-                      <td class="px-6 py-4 font-semibold text-black">
+                    <tr className="bg-white border-b " key={"dsf56df"}>
+                      <td className="px-6 py-4 font-semibold text-black">
                         {instructorMonth.name ? instructorMonth.name : ""}
                       </td>
-                      <td class="px-6 py-4 ">
+                      <td className="px-6 py-4 ">
                         {instructorMonth.course ? instructorMonth.course : ""}
                       </td>
-                      <td class="px-6 py-4 hidden md:table-cell max-w-0 truncate">
+                      <td className="px-6 py-4 hidden md:table-cell max-w-0 truncate">
                         <Tooltip
                           content={`${
                             instructorMonth.desc ? instructorMonth.desc : ""
@@ -129,7 +129,7 @@ const InstructorOfTheMonth = () => {
                           {instructorMonth.desc ? instructorMonth.desc : ""}
                         </Tooltip>
                       </td>
-                      <td class="px-6 py-4 hidden sm:table-cell ">
+                      <td className="px-6 py-4 hidden sm:table-cell ">
                         {instructorMonth.img ? (
                           <img
                           className="h-20 w-20"
@@ -141,7 +141,7 @@ const InstructorOfTheMonth = () => {
                         )}
                       </td>
 
-                      <td class="px-1 py-4">
+                      <td className="px-1 py-4">
                         <div>
                           <Menu>
                             <MenuHandler>

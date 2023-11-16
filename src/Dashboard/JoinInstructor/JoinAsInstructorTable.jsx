@@ -31,20 +31,20 @@ const JoinAsInstructorTable = ({ item, getJoinInstructorList }) => {
 
   return (
     <>
-      <tr class="bg-white border-b">
-        <td class=" py-4">
+      <tr className="bg-white border-b">
+        <td className=" py-4">
           <Checkbox />
         </td>
-        <td scope="row" class="px-3 py-4 font-semibold text-black">
+        <td scope="row" className="px-3 py-4 font-semibold text-black">
           <div>{item.name}</div>
         </td>
-        <td class="px-3 py-4 ">{item.email ? item.email : "-"}</td>
-        <td class="px-3 py-4 ">{item.contact}</td>
-        <td class="px-3 py-4 max-w-xs break-words truncate">
+        <td className="px-3 py-4 ">{item.email ? item.email : "-"}</td>
+        <td className="px-3 py-4 ">{item.contact}</td>
+        <td className="px-3 py-4 max-w-xs break-words truncate">
           {item.qualification}
         </td>
-        <td class="px-3 py-4 ">{item.exp} yrs</td>
-        <td class="px-3 py-4  max-w-sm">
+        <td className="px-3 py-4 ">{item.exp} yrs</td>
+        <td className="px-3 py-4  max-w-sm">
           <Link
             // onClick={() => navigate(`${baseurl}/api/showcontactcv/${item.cv}`)}
             to={`${baseurl}/api/showcontactcv/${item.cv}`}
@@ -59,14 +59,14 @@ const JoinAsInstructorTable = ({ item, getJoinInstructorList }) => {
               className="w-6 h-6 cursor-pointer"
             >
               <path
-                stroke-width="0"
+                strokeWidth="0"
                 fill="var(--bg-dark-blue)"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
               />
               <path
-                stroke-width="0"
+                strokeWidth="0"
                 fill="white"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -75,7 +75,7 @@ const JoinAsInstructorTable = ({ item, getJoinInstructorList }) => {
             </svg>
           </Link>
         </td>
-        <td class="px-1 py-4">
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

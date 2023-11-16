@@ -29,19 +29,19 @@ const AdminFeesTable = ({ item, getFeesList }) => {
 
   return (
     <>
-      <tr class="bg-white border-b" key={item._id}>
-        <td class=" py-4 ">
+      <tr className="bg-white border-b" key={item._id}>
+        <td className=" py-4 ">
           <Checkbox />
         </td>
-        <td class="px-6 py-4 font-semibold text-black">{item.name}</td>
-        <td class="px-6 py-4">{item.regno}</td>
-        <td class="px-6 py-4">{item.amount}</td>
-        <td class="px-6 py-4">{item.mode}</td>
-        <td class="px-3 py-4">{item.transId}</td>
-        <td class="px-3 py-4">{item.paid}</td>
-        <td class="px-3 py-4">{item.amount - item.paid}</td>
-        <td class="px-3 py-4">{item.date}</td>
-        <td class="px-1 py-4">
+        <td className="px-6 py-4 font-semibold text-black">{item.name}</td>
+        <td className="px-6 py-4">{item.regno}</td>
+        <td className="px-6 py-4">{item.amount}</td>
+        <td className="px-6 py-4">{item.mode}</td>
+        <td className="px-3 py-4">{item.transId}</td>
+        <td className="px-3 py-4">{item.paid}</td>
+        <td className="px-3 py-4">{item.amount - item.paid}</td>
+        <td className="px-3 py-4">{item.date}</td>
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

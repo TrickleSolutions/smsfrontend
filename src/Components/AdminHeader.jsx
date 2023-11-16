@@ -441,10 +441,10 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
                         {adminData.role === "0"
                           ? "Super Admin"
                           : adminData.role === "1"
-                          ? "Admin"
-                          : adminData.role === "2"
-                          ? "Back Office"
-                          : ""}
+                            ? "Admin"
+                            : adminData.role === "2"
+                              ? "Back Office"
+                              : ""}
                       </h6>
                       <h4 className="flex items-center my-1 text-sm font-semibold text-[#6e82a5]">
                         {adminData.name}{" "}
@@ -452,9 +452,9 @@ const AdminHeader = ({ updateAdminAuth, adminAuth }) => {
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
-                          stroke-width="1.5"
+                          strokeWidth="1.5"
                           stroke="currentColor"
-                          class="w-4 h-4 mx-2"
+                          className="w-4 h-4 mx-2"
                         >
                           <path
                             stroke-linecap="round"

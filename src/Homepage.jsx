@@ -165,34 +165,34 @@ const Homepage = () => {
           {/* Course container */}
           <div className=" flex justify-around  mt-10 flex-wrap">
             {/* course */}
-            <div class="max-w-sm w-64 m-2 rounded overflow-hidden shadow-lg border">
-              <img class="h-40 w-full" src={adca} alt="adca course" />
-              <div class="px-3 py-4">
-                <div class="font-bold text-xl mb-2 text-[var(--secondary-color)]">
+            <div className="max-w-sm w-64 m-2 rounded overflow-hidden shadow-lg border">
+              <img className="h-40 w-full" src={adca} alt="adca course" />
+              <div className="px-3 py-4">
+                <div className="font-bold text-xl mb-2 text-[var(--secondary-color)]">
                   Advanced Diploma in Computer Application
                 </div>
               </div>
-              <div class="px-3 pt-4 pb-2">Manoj Pandey / 321 Students</div>
+              <div className="px-3 pt-4 pb-2">Manoj Pandey / 321 Students</div>
             </div>
             {/* course */}
-            <div class="max-w-sm w-64 m-2 rounded overflow-hidden shadow-lg border">
-              <img class="h-40 w-full" src={adca} alt="adca course" />
-              <div class="px-3 py-4">
-                <div class="font-bold text-xl mb-2 text-[var(--secondary-color)]">
+            <div className="max-w-sm w-64 m-2 rounded overflow-hidden shadow-lg border">
+              <img className="h-40 w-full" src={adca} alt="adca course" />
+              <div className="px-3 py-4">
+                <div className="font-bold text-xl mb-2 text-[var(--secondary-color)]">
                   Advanced Diploma in Computer Application
                 </div>
               </div>
-              <div class="px-3 pt-4 pb-2">Manoj Pandey / 321 Students</div>
+              <div className="px-3 pt-4 pb-2">Manoj Pandey / 321 Students</div>
             </div>
             {/* course */}
-            <div class="max-w-sm w-64 m-2 rounded overflow-hidden shadow-lg border">
-              <img class="h-40 w-full" src={adca} alt="adca course" />
-              <div class="px-3 py-4">
-                <div class="font-bold text-xl mb-2 text-[var(--secondary-color)]">
+            <div className="max-w-sm w-64 m-2 rounded overflow-hidden shadow-lg border">
+              <img className="h-40 w-full" src={adca} alt="adca course" />
+              <div className="px-3 py-4">
+                <div className="font-bold text-xl mb-2 text-[var(--secondary-color)]">
                   Advanced Diploma in Computer Application
                 </div>
               </div>
-              <div class="px-3 pt-4 pb-2">Manoj Pandey / 321 Students</div>
+              <div className="px-3 pt-4 pb-2">Manoj Pandey / 321 Students</div>
             </div>
             {/* <span className="absolute top-0 right-0">View All</span> */}
           </div>

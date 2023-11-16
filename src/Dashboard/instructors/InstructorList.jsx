@@ -220,13 +220,12 @@ const InstructorList = () => {
                       <th scope="col" className="px-6 py-3">
                         Status
                       </th>
-                      <th class="px-1 py-4">
+                      <th className="px-1 py-4">
                         <div>Action</div>
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(pageData)}
                     {pageData.map((item) => {
                       if (
                         item.name
@@ -234,23 +233,23 @@ const InstructorList = () => {
                           .includes(search.trim().toLowerCase())
                       ) {
                         return (
-                          <tr class="bg-white border-b " key={item._id}>
+                          <tr className="bg-white border-b " key={item._id}>
                             <InstructorDocument
                               item={selectedData}
                               open={documentopen}
                               handleDocumentOpen={handleDocumentOpen}
                             />
-                            <td class=" py-4">
+                            <td className=" py-4">
                               <Checkbox />
                             </td>
                             <td
                               scope="row"
-                              class="px-6 py-4 font-semibold text-black flex"
+                              className="px-6 py-4 font-semibold text-black flex"
                             >
                               <div className="flex justify-center items-center mr-2 rounded-full text-center">
                                 <img
                                   className="rounded-full w-12 h-12"
-                                  src={`${baseurl}/${item.profilePic}`}
+                                  src={`${baseurl}/${item?.profilePic}`}
                                   alt="teacherimg"
                                 />
                               </div>
@@ -261,15 +260,15 @@ const InstructorList = () => {
                                 </div>
                               </div>
                             </td>
-                            <td class="px-6 py-4 truncate max-w-xs">
+                            <td className="px-6 py-4 truncate max-w-xs">
                               {item.address}
                             </td>
-                            <td class="px-6 py-4">{item.contact}</td>
-                            <td class="px-6 py-4">{item.gender}</td>
-                            <td class="px-6 py-4">{item.dob}</td>
-                            <td class="px-6 py-4">{item.qualification}</td>
-                            <td class="px-6 py-4">{item.degree}</td>
-                            <td class="px-6 py-4">{item.salary}</td>
+                            <td className="px-6 py-4">{item.contact}</td>
+                            <td className="px-6 py-4">{item.gender}</td>
+                            <td className="px-6 py-4">{item.dob}</td>
+                            <td className="px-6 py-4">{item.qualification}</td>
+                            <td className="px-6 py-4">{item.degree}</td>
+                            <td className="px-6 py-4">{item.salary}</td>
                             <td className="">
                               <Button
                                 onClick={() => handleDocumentOpen(item)}
@@ -289,7 +288,7 @@ const InstructorList = () => {
                             >
                               {item.status}
                             </td>
-                            <td class="px-1 py-4">
+                            <td className="px-1 py-4">
                               <div>
                                 <Menu>
                                   <MenuHandler>

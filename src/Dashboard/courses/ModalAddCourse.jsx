@@ -49,7 +49,6 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
       })
       .then((result) => {
         setCategoryData(result);
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -68,7 +67,6 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
       })
       .then((result) => {
         setInstructorData(result);
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -151,7 +149,6 @@ const ModalAddCourse = ({ open, handleOpen, getCourseList }) => {
                 />
               </div>
               {/* Category */}
-              {console.log(categoryData)}
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"

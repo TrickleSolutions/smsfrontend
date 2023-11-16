@@ -276,7 +276,6 @@ const CourseList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(pageData)}
                     {pageData?.filter(course => duration === 'all' ? course : course.duration === duration)?.map((item) => {
                       const isTitleMatch = item.title.toLowerCase().includes(search.trim().toLowerCase());
                       const isPriceMatch = item.price.toString().toLowerCase().includes(search.trim().toLowerCase());

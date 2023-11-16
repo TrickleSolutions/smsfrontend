@@ -9,8 +9,6 @@ const AdminDashboard = ({ adminAuth }) => {
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
 
-  console.log(user, userPermissions);
-
   useEffect(() => {
     getUserData();
     getUserPermissions();

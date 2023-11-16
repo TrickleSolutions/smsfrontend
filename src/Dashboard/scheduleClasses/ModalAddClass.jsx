@@ -18,7 +18,6 @@ const ModalAddClass = ({ open, handleOpen, getScheduledClassesList }) => {
   const [contact_instructor, setContact_instructor] = useState("");
 
   const data = { course, topic, date, time, link, contact_instructor };
-  console.log(data);
 
   const onsubmitClick = () => {
     // Empty the fields

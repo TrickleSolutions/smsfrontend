@@ -29,21 +29,21 @@ const InstructorResultTable = ({ item, getMarksList }) => {
 
   return (
     <>
-      <tr class="bg-white border-b" key={item._id}>
-        <td class=" py-4 ">
+      <tr className="bg-white border-b" key={item._id}>
+        <td className=" py-4 ">
           <Checkbox />
         </td>
-        <td class="px-6 py-4 font-semibold text-black">{item.name}</td>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.regno}</td>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.topic}</td>
-        <td class="px-6 py-4 hidden lg:table-cell">{item.course}</td>
-        <td class="px-3 py-4 hidden md:table-cell">{item.total_marks}</td>
-        <td class="px-3 py-4 ">
+        <td className="px-6 py-4 font-semibold text-black">{item.name}</td>
+        <td className="px-6 py-4 hidden sm:table-cell">{item.regno}</td>
+        <td className="px-6 py-4 hidden sm:table-cell">{item.topic}</td>
+        <td className="px-6 py-4 hidden lg:table-cell">{item.course}</td>
+        <td className="px-3 py-4 hidden md:table-cell">{item.total_marks}</td>
+        <td className="px-3 py-4 ">
           {item.obtain_marks}{" "}
           <span className=" visible sm:hidden">/ {item.total_marks}</span>
         </td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.date}</td>
-        <td class="px-1 py-4">
+        <td className="px-3 py-4 hidden lg:table-cell">{item.date}</td>
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

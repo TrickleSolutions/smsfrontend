@@ -63,6 +63,7 @@ const EditStudent = () => {
   // PUT Api For Updating Data
 
   const handleSubmit = async (e) => {
+    e.preventDefault()
     const newFormData = {
       // profilePic: imageUploads.profilePic,
       gender: gender,

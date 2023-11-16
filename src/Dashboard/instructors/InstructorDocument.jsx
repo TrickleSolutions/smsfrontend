@@ -54,10 +54,10 @@ const InstructorDocument = ({ open, handleDocumentOpen, item }) => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      class="feather feather-download"
+                      className="feather feather-download"
                     >
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                       <polyline points="7 10 12 15 17 10" />
@@ -69,9 +69,7 @@ const InstructorDocument = ({ open, handleDocumentOpen, item }) => {
             </div>
           </div>
         </div>
-        <a href={`${baseurl}/${item?.cv}`} target="_blank">
-          {item?.cv}
-        </a>
+
         <div className="flex items-center">
           <div className="w-full md:w-1/2 px-3 mb-3">
             <label
@@ -83,9 +81,10 @@ const InstructorDocument = ({ open, handleDocumentOpen, item }) => {
           </div>
           <div className="w-full md:w-1/2 px-3 mb-3">
             <div className="relative">
-              Uploded File name
+              {item?.cv}
               <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <Button variant="gradient" color="green" size="sm">
+              <a href={`${baseurl}/${item?.cv}`} target="_blank">
+                <Button  variant="gradient" color="green" size="sm">
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -94,10 +93,10 @@ const InstructorDocument = ({ open, handleDocumentOpen, item }) => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      class="feather feather-download"
+                      className="feather feather-download"
                     >
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                       <polyline points="7 10 12 15 17 10" />
@@ -105,6 +104,7 @@ const InstructorDocument = ({ open, handleDocumentOpen, item }) => {
                     </svg>
                   </span>
                 </Button>
+              </a>
               </div>
             </div>
           </div>

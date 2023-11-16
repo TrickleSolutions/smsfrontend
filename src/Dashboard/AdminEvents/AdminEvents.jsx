@@ -13,7 +13,7 @@ import ModalAddHoliday from "./ModalAddHoliday";
 
 const AdminEvents = () => {
 
-  const [addEvent, setAddevent] = useState(false)
+  const [addEvent, setAddevent] = useState(true)
   const [product, setProduct] = useState([]);
   const [pageData, setPageData] = useState([]);
   const [page, setPage] = useState(1);

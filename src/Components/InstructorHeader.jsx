@@ -456,9 +456,9 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
-                          stroke-width="1.5"
+                          strokeWidth="1.5"
                           stroke="currentColor"
-                          class="w-4 h-4 mx-2"
+                          className="w-4 h-4 mx-2"
                         >
                           <path
                             stroke-linecap="round"
@@ -490,7 +490,7 @@ const InstructorHeader = ({ updateInstructorAuth, instructorAuth }) => {
                         width="18"
                         height="18"
                         fill="currentColor"
-                        class="bi bi-activity"
+                        className="bi bi-activity"
                         viewBox="0 0 16 16"
                       >
                         <path

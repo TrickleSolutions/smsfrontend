@@ -17,7 +17,6 @@ import InstructorOfTheMonth from "../inst-of-the-month/InstructorOfTheMonth";
 const StudentOfTheMonth = () => {
   const [studentMonth, setStudentMonth] = useState([]);
   const [loader, setLoader] = useState(true);
-  console.log(studentMonth);
 
   useEffect(() => {
     StudentOfTheMonthList();
@@ -125,20 +124,20 @@ const StudentOfTheMonth = () => {
                     <tbody>
                       {/* Dummy Data Starts Here */}
                       <tr
-                        class="bg-white border-b "
+                        className="bg-white border-b "
                         key={"hjb324324bhj23hj4bb3b43hb32hj4b324b32b32"}
                       >
-                        <td class="px-6 py-4 font-semibold text-black">
+                        <td className="px-6 py-4 font-semibold text-black">
                           {studentMonth.name ? studentMonth.name : ""}
                         </td>
-                        <td class="px-6 py-4 hidden md:table-cell">
+                        <td className="px-6 py-4 hidden md:table-cell">
                           {" "}
                           {studentMonth.regno ? studentMonth.regno : ""}
                         </td>
-                        <td class="px-6 py-4 hidden sm:table-cell">
+                        <td className="px-6 py-4 hidden sm:table-cell">
                           {studentMonth.course ? studentMonth.course : ""}
                         </td>
-                        <td class="px-6 py-4 ">
+                        <td className="px-6 py-4 ">
                           {studentMonth.img ? (
                             <img
                               src={`${baseurl}/api/studentofmonth/${studentMonth.img}`}
@@ -149,7 +148,7 @@ const StudentOfTheMonth = () => {
                             ""
                           )}
                         </td>
-                        <td class="px-1 py-4">
+                        <td className="px-1 py-4">
                           <div>
                             <Menu>
                               <MenuHandler>

@@ -9,6 +9,7 @@ import {
 import ModalEditClass from "./ModalEditClass";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import moment from "moment/moment";
 
 const ScheduleClassesTable = ({ item, getScheduledClassesList }) => {
   const [open2, setOpen2] = useState(false);
@@ -31,16 +32,15 @@ const ScheduleClassesTable = ({ item, getScheduledClassesList }) => {
 
   return (
     <>
-      <tr class="bg-white border-b " key={item._id}>
-        <td class=" py-4">
+      <tr className="bg-white border-b " key={item._id}>
+        <td className=" py-4">
           <Checkbox />
         </td>
-        <td class="px-6 py-4 font-semibold text-black">{item.topic}</td>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.course}</td>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.date}</td>
-        <td class="px-6 py-4 hidden md:table-cell">{item.time}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.link}</td>
-        <td class="px-1 py-4">
+        <td className="px-6 py-4 font-semibold text-black">{item.topic}</td>
+        <td className="px-6 py-4 hidden sm:table-cell">{item.course}</td>
+        <td className="px-6 py-4 hidden sm:table-cell">{moment(item.date).format('MMMM Do YYYY, h:mm: A')}</td>
+        <td className="px-3 py-4 hidden lg:table-cell">{item.link}</td>
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

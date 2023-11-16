@@ -39,15 +39,15 @@ const ManageStudentTable = ({ item, getStudentStatusList }) => {
   }
   return (
     <>
-      <tr class="bg-white border-b">
-        <td class=" py-4">
+      <tr className="bg-white border-b">
+        <td className=" py-4">
           <Checkbox />
         </td>
-        <td class="px-6 py-4 font-semibold text-black">{item?.name || 'test' }</td>
-        {/* <td class="px-6 py-4 hidden sm:table-cell max-w-xs">CCC</td> */}
-        <td class="px-6 py-4 hidden sm:table-cell">{item?.regno || '123456'}</td>
-        <td class="px-6 py-4 max-w-xs">{item?.status || 'Active'}</td>
-        <td class="px-1 py-4">
+        <td className="px-6 py-4 font-semibold text-black">{item?.name || 'test' }</td>
+        {/* <td className="px-6 py-4 hidden sm:table-cell max-w-xs">CCC</td> */}
+        <td className="px-6 py-4 hidden sm:table-cell">{item?.regno || '123456'}</td>
+        <td className="px-6 py-4 max-w-xs">{item?.status || 'Active'}</td>
+        <td className="px-1 py-4">
           <div className="flex flex-wrap md:flex-nowrap ">
             <Button
               className="m-1 h-fit w-24"

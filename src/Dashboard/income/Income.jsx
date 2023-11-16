@@ -265,7 +265,6 @@ const Income = () => {
                   </thead>
                   <tbody>
                     {/* Dummy Data Ends Here */}
-                    {console.log(pageData)}
                     {pageData.map((item) => {
                       if (
                         item.desc

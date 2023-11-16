@@ -16,11 +16,11 @@ const StudentList = ({ item }) => {
   const handleOpen2 = () => setOpen2(!open2);
   return (
     <>
-      <tr class="bg-white border-b">
-        <td class=" py-4">
+      <tr className="bg-white border-b">
+        <td className=" py-4">
           <Checkbox />
         </td>
-        <th scope="row" class="px-6 py-4 font-semibold text-black flex">
+        <th scope="row" className="px-6 py-4 font-semibold text-black flex">
           <div className="bg-[#FF854F] w-fit h-fit p-3  mr-2 rounded-full text-white text-center">
             <span>G K</span>
           </div>
@@ -29,15 +29,15 @@ const StudentList = ({ item }) => {
             <div className="font-light my-1 text-gray-500">{item.email}</div>
           </div>
         </th>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.fname}</td>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.courses}</td>
-        <td class="px-6 py-4 hidden md:table-cell">{item.contact}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.gender}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">
+        <td className="px-6 py-4 hidden sm:table-cell">{item.fname}</td>
+        <td className="px-6 py-4 hidden sm:table-cell">{item.courses}</td>
+        <td className="px-6 py-4 hidden md:table-cell">{item.contact}</td>
+        <td className="px-3 py-4 hidden lg:table-cell">{item.gender}</td>
+        <td className="px-3 py-4 hidden lg:table-cell">
           <div>{item.dob}</div>
         </td>
-        <td class="px-6 py-4 hidden lg:table-cell">{item.admdate}</td>
-        <td class="px-1 py-4">
+        <td className="px-6 py-4 hidden lg:table-cell">{item.admdate}</td>
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

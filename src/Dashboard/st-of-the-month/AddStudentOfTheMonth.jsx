@@ -16,7 +16,6 @@ const AddStudentOfTheMonth = ({ open, handleOpen, StudentOfTheMonthList }) => {
   const [img, setImg] = useState("");
 
   const data = { course, regno, name };
-  console.log(data);
 
   const onsubmitClick = () => {
     const formData = new FormData();

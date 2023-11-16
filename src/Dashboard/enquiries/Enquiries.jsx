@@ -63,7 +63,6 @@ const Enquiries = () => {
       })
       .then((result) => {
         setProduct(result);
-        console.log(result)
         setLoader(false);
       })
       .catch((err) => {

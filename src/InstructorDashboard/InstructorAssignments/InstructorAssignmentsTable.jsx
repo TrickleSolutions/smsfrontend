@@ -30,21 +30,21 @@ const InstructorAssignmentsTable = ({ item, getAssignmentList }) => {
 
   return (
     <>
-      <tr class="bg-white border-b">
-        <td class=" py-4">
+      <tr className="bg-white border-b">
+        <td className=" py-4">
           <Checkbox />
         </td>
-        <td class="px-6 py-4 font-semibold text-black">{item.title}</td>
-        <td class="px-6 py-4 hidden sm:table-cell max-w-xs">
+        <td className="px-6 py-4 font-semibold text-black">{item.title}</td>
+        <td className="px-6 py-4 hidden sm:table-cell max-w-xs">
           {item.instructions}
         </td>
-        <td class="px-6 py-4 hidden sm:table-cell">{item.due_date}</td>
-        <td class="px-6 py-4 hidden md:table-cell max-w-xs">
+        <td className="px-6 py-4 hidden sm:table-cell">{item.due_date}</td>
+        <td className="px-6 py-4 hidden md:table-cell max-w-xs">
           <Link to={`${baseurl}/assignmentpic/${item.upload}`}>
             {item.upload}
           </Link>
         </td>
-        <td class="px-1 py-4">
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

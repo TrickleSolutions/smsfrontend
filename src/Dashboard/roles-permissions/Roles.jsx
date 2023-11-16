@@ -38,7 +38,6 @@ const Roles = () => {
         let filteredData = result.filter((item) => item.role != "0");
         setProduct(filteredData);
         setLoader(false);
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);

@@ -29,12 +29,12 @@ const AdminEventsTable = ({ item, getEventsList }) => {
   }
   return (
     <>
-      <tr class="bg-white border-b">
-        <td class=" py-4">
+      <tr className="bg-white border-b">
+        <td className=" py-4">
           <Checkbox />
         </td>
-        <td class="px-6 py-4 font-semibold text-black">{item.event}</td>
-        <td class="px-6 py-4 max-w-xs truncate">
+        <td className="px-6 py-4 font-semibold text-black">{item.event}</td>
+        <td className="px-6 py-4 max-w-xs truncate">
           <Tooltip
             placement="bottom-end"
             content={item.desc}
@@ -43,10 +43,10 @@ const AdminEventsTable = ({ item, getEventsList }) => {
             {item.desc}
           </Tooltip>
         </td>
-        <td class="px-6 py-4">{item.from}</td>
-        <td class="px-6 py-4">{item.to}</td>
-        <td class="px-6 py-4">{item.img}</td>
-        <td class="px-1 py-4">
+        <td className="px-6 py-4">{item.from}</td>
+        <td className="px-6 py-4">{item.to}</td>
+        <td className="px-6 py-4">{item.img}</td>
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

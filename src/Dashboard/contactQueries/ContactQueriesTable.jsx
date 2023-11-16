@@ -29,18 +29,18 @@ const ContactQueriesTable = ({ item, getContactQueriesList }) => {
 
   return (
     <>
-      <tr class="bg-white border-b">
-        <td class="w-fit py-4">
+      <tr className="bg-white border-b">
+        <td className="w-fit py-4">
           <Checkbox />
         </td>
-        <td scope="row" class="px-3 py-4 font-semibold text-black">
+        <td scope="row" className="px-3 py-4 font-semibold text-black">
           <div>{item.name}</div>
         </td>
-        <td class="px-3 py-4 ">{item.email ? item.email : "-"}</td>
-        <td class="px-3 py-4 ">{item.contact}</td>
-        <td class="px-3 py-4 ">{item.subject}</td>
-        <td class="px-3 py-4 max-w-sm break-words truncate">{item.desc}</td>
-        <td class="px-1 py-4">
+        <td className="px-3 py-4 ">{item.email ? item.email : "-"}</td>
+        <td className="px-3 py-4 ">{item.contact}</td>
+        <td className="px-3 py-4 ">{item.subject}</td>
+        <td className="px-3 py-4 max-w-sm break-words truncate">{item.desc}</td>
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

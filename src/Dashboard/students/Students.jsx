@@ -27,10 +27,14 @@ const Students = ({ updateAuth }) => {
   const handleOpen = () => setOpen(!open);
   const [filterBy, setFilterBy] = useState("all");
   const [selectAll, setSelectAll] = useState(false);
-
+  const [selectedData, setSelectedData] = useState(null);
   const [documentopen, setDocumentOpen] = useState(false);
   const navigate = useNavigate();
-  const handleDocumentOpen = () => setDocumentOpen(!documentopen);
+
+  const handleDocumentOpen = (data) => {
+    setDocumentOpen(!documentopen);
+    setSelectedData(data);
+  };
 
   useEffect(() => {
     getStudentList(filterBy);
@@ -149,6 +153,12 @@ const Students = ({ updateAuth }) => {
       field: 'name',
       headerName: 'Name',
       width: 150,
+      renderCell: (params) => (
+        <div className="flex items-center gap-1">
+          <img className="rounded-full w-10 h-10" src={baseurl + `/${params.row?.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
+          <p>{params.row?.name}</p>
+        </div>
+      )
     },
     {
       field: 'regno',
@@ -218,7 +228,7 @@ const Students = ({ updateAuth }) => {
       width: 100,
       renderCell: (params) => (
         <div className="flex justify-center">
-          <Button onClick={handleDocumentOpen} size="sm" >View</Button>
+          <Button onClick={() => handleDocumentOpen(params.row)} size="sm" >View</Button>
         </div>
       ),
     },
@@ -243,7 +253,6 @@ const Students = ({ updateAuth }) => {
       width: 100,
       renderCell: (params) => (
         <div className="flex justify-center">
-          {console.log(params.row)}
           <Menu>
             <MenuHandler>
               <svg
@@ -504,7 +513,7 @@ const Students = ({ updateAuth }) => {
                   disableRowSelectionOnClick
                 />
                 <StudenDocument
-                  // item={item}
+                  item={selectedData}
                   open={documentopen}
                   handleDocumentOpen={handleDocumentOpen}
                 />

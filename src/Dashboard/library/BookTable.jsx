@@ -30,23 +30,23 @@ const BookTable = ({ item, getBookList }) => {
   }
   return (
     <>
-      <tr class="bg-white border-b">
-        <td class=" py-4">
+      <tr className="bg-white border-b">
+        <td className=" py-4">
           <Checkbox />
         </td>
-        <th scope="row" class="px-6 py-4 font-semibold text-black flex">
+        <th scope="row" className="px-6 py-4 font-semibold text-black flex">
           {item.title}
         </th>
-        <td class="px-3 py-4 max-w-xs hidden sm:table-cell">{item.des}</td>
-        <td class="px-3 py-4 hidden md:table-cell">{item.book_no}</td>
-        <td class="px-3 py-4 hidden md:table-cell">{item.isbn_no}</td>
-        <td class="px-3 py-4 hidden md:table-cell">{item.publisher}</td>
-        <td class="px-3 py-4 hidden md:table-cell">{item.author}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.rack_no}</td>
-        <td class="px-3 py-4 hidden sm:table-cell">{item.qty}</td>
-        <td class="px-3 py-4">{item.available}</td>
-        <td class="px-3 py-4 hidden lg:table-cell">{item.date}</td>
-        <td class="px-1 py-4">
+        <td className="px-3 py-4 max-w-xs hidden sm:table-cell">{item.des}</td>
+        <td className="px-3 py-4 hidden md:table-cell">{item.book_no}</td>
+        <td className="px-3 py-4 hidden md:table-cell">{item.isbn_no}</td>
+        <td className="px-3 py-4 hidden md:table-cell">{item.publisher}</td>
+        <td className="px-3 py-4 hidden md:table-cell">{item.author}</td>
+        <td className="px-3 py-4 hidden lg:table-cell">{item.rack_no}</td>
+        <td className="px-3 py-4 hidden sm:table-cell">{item.qty}</td>
+        <td className="px-3 py-4">{item.available}</td>
+        <td className="px-3 py-4 hidden lg:table-cell">{item.date}</td>
+        <td className="px-1 py-4">
           <div>
             <Menu>
               <MenuHandler>

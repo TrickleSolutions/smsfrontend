@@ -299,7 +299,7 @@ const AdminEnrollment = () => {
                     {/* <th scope="col" className="px-6 py-3 ">
                     Course Name
                   </th> */}
-                    <th class="px-1 py-4">
+                    <th className="px-1 py-4">
                       <div>
                         <Menu>
                           <MenuHandler>
@@ -392,7 +392,7 @@ const AdminEnrollment = () => {
                           {/* <td className="px-6 py-3 ">
                           {item.course ? () => getCourseName(item.course) : ""}
                         </td> */}
-                          <td class="px-1 py-4">
+                          <td className="px-1 py-4">
                             <div>
                               <Menu>
                                 <MenuHandler>
