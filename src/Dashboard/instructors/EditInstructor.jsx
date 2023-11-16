@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Radio, Button } from "@material-tailwind/react";
 import baseurl from "../../Config";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuthContext } from "../../context/useStateContext";
+import axios from "axios";
 
 const EditInstructor = () => {
   const [name, setName] = useState("");
@@ -16,15 +18,27 @@ const EditInstructor = () => {
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState("");
-  const [salary, setSalary] = useState("")
+  const [salary, setSalary] = useState("");
   const [status, setStatus] = useState("");
   const location = useLocation();
   const instData = location.state;
   const [selectedProfilePic, setSelectedProfilePic] = useState(null);
-
-  console.log(instData);
+  const { imageUploads, UploadImage, setImageUploads } = useAuthContext();
 
   const navigate = useNavigate();
+
+  const { id } = useParams();
+
+  const handleProfilePicUpload = async (e) => {
+    try {
+      await UploadImage(e);
+      if (imageUploads.profilePic) {
+        setSelectedProfilePic(baseurl + "/" + imageUploads.profilePic);
+      }
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+    }
+  };
 
   useEffect(() => {
     setName(instData.name);
@@ -39,67 +53,144 @@ const EditInstructor = () => {
     setPassword(instData.password);
     setProfilePic(instData.profilePic);
     setStatus(instData.status);
-    setSalary(instData.salary)
+    setSalary(instData.salary);
   }, [instData]);
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Empty the value of fields
+  //   setName("");
+  //   setEmail("");
+  //   setAddress("");
+  //   setGender("");
+  //   setDob("");
+  //   setQualification("");
+  //   setDegree("");
+  //   setExp("");
+  //   setContact("");
+  //   setPassword("");
+  //   setProfilePic("");
+  //   setSalary("");
+
+  //   const formData = new FormData();
+  //   formData.append("name", name);
+  //   formData.append("email", email);
+  //   formData.append("address", address);
+  //   formData.append("gender", gender);
+  //   formData.append("dob", dob);
+  //   formData.append("qualification", qualification);
+  //   formData.append("degree", degree);
+  //   formData.append("exp", exp);
+  //   formData.append("contact", contact);
+  //   formData.append("password", password);
+  //   formData.append("profilePic", profilePic);
+  //   formData.append("salary", salary);
+  //   formData.append("status", status);
+
+  //   // Post Api For Posting Data
+  //   fetch(baseurl + "/api/instructor/" + instData._id, {
+  //     method: "PUT",
+  //     body: formData,
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       toast.info("Updated Successfully");
+  //       navigate("/admin/instructorList");
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was a problem with the fetch operation:", error);
+  //       toast.error("Failed to update instructor data. Please try again.");
+  //     });
+  // };
+
+  const handleSubmit = async (
+    e,
+    {
+      name,
+      email,
+      address,
+      gender,
+      dob,
+      qualification,
+      degree,
+      exp,
+      contact,
+      password,
+      profilePic,
+      salary,
+      status,
+    }
+  ) => {
     e.preventDefault();
-    // Empty the value of fields
-    setName("");
-    setEmail("");
-    setAddress("");
-    setGender("");
-    setDob("");
-    setQualification("");
-    setDegree("");
-    setExp("");
-    setContact("");
-    setPassword("");
-    setProfilePic("");
-    setSalary("");
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("address", address);
-    formData.append("gender", gender);
-    formData.append("dob", dob);
-    formData.append("qualification", qualification);
-    formData.append("degree", degree);
-    formData.append("exp", exp);
-    formData.append("contact", contact);
-    formData.append("password", password);
-    formData.append("profilePic", profilePic);
-    formData.append("salary", salary)
-    formData.append("status", status);
+    const formData = {
+      name,
+      email,
+      address,
+      gender,
+      dob,
+      qualification,
+      degree,
+      exp,
+      contact,
+      password,
+      profilePic,
+      salary,
+      status,
+    };
 
-    // Post Api For Posting Data
-    fetch(baseurl + "/api/instructor/" + instData._id, {
-      method: "PUT",
-      body: formData,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        toast.info("Updated Successfully");
+    try {
+      const response = await axios.patch(
+        `${baseurl}/api/instructor/${instData._id}`,
+        formData
+      );
+
+      if (response.status === 200) {
+        toast.success("Updated successfully");
         navigate("/admin/instructorList");
-      })
-      .catch((error) => {
-        console.error('There was a problem with the fetch operation:', error);
-        toast.error("Failed to update instructor data. Please try again.");
-      });
-
+        return response.data;
+      } else {
+        // Handle non-200 status codes
+        toast.error(`Error: ${response.status} - ${response.statusText}`);
+      }
+    } catch (error) {
+      // Handle network errors or other exceptions
+      console.error("API request failed:", error);
+      toast.error("Failed to update. Please try again.");
+    }
   };
+
   return (
     <>
       <div className=" max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto p-5">
         <h2 className="text-3xl text-center font-bold my-5">Edit Instructor</h2>
         <div className="w-[80%] md:px-5 lg:px-10 mx-auto mt-20">
-          <form onSubmit={handleSubmit} className="w-full px-10 mt-5 border py-3">
+          <form
+            onSubmit={(e) =>
+              handleSubmit(e, {
+                name: name,
+                email: email,
+                address: address,
+                gender: gender,
+                dob: dob,
+                qualification: qualification,
+                contact: contact,
+                degree: degree,
+                exp: exp,
+                password: password,
+                profilePic: imageUploads.profilePic,
+                salary: salary,
+                status: status,
+                id: id,
+              })
+            }
+            className="w-full px-10 mt-5 border py-3"
+          >
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/2 px-3 mb-3">
                 <label
@@ -290,11 +381,9 @@ const EditInstructor = () => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="profilePic"
+                  name="profilePic"
                   type="file"
-                  onChange={(e) => {
-                    setSelectedProfilePic(e.target.files[0]);
-                    setProfilePic(e.target.files[0]);
-                  }}
+                  onChange={handleProfilePicUpload}
                 />
               </div>
               <div className="w-1/2 px-3 mb-3">
@@ -316,8 +405,6 @@ const EditInstructor = () => {
                 />
               </div>
               <div className="w-full px-3 mb-3">
-
-
                 {/* Status */}
                 <div className="w-full px-3 mb-3">
                   <label
@@ -335,7 +422,7 @@ const EditInstructor = () => {
                       onChange={(e) => {
                         setStatus(e.target.value);
                       }}
-                      defaultChecked={instData.status === "active"}
+                      defaultChecked={instData?.status === "active"}
                     />
                     <Radio
                       id="leave"
@@ -345,7 +432,7 @@ const EditInstructor = () => {
                       onChange={(e) => {
                         setStatus(e.target.value);
                       }}
-                      defaultChecked={instData.status === "leave"}
+                      defaultChecked={instData?.status === "leave"}
                     />
                     <Radio
                       id="hold"
@@ -355,7 +442,7 @@ const EditInstructor = () => {
                       onChange={(e) => {
                         setStatus(e.target.value);
                       }}
-                      defaultChecked={instData.status === "hold"}
+                      defaultChecked={instData?.status === "hold"}
                     />
                     <Radio
                       id="break"
@@ -365,11 +452,10 @@ const EditInstructor = () => {
                       onChange={(e) => {
                         setStatus(e.target.value);
                       }}
-                      defaultChecked={instData.status === "break"}
+                      defaultChecked={instData?.status === "break"}
                     />
                   </div>
                 </div>
-
 
                 <input
                   type="submit"

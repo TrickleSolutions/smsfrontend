@@ -1,4 +1,5 @@
 import baseurl from "../Config";
+import { toast } from "react-toastify";
 
 const { createContext, useContext, useState, useEffect } = require("react");
 
@@ -63,6 +64,7 @@ const AuthProvider = ({ children }) => {
     })
       .then((res) => {
         if (res.status === 200) {
+          toast.info("uploaded Image Success");
           res.json().then((data) => {
             console.log(data);
             const value = { [e.target.name]: data.fileName };
