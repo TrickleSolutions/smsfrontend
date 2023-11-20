@@ -35,7 +35,7 @@ const InstructorList = () => {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {instData.map((item) => {
                 return (
-                    <div className="relative overflow-hidden transition duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
+                    <div className="relative overflow-hidden transition w-64 h-64 duration-300 transform rounded-full shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
                         <img
                             className="object-cover object-top w-full h-[100%] md:h-[100%] xl:h-[100%]"
                             // src={baseurl + "/api/teacherpic/" + item.profilePic}

@@ -180,7 +180,6 @@ const Students = ({ updateAuth }) => {
     {
       field: 'contact',
       headerName: 'Contact No.',
-      type: 'number',
       width: 150,
     },
     {
