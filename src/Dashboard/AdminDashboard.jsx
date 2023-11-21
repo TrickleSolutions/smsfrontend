@@ -347,7 +347,7 @@ const AdminDashboard = ({ adminAuth }) => {
                   <div>Student & Teacher Queries</div>
                 </div>
                 {/* Manage Student */}
-                {userPermissions.manageStudent ? (
+                {/* {userPermissions.manageStudent ? (
                   <div
                     onClick={() => goto("/admin/student-status")}
                     className=" w-48 h-48 p-10 m-3 text-2xl text-[#213363] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#213363] ring-offset-1"
@@ -372,7 +372,7 @@ const AdminDashboard = ({ adminAuth }) => {
                   </div>
                 ) : (
                   ""
-                )}
+                )} */}
 
                 {/* Schedule Batches */}
                 {userPermissions.scheduleBatches ? (
