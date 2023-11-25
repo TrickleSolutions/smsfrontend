@@ -338,7 +338,24 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="idCard"
                 >
-                  12th marksheet or above
+                  Add Thumb
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="idCard"
+                  type="file"
+                  name="intermediatemarksheet"
+                  onChange={(e) => {
+                    UploadImage(e);
+                  }}
+                />
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="idCard"
+                >
+                  Add Signature
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
