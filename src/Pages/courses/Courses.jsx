@@ -7,10 +7,11 @@ import {
   CardBody,
   CardFooter,
   Typography,
+  Button,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import Loader from "../../Components/Loader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
@@ -50,6 +51,8 @@ const Courses = () => {
     // easing: "ease-in",
     mirror: false,
   });
+
+  const navigation = useNavigate()
 
   function getCategoryData() {
     fetch(baseurl + "/api/category", {
@@ -267,9 +270,10 @@ const Courses = () => {
                               d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                             />
                           </svg>
-                          <span className="text-start ">
+                          {/* <span className="text-start ">
                             Rs. {course.price && course.price}/-
-                          </span>
+                          </span> */}
+                          <Button onClick={() => navigation('/contact')} size="sm">Enquiry Now</Button>
                         </div>
                       </div>
                     </CardFooter>
