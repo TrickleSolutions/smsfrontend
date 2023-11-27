@@ -154,9 +154,11 @@ const Students = ({ updateAuth }) => {
       headerName: 'Name',
       width: 150,
       renderCell: (params) => (
-        <div className="flex items-center gap-1">
-          <img className="rounded-full w-10 h-10" src={baseurl + `/${params.row?.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
-          <p>{params.row?.name}</p>
+        <div onClick={() => ShowStudent(params.row)} style={{ cursor: 'pointer' }} >
+          <div className="flex items-center gap-1">
+            <img className="rounded-full w-10 h-10" src={baseurl + `/${params.row?.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
+            <h5>{params.row?.name}</h5>
+          </div>
         </div>
       )
     },
@@ -507,7 +509,7 @@ const Students = ({ updateAuth }) => {
                       },
                     },
                   }}
-                  pageSizeOptions={[5]}
+                  pageSizeOptions={[5, 10, 25]}
                   checkboxSelection
                   disableRowSelectionOnClick
                 />

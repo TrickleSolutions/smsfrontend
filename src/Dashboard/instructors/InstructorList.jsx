@@ -187,9 +187,6 @@ const InstructorList = () => {
                 <table className="w-full text-sm text-left text-gray-500 ">
                   <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
                     <tr>
-                      <th scope="col" className=" py-3">
-                        <Checkbox />
-                      </th>
                       <th scope="col" className="px-6 py-3">
                         Instructor
                       </th>
@@ -239,9 +236,6 @@ const InstructorList = () => {
                               open={documentopen}
                               handleDocumentOpen={handleDocumentOpen}
                             />
-                            <td className=" py-4">
-                              <Checkbox />
-                            </td>
                             <td
                               scope="row"
                               className="px-6 py-4 font-semibold text-black flex"
