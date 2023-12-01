@@ -6,11 +6,10 @@ import {
   DialogBody,
   DialogFooter,
   Radio,
-  Select,
-  Option,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import Select from "react-select";
 
 const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
   const [studentsData, setStudentsData] = useState([]);
@@ -18,25 +17,22 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
   const [regno, setRegno] = useState("");
   const [amount, setAmount] = useState("");
   const [mode, setMode] = useState("cash");
-  const [transId, setTransId] = useState("NA");
+  const [transId, setTransId] = useState("");
   const [paid, setPaid] = useState("");
   const [date, setDate] = useState("");
-
 
   useEffect(() => {
     getStudentList();
   }, []);
 
   const getStudentList = () => {
-    fetch(baseurl + "/api/students ", {
+    fetch(baseurl + "/api/students?limit=10000&page=1", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((result) => {
         setStudentsData(result);
       })
@@ -45,29 +41,16 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
       });
   };
 
-  useEffect(() => {
-    getStudentName(regno);
-  }, [regno]);
-
-  const getStudentName = (id) => {
-    studentsData.map((student) => {
-      if (student.regno === id) {
-        setName(student.name);
-      }
-    });
+  const handleChange = (selectedOption) => {
+    setRegno(selectedOption?.value || '');
+    setName(selectedOption?.label || '');
   };
 
-  const data = { name, regno, amount, mode, transId, paid, date };
-
   const onSubmitClick = () => {
-    // Empty the fields
-    setName("");
-    setRegno("");
-    setAmount("");
-    setMode("");
-    setTransId("");
-    setPaid("");
-    setDate("");
+    // Create the data object with updated name and mode
+    const data = { name, regno, amount, mode, transId, paid, date };
+    console.log(data)  
+  
 
     // Post Api For Posting Data
     fetch(baseurl + "/api/fee", {
@@ -78,10 +61,9 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
       },
       body: JSON.stringify(data),
     })
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((result) => {
+        console.log(result)
         toast.success("Fees Added Successfully");
         handleOpen();
         getFeesList();
@@ -90,6 +72,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
         console.log(err);
       });
   };
+
 
   return (
     <>
@@ -113,20 +96,17 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
                 >
                   Reg No.
                 </label>
+
                 <Select
-                  id="regno"
-                  label="Select Student"
-                  // value={regno}
-                  onChange={(value) => {
-                    setRegno(value);
-                  }}
-                >
-                  {studentsData.data?.map((student) => (
-                    <Option value={student.regno}>
-                      {student.regno} | {student.name}
-                    </Option>
-                  ))}
-                </Select>
+                  options={studentsData?.data?.map((student) => ({
+                    value: student.regno,
+                    label: `${student.regno} | ${student.name}`,
+                  })) || []}
+                  isSearchable
+                  placeholder="Select option..."
+                  onChange={handleChange}
+                />
+
               </div>
               {/* Name */}
               <div className="w-full px-3 mb-3">
@@ -144,6 +124,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
                   value={name}
                   disabled
                 />
+
               </div>
               {/* amount */}
               <div className="w-full px-3 mb-3">

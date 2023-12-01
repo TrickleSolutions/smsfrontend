@@ -1,16 +1,11 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import {
   Checkbox,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
 } from "@material-tailwind/react";
 import ModalAddFees from "./ModalAddFees";
 import Loader from "../../Components/Loader";
-import { useNavigate } from "react-router-dom";
 import AdminFeesTable from "./AdminFeesTable";
 
 const AdminFees = () => {
@@ -20,7 +15,6 @@ const AdminFees = () => {
   const [pageCount, setPageCount] = useState(0);
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     getFeesList();
