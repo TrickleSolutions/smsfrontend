@@ -1,5 +1,11 @@
 import React, { useEffect, Fragment, useState } from "react";
-import { Button, Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwind/react";
+import {
+  Button,
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MenuList,
+} from "@material-tailwind/react";
 import AddStudent from "./AddStudent";
 import { Checkbox } from "@material-tailwind/react";
 import baseurl from "../../Config";
@@ -8,12 +14,19 @@ import Loader from "../../Components/Loader";
 import { CSVLink } from "react-csv";
 import Pagination from "../../Components/Pagination";
 import { GlobalPagination } from "../../Components/GlobalPagination";
-import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarDensitySelector,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+  GridToolbarQuickFilter,
+} from "@mui/x-data-grid";
 import moment from "moment";
 import StudenDocument from "./StudenDocument";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
 
 const Students = ({ updateAuth }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +53,6 @@ const Students = ({ updateAuth }) => {
     getStudentList(filterBy);
   }, [currentPage]);
 
-
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
     const updatedPageData = pageData.map((item) => ({
@@ -60,7 +72,10 @@ const Students = ({ updateAuth }) => {
   };
 
   const getStudentList = (filterby) => {
-    const query = new URLSearchParams({ page: currentPage, limit: 1300 }).toString()
+    const query = new URLSearchParams({
+      page: currentPage,
+      limit: 1300,
+    }).toString();
     fetch(baseurl + "/api/students?" + query, {
       method: "GET",
       headers: {
@@ -102,9 +117,9 @@ const Students = ({ updateAuth }) => {
 
   const ShowStudent = (student) => {
     sessionStorage.setItem("auth", JSON.stringify(student._id));
-    updateAuth()
-    navigate('/student/dashboard')
-  }
+    updateAuth();
+    navigate("/student/dashboard");
+  };
 
   const CustomToolbar = () => {
     return (
@@ -118,7 +133,6 @@ const Students = ({ updateAuth }) => {
     );
   };
 
-
   // Replace with the actual total number of pages in your dataset.
 
   const handlePageChange = (page) => {
@@ -127,130 +141,144 @@ const Students = ({ updateAuth }) => {
   };
 
   const DataWithID = (data) => {
-    const NewData = []
+    const NewData = [];
     if (data !== undefined) {
       for (let item of data) {
-        NewData.push({ ...item, id: data.indexOf(item), date: moment(item.createdAt).format("D / M / Y") })
+        NewData.push({
+          ...item,
+          id: data.indexOf(item),
+          date: moment(item.createdAt).format("D / M / Y"),
+        });
       }
     } else {
-      NewData.push({ id: 0 })
+      NewData.push({ id: 0 });
     }
-    return NewData
-  }
+    return NewData;
+  };
 
   const columns = [
     {
-      field: 'id',
-      headerName: 'ID',
+      field: "id",
+      headerName: "ID",
       width: 90,
       renderCell: (params) => (
-        <div className="flex justify-center">
-          {params.row.id + 1}
-        </div>
+        <div className="flex justify-center">{params.row.id + 1}</div>
       ),
     },
     {
-      field: 'name',
-      headerName: 'Name',
+      field: "name",
+      headerName: "Name",
       width: 150,
       renderCell: (params) => (
-        <div onClick={() => ShowStudent(params.row)} style={{ cursor: 'pointer' }} >
+        <div
+          onClick={() => ShowStudent(params.row)}
+          style={{ cursor: "pointer" }}
+        >
           <div className="flex items-center gap-1">
-            <img className="rounded-full w-10 h-10" src={baseurl + `/${params.row?.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
+            <img
+              className="rounded-full w-10 h-10"
+              src={
+                baseurl + `/${params.row?.profilePic}` ||
+                "https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg"
+              }
+              alt="profile"
+            />
             <h5>{params.row?.name}</h5>
           </div>
         </div>
-      )
+      ),
     },
     {
-      field: 'regno',
-      headerName: 'Reg No',
-      type: 'number',
+      field: "regno",
+      headerName: "Reg No",
+      type: "number",
       width: 100,
     },
     {
-      field: 'course',
-      headerName: 'Course',
+      field: "course",
+      headerName: "Course",
       width: 100,
     },
     {
-      field: 'address',
-      headerName: 'Address',
-      type: 'text',
+      field: "address",
+      headerName: "Address",
+      type: "text",
       width: 150,
     },
     {
-      field: 'contact',
-      headerName: 'Contact No.',
+      field: "contact",
+      headerName: "Contact No.",
       width: 150,
     },
     {
-      field: 'gender',
-      headerName: 'Gender',
-      type: 'number',
+      field: "gender",
+      headerName: "Gender",
+      type: "number",
       width: 100,
     },
     {
-      field: 'dob',
-      headerName: 'DOB',
-      type: 'number',
+      field: "dob",
+      headerName: "DOB",
+      type: "number",
       width: 150,
       renderCell: (params) => (
         <div className="flex justify-center">
-          {moment(params.row.dob).format('MMMM Do YYYY')}
+          {moment(params.row.dob).format("MMMM Do YYYY")}
         </div>
       ),
     },
     {
-      field: 'admdate',
-      headerName: 'DOJ',
-      type: 'number',
+      field: "admdate",
+      headerName: "DOJ",
+      type: "number",
       width: 150,
       renderCell: (params) => (
         <div className="flex justify-center">
-          {moment(params.row.admdate).format('MMMM Do YYYY')}
+          {moment(params.row.admdate).format("MMMM Do YYYY")}
         </div>
       ),
     },
     {
-      field: 'locker_no',
-      headerName: 'Locker No.',
-      type: 'number',
+      field: "locker_no",
+      headerName: "Locker No.",
+      type: "number",
       width: 100,
       renderCell: (params) => (
         <div className="flex justify-center">
-          <p>{params?.locker_no || 'NA'}</p>
+          <p>{params?.locker_no || "NA"}</p>
         </div>
       ),
     },
     {
-      field: 'documents',
-      headerName: 'Documents',
+      field: "documents",
+      headerName: "Documents",
       width: 100,
       renderCell: (params) => (
         <div className="flex justify-center">
-          <Button onClick={() => handleDocumentOpen(params.row)} size="sm" >View</Button>
+          <Button onClick={() => handleDocumentOpen(params.row)} size="sm">
+            View
+          </Button>
         </div>
       ),
     },
     {
-      field: 'shift',
-      headerName: 'Shift',
-      type: 'number',
+      field: "shift",
+      headerName: "Shift",
+      type: "number",
       width: 50,
       renderCell: (params) => (
         <div className="flex justify-center">
-          <p>{params?.shift || '-'}</p>
+          <p>{params.row?.shift || "-"}</p>
         </div>
       ),
     },
     {
-      field: 'status',
-      headerName: 'Status',
+      field: "status",
+      headerName: "Status",
       width: 100,
     },
     {
-      headerName: 'Action',
+      headerName: "Action",
       width: 100,
       renderCell: (params) => (
         <div className="flex justify-center">
@@ -324,7 +352,6 @@ const Students = ({ updateAuth }) => {
         </div>
       ),
     },
-
   ];
 
   return (
@@ -581,16 +608,15 @@ const Students = ({ updateAuth }) => {
                 onChange={handlePageChange}
               /> */}
             </div>
-
           </div>
         </div>
-      </div >
+      </div>
       {/* Footer */}
-      <div div className="bg-[var(--theme-color)]" >
+      <div div className="bg-[var(--theme-color)]">
         <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
           &#169; 2023 SMS Education | All Rights Reserved
         </h1>
-      </div >
+      </div>
     </>
   );
 };

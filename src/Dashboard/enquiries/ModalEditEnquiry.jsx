@@ -26,6 +26,7 @@ const ModalEditEnquiry = ({ item, open, handleOpen, getEnquiryList }) => {
   const [note, setNote] = useState("");
   const [courseData, setCourseData] = useState([]);
 
+
   useEffect(() => {
     setName(item.name);
     setFname(item.fname);
@@ -53,7 +54,6 @@ const ModalEditEnquiry = ({ item, open, handleOpen, getEnquiryList }) => {
     counseller,
     note,
   };
-  console.log(data);
 
   useEffect(() => {
     getCourseData();
@@ -109,7 +109,6 @@ const ModalEditEnquiry = ({ item, open, handleOpen, getEnquiryList }) => {
           getEnquiryList();
           handleOpen(false);
         } else {
-          console.log(result?.message)
           toast.info(`${result.message}`);
         }
       })
@@ -239,7 +238,7 @@ const ModalEditEnquiry = ({ item, open, handleOpen, getEnquiryList }) => {
                   onChange={(e) => {
                     setCourse(e);
                   }}
-                // selected={course}
+                  // selected={course}
                 >
                   <Option value="">Select Course</Option>
                   {courseData.map((item) => {

@@ -28,14 +28,14 @@ const EditStudent = () => {
   const [locker_no, setLocker_no] = useState("");
   const [courseData, setCourseData] = useState([]);
   const location = useLocation();
-  const [imageUploads, setImageUploads] = useState({})
+  const [imageUploads, setImageUploads] = useState({});
   const stuData = location.state;
 
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState({});
 
   const handleFormData = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const EditStudent = () => {
   // PUT Api For Updating Data
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const newFormData = {
       // profilePic: imageUploads.profilePic,
       gender: gender,
@@ -72,8 +72,11 @@ const EditStudent = () => {
     };
 
     try {
-      const response = await axios.patch(baseurl + "/api/students/" + stuData._id, newFormData);
-      console.log(newFormData)
+      const response = await axios.patch(
+        baseurl + "/api/students/" + stuData._id,
+        newFormData
+      );
+      console.log(newFormData);
       if (response.status === 200) {
         toast.success("Updated Successfully");
         setLoader(false);
@@ -91,27 +94,32 @@ const EditStudent = () => {
     fetch(baseurl + "/api/uploadfile", {
       method: "POST",
       body: fd,
-    }).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          console.log(data);
-          const value = { [e.target.name]: data.fileName }
-          setImageUploads({ ...imageUploads, ...value })
-        });
-      }
-    }).catch((error) => {
-      console.log(error)
-    });
-  }
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            console.log(data);
+            const value = { [e.target.name]: data.fileName };
+            setImageUploads({ ...imageUploads, ...value });
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    setFormData({ ...formData, ...stuData })
-  }, [])
+    setFormData({ ...formData, ...stuData });
+  }, []);
   useEffect(() => {
     if (imageUploads.profilePic) {
-      setFormData({ ...formData, profilePic: imageUploads.profilePic })
+      setFormData({ ...formData, profilePic: imageUploads.profilePic });
     }
-  }, [imageUploads])
+    if (imageUploads.aadhar_pan) {
+      setFormData({ ...formData, aadhar_pan: imageUploads.aadhar_pan });
+    }
+  }, [imageUploads]);
   return (
     <>
       {loader ? (
@@ -122,9 +130,8 @@ const EditStudent = () => {
         <div className="max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-5xl mx-auto p-5">
           <h2 className="text-3xl text-center font-bold my-5">Edit Student</h2>
           <div className=" md:px-5 lg:px-10 mt-20">
-            <form >
+            <form>
               <div className="flex flex-wrap -mx-3 mb-6">
-
                 <div className="w-full md:w-1/2 px-3 mb-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -259,10 +266,10 @@ const EditStudent = () => {
                       name="gender"
                       label="Male"
                       value={formData.gender || ""}
-                      defaultChecked={
-                        formData.gender
+                      defaultChecked={formData.gender}
+                      onChange={() =>
+                        setFormData({ ...formData, gender: "male" })
                       }
-                      onChange={() => setFormData({ ...formData, gender: "male" })}
                     />
                     <Radio
                       id="female"
@@ -270,7 +277,9 @@ const EditStudent = () => {
                       label="Female"
                       value={formData.gender || ""}
                       defaultChecked={formData.gender}
-                      onChange={() => setFormData({ ...formData, gender: "female" })}
+                      onChange={() =>
+                        setFormData({ ...formData, gender: "female" })
+                      }
                     />
                   </div>
                 </div>
@@ -425,7 +434,7 @@ const EditStudent = () => {
                   <input
                     className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="aadhaarCard"
-                    name="aadhaarCard"
+                    name="aadhar_pan"
                     type="file"
                     onChange={(e) => {
                       UploadImage(e);
@@ -446,7 +455,7 @@ const EditStudent = () => {
                       onChange={() => setOpt("course")}
                       name="type"
                       label="Course"
-                    // defaultChecked={stuData.course ? true : false}
+                      // defaultChecked={stuData.course ? true : false}
                     />
                     <Radio
                       id="library"
@@ -486,7 +495,9 @@ const EditStudent = () => {
                         return (
                           <option
                             value={item.title}
-                            selected={item._id === stuData?.course ? true : false}
+                            selected={
+                              item._id === stuData?.course ? true : false
+                            }
                           >
                             {item.title}
                           </option>
@@ -540,9 +551,9 @@ const EditStudent = () => {
                         value={shift}
                         // onChange={handleFormData}
                         label="1st Shift"
-                      // defaultChecked={
-                      //   formData.shift == "1st Shift" ? true : false
-                      // }
+                        // defaultChecked={
+                        //   formData.shift == "1st Shift" ? true : false
+                        // }
                       />
                       <Radio
                         id="shift"
@@ -551,15 +562,19 @@ const EditStudent = () => {
                         value={shift}
                         name="shift"
                         label="2nd Shift"
-                      // defaultChecked={
-                      //   formData.shift == "2nd Shift" ? true : false
-                      // }
+                        // defaultChecked={
+                        //   formData.shift == "2nd Shift" ? true : false
+                        // }
                       />
                     </div>
                   </div>
 
-                  <button className="h-fit p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all" onClick={handleSubmit}>Sumbit</button>
-
+                  <button
+                    className="h-fit p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
+                    onClick={handleSubmit}
+                  >
+                    Sumbit
+                  </button>
                 </div>
 
                 {/* <input

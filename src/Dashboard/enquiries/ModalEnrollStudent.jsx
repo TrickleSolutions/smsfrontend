@@ -9,8 +9,14 @@ import {
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import { useAuthContext } from "../../context/useStateContext";
 
-const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => {
+const ModalEnrollStudent = ({
+  open,
+  handleOpen,
+  item,
+  HandleEnquiryStatus,
+}) => {
   const { name, fname, address, contact, email, gender, dob, refby } = item;
   const [regno, setRegno] = useState("");
   const [admdate, setAdmdate] = useState("");
@@ -20,12 +26,30 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
   const [locker_no, setLocker_no] = useState("");
   const [courseData, setCourseData] = useState([]);
   const [profilePic, setProfilePic] = useState(null);
-  const [idCardimg, setIdCardimg] = useState(null)
-  const [tenthMarksheet, setTenthMarksheet] = useState(null)
-  const [twelthMarksheet, setTwelthMarksheet] = useState(null)
-  const [imageUploads, setImageUploads] = useState({})
+  const [idCardimg, setIdCardimg] = useState(null);
+  const [tenthMarksheet, setTenthMarksheet] = useState(null);
+  const [twelthMarksheet, setTwelthMarksheet] = useState(null);
+  const { imageUploads, UploadImage } = useAuthContext();
+
+  const [formData, setFormData] = useState({
+    name,
+    fname,
+    address,
+    contact,
+    gender,
+    email,
+    dob,
+    refby,
+  });
+  const handleChangeinput = (name, value) => {
+    setFormData({ ...formData, [name]: value });
+  };
   const data = {
     regno,
+    admdate,
+    course,
+    locker_no,
+    shift,
     name,
     fname,
     address,
@@ -33,15 +57,13 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
     email,
     gender,
     dob,
-    admdate,
     refby,
-    course,
-    locker_no,
-    shift,
-    profilePic: imageUploads.profilePic,
-    idCardimg: imageUploads.idCardimg,
-    tenthMarksheet: imageUploads.tenthMarksheet,
-    twelthMarksheet: imageUploads.twelthMarksheet
+    profilePic: imageUploads?.profilePic,
+    idCardimg: imageUploads?.idCardimg,
+    tenthMarksheet: imageUploads?.tenthMarksheet,
+    twelthMarksheet: imageUploads?.twelthMarksheet,
+    thumb: imageUploads?.thumb,
+    signature: imageUploads?.signature,
   };
 
   useEffect(() => {
@@ -85,14 +107,14 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(formData),
     })
       .then((res) => {
         return res.json();
       })
       .then((result) => {
         if (result.status === true && result.code === 200) {
-          HandleEnquiryStatus(item._id, 'joined')
+          HandleEnquiryStatus(item._id, "joined");
           toast.success("Student Enrolled Successfully");
           handleOpen();
         } else {
@@ -104,35 +126,19 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
       });
   };
 
-
-  const UploadImage = (e) => {
-    const file = e.target.files[0];
-    const fd = new FormData();
-    fd.append("myfile", file);
-    fetch(baseurl + "/api/uploadfile/", {
-      method: "POST",
-      body: fd,
-    }).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          console.log(data);
-          const value = { [e.target.name]: data.fileName }
-          setImageUploads({ ...imageUploads, ...value })
-          console.log(imageUploads)
-        });
-      }
-    }).catch((error) => {
-      console.log(error)
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      ...imageUploads,
     });
-  }
-
+  }, [imageUploads]);
 
   return (
     <>
       <Dialog
         open={open}
         handler={handleOpen}
-        className="min-w-[80%] md:min-w-[60%] lg:min-w-[50%]"
+        className="min-w-[80%] md:min-w-[60%] lg:min-w-[50%] !z-0"
       >
         <DialogHeader className="text-center justify-center">
           {" "}
@@ -152,10 +158,15 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="regno"
                   type="number"
+                  name="regno"
                   placeholder="7643858"
-                  value={regno}
+                  value={formData?.regno || ""}
+                  // value={regno}
+                  // onChange={(e) => {
+                  //   setRegno(e.target.value);
+                  // }}
                   onChange={(e) => {
-                    setRegno(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
                 />
               </div>
@@ -170,9 +181,13 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="admdate"
                   type="date"
-                  value={admdate}
+                  name="admdate"
+                  value={formData.admdate || ""}
+                  // onChange={(e) => {
+                  //   setAdmdate(e.target.value);
+                  // }}
                   onChange={(e) => {
-                    setAdmdate(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
                 />
               </div>
@@ -216,10 +231,14 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                   </label>
                   <select
                     label="Select Course"
+                    name="course"
                     className="p-2 border focus-visible:outline-none"
-                    value={course}
+                    value={formData.course || ""}
+                    // onChange={(e) => {
+                    //   setCourse(e.target.value);
+                    // }}
                     onChange={(e) => {
-                      setCourse(e.target.value);
+                      handleChangeinput(e.target.name, e.target.value);
                     }}
                   >
                     <option value="">Select Course</option>
@@ -244,10 +263,14 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="locker_no"
                     type="number"
+                    name="locker_no"
                     placeholder="544543"
-                    value={locker_no}
+                    value={formData.locker_no || ""}
+                    // onChange={(e) => {
+                    //   setLocker_no(e.target.value);
+                    // }}
                     onChange={(e) => {
-                      setLocker_no(e.target.value);
+                      handleChangeinput(e.target.name, e.target.value);
                     }}
                   />
                 </div>
@@ -266,14 +289,20 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                 <div className="flex flex-wrap gap-1">
                   <Radio
                     id="shift"
-                    onChange={() => setShift("1st Shift")}
-                    name="type2"
+                    // onChange={() => setShift("1st Shift")}
+                    onChange={(e) => {
+                      handleChangeinput(e.target.name, "1st Shift");
+                    }}
+                    name="shift"
                     label="1st Shift"
                   />
                   <Radio
                     id="shift"
-                    onChange={() => setShift("2nd Shift")}
-                    name="type2"
+                    // onChange={() => setShift("2nd Shift")}
+                    onChange={(e) => {
+                      handleChangeinput(e.target.name, "2st Shift");
+                    }}
+                    name="shift"
                     label="2nd Shift"
                   />
                 </div>
@@ -308,7 +337,7 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
-                  name="idCard"
+                  name="aadhar_pan"
                   onChange={(e) => {
                     UploadImage(e);
                   }}
@@ -326,7 +355,7 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
-                  name="HighSchoolmarksheet"
+                  name="tenthMarksheet"
                   onChange={(e) => {
                     UploadImage(e);
                   }}
@@ -344,7 +373,7 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
-                  name="intermediatemarksheet"
+                  name="thumb"
                   onChange={(e) => {
                     UploadImage(e);
                   }}
@@ -361,7 +390,7 @@ const ModalEnrollStudent = ({ open, handleOpen, item, HandleEnquiryStatus }) => 
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
-                  name="intermediatemarksheet"
+                  name="signature"
                   onChange={(e) => {
                     UploadImage(e);
                   }}

@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import { useAuthContext } from "../../context/useStateContext";
 
 const AddStudent = ({ open, handleOpen }) => {
   const [regno, setRegno] = useState("");
@@ -27,10 +28,14 @@ const AddStudent = ({ open, handleOpen }) => {
   const [locker_no, setLocker_no] = useState("");
   const [courseData, setCourseData] = useState([]);
   const [profilePic, setProfilePic] = useState(null);
-  const [idCardimg, setIdCardimg] = useState(null)
-  const [tenthMarksheet, setTenthMarksheet] = useState(null)
-  const [twelthMarksheet, setTwelthMarksheet] = useState(null)
-  const [imageUploads, setImageUploads] = useState({})
+  const [idCardimg, setIdCardimg] = useState(null);
+  const [tenthMarksheet, setTenthMarksheet] = useState(null);
+  const [twelthMarksheet, setTwelthMarksheet] = useState(null);
+  const { imageUploads, UploadImage } = useAuthContext();
+  const [formData, setFormData] = useState({});
+  const handleChangeinput = (key, value) => {
+    setFormData({ ...formData, [key]: value });
+  };
   const data = {
     regno,
     name,
@@ -48,7 +53,7 @@ const AddStudent = ({ open, handleOpen }) => {
     profilePic: imageUploads.profilePic,
     idCardimg: imageUploads.idCard,
     tenthMarksheet: imageUploads.tenthMarksheet,
-    twelthMarksheet: imageUploads.intermediatemarksheet
+    twelthMarksheet: imageUploads.intermediatemarksheet,
   };
 
   useEffect(() => {
@@ -88,7 +93,7 @@ const AddStudent = ({ open, handleOpen }) => {
     setProfilePic("");
     setIdCardimg("");
     setTenthMarksheet("");
-    setTwelthMarksheet("")
+    setTwelthMarksheet("");
     // Post Api For Posting Data
     fetch(baseurl + "/api/students", {
       method: "POST",
@@ -96,7 +101,7 @@ const AddStudent = ({ open, handleOpen }) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(formData),
     })
       .then((res) => {
         return res.json();
@@ -104,7 +109,7 @@ const AddStudent = ({ open, handleOpen }) => {
       .then((result) => {
         if (result.status === true && result.code === 200) {
           toast.success("Student Enrolled Successfully");
-          console.log(result)
+          console.log(result);
           handleOpen();
         } else {
           toast.info(`${result.message}`);
@@ -115,27 +120,12 @@ const AddStudent = ({ open, handleOpen }) => {
       });
   };
 
-
-  const UploadImage = (e) => {
-    const file = e.target.files[0];
-    const fd = new FormData();
-    fd.append("myfile", file);
-    fetch(baseurl + "/api/uploadfile", {
-      method: "POST",
-      body: fd,
-    }).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          console.log(data);
-          const value = { [e.target.name]: data.fileName }
-          setImageUploads({ ...imageUploads, ...value })
-          console.log(imageUploads)
-        });
-      }
-    }).catch((error) => {
-      console.log(error)
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      ...imageUploads,
     });
-  }
+  }, [imageUploads]);
 
   return (
     <>
@@ -162,10 +152,15 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="fullName"
                   type="text"
+                  name="name"
                   placeholder="John Doe"
-                  value={name}
+                  value={formData.name || ""}
+                  // value={name}
+                  // onChange={(e) => {
+                  //   setName(e.target.value);
+                  // }}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
                 />
               </div>
@@ -180,10 +175,14 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="fatherName"
                   type="text"
+                  name="fname"
                   placeholder="Harry Doe"
-                  value={fname}
+                  value={formData.fname || ""}
+                  // onChange={(e) => {
+                  //   setFname(e.target.value);
+                  // }}
                   onChange={(e) => {
-                    setFname(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
                 />
               </div>
@@ -198,11 +197,15 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="john@gmail.com"
-                  value={email}
+                  value={formData.email || ""}
                   onChange={(e) => {
-                    setEmail(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
+                  // onChange={(e) => {
+                  //   setEmail(e.target.value);
+                  // }}
                 />
               </div>
               <div className="w-full px-3 mb-3">
@@ -216,11 +219,15 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="address"
                   type="text"
+                  name="address"
                   placeholder="7th Street, Mexico, USA"
-                  value={address}
+                  value={formData.address || ""}
                   onChange={(e) => {
-                    setAddress(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
+                  // onChange={(e) => {
+                  //   setAddress(e.target.value);
+                  // }}
                 />
               </div>
 
@@ -236,10 +243,14 @@ const AddStudent = ({ open, handleOpen }) => {
                   id="contact"
                   type="number"
                   placeholder="9257643858"
-                  value={contact}
-                  onChange={(e) => {
-                    setContact(e.target.value);
-                  }}
+                  name="contact"
+                  value={formData.contact || ""}
+                  onChange={(e) =>
+                    handleChangeinput(e.target.name, e.target.value)
+                  }
+                  // onChange={(e) => {
+                  //   setContact(e.target.value);
+                  // }}
                 />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-3">
@@ -252,20 +263,23 @@ const AddStudent = ({ open, handleOpen }) => {
                 <div className="flex gap-10">
                   <Radio
                     id="male"
-                    name="type"
+                    name="gender"
                     label="Male"
-                    value={gender}
+                    value={formData.gender || ""}
+                    // onChange={(e) => {
+                    //   setGender("male");
+                    // }}
                     onChange={(e) => {
-                      setGender("male");
+                      handleChangeinput(e.target.name, "male");
                     }}
                   />
                   <Radio
                     id="female"
-                    name="type"
+                    name="gender"
                     label="Female"
-                    value={gender}
+                    value={formData.gender || ""}
                     onChange={(e) => {
-                      setGender("female");
+                      handleChangeinput(e.target.name, "female");
                     }}
                   />
                 </div>
@@ -282,9 +296,10 @@ const AddStudent = ({ open, handleOpen }) => {
                   id="regno"
                   type="number"
                   placeholder="7643858"
-                  value={regno}
+                  name="regno"
+                  value={formData.regno || ""}
                   onChange={(e) => {
-                    setRegno(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
                 />
               </div>
@@ -299,9 +314,10 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="scroll-smooth appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="dob"
                   type="date"
-                  value={dob}
+                  name="dob"
+                  value={formData.dob || ""}
                   onChange={(e) => {
-                    setDob(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
                 />
               </div>
@@ -316,9 +332,10 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="admdate"
                   type="date"
-                  value={admdate}
+                  name="admdate"
+                  value={formData.admdate || ""}
                   onChange={(e) => {
-                    setAdmdate(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
                 />
               </div>
@@ -334,9 +351,10 @@ const AddStudent = ({ open, handleOpen }) => {
                   id="refBy"
                   type="text"
                   placeholder="Suman Yadav"
-                  value={refby}
+                  name="refby"
+                  value={formData.refby || ""}
                   onChange={(e) => {
-                    setRefby(e.target.value);
+                    handleChangeinput(e.target.name, e.target.value);
                   }}
                 />
               </div>
@@ -381,9 +399,10 @@ const AddStudent = ({ open, handleOpen }) => {
                   <select
                     label="Select Course"
                     className="p-2 border focus-visible:outline-none"
-                    value={course}
+                    name="course"
+                    value={formData.course || ""}
                     onChange={(e) => {
-                      setCourse(e.target.value);
+                      handleChangeinput(e.target.name, e.target.value);
                     }}
                   >
                     <option value="">Select Course</option>
@@ -409,9 +428,10 @@ const AddStudent = ({ open, handleOpen }) => {
                     id="locker_no"
                     type="number"
                     placeholder="544543"
-                    value={locker_no}
+                    name="locker_no"
+                    value={formData.locker_no || ""}
                     onChange={(e) => {
-                      setLocker_no(e.target.value);
+                      handleChangeinput(e.target.name, e.target.value);
                     }}
                   />
                 </div>
@@ -430,14 +450,20 @@ const AddStudent = ({ open, handleOpen }) => {
                 <div className="flex flex-wrap gap-1">
                   <Radio
                     id="shift"
-                    onChange={() => setShift("1st Shift")}
-                    name="type2"
+                    name="shift"
+                    value={formData.shift || ""}
+                    onChange={(e) => {
+                      handleChangeinput(e.target.name, "1st Shift");
+                    }}
                     label="1st Shift"
                   />
                   <Radio
                     id="shift"
-                    onChange={() => setShift("2nd Shift")}
-                    name="type2"
+                    name="shift"
+                    value={formData.shift || ""}
+                    onChange={(e) => {
+                      handleChangeinput(e.target.name, "2nd Shift");
+                    }}
                     label="2nd Shift"
                   />
                 </div>
@@ -472,7 +498,7 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
-                  name="idCard"
+                  name="aadhar_pan"
                   onChange={(e) => {
                     UploadImage(e);
                   }}
@@ -502,13 +528,30 @@ const AddStudent = ({ open, handleOpen }) => {
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="idCard"
                 >
-                  12th marksheet or above
+                  Upload Thumb
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="idCard"
                   type="file"
-                  name="intermediatemarksheet"
+                  name="thumb"
+                  onChange={(e) => {
+                    UploadImage(e);
+                  }}
+                />
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="idCard"
+                >
+                  Upload Signature
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="idCard"
+                  type="file"
+                  name="signature"
                   onChange={(e) => {
                     UploadImage(e);
                   }}
@@ -526,7 +569,12 @@ const AddStudent = ({ open, handleOpen }) => {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="blue" onClick={onSubmitClick}>
+          <Button
+            variant="gradient"
+            color="blue"
+            onClick={onSubmitClick}
+            // onClick={() => console.log(formData)}
+          >
             <span>Submit</span>
           </Button>
         </DialogFooter>

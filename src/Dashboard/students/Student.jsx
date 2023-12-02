@@ -38,44 +38,56 @@ const Student = ({ item, getStudentList, checked, updateAuth }) => {
 
   const ShowStudent = (student) => {
     sessionStorage.setItem("auth", JSON.stringify(student._id));
-    updateAuth()
-    navigate('/student/dashboard')
-  }
+    updateAuth();
+    navigate("/student/dashboard");
+  };
 
   return (
     <>
       <tr className="bg-white border-b">
         <td className=" py-4">
-          <Checkbox
-            checked={checked} />
+          <Checkbox checked={checked} />
         </td>
         {/* <td className="px-6 py-4">{index}</td> */}
         <td className="px-6 py-4 font-semibold text-black">
           <div onClick={handleOpen} className="flex cursor-pointer">
             <div className=" text-white">
-              <img className="rounded-full w-10 h-10" src={baseurl + `/${item?.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'} alt="profile" />
+              <img
+                className="rounded-full w-10 h-10"
+                src={
+                  baseurl + `/${item?.profilePic}` ||
+                  "https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg"
+                }
+                alt="profile"
+              />
             </div>
             <div className="ml-2">
-              <div onClick={() => ShowStudent(item)} >{item.name}</div>
+              <div onClick={() => ShowStudent(item)}>{item.name}</div>
               <div className="font-light my-1 text-gray-500">{item.email}</div>
             </div>
           </div>
           <ModalViewStudent open={open} handleOpen={handleOpen} item={item} />
         </td>
-        <td onClick={handleOpen} className="">{item.regno}</td>
+        <td onClick={handleOpen} className="">
+          {item.regno}
+        </td>
         <td className="">{item.course ? item.course : "-"}</td>
         <td className="">{item.fname}</td>
         <td className="max-w-xs break-words truncate">{item.address}</td>
         <td className="">{item.contact}</td>
         <td className="px-3 py-4">{item.gender}</td>
-        <td className="px-3 py-4">{moment(item.dob).format('MMMM Do YYYY')}</td>
+        <td className="px-3 py-4">{moment(item.dob).format("MMMM Do YYYY")}</td>
         <td className="">
-          <p>{moment(item.admdate).format('MMMM Do YYYY')}</p>
+          <p>{moment(item.admdate).format("MMMM Do YYYY")}</p>
           {/* {moment(item.admdate).format('h:mm:ss a')} */}
         </td>
 
         <td className="">{item.library ? item.library : "-"}</td>
-        <td className=""><Button onClick={handleDocumentOpen} size="sm" >View</Button></td>
+        <td className="">
+          <Button onClick={handleDocumentOpen} size="sm">
+            View
+          </Button>
+        </td>
         <td className="">{item.shift}</td>
         <td className="">
           <span
@@ -83,12 +95,12 @@ const Student = ({ item, getStudentList, checked, updateAuth }) => {
               item.status.toLowerCase() === "active"
                 ? "text-teal-500"
                 : item.status.toLowerCase() === "pending"
-                  ? "text-yellow-500"
-                  : item.status.toLowerCase() === "completed"
-                    ? "text-green-500"
-                    : item.status.toLowerCase() === "absconded"
-                      ? "text-red-500"
-                      : ""
+                ? "text-yellow-500"
+                : item.status.toLowerCase() === "completed"
+                ? "text-green-500"
+                : item.status.toLowerCase() === "absconded"
+                ? "text-red-500"
+                : ""
             }
           >
             {item.status}

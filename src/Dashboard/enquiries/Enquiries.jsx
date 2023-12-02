@@ -15,14 +15,26 @@ const Enquiries = () => {
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState("");
   const [open, setOpen] = useState(false);
+
+  var today = new Date();
+
+  // Get the date six months ago
+  var sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(today.getMonth() - 6);
+
+  const formatDate = function (date) {
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, "0");
+    var day = String(date.getDate()).padStart(2, "0");
+    return year + "-" + month + "-" + day;
+  };
   const handleOpen = () => setOpen(!open);
   const [selectAll, setSelectAll] = useState(false);
-  const [filterStatus, setFilterStatus] = useState('');
+  const [filterStatus, setFilterStatus] = useState("");
   const [filterDate, setFilterDate] = useState({
-    from: new Date(),
-    to: new Date(),
+    to: formatDate(today),
+    from: formatDate(sixMonthsAgo),
   });
-
 
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
@@ -80,8 +92,6 @@ const Enquiries = () => {
     result = await result.json();
   };
 
-  // getProduct();
-
   //handle Next
   const handleNext = () => {
     if (page === pageCount) return page;
@@ -129,7 +139,6 @@ const Enquiries = () => {
     }
   }, [product, filterDate, page]);
 
-
   return (
     <div>
       <div className="mt-5 mx-auto px-3 sm:px-5 py-5 ml-auto shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
@@ -137,6 +146,7 @@ const Enquiries = () => {
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
             Enquiries
           </h2>
+          {console.log(filterDate)}
           <div className="flex items-center gap-2">
             <h6 className="text-gray-500">from Date</h6>
             <input
@@ -145,6 +155,7 @@ const Enquiries = () => {
               value={filterDate.from}
               onChange={(e) => {
                 setFilterDate({ ...filterDate, from: e.target.value });
+                console.log(e.target.value);
               }}
             />
             <h6 className="text-gray-500">To Date</h6>
@@ -329,11 +340,19 @@ const Enquiries = () => {
                   </thead>
                   <tbody>
                     {pageData.map((item, index) => {
-                      const isNameMatch = item.name.toLowerCase().includes(search.trim().toLowerCase());
-                      const isStatusMatch = item.status.toLowerCase().includes(search.trim().toLowerCase());
-                      const isFilterStatusMatch = filterStatus === '' || item.status === filterStatus;
+                      const isNameMatch = item.name
+                        .toLowerCase()
+                        .includes(search.trim().toLowerCase());
+                      const isStatusMatch = item.status
+                        .toLowerCase()
+                        .includes(search.trim().toLowerCase());
+                      const isFilterStatusMatch =
+                        filterStatus === "" || item.status === filterStatus;
 
-                      if ((isNameMatch || isStatusMatch) && isFilterStatusMatch) {
+                      if (
+                        (isNameMatch || isStatusMatch) &&
+                        isFilterStatusMatch
+                      ) {
                         return (
                           <EnquiryTable
                             key={item.id}
@@ -349,8 +368,6 @@ const Enquiries = () => {
                       return null;
                     })}
                   </tbody>
-
-
                 </table>
               </div>
             )}
