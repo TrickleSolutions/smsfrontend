@@ -286,7 +286,7 @@ const EditStudent = () => {
                   <select
                     label="Select Status"
                     name="status"
-                    className="p-2 border focus-visible:outline-none"
+                    className="p-2 border w-full focus-visible:outline-none"
                     value={formData.status || ""}
                     // onChange={(e) => {
                     //   setStatus(e.target.value);
@@ -415,6 +415,23 @@ const EditStudent = () => {
                     }}
                   />
                 </div>
+                <div className="md:w-1/2 px-3 mb-3">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="password"
+                  >
+                    Upload Aadhaar Card
+                  </label>
+                  <input
+                    className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="aadhaarCard"
+                    name="aadhaarCard"
+                    type="file"
+                    onChange={(e) => {
+                      UploadImage(e);
+                    }}
+                  />
+                </div>
                 {/* Option */}
                 <div className="w-full md:w-1/2 px-3 mb-3">
                   <label
@@ -506,41 +523,45 @@ const EditStudent = () => {
                   ""
                 )}
 
-                {/* Shift */}
-                <div className="w-full md:w-1/2 px-3 mb-3">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="opt"
-                  >
-                    Shift
-                  </label>
-                  <div className="flex flex-wrap gap-1">
-                    <Radio
-                      id="shift"
-                      onChange={() => setShift("1st Shift")}
-                      name="shift"
-                      value={shift}
-                      // onChange={handleFormData}
-                      label="1st Shift"
-                    // defaultChecked={
-                    //   formData.shift == "1st Shift" ? true : false
-                    // }
-                    />
-                    <Radio
-                      id="shift"
-                      onChange={() => setShift("2nd Shift")}
-                      // onChange={handleFormData}
-                      value={shift}
-                      name="shift"
-                      label="2nd Shift"
-                    // defaultChecked={
-                    //   formData.shift == "2nd Shift" ? true : false
-                    // }
-                    />
+                <div className="flex items-center w-full">
+                  {/* Shift */}
+                  <div className="w-full md:w-1/2 px-3 mb-3">
+                    <label
+                      className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="opt"
+                    >
+                      Shift
+                    </label>
+                    <div className="flex flex-wrap gap-1">
+                      <Radio
+                        id="shift"
+                        onChange={() => setShift("1st Shift")}
+                        name="shift"
+                        value={shift}
+                        // onChange={handleFormData}
+                        label="1st Shift"
+                      // defaultChecked={
+                      //   formData.shift == "1st Shift" ? true : false
+                      // }
+                      />
+                      <Radio
+                        id="shift"
+                        onChange={() => setShift("2nd Shift")}
+                        // onChange={handleFormData}
+                        value={shift}
+                        name="shift"
+                        label="2nd Shift"
+                      // defaultChecked={
+                      //   formData.shift == "2nd Shift" ? true : false
+                      // }
+                      />
+                    </div>
                   </div>
+
+                  <button className="h-fit p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all" onClick={handleSubmit}>Sumbit</button>
+
                 </div>
 
-                <button className="h-fit p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all" onClick={handleSubmit}>Sumbit</button>
                 {/* <input
                   type="button"
                   onClick={handleSubmit}

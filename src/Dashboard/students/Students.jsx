@@ -197,7 +197,7 @@ const Students = ({ updateAuth }) => {
       width: 150,
       renderCell: (params) => (
         <div className="flex justify-center">
-          {moment(params.dob).format('MMMM Do YYYY')}
+          {moment(params.row.dob).format('MMMM Do YYYY')}
         </div>
       ),
     },
@@ -208,7 +208,7 @@ const Students = ({ updateAuth }) => {
       width: 150,
       renderCell: (params) => (
         <div className="flex justify-center">
-          {moment(params.admdate).format('MMMM Do YYYY')}
+          {moment(params.row.admdate).format('MMMM Do YYYY')}
         </div>
       ),
     },
