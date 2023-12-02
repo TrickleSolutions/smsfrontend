@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import baseurl from "../../Config";
-import {
-  Checkbox,
-} from "@material-tailwind/react";
+import { Checkbox } from "@material-tailwind/react";
 import ModalAddFees from "./ModalAddFees";
 import Loader from "../../Components/Loader";
 import AdminFeesTable from "./AdminFeesTable";

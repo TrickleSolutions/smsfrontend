@@ -27,7 +27,7 @@ const ModalEditFees = ({ item, open, handleOpen, getFeesList }) => {
   }, []);
 
   const getStudentList = () => {
-    fetch(baseurl + "/api/students ", {
+    fetch(baseurl + "/api/students?limit=10000&page=1", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const ModalEditFees = ({ item, open, handleOpen, getFeesList }) => {
         return res.json();
       })
       .then((result) => {
-        setStudentsData(result);
+        setStudentsData(result.data);
       })
       .catch((err) => {
         console.log(err);
@@ -97,9 +97,9 @@ const ModalEditFees = ({ item, open, handleOpen, getFeesList }) => {
   }, [regno]);
 
   const getStudentName = (id) => {
-    studentsData.map((student) => {
-      if (student.regno === id) {
-        setName(student.name);
+    studentsData?.map((student) => {
+      if (student?.regno === id) {
+        setName(student?.name);
       }
     });
   };
@@ -133,11 +133,10 @@ const ModalEditFees = ({ item, open, handleOpen, getFeesList }) => {
                   onChange={(value) => {
                     setRegno(value);
                   }}
-                  disabled
                 >
-                  {studentsData.map((student) => (
-                    <Option value={student.regno}>
-                      {student.regno} | {student.name}
+                  {studentsData?.map((student) => (
+                    <Option value={student?.regno}>
+                      {student?.regno} | {student?.name}
                     </Option>
                   ))}
                 </Select>
