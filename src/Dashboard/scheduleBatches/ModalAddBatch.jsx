@@ -8,12 +8,21 @@ import {
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import Select from "react-select";
 
 const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
   const [topic, setTopic] = useState("");
   const [course, setCourse] = useState("");
   const [date, setDate] = useState("");
   const [contact_instructor, setContact_instructor] = useState("");
+  const [maped, setMaped] = useState(false)
+
+
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ]
 
   const data = { course, topic, date, contact_instructor };
 
@@ -65,20 +74,12 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="topic"
                 >
-                  Batch Name
+                  INSTRUCTOR NAME
                 </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="topic"
-                  type="text"
-                  placeholder="Udaan Batch"
-                  value={topic}
-                  onChange={(e) => {
-                    setTopic(e.target.value);
-                  }}
-                />
+                <Select options={options} />
+
               </div>
-              {/* Course */}
+              {/* Course
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -96,14 +97,32 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                     setCourse(e.target.value);
                   }}
                 />
-              </div>
-              {/* Date */}
+              </div> */}
+              {/* From */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="date"
                 >
-                  Date
+                  From
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="date"
+                  type="datetime-local"
+                  value={date}
+                  onChange={(e) => {
+                    setDate(e.target.value);
+                  }}
+                />
+              </div>
+              {/* To */}
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="date"
+                >
+                  To
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -119,20 +138,457 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="instructor"
+                  htmlFor="date"
                 >
-                  Instructor ID
+                  Map Student
                 </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="instructor"
-                  type="number"
-                  placeholder="87521"
-                  value={contact_instructor}
-                  onChange={(e) => {
-                    setContact_instructor(e.target.value);
-                  }}
-                />
+                <table className="table-auto w-full">
+                  <thead>
+                    <tr className="text-left">
+                      <th>Student Name</th>
+                      <th>Course</th>
+                      <th>Fees</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ram</td>
+                      <td>CCC</td>
+                      <td>19000</td>
+                      <td
+                        className="text-center"
+                        onClick={() => setMaped(!maped)}
+                      >
+                        {
+                          maped ?
+                            <Button>Remove</Button> :
+                            <Button>Add</Button>
+                        }
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </form>

@@ -76,11 +76,22 @@ const UserTable = ({ item, getUserList }) => {
     }
   }
 
+  console.log(item)
+
   return (
     <>
       <tr className="bg-white border-b">
         <td className=" py-4">
           <Checkbox />
+        </td>
+        <td className="px-6 py-4 font-black">
+          {item.role === "0"
+            ? "Super Admin"
+            : item.role === '1'
+            ? "Admin"
+            : item.role === '2'
+            ? "Back Office"
+            : "-"}
         </td>
         <th
           scope="row"
@@ -98,15 +109,6 @@ const UserTable = ({ item, getUserList }) => {
                           <span className="text-orange-600">Pending</span>
                         </td> */}
         <td className="px-3 py-4 hidden sm:table-cell">{item.gender}</td>
-        <td className="px-6 py-4">
-          {item.role === 0
-            ? "Super Admin"
-            : item.role === 1
-            ? "Admin"
-            : item.role === 2
-            ? "Back Office"
-            : "-"}
-        </td>
         <td className="px-6 py-4 ">
           <Button
             size="sm"

@@ -5,15 +5,21 @@ import {
   MenuList,
   MenuItem,
   Checkbox,
+  Button,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import ModalEditBatch from "./ModalEditBatch";
-import moment from "moment/moment";
+import ModalMapStudent from "./ModalMapStudent";
+import ModalViewMapList from "./ModalViewMapList";
 
 const ScheduleBatchesTable = ({ item, getScheduledBatchesList }) => {
   const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(!open2);
+  const [mapStudent, setMapStudent] = useState(false)
+  const handleMapStudent = () => setMapStudent(!mapStudent)
+  const [viewMapStudent, setViewMapStudent] = useState(false)
+  const handleViewMapStudent = () => setViewMapStudent(!viewMapStudent)
 
   function deleteData(id) {
     if (window.confirm("Are you sure you want to delete?")) {
@@ -36,6 +42,7 @@ const ScheduleBatchesTable = ({ item, getScheduledBatchesList }) => {
         });
     }
   }
+
   return (
     <>
       {item?.map((item) => (
@@ -44,9 +51,10 @@ const ScheduleBatchesTable = ({ item, getScheduledBatchesList }) => {
             <td className="py-4">
               <Checkbox />
             </td>
-            <td className="px-6 py-4 font-semibold text-black">{item.topic}</td>
-            <td className="px-6 py-4 hidden sm:table-cell">{item.course}</td>
-            <td className="px-6 py-4 hidden sm:table-cell">{moment(item.date).format('MMMM Do YYYY, h:mm A')}</td>
+            <td className="px-6 py-4 font-semibold text-black">Sourabh</td>
+            <td className="px-6 py-4 hidden sm:table-cell">7 AM</td>
+            <td className="px-6 py-4 hidden sm:table-cell">8 AM</td>
+            <td className="px-6 py-4 hidden sm:table-cell"><Button onClick={handleViewMapStudent}>46</Button></td>
             <td className="px-1 py-4">
               <div>
                 <Menu>
@@ -67,6 +75,12 @@ const ScheduleBatchesTable = ({ item, getScheduledBatchesList }) => {
                     </svg>
                   </MenuHandler>
                   <MenuList>
+                    <MenuItem>
+                      <div onClick={handleMapStudent} className="flex items-center">
+                        +
+                        Add
+                      </div>
+                    </MenuItem>
                     <MenuItem>
                       <div onClick={handleOpen2} className="flex ">
                         <svg
@@ -117,6 +131,14 @@ const ScheduleBatchesTable = ({ item, getScheduledBatchesList }) => {
                   handleOpen={handleOpen2}
                   getScheduledBatchesList={getScheduledBatchesList}
                   item={item}
+                />
+                <ModalMapStudent
+                  open={mapStudent}
+                  handleOpen={handleMapStudent}
+                />
+                <ModalViewMapList
+                  open={viewMapStudent}
+                  handleOpen={handleViewMapStudent}
                 />
               </div>
             </td>

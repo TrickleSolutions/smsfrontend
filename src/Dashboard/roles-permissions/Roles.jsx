@@ -139,6 +139,9 @@ const Roles = () => {
                       <th scope="col" className=" py-3">
                         <Checkbox />
                       </th>
+                      <th scope="col" className="px-6 py-3 ">
+                        Role
+                      </th>
                       <th scope="col" className="px-6 py-3">
                         Name
                       </th>
@@ -165,9 +168,6 @@ const Roles = () => {
                         className="px-3 py-3 hidden sm:table-cell"
                       >
                         Address
-                      </th>
-                      <th scope="col" className="px-6 py-3 ">
-                        Role
                       </th>
                       <th scope="col" className="px-6 py-3">
                         Permissions

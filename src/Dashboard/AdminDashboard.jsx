@@ -396,7 +396,7 @@ const AdminDashboard = ({ adminAuth }) => {
                         />
                       </svg>
                     </div>
-                    <div>Schedule Batches</div>
+                    <div>Batches</div>
                   </div>
                 ) : (
                   ""
@@ -506,6 +506,60 @@ const AdminDashboard = ({ adminAuth }) => {
                       </svg>
                     </div>
                     <div>Contact Queries</div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {/* Instructor & student Management */}
+                {userPermissions ? (
+                  <div
+                    onClick={() => goto("/admin/instructor-and-student-management")}
+                    className="w-48 h-48 p-10 m-3 text-2xl text-[#f1a81a] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#f1a81a] ring-offset-1"
+                  >
+                    <div className="py-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-10 h-10"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
+                        />
+                      </svg>
+                    </div>
+                    <div>ISM</div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {/* Instructor & student Management */}
+                {userPermissions.pendingWork ? (
+                  <div
+                    onClick={() => goto("/admin/pendingWork")}
+                    className="w-48 h-48 p-10 m-3 text-2xl text-[#f1a81a] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#f1a81a] ring-offset-1"
+                  >
+                    <div className="py-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-10 h-10"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
+                        />
+                      </svg>
+                    </div>
+                    <div>Pending Work</div>
                   </div>
                 ) : (
                   ""

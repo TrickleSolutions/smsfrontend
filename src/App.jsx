@@ -76,6 +76,7 @@ import Gallery from "./Pages/Gallery";
 import JoinAsInstructor from "./Dashboard/JoinInstructor/JoinAsInstructor";
 import ContactQueries from "./Dashboard/contactQueries/ContactQueries";
 import CourseDetails from "./Pages/courses/CourseDetails";
+import InstructorAndStudentManagement from "./Dashboard/InstructorAndStudentManagement/InstructorAndStudentManagement";
 
 const App = () => {
   const location = useLocation();
@@ -486,6 +487,15 @@ const App = () => {
                 <AdminProtected
                   adminAuth={adminAuth}
                   Component={ScheduleBatches}
+                />
+              }
+            />
+            <Route
+              path="/admin/instructor-and-student-management"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={InstructorAndStudentManagement}
                 />
               }
             />
