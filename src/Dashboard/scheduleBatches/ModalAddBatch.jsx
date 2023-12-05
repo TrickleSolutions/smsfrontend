@@ -108,8 +108,8 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="date"
-                  type="datetime-local"
+                  id="from"
+                  type="time"
                   value={date}
                   onChange={(e) => {
                     setDate(e.target.value);
@@ -126,8 +126,8 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="date"
-                  type="datetime-local"
+                  id="to"
+                  type="time"
                   value={date}
                   onChange={(e) => {
                     setDate(e.target.value);
@@ -142,8 +142,9 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                 >
                   Map Student
                 </label>
+                <Select options={options} />
                 <table className="table-auto w-full">
-                  <thead>
+                  <thead style={{ position: 'sticky', top: 0, zIndex: 1, backgroundColor: 'white' }}>
                     <tr className="text-left">
                       <th>Student Name</th>
                       <th>Course</th>
@@ -151,7 +152,7 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody style={{ overflowY: 'scroll', height: '100px' }}>
                     <tr>
                       <td>Ram</td>
                       <td>CCC</td>

@@ -10,14 +10,11 @@ import {
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import ModalEditBatch from "./ModalEditBatch";
-import ModalMapStudent from "./ModalMapStudent";
 import ModalViewMapList from "./ModalViewMapList";
 
 const ScheduleBatchesTable = ({ item, getScheduledBatchesList }) => {
   const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(!open2);
-  const [mapStudent, setMapStudent] = useState(false)
-  const handleMapStudent = () => setMapStudent(!mapStudent)
   const [viewMapStudent, setViewMapStudent] = useState(false)
   const handleViewMapStudent = () => setViewMapStudent(!viewMapStudent)
 
@@ -76,12 +73,6 @@ const ScheduleBatchesTable = ({ item, getScheduledBatchesList }) => {
                   </MenuHandler>
                   <MenuList>
                     <MenuItem>
-                      <div onClick={handleMapStudent} className="flex items-center">
-                        +
-                        Add
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
                       <div onClick={handleOpen2} className="flex ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -131,10 +122,6 @@ const ScheduleBatchesTable = ({ item, getScheduledBatchesList }) => {
                   handleOpen={handleOpen2}
                   getScheduledBatchesList={getScheduledBatchesList}
                   item={item}
-                />
-                <ModalMapStudent
-                  open={mapStudent}
-                  handleOpen={handleMapStudent}
                 />
                 <ModalViewMapList
                   open={viewMapStudent}

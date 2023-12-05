@@ -71,12 +71,11 @@ import Roles from "./Dashboard/roles-permissions/Roles";
 import ChatSupport from "./ChatSupport";
 import HomePage2 from "./HomePage2";
 import SmartBar from "./Components/SmartBar";
-import InstituteHeader from "./Components/InstituteHeader";
 import Gallery from "./Pages/Gallery";
 import JoinAsInstructor from "./Dashboard/JoinInstructor/JoinAsInstructor";
 import ContactQueries from "./Dashboard/contactQueries/ContactQueries";
 import CourseDetails from "./Pages/courses/CourseDetails";
-import InstructorAndStudentManagement from "./Dashboard/InstructorAndStudentManagement/InstructorAndStudentManagement";
+import PendingWork from "./Dashboard/PendingWork/PendingWork";
 
 const App = () => {
   const location = useLocation();
@@ -491,11 +490,11 @@ const App = () => {
               }
             />
             <Route
-              path="/admin/instructor-and-student-management"
+              path="/admin/pending-work"
               element={
                 <AdminProtected
                   adminAuth={adminAuth}
-                  Component={InstructorAndStudentManagement}
+                  Component={PendingWork}
                 />
               }
             />

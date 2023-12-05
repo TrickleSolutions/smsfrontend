@@ -6,9 +6,16 @@ import {
     DialogBody,
     DialogFooter,
 } from "@material-tailwind/react";
+import Select from "react-select";
+
 
 const ModalViewMapList = ({ open, handleOpen }) => {
 
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' }
+      ]
 
     return (
         <>
@@ -23,6 +30,7 @@ const ModalViewMapList = ({ open, handleOpen }) => {
                 </DialogHeader>
                 <DialogBody divider className="h-[25rem] overflow-y-scroll">
                     <div className="grid grid-cols-1">
+                        <Select options={options} />
                         <table className="table-auto">
                             <thead>
                                 <tr className="text-left">
