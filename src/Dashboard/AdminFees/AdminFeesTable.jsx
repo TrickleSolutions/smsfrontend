@@ -39,7 +39,7 @@ const AdminFeesTable = ({ item, getFeesList }) => {
   return (
     <>
       <tr className="bg-white border-b" key={item._id}>
-        <td onClick={() => navigate('/students/payments/receipt')} className="hover:text-black p-4 ">
+        <td onClick={() => navigate(`/Student-Fees-Receipt/${item.regno}`)} className="hover:text-black p-4 ">
           <RiBillLine size={24} />
         </td>
         <td className="font-semibold text-black">{item.name}</td>

@@ -104,10 +104,9 @@ const ModalStatusChange = ({ open, handleOpen, getStudentStatusList }) => {
               >
                 Regno
               </label>
-              <Select
+              {/* <Select
                 id="regno"
                 label="Select Student"
-                // value={regno}
                 onChange={(value) => {
                   setRegno(value);
                 }}
@@ -117,7 +116,7 @@ const ModalStatusChange = ({ open, handleOpen, getStudentStatusList }) => {
                     {student.regno} | {student.name}
                   </Option>
                 ))}
-              </Select>
+              </Select> */}
             </div>
             {/* Name */}
             <div className="w-full px-3 mb-3">

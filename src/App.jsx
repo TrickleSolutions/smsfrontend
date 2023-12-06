@@ -76,6 +76,8 @@ import JoinAsInstructor from "./Dashboard/JoinInstructor/JoinAsInstructor";
 import ContactQueries from "./Dashboard/contactQueries/ContactQueries";
 import CourseDetails from "./Pages/courses/CourseDetails";
 import PendingWork from "./Dashboard/PendingWork/PendingWork";
+import FeesReceipt from "./Dashboard/AdminFees/FeesReceipt";
+import InstructorStudents from "./InstructorDashboard/InstructorStudents/InstructorStudents";
 
 const App = () => {
   const location = useLocation();
@@ -114,12 +116,13 @@ const App = () => {
 
   return (
     <>
+
       <SmartBar />
 
       {/* {isAdmin || isStudent || isInstructor ? "" : <InstituteHeader />} */}
       {isAdmin || isStudent || isInstructor ? "" : <Navigation />}
-
       <Routes>
+        <Route path="/Student-Fees-Receipt/:id" exact={true} element={<FeesReceipt />} />
         <Route path="/" exact={true} element={<HomePage2 />} />
         <Route path="/about" exact={true} element={<About />} />
         <Route path="/courses" exact={true} element={<Courses />} />
@@ -549,6 +552,17 @@ const App = () => {
               element={
                 <InstructorProtected
                   Component={InstructorDashboard}
+                  instructorAuth={instructorAuth}
+                  updateInstructorAuth={updateInstructorAuth}
+                />
+              }
+            />
+            <Route
+              path="/instructor/instructor-students"
+              exact={true}
+              element={
+                <InstructorProtected
+                  Component={InstructorStudents}
                   instructorAuth={instructorAuth}
                   updateInstructorAuth={updateInstructorAuth}
                 />

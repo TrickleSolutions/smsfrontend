@@ -122,7 +122,8 @@ const InstructorDashboard = ({ instructorAuth }) => {
               <div>Results</div>
             </div>
             <div
-              onClick={() => goto("/instructor/student-status")}
+              // onClick={() => goto("/instructor/student-status")}
+              onClick={() => goto("/instructor/instructor-students")}
               className=" w-48 h-48 p-10 m-3 text-2xl text-[#525FE1] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#525FE1] ring-offset-1"
             >
               <div className="py-1">
@@ -141,7 +142,7 @@ const InstructorDashboard = ({ instructorAuth }) => {
                   />
                 </svg>
               </div>
-              <div>Student Status</div>
+              <div>Student Fees & Status</div>
             </div>
           </div>
         )}
