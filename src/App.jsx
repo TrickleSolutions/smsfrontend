@@ -62,7 +62,7 @@ import AdminFees from "./Dashboard/AdminFees/AdminFees";
 import AdminQueries from "./Dashboard/queries/AdminQueries";
 import AdminEvents from "./Dashboard/AdminEvents/AdminEvents";
 import StudentStatus from "./InstructorDashboard/StudentStatus/StudentStatus";
-import ManageStudentStatus from "./Dashboard/manage-student/ManageStudentStatus";
+import ManageStudentStatus from "./Dashboard/manage-student/AllAttendance";
 import ScheduleBatches from "./Dashboard/scheduleBatches/ScheduleBatches";
 import PrintReceipt from "./studentDashboard/payments/PrintReceipt";
 import StudentOfTheMonth from "./Dashboard/st-of-the-month/StudentOfTheMonth";
@@ -78,6 +78,7 @@ import CourseDetails from "./Pages/courses/CourseDetails";
 import PendingWork from "./Dashboard/PendingWork/PendingWork";
 import FeesReceipt from "./Dashboard/AdminFees/FeesReceipt";
 import InstructorStudents from "./InstructorDashboard/InstructorStudents/InstructorStudents";
+import AllAttendance from "./Dashboard/manage-student/AllAttendance";
 
 const App = () => {
   const location = useLocation();
@@ -475,11 +476,11 @@ const App = () => {
               }
             />
             <Route
-              path="/admin/student-status"
+              path="/admin/attendance"
               element={
                 <AdminProtected
                   adminAuth={adminAuth}
-                  Component={ManageStudentStatus}
+                  Component={AllAttendance}
                 />
               }
             />
