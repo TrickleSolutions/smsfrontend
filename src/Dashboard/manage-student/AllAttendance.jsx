@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card } from "@material-tailwind/react";
+import { Button, Card } from "@material-tailwind/react";
 import {
   DataGrid,
   GridToolbarColumnsButton,
@@ -9,6 +9,8 @@ import {
   GridToolbarFilterButton,
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
+import ModalMarkAttendance from "./ModalMarkAttendance";
+import InstructorAttendance from "./InstructorAttendance";
 
 
 const months = [
@@ -20,6 +22,9 @@ const AllAttendance = () => {
 
   const [isStastusChangeModalopen, setIsStatusChangeModal] = useState(false);
   const handleStatuschange = () => setIsStatusChangeModal(!isStastusChangeModalopen);
+
+  const [isOpenMarkAttendance, setIsOpenMarkAttendance] = useState(false)
+  const handleManageAttendance = () => setIsOpenMarkAttendance(!isOpenMarkAttendance)
 
   const [activeMonth, setActiveMonth] = useState('January');
 
@@ -100,7 +105,7 @@ const AllAttendance = () => {
       headerName: formattedDate,
       width: 60,
       renderCell: (params) => (
-        <>
+        <div>
           {
             attendanceItem.status === 'P' ? <p className="text-green-800">P</p>
               : attendanceItem.status === 'L' ? <p className="text-yellow-800">L</p>
@@ -108,7 +113,7 @@ const AllAttendance = () => {
                   : attendanceItem.status === 'A' ? <p className="text-red-800">A</p>
                     : <p>-</p>
           }
-        </>
+        </div>
       )
     };
   });
@@ -186,6 +191,14 @@ const AllAttendance = () => {
           </Card>
         </div>
         <div>
+          <div className="flex justify-between items-center my-1">
+            <div className="text-xl font-black">
+              Attendance
+            </div>
+            <Button onClick={handleManageAttendance} variant="contained">
+              Mark Attendance
+            </Button>
+          </div>
           <div className="grid grid-cols-12">
             {months.map((month) => (
               <button
@@ -202,6 +215,7 @@ const AllAttendance = () => {
         <div className="mt-4 p-4 border">
           <div className="text-lg font-black">{`${activeMonth} Attendance`}</div>
         </div>
+        <InstructorAttendance />
         <DataGrid
           rows={Data}
           columns={columns}
@@ -216,6 +230,10 @@ const AllAttendance = () => {
           pageSizeOptions={[5, 10, 25]}
           checkboxSelection
           disableRowSelectionOnClick
+        />
+        <ModalMarkAttendance
+          open={isOpenMarkAttendance}
+          handleOpen={handleManageAttendance}
         />
       </div>
     </>

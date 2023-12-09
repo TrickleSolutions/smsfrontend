@@ -42,14 +42,19 @@ const AdminFeesTable = ({ item, getFeesList }) => {
         <td onClick={() => navigate(`/Student-Fees-Receipt/${item.regno}`)} className="hover:text-black p-4 ">
           <RiBillLine size={24} />
         </td>
-        <td className="font-semibold text-black">{item.name}</td>
+        <td className="font-semibold text-black">
+          {item.name}
+          {item.amount === 0 &&
+            <p className="text-yellow-900">Fully Paid</p>
+          }
+        </td>
         <td className="border">12356</td>
         <td className="border">ADCA</td>
         <td className="border">{item.amount}</td>
         <td className="border">{item.mode}</td>
         <td className="border">{item.transId}</td>
-        <td className="border">{item.paid}</td>
-        <td className="border">{item.paid - item.amount}</td>
+        <td className="border text-green-800 text-base font-semibold">{item.paid}</td>
+        <td className="border text-yellow-800 font-semibold text-base">{item.paid - item.amount}</td>
         <td className="border">{item.date}</td>
         <td className="border">Sourabh</td>
         <td className="border">Admin</td>
