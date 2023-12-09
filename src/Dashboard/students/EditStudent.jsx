@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Loader";
 import axios from "axios";
+import { RiAddBoxFill } from "react-icons/ri";
 
 const EditStudent = () => {
   const [loader, setLoader] = useState(false);
@@ -266,7 +267,6 @@ const EditStudent = () => {
                       name="gender"
                       label="Male"
                       value={formData.gender || ""}
-                      defaultChecked={formData.gender}
                       onChange={() =>
                         setFormData({ ...formData, gender: "male" })
                       }
@@ -276,7 +276,6 @@ const EditStudent = () => {
                       name="gender"
                       label="Female"
                       value={formData.gender || ""}
-                      defaultChecked={formData.gender}
                       onChange={() =>
                         setFormData({ ...formData, gender: "female" })
                       }
@@ -455,7 +454,7 @@ const EditStudent = () => {
                       onChange={() => setOpt("course")}
                       name="type"
                       label="Course"
-                      // defaultChecked={stuData.course ? true : false}
+                    // defaultChecked={stuData.course ? true : false}
                     />
                     <Radio
                       id="library"
@@ -482,12 +481,9 @@ const EditStudent = () => {
                     </label>
                     <select
                       label="Select Course"
-                      className="p-2 border focus-visible:outline-none"
+                      className="p-2 border w-full rounded-md focus-visible:outline-none"
                       value={formData?.course || ""}
                       name="course"
-                      // onChange={(e) => {
-                      //   setCourse(e.target.value);
-                      // }}
                       onChange={handleFormData}
                     >
                       <option value="">Select Course</option>
@@ -530,9 +526,15 @@ const EditStudent = () => {
                       onChange={handleFormData}
                     />
                   </div>
-                ) : (
-                  ""
-                )}
+                ) : ('')}
+
+                {
+                  opt === 'course' &&
+                  <div className="flex items-center text-blue-600 cursor-pointer">
+                    <RiAddBoxFill size={30} />
+                    <p className="">Add More Course</p>
+                  </div>
+                }
 
                 <div className="flex items-center w-full">
                   {/* Shift */}
@@ -551,9 +553,9 @@ const EditStudent = () => {
                         value={shift}
                         // onChange={handleFormData}
                         label="1st Shift"
-                        // defaultChecked={
-                        //   formData.shift == "1st Shift" ? true : false
-                        // }
+                      // defaultChecked={
+                      //   formData.shift == "1st Shift" ? true : false
+                      // }
                       />
                       <Radio
                         id="shift"
@@ -562,9 +564,9 @@ const EditStudent = () => {
                         value={shift}
                         name="shift"
                         label="2nd Shift"
-                        // defaultChecked={
-                        //   formData.shift == "2nd Shift" ? true : false
-                        // }
+                      // defaultChecked={
+                      //   formData.shift == "2nd Shift" ? true : false
+                      // }
                       />
                     </div>
                   </div>
