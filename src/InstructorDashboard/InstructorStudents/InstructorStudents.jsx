@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "@material-tailwind/react";
 import {
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-} from "@material-tailwind/react";
-import {
   DataGrid,
   GridToolbarColumnsButton,
   GridToolbarContainer,
@@ -15,7 +9,6 @@ import {
   GridToolbarFilterButton,
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
 import ModalChangeStatus from "./ModalChangeStatus";
 
 const InstructorStudents = () => {

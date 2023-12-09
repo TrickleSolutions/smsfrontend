@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Homepage from "./Homepage";
+// import Homepage from "./Homepage";
 import Navigation from "./Components/Navigation";
 import { Route, Routes, useLocation } from "react-router-dom";
 import About from "./Pages/About";
@@ -62,7 +62,7 @@ import AdminFees from "./Dashboard/AdminFees/AdminFees";
 import AdminQueries from "./Dashboard/queries/AdminQueries";
 import AdminEvents from "./Dashboard/AdminEvents/AdminEvents";
 import StudentStatus from "./InstructorDashboard/StudentStatus/StudentStatus";
-import ManageStudentStatus from "./Dashboard/manage-student/AllAttendance";
+// import ManageStudentStatus from "./Dashboard/manage-student/AllAttendance";
 import ScheduleBatches from "./Dashboard/scheduleBatches/ScheduleBatches";
 import PrintReceipt from "./studentDashboard/payments/PrintReceipt";
 import StudentOfTheMonth from "./Dashboard/st-of-the-month/StudentOfTheMonth";

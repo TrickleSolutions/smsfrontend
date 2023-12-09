@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
     DataGrid,
     GridToolbarColumnsButton,
@@ -12,8 +12,6 @@ import {
 
 const InstructorMapedStudents = () => {
 
-    const [addAttendance, setAddAttendance] = useState(false)
-    const handleattendance = () => setAddAttendance(!addAttendance)
 
     const CustomToolbar = () => {
         return (
