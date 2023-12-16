@@ -79,6 +79,7 @@ import PendingWork from "./Dashboard/PendingWork/PendingWork";
 import FeesReceipt from "./Dashboard/AdminFees/FeesReceipt";
 import InstructorStudents from "./InstructorDashboard/InstructorStudents/InstructorStudents";
 import AllAttendance from "./Dashboard/manage-student/AllAttendance";
+import Certificate from "./Dashboard/Certificate/Certificate";
 
 const App = () => {
   const location = useLocation();
@@ -508,6 +509,15 @@ const App = () => {
                 <AdminProtected
                   adminAuth={adminAuth}
                   Component={StudentOfTheMonth}
+                />
+              }
+            />
+            <Route
+              path="/admin/Certificate"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={Certificate}
                 />
               }
             />

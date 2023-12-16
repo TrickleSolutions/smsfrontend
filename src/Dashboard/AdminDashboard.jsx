@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import Loader from "../Components/Loader";
+import { GrCertificate } from "react-icons/gr";
+
 
 const AdminDashboard = ({ adminAuth }) => {
   const [userPermissions, setUserPermissions] = useState([]);
@@ -538,6 +540,16 @@ const AdminDashboard = ({ adminAuth }) => {
                 ) : (
                   ""
                 )}
+
+                <div
+                  onClick={() => goto("/admin/Certificate")}
+                  className="w-48 h-48 p-10 m-3 text-2xl text-[#6bbd4a] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#6bbd4a] ring-offset-1"
+                >
+                  <div className="py-1 text-[#6bbd4a]">
+                    <GrCertificate className="w-10 h-10" />
+                  </div>
+                  <div>certificate</div>
+                </div>
 
               </div>
             ) : (
