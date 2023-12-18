@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { MdArrowForward } from 'react-icons/md';
 import { Button, Input, Textarea } from '@material-tailwind/react'
 import Select from 'react-select';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CoursesCertificate = ({ back }) => {
 
@@ -12,7 +13,7 @@ const CoursesCertificate = ({ back }) => {
         regNo: '',
         date: '',
         address: '',
-        options: '',
+        options: null,
     });
 
     const handleInputChange = (e) => {
@@ -23,10 +24,16 @@ const CoursesCertificate = ({ back }) => {
         }));
     };
 
-    const handleSelectChange = (selectedOption) => {
+    const handleSelectCourse = (selectedCourse) => {
         setFormData((prevData) => ({
             ...prevData,
-            course: selectedOption,
+            course: selectedCourse,
+        }));
+    };
+    const handleSelectOption = (selectedOption) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            options: selectedOption,
         }));
     };
 
@@ -36,11 +43,21 @@ const CoursesCertificate = ({ back }) => {
         console.log('Form submitted:', formData);
     };
 
-    const courseOptions = [
+    const selectedCourseOptions = [
         { label: 'Course 1', value: 'course1' },
         { label: 'Course 2', value: 'course2' },
         // Add more courses as needed
     ];
+
+    const SelectOptions = [
+        { label: 'Credit', value: 'credit' },
+        { label: 'Distinction', value: 'distinction' },
+        { label: 'Excellent', value: 'excellent' }
+        // Add more courses as needed
+    ];
+
+    const PrintCertificate = useNavigate()
+    const { Id } = useParams();
 
     return (
         <div>
@@ -53,8 +70,8 @@ const CoursesCertificate = ({ back }) => {
                             id="course"
                             name="course"
                             value={formData.course}
-                            onChange={handleSelectChange}
-                            options={courseOptions}
+                            onChange={handleSelectCourse}
+                            options={selectedCourseOptions}
                             placeholder="Select Course"
                             isSearchable
                             isClearable
@@ -67,7 +84,7 @@ const CoursesCertificate = ({ back }) => {
                             name="name"
                             value={formData.name}
                             onChange={handleInputChange}
-                            placeholder="Enter Student Name"
+                            label="Enter Student Name"
                             size="regular"
                             fullWidth
                         />
@@ -81,7 +98,7 @@ const CoursesCertificate = ({ back }) => {
                             name="fatherName"
                             value={formData.fatherName}
                             onChange={handleInputChange}
-                            placeholder="Father's Name"
+                            label="Father's Name"
                             size="regular"
                             fullWidth
                         />
@@ -94,7 +111,7 @@ const CoursesCertificate = ({ back }) => {
                             name="regNo"
                             value={formData.regNo}
                             onChange={handleInputChange}
-                            placeholder="Registration Number"
+                            label="Registration Number"
                             size="regular"
                             fullWidth
                         />
@@ -106,7 +123,8 @@ const CoursesCertificate = ({ back }) => {
                             name="date"
                             value={formData.date}
                             onChange={handleInputChange}
-                            placeholder="Date"
+                            variant="outlined"
+                            label="Date"
                             size="regular"
                             fullWidth
                         />
@@ -125,25 +143,25 @@ const CoursesCertificate = ({ back }) => {
 
                     </div>
                     <div className="py-2">
-                        <Input
-                            type="text"
-                            id="options"
-                            name="options"
+                        <Select
+                            id="course"
+                            name="course"
                             value={formData.options}
-                            onChange={handleInputChange}
+                            onChange={handleSelectOption}
+                            options={SelectOptions}
                             placeholder="Options"
-                            size="regular"
-                            fullWidth
+                            isSearchable
+                            isClearable
                         />
                     </div>
 
                     <Button
                         type="submit"
-                        color="indigo"
                         buttonType="filled"
                         size="lg"
                         ripple="light"
                         fullWidth
+                        onClick={() => PrintCertificate(`/admin/certificate/print-certificate`)}
                         className='flex justify-center items-center mt-2'
                     >
                         Submit <MdArrowForward size={20} className="ml-2" />

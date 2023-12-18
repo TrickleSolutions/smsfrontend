@@ -80,6 +80,7 @@ import FeesReceipt from "./Dashboard/AdminFees/FeesReceipt";
 import InstructorStudents from "./InstructorDashboard/InstructorStudents/InstructorStudents";
 import AllAttendance from "./Dashboard/manage-student/AllAttendance";
 import Certificate from "./Dashboard/Certificate/Certificate";
+import PrintTableCertificate from "./Dashboard/Certificate/PrintTableCertificate";
 
 const App = () => {
   const location = useLocation();
@@ -513,11 +514,20 @@ const App = () => {
               }
             />
             <Route
-              path="/admin/Certificate"
+              path="/admin/certificate"
               element={
                 <AdminProtected
                   adminAuth={adminAuth}
                   Component={Certificate}
+                />
+              }
+            />
+            <Route
+              path="/admin/certificate/print-certificate"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={PrintTableCertificate}
                 />
               }
             />

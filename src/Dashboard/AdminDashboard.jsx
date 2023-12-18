@@ -542,7 +542,7 @@ const AdminDashboard = ({ adminAuth }) => {
                 )}
 
                 <div
-                  onClick={() => goto("/admin/Certificate")}
+                  onClick={() => goto("/admin/certificate")}
                   className="w-48 h-48 p-10 m-3 text-2xl text-[#6bbd4a] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#6bbd4a] ring-offset-1"
                 >
                   <div className="py-1 text-[#6bbd4a]">
