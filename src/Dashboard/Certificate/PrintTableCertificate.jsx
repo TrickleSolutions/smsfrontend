@@ -1,116 +1,104 @@
-import React from 'react'
-import './PrintTableCertificate.css'
+import React, { useRef, useState } from 'react';
+import CertificatePreview from '../../assets/images/homepage/Certificate.png';
+import test from '../../assets/images/hero-img.jpg'
+import Draggable from 'react-draggable';
+import { Button } from '@material-tailwind/react';
+import { FaPrint } from 'react-icons/fa';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useLocation } from 'react-router-dom';
+import moment from 'moment/moment';
+
 
 const PrintTableCertificate = () => {
+
+
+    const location = useLocation();
+    const formData = location.state?.formData || {};
+
+    const [loader, setLoader] = useState(false);
+
+    const downloadPDF = () => {
+        const capture = document.querySelector(".Certificate");
+        setLoader(true);
+
+        html2canvas(capture, { scale: 1 }).then((canvas) => {
+            const imgData = canvas.toDataURL("image/png");
+
+            const doc = new jsPDF("landscape", "mm", "a4");
+            const componentWidth = doc.internal.pageSize.getWidth();
+            const componentHeight = doc.internal.pageSize.getHeight();
+
+            // Ensure the canvas image fits in the PDF in portrait mode
+            const aspectRatio = canvas.width / canvas.height;
+            const pdfWidth = componentWidth;
+            const pdfHeight = pdfWidth / aspectRatio;
+
+            // Only add the image if the container is in portrait view
+            if (pdfHeight <= componentHeight) {
+                doc.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+            }
+
+            setLoader(false);
+            doc.save("certificate.pdf");
+        });
+    };
+
+    console.log(formData)
+
     return (
-        <div>
-            <div className="p-5 ml-auto shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa] mt-5">
-                <div style={{ margin: 'auto auto' }} className="container pm-certificate-container">
-                    <div className="outer-border"></div>
-                    <div className="inner-border"></div>
-
-                    <div className="pm-certificate-border col-xs-12">
-                        <div className="row pm-certificate-header">
-                            <div className="pm-certificate-title cursive col-xs-12 text-center">
-                                <h2>SMS Eduations</h2>
-                            </div>
+        <div className='bg-white flex items-start justify-center'>
+            <Button onClick={downloadPDF} className='mt-8' >
+                <FaPrint size={28} />
+            </Button>
+            {
+                formData.course ?
+                    <div className='grid place-items-center relative text-center font-serif Certificate'>
+                        <img src={CertificatePreview} alt='...' />
+                        <div className='absolute top-[7%] left-[80%] font-black'>124563</div>
+                        <div className='absolute w-20 top-[30%] left-[78%]'>
+                            <img
+                                className='h-24 w-full'
+                                src={test}
+                                alt='...'
+                            />
                         </div>
-
-                        <div className="row pm-certificate-body">
-
-                            <div className="pm-certificate-block">
-                                <div className="col-xs-12">
-                                    <div className="row">
-                                        <div className="col-xs-2">
-                                            {/* <!-- LEAVE EMPTY --> */}
-                                        </div>
-                                        <div className="pm-certificate-name underline margin-0 col-xs-8 text-center">
-                                            <span className="pm-name-text bold">TrueNorth Administrator</span>
-                                        </div>
-                                        <div className="col-xs-2">
-                                            {/* <!-- LEAVE EMPTY --> */}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-xs-12">
-                                    <div className="row">
-                                        <div className="col-xs-2">
-                                            {/* <!-- LEAVE EMPTY --> */}
-                                        </div>
-                                        <div className="pm-earned col-xs-8 text-center">
-                                            <span className="pm-earned-text padding-0 block cursive">has earned</span>
-                                            <span className="pm-credits-text block bold sans">PD175: 1.0 Credit Hours</span>
-                                        </div>
-                                        <div className="col-xs-2">
-                                            {/* <!-- LEAVE EMPTY --> */}
-                                        </div>
-                                        <div className="col-xs-12"></div>
-                                    </div>
-                                </div>
-
-                                <div className="col-xs-12">
-                                    <div className="row">
-                                        <div className="col-xs-2">
-                                            {/* <!-- LEAVE EMPTY --> */}
-                                        </div>
-                                        <div className="pm-course-title col-xs-8 text-center">
-                                            <span className="pm-earned-text block cursive">while completing the training course entitled</span>
-                                        </div>
-                                        <div className="col-xs-2">
-                                            {/* <!-- LEAVE EMPTY --> */}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-xs-12">
-                                    <div className="row">
-                                        <div className="col-xs-2">
-                                            {/* <!-- LEAVE EMPTY --> */}
-                                        </div>
-                                        <div className="pm-course-title underline col-xs-8 text-center">
-                                            <span className="pm-credits-text block bold sans">BPS PGS Initial PLO for Principals at Cluster Meetings</span>
-                                        </div>
-                                        <div className="col-xs-2">
-                                            {/* <!-- LEAVE EMPTY --> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-xs-12">
-                                <div className="row">
-                                    <div className="pm-certificate-footer">
-                                        <div className="col-xs-4 pm-certified col-xs-4 text-center">
-                                            <span className="pm-credits-text block sans">Buffalo City School District</span>
-                                            <span className="pm-empty-space block underline"></span>
-                                            <span className="bold block">Crystal Benton Instructional Specialist II, Staff Development</span>
-                                        </div>
-                                        <div className="col-xs-4">
-                                            {/* <!-- LEAVE EMPTY --> */}
-                                        </div>
-                                        <div className="col-xs-4 pm-certified col-xs-4 text-center">
-                                            <span className="pm-credits-text block sans">Date Completed</span>
-                                            <span className="pm-empty-space block underline"></span>
-                                            <span className="bold block">DOB: </span>
-                                            <span className="bold block">Social Security # (last 4 digits)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <div className='absolute w-6/12 top-[45%] font-black text-xl text-blue-800'>
+                            {formData?.course?.label} (<span className='text-sm font-thin italic'>4 Months</span>)
                         </div>
-
+                        <Draggable>
+                            <div
+                                style={{ fontFamily: 'Charm, cursive' }}
+                                className='absolute leading-loose w-[650px] text-[16px] font-bold inset-x-auto top-2/4 text-left tracking-wider'
+                            >
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This certificate is awarded to Mr./Mrs./Miss{' '}
+                                <span className='text-blue-800'>...{formData?.name}...</span> S/o, W/o, D/o <span className='text-blue-800'>...{formData?.fatherName}...</span> Registration No <span className='text-blue-800'>...{formData?.regNo}...</span> on
+                                the <span className='text-blue-800'>...{moment(formData?.date).format('D')}...</span> Day of the month <span className='text-blue-800'>...{moment(formData?.date).format('MMMM')}...</span> in the year of <span className='text-blue-800'>...{moment(formData?.date).format('YYYY')}...</span> Attending the Course from our{' '}
+                                <span className='text-blue-800'>...{formData?.address}...</span> Center in the Grade of <span className='text-blue-800'>...{formData?.options?.label}...</span>
+                            </div>
+                        </Draggable>
+                    </div> :
+                    <div className='grid place-items-center relative text-center font-serif Certificate'>
+                        <img src={CertificatePreview} alt='...' />
+                        <Draggable>
+                            <div
+                                style={{ fontFamily: 'Charm, cursive' }}
+                                className='absolute leading-loose w-[650px] text-[17px] font-bold inset-x-auto top-[42%] text-left tracking-wider'
+                            >
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certified that Mr./Mrs./Miss ...RAHUL KUMAR MISHRA... S/o,
+                                W/o, D/o ...MR. ANIL MISHRA... Registration No ...31915... on successfully
+                                completed course of ...Certificate of Computer in Hindi Typing... average test
+                                speed ... 40 wpm... average accuracy ...95%... at ...SMS Education
+                                Computer... of duration from ...Jan-2021... to Nov-2023 and achieved the
+                                grade ...A+....
+                            </div>
+                        </Draggable>
                     </div>
-                </div>
-            </div>
-            <div className="bg-[var(--theme-color)]">
-                <h1 className="font-extrabold text-sm text-center text-white px-2 py-3">
-                    &#169; 2023 SMS Education | All Rights Reserved
-                </h1>
-            </div>
-        </div>
-    )
-}
+            }
 
-export default PrintTableCertificate
+
+        </div>
+    );
+};
+
+export default PrintTableCertificate;

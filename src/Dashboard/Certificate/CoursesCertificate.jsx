@@ -39,12 +39,12 @@ const CoursesCertificate = ({ back }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add your form submission logic here
+        PrintCertificate(`/admin/certificate/print-certificate`, { state: { formData } });
         console.log('Form submitted:', formData);
     };
 
     const selectedCourseOptions = [
-        { label: 'Course 1', value: 'course1' },
+        { label: 'O Level', value: 'olevel' },
         { label: 'Course 2', value: 'course2' },
         // Add more courses as needed
     ];
@@ -56,8 +56,8 @@ const CoursesCertificate = ({ back }) => {
         // Add more courses as needed
     ];
 
-    const PrintCertificate = useNavigate()
-    const { Id } = useParams();
+    const PrintCertificate = useNavigate();
+
 
     return (
         <div>
@@ -161,7 +161,6 @@ const CoursesCertificate = ({ back }) => {
                         size="lg"
                         ripple="light"
                         fullWidth
-                        onClick={() => PrintCertificate(`/admin/certificate/print-certificate`)}
                         className='flex justify-center items-center mt-2'
                     >
                         Submit <MdArrowForward size={20} className="ml-2" />

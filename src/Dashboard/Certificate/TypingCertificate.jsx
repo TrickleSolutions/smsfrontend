@@ -11,7 +11,6 @@ const TypingCertificate = ({ back }) => {
         name: '',
         fatherName: '',
         regNo: '',
-        course: null,
         speedWpm:'',
         average:'',
         location:'',
@@ -28,12 +27,6 @@ const TypingCertificate = ({ back }) => {
         }));
     };
 
-    const handleSelectCourse = (selectedCourse) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            course: selectedCourse,
-        }));
-    };
     const handleSelectOption = (selectedOption) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -106,18 +99,6 @@ const TypingCertificate = ({ back }) => {
                             label="Registration Number"
                             size="regular"
                             fullWidth
-                        />
-                    </div>
-                    <div className="py-2">
-                        <Select
-                            id="course"
-                            name="course"
-                            value={formData.course}
-                            onChange={handleSelectCourse}
-                            options={selectedCourseOptions}
-                            placeholder="Select Course"
-                            isSearchable
-                            isClearable
                         />
                     </div>
                     <div className="py-2">

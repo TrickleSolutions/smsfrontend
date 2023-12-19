@@ -11,23 +11,14 @@ import StudentTeachers from "./StudentTeachers";
 import baseurl from "../../Config";
 import Loader from "../../Components/Loader";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/useStateContext";
 
 const StudentAcademics = ({ auth }) => {
-  const [activeTab, setActiveTab] = useState("courses");
+  const [activeTab, setActiveTab] = useState("teachers");
   const [enrollData, setEnrollData] = useState([]);
   const [loader, setLoader] = useState(true);
-  const data = [
-    {
-      label: "Courses",
-      value: "courses",
-      desc: <StudentCourses auth={auth} />,
-    },
-    {
-      label: "Teachers",
-      value: "teachers",
-      desc: <StudentTeachers enrollData={enrollData} />,
-    },
-  ];
+  const { currentUser } = useAuthContext();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +27,7 @@ const StudentAcademics = ({ auth }) => {
   }, []);
 
   const getEnrollData = () => {
-    fetch(baseurl + "/api/enroll/" + auth, {
+    fetch(baseurl + "/api/students/" + currentUser?._id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,6 +45,18 @@ const StudentAcademics = ({ auth }) => {
         console.log(err);
       });
   };
+  const data = [
+    {
+      label: "Courses",
+      value: "courses",
+      desc: <StudentCourses auth={currentUser?.regno} />,
+    },
+    {
+      label: "Teachers",
+      value: "teachers",
+      desc: <StudentTeachers enrollData={enrollData} />,
+    },
+  ];
   return (
     <>
       {loader ? (
