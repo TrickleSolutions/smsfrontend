@@ -10,7 +10,7 @@ import { useAuthContext } from "../../context/useStateContext";
 const PrintReceipt = () => {
   const [loader, setLoader] = useState(false);
   const location = useLocation();
-  const { auth, item } = location.state;
+  // const { auth, item } = location.state;
   const [studentData, setStudentData] = useState([]);
   const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
 
@@ -127,17 +127,17 @@ const PrintReceipt = () => {
                 {/* 1st detail */}
                 <div className="flex ">
                   <div className="font-extrabold w-36">Registration No:</div>
-                  <div>{currentUser.regno}</div>
+                  {/* <div>{currentUser.regno}</div> */}
                 </div>
                 {/* 2nd detail */}
                 <div className="flex ">
                   <div className="font-extrabold w-36">Name:</div>
-                  <div>{currentUser.name}</div>
+                  {/* <div>{currentUser.name}</div> */}
                 </div>
                 {/* 3rd detail */}
                 <div className="flex ">
                   <div className="font-extrabold w-36">Father's Name:</div>
-                  <div>{currentUser.fname}</div>
+                  {/* <div>{currentUser.fname}</div> */}
                 </div>
               </div>
               {/* Right block */}
@@ -155,7 +155,7 @@ const PrintReceipt = () => {
                 {/* 3rd detail */}
                 <div className="flex ">
                   <div className="font-extrabold w-36">Date:</div>
-                  <div>{reverseDate(item.date)}</div>
+                  {/* <div>{reverseDate(item.date)}</div> */}
                 </div>
               </div>
             </div>
@@ -170,12 +170,12 @@ const PrintReceipt = () => {
               <div className="flex justify-between border-b border-black px-2 font-semibold py-2">
                 <div>1.</div>
                 <div>Android Development</div>
-                <div>{item.paid}</div>
+                {/* <div>{item.paid}</div> */}
               </div>
               <div className="flex text-2xl justify-between border-b border-black px-2 font-semibold py-2">
                 <div></div>
                 <div className=" ml-10">Total</div>
-                <div>{item.paid}</div>
+                {/* <div>{item.paid}</div> */}
               </div>
             </div>
 

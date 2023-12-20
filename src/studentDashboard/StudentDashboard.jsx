@@ -41,7 +41,7 @@ const StudentDashboard = ({ auth }) => {
           <StudentAcademics />
           <hr />
 
-          {/* <StudentMarks  /> */}
+          <StudentMarks  />
           <hr />
           <StudentAssignments />
           <hr />

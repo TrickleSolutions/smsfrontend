@@ -93,7 +93,7 @@ const StudentSingleTeacher = ({ enroll }) => {
         <div className="my-10 text-lg font-semibold"> No Instructor</div>
       )}
     </>
-  );
-};
+  )
+}
 
 export default StudentSingleTeacher;

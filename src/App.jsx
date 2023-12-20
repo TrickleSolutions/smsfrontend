@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Homepage from "./Homepage";
+// import Homepage from "./Homepage";
 import Navigation from "./Components/Navigation";
 import { Route, Routes, useLocation } from "react-router-dom";
 import About from "./Pages/About";
@@ -62,7 +62,7 @@ import AdminFees from "./Dashboard/AdminFees/AdminFees";
 import AdminQueries from "./Dashboard/queries/AdminQueries";
 import AdminEvents from "./Dashboard/AdminEvents/AdminEvents";
 import StudentStatus from "./InstructorDashboard/StudentStatus/StudentStatus";
-import ManageStudentStatus from "./Dashboard/manage-student/ManageStudentStatus";
+// import ManageStudentStatus from "./Dashboard/manage-student/AllAttendance";
 import ScheduleBatches from "./Dashboard/scheduleBatches/ScheduleBatches";
 import PrintReceipt from "./studentDashboard/payments/PrintReceipt";
 import StudentOfTheMonth from "./Dashboard/st-of-the-month/StudentOfTheMonth";
@@ -71,11 +71,16 @@ import Roles from "./Dashboard/roles-permissions/Roles";
 import ChatSupport from "./ChatSupport";
 import HomePage2 from "./HomePage2";
 import SmartBar from "./Components/SmartBar";
-import InstituteHeader from "./Components/InstituteHeader";
 import Gallery from "./Pages/Gallery";
 import JoinAsInstructor from "./Dashboard/JoinInstructor/JoinAsInstructor";
 import ContactQueries from "./Dashboard/contactQueries/ContactQueries";
 import CourseDetails from "./Pages/courses/CourseDetails";
+import PendingWork from "./Dashboard/PendingWork/PendingWork";
+import FeesReceipt from "./Dashboard/AdminFees/FeesReceipt";
+import InstructorStudents from "./InstructorDashboard/InstructorStudents/InstructorStudents";
+import AllAttendance from "./Dashboard/manage-student/AllAttendance";
+import Certificate from "./Dashboard/Certificate/Certificate";
+import PrintTableCertificate from "./Dashboard/Certificate/PrintTableCertificate";
 
 const App = () => {
   const location = useLocation();
@@ -114,12 +119,13 @@ const App = () => {
 
   return (
     <>
+
       <SmartBar />
 
       {/* {isAdmin || isStudent || isInstructor ? "" : <InstituteHeader />} */}
       {isAdmin || isStudent || isInstructor ? "" : <Navigation />}
-
       <Routes>
+        <Route path="/Student-Fees-Receipt/:id" exact={true} element={<FeesReceipt />} />
         <Route path="/" exact={true} element={<HomePage2 />} />
         <Route path="/about" exact={true} element={<About />} />
         <Route path="/courses" exact={true} element={<Courses />} />
@@ -472,11 +478,11 @@ const App = () => {
               }
             />
             <Route
-              path="/admin/student-status"
+              path="/admin/attendance"
               element={
                 <AdminProtected
                   adminAuth={adminAuth}
-                  Component={ManageStudentStatus}
+                  Component={AllAttendance}
                 />
               }
             />
@@ -490,11 +496,38 @@ const App = () => {
               }
             />
             <Route
+              path="/admin/pending-work"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={PendingWork}
+                />
+              }
+            />
+            <Route
               path="/admin/monthly-acheivers"
               element={
                 <AdminProtected
                   adminAuth={adminAuth}
                   Component={StudentOfTheMonth}
+                />
+              }
+            />
+            <Route
+              path="/admin/certificate"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={Certificate}
+                />
+              }
+            />
+            <Route
+              path="/admin/certificate/print-certificate"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={PrintTableCertificate}
                 />
               }
             />
@@ -540,6 +573,17 @@ const App = () => {
               element={
                 <InstructorProtected
                   Component={InstructorDashboard}
+                  instructorAuth={instructorAuth}
+                  updateInstructorAuth={updateInstructorAuth}
+                />
+              }
+            />
+            <Route
+              path="/instructor/instructor-students"
+              exact={true}
+              element={
+                <InstructorProtected
+                  Component={InstructorStudents}
                   instructorAuth={instructorAuth}
                   updateInstructorAuth={updateInstructorAuth}
                 />

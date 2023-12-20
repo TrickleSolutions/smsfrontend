@@ -40,7 +40,7 @@ const LoginAdmin = ({ updateAdminAuth, adminAuth, value }) => {
           );
           updateAdminAuth();
           toast.success("Successfully LoggedIn");
-          navigate("/admin/dashboard");
+          navigate("/admin/pending-work");
         } else {
           toast.error(`${result.message}`);
         }

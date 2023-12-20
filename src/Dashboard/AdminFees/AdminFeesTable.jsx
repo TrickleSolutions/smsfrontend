@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  Checkbox,
   Menu,
   MenuHandler,
   MenuItem,
@@ -9,10 +8,13 @@ import {
 import ModalEditFees from "./ModalEditFees";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import { RiBillLine } from "react-icons/ri";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminFeesTable = ({ item, getFeesList }) => {
   const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(!open2);
+  const navigate = useNavigate();
 
   function deleteData(id) {
     if (window.confirm("Are you sure You want to delete ?")) {
@@ -27,21 +29,36 @@ const AdminFeesTable = ({ item, getFeesList }) => {
     }
   }
 
+  // const ShowStudent = (student) => {
+  //   sessionStorage.setItem("auth", JSON.stringify(student._id));
+  //   updateAuth();
+  // };
+
+  console.log(item)
+
   return (
     <>
       <tr className="bg-white border-b" key={item._id}>
-        <td className=" py-4 ">
-          <Checkbox />
+        <td onClick={() => navigate(`/Student-Fees-Receipt/${item.regno}`)} className="hover:text-black p-4 ">
+          <RiBillLine size={24} />
         </td>
-        <td className="px-6 py-4 font-semibold text-black">{item.name}</td>
-        <td className="px-6 py-4">{item.regno}</td>
-        <td className="px-6 py-4">{item.amount}</td>
-        <td className="px-6 py-4">{item.mode}</td>
-        <td className="px-3 py-4">{item.transId}</td>
-        <td className="px-3 py-4">{item.paid}</td>
-        <td className="px-3 py-4">{item.amount - item.paid}</td>
-        <td className="px-3 py-4">{item.date}</td>
-        <td className="px-1 py-4">
+        <td className="font-semibold text-black">
+          {item.name}
+          {item.amount === 0 &&
+            <p className="text-yellow-900">Fully Paid</p>
+          }
+        </td>
+        <td className="border">12356</td>
+        <td className="border">ADCA</td>
+        <td className="border">{item.amount}</td>
+        <td className="border">{item.mode}</td>
+        <td className="border">{item.transId}</td>
+        <td className="border text-green-800 text-base font-semibold">{item.paid}</td>
+        <td className="border text-yellow-800 font-semibold text-base">{item.paid - item.amount}</td>
+        <td className="border">{item.date}</td>
+        <td className="border">Sourabh</td>
+        <td className="border">Admin</td>
+        <td className="border">
           <div>
             <Menu>
               <MenuHandler>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import Loader from "../Components/Loader";
+import { GrCertificate } from "react-icons/gr";
+
 
 const AdminDashboard = ({ adminAuth }) => {
   const [userPermissions, setUserPermissions] = useState([]);
@@ -347,9 +349,9 @@ const AdminDashboard = ({ adminAuth }) => {
                   <div>Student & Teacher Queries</div>
                 </div>
                 {/* Manage Student */}
-                {/* {userPermissions.manageStudent ? (
+                {userPermissions.manageStudent ? (
                   <div
-                    onClick={() => goto("/admin/student-status")}
+                    onClick={() => goto("/admin/attendance")}
                     className=" w-48 h-48 p-10 m-3 text-2xl text-[#213363] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#213363] ring-offset-1"
                   >
                     <div className="py-1">
@@ -368,11 +370,11 @@ const AdminDashboard = ({ adminAuth }) => {
                         />
                       </svg>
                     </div>
-                    <div>Manage Student</div>
+                    <div>Attendance</div>
                   </div>
                 ) : (
                   ""
-                )} */}
+                )}
 
                 {/* Schedule Batches */}
                 {userPermissions.scheduleBatches ? (
@@ -396,7 +398,7 @@ const AdminDashboard = ({ adminAuth }) => {
                         />
                       </svg>
                     </div>
-                    <div>Schedule Batches</div>
+                    <div>Batches</div>
                   </div>
                 ) : (
                   ""
@@ -510,6 +512,45 @@ const AdminDashboard = ({ adminAuth }) => {
                 ) : (
                   ""
                 )}
+
+                {/* Pending Work */}
+                {userPermissions ? (
+                  <div
+                    onClick={() => goto("/admin/pending-work")}
+                    className="w-48 h-48 p-10 m-3 text-2xl text-[#f1a81a] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#f1a81a] ring-offset-1"
+                  >
+                    <div className="py-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-10 h-10"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
+                        />
+                      </svg>
+                    </div>
+                    <div>Pending Work</div>
+                  </div>
+                ) : (
+                  ""
+                )}
+
+                <div
+                  onClick={() => goto("/admin/certificate")}
+                  className="w-48 h-48 p-10 m-3 text-2xl text-[#6bbd4a] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#6bbd4a] ring-offset-1"
+                >
+                  <div className="py-1 text-[#6bbd4a]">
+                    <GrCertificate className="w-10 h-10" />
+                  </div>
+                  <div>certificate</div>
+                </div>
+
               </div>
             ) : (
               <div className="text-xl font-semibold my-20 text-center">

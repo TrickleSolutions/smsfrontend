@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import baseurl from "../Config";
 import Loader from "../Components/Loader";
 import { useAuthContext } from "../context/useStateContext";
+import moment from "moment/moment";
 
 const StudentMarks = ({ auth }) => {
   const [marksData, setMarksData] = useState([]);
@@ -10,7 +11,7 @@ const StudentMarks = ({ auth }) => {
   const [loader, setLoader] = useState(true);
 
   const getMarksData = () => {
-    fetch(`${baseurl}/api/marks/${auth}`, {
+    fetch(`${baseurl}/api/marks/${currentUser?.regno}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +30,7 @@ const StudentMarks = ({ auth }) => {
   useEffect(() => {
     getMarksData();
   }, [currentUser]);
-
+  console.log(marksData)
   return (
     <section className="p-2 sm:p-5 md:p-10 border-b border-[var(--secondary-color)]">
       <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start my-5 sm:my-7 md:my-10">
@@ -76,7 +77,7 @@ const StudentMarks = ({ auth }) => {
                       </span>{" "}
                     </td>
                     <td className="px-3 py-5 hidden lg:table-cell text-sm">
-                      {item.date}
+                      {moment(item.date).format("MMM Do YYYY")}
                     </td>
                     <td className="px-3 py-5 hidden lg:table-cell">Good</td>
                   </tr>

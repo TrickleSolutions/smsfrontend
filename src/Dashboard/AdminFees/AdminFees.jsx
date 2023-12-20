@@ -125,34 +125,43 @@ const AdminFees = () => {
                 <table className="w-full text-sm text-left text-gray-500 ">
                   <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
                     <tr>
-                      <th scope="col" className=" py-3">
-                        <Checkbox />
+                      <th scope="col" className=" p-3">
+                        Print
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        Student
+                      <th scope="col" >
+                        Reg. No.| Name
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        Reg. No.
+                      <th scope="col" >
+                        Receipt No
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        Amount
+                      <th scope="col" >
+                        Course
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" >
+                        Course Fees
+                      </th>
+                      <th scope="col" >
                         Mode
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" >
                         Transaction Id
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" >
                         Paid
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" >
                         Pending
                       </th>
-                      <th scope="col" className="px-3 py-3">
+                      <th scope="col" >
                         Date
                       </th>
-                      <th scope="col" className="px-1 py-3">
+                      <th scope="col" >
+                        Instructor Name
+                      </th>
+                      <th scope="col" >
+                        Received By
+                      </th>
+                      <th scope="col" >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -183,6 +192,7 @@ const AdminFees = () => {
                           <>
                             <AdminFeesTable
                               item={item}
+                              // updateAuth={updateAuth}
                               getFeesList={getFeesList}
                             />
                           </>

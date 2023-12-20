@@ -75,7 +75,7 @@ const ScheduleBatches = () => {
       <div className="p-5 ml-auto shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa] mt-5">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
-            Schedule Batches
+            Batches
           </h2>
           {/* Students */}
           <div className="flex items-center flex-col sm:flex-row">
@@ -135,13 +135,16 @@ const ScheduleBatches = () => {
                       <Checkbox />
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Batch
+                      Instructor Name
                     </th>
                     <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Course
+                      From
+                    </th>
+                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
+                      To
                     </th>
                     <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Date
+                      Student Count
                     </th>
                     <th scope="col" className="px-1 py-3">
                       <svg

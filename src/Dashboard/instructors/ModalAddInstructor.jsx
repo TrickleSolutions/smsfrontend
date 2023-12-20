@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { useAuthContext } from "../../context/useStateContext";
 
 const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
-  const { imageUploads, UploadImage, setImageUploads } = useAuthContext();
+  const { imageUploads, UploadImage } = useAuthContext();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -24,7 +24,6 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
   const [exp, setExp] = useState("");
   const [status, setStatus] = useState("active");
   const [salary, setSalary] = useState("");
-  const [profilePic, setProfilePic] = useState(null);
 
   // const data = new FormData(); // Create a FormData object
 

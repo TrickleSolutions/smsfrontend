@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Loader";
 import InstructorDocument from "./InstructorDocument";
+import ModalOneViewProfile from "./ModalOneViewProfile";
 
 const InstructorList = () => {
   const [product, setProduct] = useState([]);
@@ -22,7 +23,8 @@ const InstructorList = () => {
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
   const [filterBy, setFilterBy] = useState("all");
-
+  const [viewInsPro, setViewInsPro] = useState(false)
+  const handleInstructorProfile = () => setViewInsPro(!viewInsPro)
   const [selectedData, setSelectedData] = useState(null);
 
   const [documentopen, setDocumentOpen] = useState(false);
@@ -231,13 +233,10 @@ const InstructorList = () => {
                       ) {
                         return (
                           <tr className="bg-white border-b " key={item._id}>
-                            <InstructorDocument
-                              item={selectedData}
-                              open={documentopen}
-                              handleDocumentOpen={handleDocumentOpen}
-                            />
+
                             <td
                               scope="row"
+                              onClick={handleInstructorProfile}
                               className="px-6 py-4 font-semibold text-black flex"
                             >
                               <div className="flex justify-center items-center mr-2 rounded-full text-center">
@@ -272,13 +271,12 @@ const InstructorList = () => {
                               </Button>
                             </td>
                             <td
-                              className={`${
-                                item.status === "active"
-                                  ? "text-teal-500"
-                                  : item.status === "leave"
+                              className={`${item.status === "active"
+                                ? "text-teal-500"
+                                : item.status === "leave"
                                   ? "text-amber-500"
                                   : ""
-                              } px-6 py-4 hidden md:table-cell capitalize`}
+                                } px-6 py-4 hidden md:table-cell capitalize`}
                             >
                               {item.status}
                             </td>
@@ -423,6 +421,15 @@ const InstructorList = () => {
             </div>
           </div>
         </div>
+        <InstructorDocument
+          item={selectedData}
+          open={documentopen}
+          handleDocumentOpen={handleDocumentOpen}
+        />
+        <ModalOneViewProfile
+          open={viewInsPro}
+          handleOpen={handleInstructorProfile}
+        />
       </div>
       {/* Footer */}
       <div className="bg-[var(--theme-color)]">
