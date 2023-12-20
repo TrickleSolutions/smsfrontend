@@ -1,3 +1,4 @@
+import axios from "axios";
 import baseurl from "../Config";
 import { toast } from "react-toastify";
 
@@ -7,6 +8,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [marksData, setMarksData] = useState([]);
+  const [instructorStudents, setInstructorStudents] = useState(null);
   const [loader, setLoader] = useState(true);
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user"))
@@ -78,6 +80,19 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  const GetInstructorStudents = async (instructorId) => {
+    try {
+      const response = await axios.get(
+        baseurl + `/api/course/students/${instructorId}`
+      );
+      if (response.status === 200) {
+        setInstructorStudents(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -92,6 +107,8 @@ const AuthProvider = ({ children }) => {
         imageUploads,
         UploadImage,
         setImageUploads,
+        GetInstructorStudents,
+        instructorStudents,
       }}
     >
       {children}

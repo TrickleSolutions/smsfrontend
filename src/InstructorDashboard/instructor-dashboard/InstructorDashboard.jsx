@@ -12,8 +12,6 @@ const InstructorDashboard = ({ instructorAuth }) => {
     getinstructorData();
   }, [instructorAuth]);
 
-  console.log(instructorData);
-
   const getinstructorData = () => {
     fetch(`${baseurl}/api/instructor/${instructorAuth}`, {
       method: "GET",
@@ -25,6 +23,10 @@ const InstructorDashboard = ({ instructorAuth }) => {
         return res.json();
       })
       .then((result) => {
+        window.sessionStorage.setItem(
+          "instructor-data",
+          JSON.stringify(result[0])
+        );
         setInstructorData(result[0]);
         setLoader(false);
       })

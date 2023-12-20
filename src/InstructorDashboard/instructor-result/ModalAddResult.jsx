@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -7,9 +7,15 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import baseurl from "../../Config";
+import Select from "react-select";
 import { toast } from "react-toastify";
+import { useAuthContext } from "../../context/useStateContext";
 
 const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
+  const [instructorData, setInstructorData] = useState(
+    JSON.parse(window.sessionStorage.getItem("instructor-data"))
+  );
+  const { GetInstructorStudents, instructorStudents } = useAuthContext();
   const [name, setName] = useState("");
   const [regno, setRegno] = useState(0);
   const [course, setCourse] = useState("");
@@ -17,6 +23,7 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
   const [total_marks, setTotal_marks] = useState("");
   const [obtain_marks, setObtain_marks] = useState("");
   const [date, setDate] = useState("");
+  const [studentSelect, setStudentSelect] = useState({});
 
   let data = {
     name,
@@ -26,6 +33,13 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
     total_marks,
     obtain_marks,
     date,
+  };
+
+  const handleSelectStudent = (data) => {
+    setStudentSelect({ label: data?.label, value: data.value });
+    setName(data?.name);
+    setRegno(data?.regno);
+    setCourse(data?.course);
   };
 
   const onsubmitClick = () => {
@@ -60,6 +74,18 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
       });
   };
 
+  const StudentList = instructorStudents?.map((item) => ({
+    label: item?.name,
+    value: item?.name,
+    name: item?.name,
+    regno: item?.regno,
+    course: item?.course,
+  }));
+
+  useEffect(() => {
+    GetInstructorStudents(instructorData?._id);
+  }, [instructorData]);
+
   return (
     <>
       <Dialog
@@ -82,7 +108,12 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
                 >
                   Name
                 </label>
-                <input
+                <Select
+                  options={StudentList}
+                  value={studentSelect}
+                  onChange={(value) => handleSelectStudent(value)}
+                />
+                {/* <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="name"
                   type="text"
@@ -91,7 +122,7 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
                   onChange={(e) => {
                     setName(e.target.value);
                   }}
-                />
+                /> */}
               </div>
               {/* Regno */}
               <div className="w-full px-3 mb-3">

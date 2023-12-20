@@ -81,16 +81,15 @@ const StudentCourses = ({ auth }) => {
             getCategoryData={getCategoryData}
           />
         ) : (
-          // studentData.map((student) => {
-          //   return (
-          //     <StudentSingleCourse
-          //       courseId={student.course}
-          //       getInstructorData={getInstructorData}
-          //       getCategoryData={getCategoryData}
-          //     />
-          //   );
-          // })
-          <h2 className="text-xl mt-10 font-semibold">No courses Enrolled</h2>
+          studentData?.map((student) => {
+            return (
+              <StudentSingleCourse
+                courseId={student.course}
+                getInstructorData={getInstructorData}
+                getCategoryData={getCategoryData}
+              />
+            );
+          })
         )}
       </div>
     </>
