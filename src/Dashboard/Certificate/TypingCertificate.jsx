@@ -11,12 +11,13 @@ const TypingCertificate = ({ back }) => {
         name: '',
         fatherName: '',
         regNo: '',
-        speedWpm:'',
-        average:'',
-        location:'',
+        language: null,
+        speedWpm: '',
+        average: '',
+        address: '',
         from: '',
         to: '',
-        options: null,
+        grade: ''
     });
 
     const handleInputChange = (e) => {
@@ -33,17 +34,22 @@ const TypingCertificate = ({ back }) => {
             options: selectedOption,
         }));
     };
+    const handleSelectlanguageOption = (selectedOption) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            language: selectedOption,
+        }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add your form submission logic here
+        PrintCertificate(`/admin/certificate/print-certificate`, { state: { formData } });
         console.log('Form submitted:', formData);
     };
 
-    const selectedCourseOptions = [
-        { label: 'Course 1', value: 'course1' },
-        { label: 'Course 2', value: 'course2' },
-        // Add more courses as needed
+    const selectedlanguageOptions = [
+        { label: 'English', value: 'english' },
+        { label: 'Hindi', value: 'hindi' },
     ];
 
     const SelectOptions = [
@@ -62,6 +68,20 @@ const TypingCertificate = ({ back }) => {
             <div className="p-5 mx-auto max-w-xl">
                 <form onSubmit={handleSubmit}>
                     {/* Course Select Field */}
+
+                    <div className="py-2">
+                        <Select
+                            id="grade"
+                            name="grade"
+                            value={formData.language}
+                            onChange={handleSelectlanguageOption}
+                            options={selectedlanguageOptions}
+                            placeholder="Typing Language"
+                            isSearchable
+                            isClearable
+                        />
+                    </div>
+
                     <div className="py-2">
                         <Input
                             type="text"
@@ -131,11 +151,11 @@ const TypingCertificate = ({ back }) => {
 
                         <Input
                             type="text"
-                            id="location"
-                            name="location"
-                            value={formData.location}
+                            id="address"
+                            name="address"
+                            value={formData.address}
                             onChange={handleInputChange}
-                            label="Location"
+                            label="Address"
                             size="regular"
                             fullWidth
                         />
@@ -169,15 +189,15 @@ const TypingCertificate = ({ back }) => {
 
                     </div>
                     <div className="py-2">
-                        <Select
+                        <Input
                             id="grade"
                             name="grade"
-                            value={formData.options}
-                            onChange={handleSelectOption}
-                            options={SelectOptions}
-                            placeholder="Grade"
-                            isSearchable
-                            isClearable
+                            value={formData.grade}
+                            onChange={handleInputChange}
+                            variant="outlined"
+                            label="Enter Grade"
+                            size="regular"
+                            fullWidth
                         />
                     </div>
 
@@ -187,7 +207,6 @@ const TypingCertificate = ({ back }) => {
                         size="lg"
                         ripple="light"
                         fullWidth
-                        onClick={() => PrintCertificate(`/admin/certificate/print-certificate`)}
                         className='flex justify-center items-center mt-2'
                     >
                         Submit <MdArrowForward size={20} className="ml-2" />

@@ -19,6 +19,41 @@ const StudentAcademics = ({ auth }) => {
   const [loader, setLoader] = useState(true);
   const { currentUser } = useAuthContext();
 
+
+  const [instructors, setInstructors] = useState([]);
+
+
+
+  const getData = async () => {
+    try {
+      setLoader(true);
+
+      const response = await fetch(`${baseurl}/api/student/career/info/${currentUser?._id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      setInstructors(result.data);
+      setLoader(false);
+    } catch (error) {
+      console.error(error);
+      setLoader(false);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser && currentUser?._id) {
+      getData();
+    }
+  }, [currentUser._id]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +89,7 @@ const StudentAcademics = ({ auth }) => {
     {
       label: "Teachers",
       value: "teachers",
-      desc: <StudentTeachers enrollData={enrollData} />,
+      desc: <StudentTeachers enrollData={enrollData} instructors={instructors} />,
     },
   ];
   return (

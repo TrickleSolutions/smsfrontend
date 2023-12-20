@@ -12,8 +12,36 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import ScheduleBatchesTable from "./ScheduleBatchesTable";
 import ModalAddBatch from "./ModalAddBatch";
+import moment from "moment/moment";
+import {
+  DataGrid,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarDensitySelector,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+  GridToolbarQuickFilter,
+} from "@mui/x-data-grid";
+import ModalViewMapList from "./ModalViewMapList";
+import ModalEditBatch from "./ModalEditBatch";
+import { toast } from "react-toastify";
 
 const ScheduleBatches = () => {
+
+
+  const CustomToolbar = () => {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarQuickFilter />
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+        <GridToolbarExport />
+        <GridToolbarDensitySelector />
+      </GridToolbarContainer>
+    );
+  };
+
+
   const [product, setProduct] = useState([]);
   const [pageData, setPageData] = useState([]);
   const [page, setPage] = useState(1);
@@ -21,13 +49,17 @@ const ScheduleBatches = () => {
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
+  const [viewMapStudent, setViewMapStudent] = useState(false)
+  const handleViewMapStudent = () => setViewMapStudent(!viewMapStudent)
+  const [open2, setOpen2] = useState(false);
+  const handleOpen2 = () => setOpen2(!open2);
 
   useEffect(() => {
     getScheduledBatchesList();
   }, [page]);
 
   const getScheduledBatchesList = () => {
-    fetch(baseurl + "/api/class ", {
+    fetch(baseurl + "/api/batch/get", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -45,30 +77,169 @@ const ScheduleBatches = () => {
       });
   };
 
-  //handle Next
-  const handleNext = () => {
-    if (page === pageCount) return page;
-    setPage(page + 1);
-  };
-  //handlePrevious
-  const handlePrevious = () => {
-    if (page === 1) return page;
-    setPage(page - 1);
-  };
-
-  useEffect(() => {
-    const pagedatacount = Math.ceil(product.length / 5);
-    setPageCount(pagedatacount);
-
-    if (page) {
-      const LIMIT = 5;
-      const skip = LIMIT * page;
-      const dataskip = product.slice(page === 1 ? 0 : skip - LIMIT, skip);
-      setPageData(dataskip);
+  function deleteData(id) {
+    if (window.confirm("Are you sure you want to delete?")) {
+      fetch(baseurl + "/api/batch/delete/" + id, {
+        method: "DELETE",
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return res.json();
+        })
+        .then((res) => {
+          toast.success("Deleted Successfully");
+          getScheduledBatchesList();
+        })
+        .catch((error) => {
+          console.error("Error during deletion:", error);
+          // Handle the error, e.g., show an error message to the user
+        });
     }
-  }, [product]);
+  }
+
+  const DataWithID = (data) => {
+    const NewData = [];
+    if (data !== undefined) {
+      for (let item of data) {
+        NewData.push({
+          ...item,
+          id: data.indexOf(item)
+        });
+      }
+    } else {
+      NewData.push({ id: 0 });
+    }
+    return NewData;
+  };
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  console.log(product)
+
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      width: 90,
+      renderCell: (params) => (
+        <div className="flex justify-center">{params.row.id + 1}</div>
+      ),
+    },
+    {
+      field: "name",
+      headerName: "Instructor Name",
+      width: 150,
+      renderCell: (params) => (
+        <div className="flex justify-center">{params.row?.instructor?.name}</div>
+      ),
+    },
+    {
+      field: "title",
+      headerName: "Course",
+      width: 150,
+      renderCell: (params) => (
+        <div className="flex justify-center">{params.row?.course?.title}</div>
+      ),
+    },
+    {
+      field: "from",
+      headerName: "From",
+      width: 150,
+      renderCell: (params) => (
+        <div className="flex justify-center">{moment(params.row?.batchTime?.from).format('MMMM Do YYYY')}</div>
+      ),
+    },
+    {
+      field: "to",
+      headerName: "To",
+      width: 150,
+      renderCell: (params) => (
+        <div className="flex justify-center">{moment(params.row?.batchTime?.to).format('MMMM Do YYYY')}</div>
+      ),
+    },
+    {
+      field: "students",
+      headerName: "students",
+      width: 150,
+      renderCell: (params) => (
+        <div className="flex justify-center"><Button onClick={handleViewMapStudent}>{params.row?.students.length}</Button></div>
+      ),
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 150,
+      renderCell: (params) => (
+        <div className="flex justify-center">
+          <Menu>
+            <MenuHandler>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                />
+              </svg>
+            </MenuHandler>
+            <MenuList>
+              <MenuItem>
+                <div onClick={handleOpen2} className="flex ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4 mx-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                    />
+                  </svg>
+                  Edit
+                </div>
+              </MenuItem>
+              <MenuItem>
+                <div
+                  className="flex "
+                  onClick={() => {
+                    deleteData(params.row._id);
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4 mx-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                    />
+                  </svg>
+                  Delete
+                </div>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </div>
+      ),
+    },
+  ]
 
   return (
     <>
@@ -128,129 +299,35 @@ const ScheduleBatches = () => {
                 <Loader />
               </div>
             ) : (
-              <table className="w-full text-sm text-left text-gray-500 ">
-                <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
-                  <tr>
-                    <th scope="col" className=" py-3">
-                      <Checkbox />
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Instructor Name
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      From
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      To
-                    </th>
-                    <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                      Student Count
-                    </th>
-                    <th scope="col" className="px-1 py-3">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                        />
-                      </svg>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                  {/* {pageData.map((item) => {
-                    if (
-                      item.topic
-                        .toLowerCase()
-                        .includes(search.trim().toLowerCase())
-                    ) {
-                      return (
-                        <>
-                          <ScheduleBatchesTable
-                            item={item}
-                            getScheduledBatchesList={getScheduledBatchesList}
-                          />
-                        </>
-                      );
-                    }
-                  })} */}
-                  {console.log(pageData)}
-                  <ScheduleBatchesTable
-                    item={pageData}
-                    getScheduledBatchesList={getScheduledBatchesList}
-                  />
-
-                </tbody>
-              </table>
+              <div>
+                <DataGrid
+                  rows={DataWithID(product.data)}
+                  columns={columns}
+                  components={{ Toolbar: CustomToolbar }}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 5,
+                      },
+                    },
+                  }}
+                  pageSizeOptions={[5, 10, 25]}
+                  checkboxSelection
+                  disableRowSelectionOnClick
+                />
+                <ModalViewMapList
+                  open={viewMapStudent}
+                  handleOpen={handleViewMapStudent}
+                  data={product}
+                />
+                <ModalEditBatch
+                  open={open2}
+                  handleOpen={handleOpen2}
+                // getScheduledBatchesList={getScheduledBatchesList}
+                // item={item}
+                />
+              </div>
             )}
-
-            <div className="flex justify-end">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination flex space-x-5 border w-fit px-2 py-1 mx-5 mt-5">
-                  <li className="page-item">
-                    <a
-                      className="page-link"
-                      sty
-                      href="#"
-                      aria-label="Previous"
-                      onClick={handlePrevious}
-                      disabled={page === 1}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="border px-2 py-1 shadow-xl rounded-lg"
-                      >
-                        &laquo;
-                      </span>
-                      <span className="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  {Array(pageCount)
-                    .fill(null)
-                    .map((ele, index) => {
-                      return (
-                        <li className="page-item">
-                          <a
-                            className="page-link"
-                            href="#"
-                            active={page === index + 1 ? true : false}
-                            onClick={() => {
-                              setPage(index + 1);
-                            }}
-                          >
-                            {index + 1}
-                          </a>
-                        </li>
-                      );
-                    })}
-                  <li className="page-item">
-                    <a
-                      className="page-link"
-                      href="#"
-                      aria-label="Next"
-                      onClick={handleNext}
-                      disabled={page === pageCount}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="border px-2 py-1 shadow-xl rounded-lg"
-                      >
-                        &raquo;
-                      </span>
-                      <span className="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
           </div>
         </div>
       </div>

@@ -21,14 +21,9 @@ const ModalEditBatch = ({
   const [time, setTime] = useState("");
   const [maped, setMaped] = useState(true)
 
-  useEffect(() => {
-    setCourse(item.course);
-    setBatch(item.batch);
-    setDate(item.date);
-    setTime(item.time);
-  }, [item]);
 
-  const inst = item.contact_instructor;
+
+  const inst = item?.contact_instructor;
 
   const onSubmitClick = () => {
     let updatedData = {

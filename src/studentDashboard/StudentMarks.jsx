@@ -17,20 +17,26 @@ const StudentMarks = ({ auth }) => {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((result) => {
         setMarksData(result);
         setLoader(false);
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Error fetching marks data:", err);
+        setLoader(false);
       });
   };
+
 
   useEffect(() => {
     getMarksData();
   }, [currentUser]);
-  console.log(marksData)
   return (
     <section className="p-2 sm:p-5 md:p-10 border-b border-[var(--secondary-color)]">
       <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start my-5 sm:my-7 md:my-10">
