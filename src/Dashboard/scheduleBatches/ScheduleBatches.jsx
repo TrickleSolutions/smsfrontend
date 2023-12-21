@@ -116,7 +116,6 @@ const ScheduleBatches = () => {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-  console.log(product)
 
   const columns = [
     {
