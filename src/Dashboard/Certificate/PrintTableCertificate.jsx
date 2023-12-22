@@ -85,12 +85,11 @@ const PrintTableCertificate = () => {
                                 style={{ fontFamily: 'Charm, cursive' }}
                                 className='absolute leading-loose w-[650px] text-[17px] font-bold inset-x-auto top-[42%] text-left tracking-wider'
                             >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certified that Mr./Mrs./Miss ...RAHUL KUMAR MISHRA... S/o,
-                                W/o, D/o ...MR. ANIL MISHRA... Registration No ...31915... on successfully
-                                completed course of ...Certificate of Computer in Hindi Typing... average test
-                                speed ... 40 wpm... average accuracy ...95%... at ...SMS Education
-                                Computer... of duration from ...Jan-2021... to Nov-2023 and achieved the
-                                grade ...A+....
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certified that Mr./Mrs./Miss <span className='text-blue-800'>...{formData?.name}...</span> S/o,
+                                W/o, D/o <span className='text-blue-800'>...{formData?.fatherName}...</span> Registration No <span className='text-blue-800'>...{formData?.regNo}...</span> on successfully
+                                completed course of <span className='text-blue-800'>...Certificate of Computer in {formData?.language?.label} Typing...</span> average test
+                                speed <span className='text-blue-800'>...{formData?.speedWpm} wpm...</span> average accuracy <span className='text-blue-800'>...{formData?.average}%...</span> at <span className='text-blue-800'>...{formData?.address}...</span> of duration from <span className='text-blue-800'>...{moment(formData?.from).format("MMM-YYYY")}...</span> to <span className='text-blue-800'>...{moment(formData?.to).format("MMM-YYYY")}...</span> and achieved the
+                                grade <span className='text-blue-800'>...{formData?.grade}...</span>
                             </div>
                         </Draggable>
                     </div>

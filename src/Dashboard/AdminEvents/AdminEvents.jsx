@@ -38,6 +38,13 @@ const AdminEvents = () => {
     },
   ];
 
+  const [eventsData, setEventsData] = useState(myEventsList);
+
+  // Function to update events data
+  const updateEventsData = (newEvent) => {
+    setEventsData([...eventsData, newEvent]);
+  };
+
   useEffect(() => {
     getEventsList();
   }, [page]);
@@ -324,6 +331,7 @@ const AdminEvents = () => {
               <ModalAddHoliday
                 open={hoidayopen}
                 handleOpen={handleHolidayOpen}
+                updateEventsData={updateEventsData}
               />
 
               {/* Student Table */}

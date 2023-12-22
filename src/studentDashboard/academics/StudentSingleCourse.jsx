@@ -30,25 +30,23 @@ const StudentSingleCourse = ({
     }
   }, [course]);
 
-  const getCourseList = () => {
-    fetch(baseurl + "/api/course/" + courseId, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setCourse(result[0]);
-        setLoader(false);
-        // console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
+  const getCourseList = async () => {
+    try {
+      const res = await fetch(baseurl + "/api/course/" + courseId, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+      const result = await res.json();
+      setCourse(result[0]);
+      setLoader(false);
+      // console.log(result);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+    }
   };
+  
 
   const getInstName = () => {
     let inst = getInstructorData(course.instructor);

@@ -7,8 +7,24 @@ import {
     DialogFooter,
 } from "@material-tailwind/react";
 
-const ModalAddHoliday = ({ open, handleOpen }) => {
+const ModalAddHoliday = ({ open, handleOpen, updateEventsData }) => {
 
+    const onSubmitClick = (e) => {
+        e.preventDefault();
+
+        // Assuming you have added logic to get holiday data from the form
+        const newEvent = {
+            start: new Date(/* holiday start date and time */),
+            end: new Date(/* holiday end date and time */),
+            title: ''
+        }
+
+        // Call the function to update events data in AdminEvents
+        updateEventsData(newEvent);
+
+        // Close the modal
+        handleOpen();
+    };
 
     return (
         <>

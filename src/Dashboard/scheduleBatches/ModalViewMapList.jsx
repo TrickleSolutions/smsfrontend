@@ -9,13 +9,16 @@ import {
 import Select from "react-select";
 
 
-const ModalViewMapList = ({ open, handleOpen }) => {
+const ModalViewMapList = ({ open, handleOpen, data }) => {
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-      ]
+    const students = data?.data[0]?.students || [];
+
+    const options = students.map((student) => ({
+        value: student.regno,
+        label: student.name,
+    }));
+
+
 
     return (
         <>
@@ -25,7 +28,6 @@ const ModalViewMapList = ({ open, handleOpen }) => {
                 className="min-w-[80%] md:min-w-[60%] lg:min-w-[20%]"
             >
                 <DialogHeader className="text-center justify-center">
-                    {" "}
                     Map Student List
                 </DialogHeader>
                 <DialogBody divider className="h-[25rem] overflow-y-scroll">
@@ -40,94 +42,15 @@ const ModalViewMapList = ({ open, handleOpen }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
-                                <tr>
-                                    <td>11231</td>
-                                    <td>Ram</td>
-                                    <td>CCC</td>
-                                </tr>
+                                {students?.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{item?.regno}</td>
+                                        <td>{item?.name}</td>
+                                        <td>{item?.course}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
-
                     </div>
                 </DialogBody>
                 <DialogFooter>

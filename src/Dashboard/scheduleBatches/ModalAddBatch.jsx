@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -11,40 +11,151 @@ import { toast } from "react-toastify";
 import Select from "react-select";
 
 const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
-  const [topic, setTopic] = useState("");
-  const [course, setCourse] = useState("");
-  const [date, setDate] = useState("");
-  const [contact_instructor, setContact_instructor] = useState("");
-  const [maped, setMaped] = useState(false)
+  const [courses, setCourses] = useState("");
+  const [data, setData] = useState([]);
+  const [maped, setMaped] = useState([]);
+  const [instructorStudent, setInstructorStudent] = useState([]);
+  const [selectedInstructor, setSelectedInstructor] = useState(null);
+
+  const getInstructorList = () => {
+    fetch(baseurl + "/api/instructor", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getCourseList = () => {
+    fetch(baseurl + "/api/course", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((courses) => {
+        setCourses(courses);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getInstructorStudent = (instructorId) => {
+    fetch(`${baseurl}/api/course/students/${instructorId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((instructorStudent) => {
+        setInstructorStudent(instructorStudent);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getInstructorList();
+  }, []);
+
+  useEffect(() => {
+    getCourseList();
+  }, []);
+
+  useEffect(() => {
+    if (selectedInstructor) {
+      getInstructorStudent(selectedInstructor.value);
+    }
+  }, [selectedInstructor]);
+
+  const instructors = data || [];
+
+  const instructorOptions = instructors.map((instructor) => ({
+    value: instructor._id,
+    label: instructor.name,
+  }));
+
+  const coursesData = courses || [];
 
 
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+  const [formData, setFormData] = useState({
+    instructor: null,
+    course: null,
+    from: "",
+    to: "",
+    students: [], // Initialize students as an empty array
+  });
 
-  const data = { course, topic, date, contact_instructor };
 
-  const onsubmitClick = () => {
-    // Empty the fields
-    // setCourse("");
-    // setBatch("");
-    // setDate("");
-    // setTime("");
+  const handleSelectInstructorOption = (selectedInstructor) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      instructor: selectedInstructor,
+    }));
+    setSelectedInstructor(selectedInstructor);
+  };
 
-    // Post Api For Posting Data
-    fetch(baseurl + "/api/class", {
+  const handleSelectcourseOption = (selectedCourse) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      course: selectedCourse,
+    }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+
+  const handleAddStudent = (selectedStudent) => {
+    // Check if the selected student is not already in the array
+    if (!formData.students.find((student) => student._id === selectedStudent._id)) {
+      setFormData((prevData) => ({
+        ...prevData,
+        students: [...prevData.students, selectedStudent],
+      }));
+    }
+  };
+
+  const onSubmitClick = (e) => {
+    e.preventDefault();
+
+    const requestData = {
+      instructor: formData.instructor ? formData.instructor.value : null,
+      batchTime: {
+        from: formData.from,
+        to: formData.to,
+      },
+      course: formData.course._id,
+      students: formData.students.map((student) => student._id),
+    };
+
+    console.log('Request Data:', requestData);
+
+    fetch(baseurl + "/api/batch/create", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(requestData),
     })
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((result) => {
         toast.success("Batch Scheduled Successfully");
         handleOpen();
@@ -54,6 +165,18 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
         console.log(err);
       });
   };
+
+
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      course: coursesData?.find(
+        (item) => item?.instructor === formData?.instructor?.value
+      ),
+    });
+  }, [formData.instructor]);
+
   return (
     <>
       <Dialog
@@ -76,10 +199,16 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                 >
                   INSTRUCTOR NAME
                 </label>
-                <Select options={options} />
-
+                <Select
+                  name="instructor"
+                  id="instructor"
+                  placeholder="Select Instructor"
+                  options={instructorOptions}
+                  value={formData.instructor}
+                  onChange={handleSelectInstructorOption}
+                />
               </div>
-              {/* Course
+              {/* Course */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -89,15 +218,12 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="course"
                   type="text"
-                  placeholder="Graphic Designing"
-                  value={course}
-                  onChange={(e) => {
-                    setCourse(e.target.value);
-                  }}
+                  disabled
+                  placeholder="Course"
+                  value={formData?.course?.title}
                 />
-              </div> */}
+              </div>
               {/* From */}
               <div className="w-full px-3 mb-3">
                 <label
@@ -109,11 +235,10 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="from"
-                  type="time"
-                  value={date}
-                  onChange={(e) => {
-                    setDate(e.target.value);
-                  }}
+                  name="from"
+                  type="datetime-local"
+                  value={formData.from}
+                  onChange={handleInputChange}
                 />
               </div>
               {/* To */}
@@ -127,11 +252,10 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="to"
-                  type="time"
-                  value={date}
-                  onChange={(e) => {
-                    setDate(e.target.value);
-                  }}
+                  name="to"
+                  type="datetime-local"
+                  value={formData.to}
+                  onChange={handleInputChange}
                 />
               </div>
               {/* Instructor */}
@@ -142,452 +266,26 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                 >
                   Map Student
                 </label>
-                <Select options={options} />
                 <table className="table-auto w-full">
-                  <thead style={{ position: 'sticky', top: 0, zIndex: 1, backgroundColor: 'white' }}>
+                  <thead>
                     <tr className="text-left">
                       <th>Student Name</th>
                       <th>Course</th>
-                      <th>Fees</th>
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody style={{ overflowY: 'scroll', height: '100px' }}>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td
-                        className="text-center"
-                        onClick={() => setMaped(!maped)}
-                      >
-                        {
-                          maped ?
-                            <Button>Remove</Button> :
-                            <Button>Add</Button>
-                        }
-                      </td>
-                    </tr>
+                  <tbody style={{ overflowY: "scroll", height: "100px" }}>
+                    {instructorStudent?.data?.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.name}</td>
+                        <td>{item.course}</td>
+                        <td className="text-center">
+                          <Button onClick={() => handleAddStudent(item)}>
+                            Add
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -603,7 +301,7 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="blue" onClick={onsubmitClick}>
+          <Button variant="gradient" color="blue" onClick={onSubmitClick}>
             <span>Add</span>
           </Button>
         </DialogFooter>

@@ -265,7 +265,7 @@ const Students = ({ updateAuth }) => {
       field: "shift",
       headerName: "Shift",
       type: "number",
-      width: 50,
+      width: 80,
       renderCell: (params) => (
         <div className="flex justify-center">
           <p>{params.row?.shift || "-"}</p>
