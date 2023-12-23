@@ -1,8 +1,15 @@
 import axios from "axios";
 import baseurl from "../Config";
 import { toast } from "react-toastify";
+import getHolidaysReducer from "./reducer/GetHolidaysReducer";
 
-const { createContext, useContext, useState, useEffect } = require("react");
+const {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useReducer,
+} = require("react");
 
 const AuthContext = createContext();
 
@@ -93,6 +100,51 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // Holiday Creation
+  const [HolidaysList, dispatch] = useReducer(getHolidaysReducer, {
+    loading: false,
+    data: null,
+    error: false,
+  });
+
+  const GetAllholidays = async () => {
+    dispatch({ type: "LOADING" });
+
+    try {
+      const res = await fetch(baseurl + "/api/holiday/get", { method: "GET" });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        dispatch({ type: "SUCCESS", payload: data.data });
+      } else {
+        dispatch({ type: "ERROR" });
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: "ERROR" });
+    }
+  };
+
+  const CreateHoliday = async (formdata) => {
+    try {
+      const response = await toast.promise(
+        axios.post(baseurl + "/api/holiday/create", formdata),
+        {
+          pending: "creating Holiday",
+          success: "created Successfully👌",
+          error: "Failed to create 🤯",
+        }
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        GetAllholidays();
+        toast.success("Created Holiday successfully ");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -109,6 +161,9 @@ const AuthProvider = ({ children }) => {
         setImageUploads,
         GetInstructorStudents,
         instructorStudents,
+        GetAllholidays,
+        HolidaysList,
+        CreateHoliday,
       }}
     >
       {children}
