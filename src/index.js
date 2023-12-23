@@ -7,17 +7,20 @@ import { ThemeProvider } from "@material-tailwind/react";
 // import { ThemeProvider } from "@material-tailwind/react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/useStateContext";
+import CertificateProvider from "./context/useCertificate";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </AuthProvider>
+      <CertificateProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AuthProvider>
+      </CertificateProvider>
     </ThemeProvider>
-  </React.StrictMode >
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
