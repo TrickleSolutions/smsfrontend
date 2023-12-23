@@ -9,6 +9,7 @@ import StudentPayments from "./payments/StudentPayments";
 import StudentQueries from "./queries/StudentQueries";
 import baseurl from "../Config";
 import { useAuthContext } from "../context/useStateContext";
+import Syllabus from "./Syllabus/Syllabus";
 
 const StudentDashboard = ({ auth }) => {
   const [student, setStudent] = useState([]);
@@ -40,14 +41,15 @@ const StudentDashboard = ({ auth }) => {
           <hr />
           <StudentAcademics />
           <hr />
-
-          <StudentMarks  />
+          <Syllabus />
+          <hr />
+          <StudentMarks />
           <hr />
           <StudentAssignments />
           <hr />
-          <StudentPayments  />
+          <StudentPayments />
           <hr />
-          <StudentQueries/>
+          <StudentQueries />
 
           {/* Footer */}
           <div className="bg-[var(--theme-color)] mt-5">
