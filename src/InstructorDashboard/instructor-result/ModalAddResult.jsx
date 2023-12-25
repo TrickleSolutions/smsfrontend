@@ -74,6 +74,8 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
       });
   };
 
+  console.log(instructorStudents)
+
   const StudentList = instructorStudents?.map((item) => ({
     label: item?.name,
     value: item?.name,

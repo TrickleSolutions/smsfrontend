@@ -50,7 +50,18 @@ const ScheduleBatches = () => {
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
   const [viewMapStudent, setViewMapStudent] = useState(false)
-  const handleViewMapStudent = () => setViewMapStudent(!viewMapStudent)
+  const [selectedBatch, setSelectedBatch] = useState(null);
+  const handleOpenViewModal = (batchId) => {
+    const selectedBatchData = product.data.find((batch) => batch._id === batchId);
+    setSelectedBatch(selectedBatchData);
+    setViewMapStudent(true);
+  };
+
+
+  const handleCloseViewModal = () => {
+    setViewMapStudent(!viewMapStudent)
+  }
+
   const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(!open2);
 
@@ -66,7 +77,9 @@ const ScheduleBatches = () => {
       },
     })
       .then((res) => {
-        return res.json();
+        if (res.status === 200) {
+          return res.json();
+        }
       })
       .then((result) => {
         setProduct(result);
@@ -94,7 +107,6 @@ const ScheduleBatches = () => {
         })
         .catch((error) => {
           console.error("Error during deletion:", error);
-          // Handle the error, e.g., show an error message to the user
         });
     }
   }
@@ -108,8 +120,6 @@ const ScheduleBatches = () => {
           id: data.indexOf(item)
         });
       }
-    } else {
-      NewData.push({ id: 0 });
     }
     return NewData;
   };
@@ -123,7 +133,7 @@ const ScheduleBatches = () => {
       headerName: "ID",
       width: 90,
       renderCell: (params) => (
-        <div className="flex justify-center">{params.row.id + 1}</div>
+        <div className="flex justify-center">{params.row?.id + 1}</div>
       ),
     },
     {
@@ -163,7 +173,7 @@ const ScheduleBatches = () => {
       headerName: "students",
       width: 150,
       renderCell: (params) => (
-        <div className="flex justify-center"><Button onClick={handleViewMapStudent}>{params.row?.students.length}</Button></div>
+        <div className="flex justify-center"><Button onClick={() => handleOpenViewModal(params.row?._id)}>{params.row?.students?.length}</Button></div>
       ),
     },
     {
@@ -213,7 +223,7 @@ const ScheduleBatches = () => {
                 <div
                   className="flex "
                   onClick={() => {
-                    deleteData(params.row._id);
+                    deleteData(params.row?._id);
                   }}
                 >
                   <svg
@@ -299,8 +309,9 @@ const ScheduleBatches = () => {
               </div>
             ) : (
               <div>
+                {console.log(DataWithID(product?.data))}
                 <DataGrid
-                  rows={DataWithID(product.data)}
+                  rows={DataWithID(product?.data)}
                   columns={columns}
                   components={{ Toolbar: CustomToolbar }}
                   initialState={{
@@ -316,9 +327,10 @@ const ScheduleBatches = () => {
                 />
                 <ModalViewMapList
                   open={viewMapStudent}
-                  handleOpen={handleViewMapStudent}
-                  data={product}
+                  handleOpen={handleCloseViewModal}
+                  data={selectedBatch}
                 />
+
                 <ModalEditBatch
                   open={open2}
                   handleOpen={handleOpen2}

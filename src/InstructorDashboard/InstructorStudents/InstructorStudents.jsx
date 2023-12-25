@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "@material-tailwind/react";
 import {
   DataGrid,
@@ -10,12 +10,15 @@ import {
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import ModalChangeStatus from "./ModalChangeStatus";
+import { useAuthContext } from "../../context/useStateContext";
 
 const InstructorStudents = () => {
 
 
   const [isStastusChangeModalopen, setIsStatusChangeModal] = useState(false)
   const handleStatuschange = () => setIsStatusChangeModal(!isStastusChangeModalopen)
+  const { GetInstructorStudents, instructorStudents } = useAuthContext();
+
 
   const CustomToolbar = () => {
     return (
@@ -29,6 +32,23 @@ const InstructorStudents = () => {
     );
   };
 
+
+  const DataWithID = (data) => {
+    const NewData = [];
+    if (data !== undefined) {
+      for (let item of data) {
+        NewData.push({
+          ...item,
+          id: data.indexOf(item)
+        });
+      }
+    }
+    return NewData;
+  };
+
+  useEffect(() => {
+    GetInstructorStudents()
+  }, [])
 
   const Data = [
     {
@@ -82,18 +102,18 @@ const InstructorStudents = () => {
       // ),
     },
     {
-      field: "regNo",
+      field: "regno",
       headerName: "Reg No",
       type: "number",
       width: 100,
     },
     {
-      field: "doj",
+      field: "admdate",
       headerName: "DOJ",
       width: 100,
     },
     {
-      field: "batchSlot",
+      field: "shift",
       headerName: "Batch Slot",
       width: 100,
     },
@@ -213,7 +233,7 @@ const InstructorStudents = () => {
           </Card>
         </div>
         <DataGrid
-          rows={Data}
+          rows={DataWithID(instructorStudents)}
           columns={columns}
           components={{ Toolbar: CustomToolbar }}
           initialState={{

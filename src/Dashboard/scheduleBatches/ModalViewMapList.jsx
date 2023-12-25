@@ -11,7 +11,7 @@ import Select from "react-select";
 
 const ModalViewMapList = ({ open, handleOpen, data }) => {
 
-    const students = data?.data[0]?.students || [];
+    const students = data?.students || [];
 
     const options = students.map((student) => ({
         value: student.regno,

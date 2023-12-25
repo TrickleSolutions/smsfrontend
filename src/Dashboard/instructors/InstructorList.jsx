@@ -24,10 +24,19 @@ const InstructorList = () => {
   const [loader, setLoader] = useState(true);
   const [filterBy, setFilterBy] = useState("all");
   const [viewInsPro, setViewInsPro] = useState(false)
-  const handleInstructorProfile = () => setViewInsPro(!viewInsPro)
   const [selectedData, setSelectedData] = useState(null);
-
+  const [selectedInstructor, setSelectedInstructor] = useState(null);
   const [documentopen, setDocumentOpen] = useState(false);
+
+  const handleInstructorProfile = (instructor) => {
+    setSelectedInstructor(instructor);
+    setViewInsPro(true);
+  };
+
+  const handleCloseInstructorProfie = () => {
+    setSelectedInstructor(null);
+    setViewInsPro(false);
+  };
 
   const handleDocumentOpen = (data) => {
     setDocumentOpen(!documentopen);
@@ -189,34 +198,34 @@ const InstructorList = () => {
                 <table className="w-full text-sm text-left text-gray-500 ">
                   <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
                     <tr>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Instructor
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Address
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Contact
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Gender
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         DOB
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Qualification
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Degree
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Salary
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Document
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="">
                         Status
                       </th>
                       <th className="px-1 py-4">
@@ -235,33 +244,34 @@ const InstructorList = () => {
                           <tr className="bg-white border-b " key={item._id}>
 
                             <td
-                              scope="row"
-                              onClick={handleInstructorProfile}
-                              className="px-6 py-4 font-semibold text-black flex"
+                              onClick={() => handleInstructorProfile(item?._id)}
+                              className=" truncate max-w-sm cursor-pointer"
                             >
-                              <div className="flex justify-center items-center mr-2 rounded-full text-center">
-                                <img
-                                  className="rounded-full w-12 h-12"
-                                  src={`${baseurl}/${item?.profilePic}`}
-                                  alt="teacherimg"
-                                />
-                              </div>
-                              <div>
-                                <div>{item.name}</div>
-                                <div className="font-light my-1 text-gray-500">
-                                  {item.email}
+                              <div className="p-3">
+                                <div className="flex items-center">
+                                  <img
+                                    className="min-w-3 w-12 h-12 rounded-full"
+                                    src={`${baseurl}/${item?.profilePic}`}
+                                    alt="teacherimg"
+                                  />
+                                  <div className="ml-2">
+                                    <div className="font-semibold text-blue-700">{item?.name}</div>
+                                    <div className="font-light my-1 text-gray-500">
+                                      {item?.email}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </td>
-                            <td className="px-6 py-4 truncate max-w-xs">
+                            <td className="pr-6 py-4 truncate max-w-sm">
                               {item.address}
                             </td>
-                            <td className="px-6 py-4">{item.contact}</td>
-                            <td className="px-6 py-4">{item.gender}</td>
-                            <td className="px-6 py-4">{item.dob}</td>
-                            <td className="px-6 py-4">{item.qualification}</td>
-                            <td className="px-6 py-4">{item.degree}</td>
-                            <td className="px-6 py-4">{item.salary}</td>
+                            <td className="">{item?.contact}</td>
+                            <td className="">{item?.gender}</td>
+                            <td className="">{item?.dob}</td>
+                            <td className="">{item?.qualification}</td>
+                            <td className="">{item?.degree}</td>
+                            <td className="">{item?.salary}</td>
                             <td className="">
                               <Button
                                 onClick={() => handleDocumentOpen(item)}
@@ -428,8 +438,10 @@ const InstructorList = () => {
         />
         <ModalOneViewProfile
           open={viewInsPro}
-          handleOpen={handleInstructorProfile}
+          handleOpen={handleCloseInstructorProfie}
+          instructor={selectedInstructor}
         />
+
       </div>
       {/* Footer */}
       <div className="bg-[var(--theme-color)]">

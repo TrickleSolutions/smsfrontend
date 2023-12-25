@@ -94,7 +94,7 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
     course: null,
     from: "",
     to: "",
-    students: [], // Initialize students as an empty array
+    students: [],
   });
 
 
@@ -123,14 +123,22 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
 
 
   const handleAddStudent = (selectedStudent) => {
-    // Check if the selected student is not already in the array
-    if (!formData.students.find((student) => student._id === selectedStudent._id)) {
+    const isStudentAdded = formData.students.some((student) => student._id === selectedStudent._id);
+
+    if (isStudentAdded) {
+      const updatedStudents = formData.students.filter((student) => student._id !== selectedStudent._id);
+      setFormData((prevData) => ({
+        ...prevData,
+        students: updatedStudents,
+      }));
+    } else {
       setFormData((prevData) => ({
         ...prevData,
         students: [...prevData.students, selectedStudent],
       }));
     }
   };
+
 
   const onSubmitClick = (e) => {
     e.preventDefault();
@@ -160,6 +168,13 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
         toast.success("Batch Scheduled Successfully");
         handleOpen();
         getScheduledBatchesList();
+        setFormData({
+          instructor: null,
+          course: null,
+          from: "",
+          to: "",
+          students: [],
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -279,10 +294,11 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                       <tr key={index}>
                         <td>{item.name}</td>
                         <td>{item.course}</td>
-                        <td className="text-center">
-                          <Button onClick={() => handleAddStudent(item)}>
-                            Add
+                        <td className="text-center w-28">
+                          <Button color={formData.students.some((student) => student._id === item._id) ? 'red' : 'blue'} onClick={() => handleAddStudent(item)}>
+                            {formData.students.some((student) => student._id === item._id) ? 'Remove' : 'Add'}
                           </Button>
+
                         </td>
                       </tr>
                     ))}
