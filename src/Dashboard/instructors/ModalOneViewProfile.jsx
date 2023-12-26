@@ -6,20 +6,18 @@ import {
     DialogBody,
     DialogFooter,
 } from "@material-tailwind/react";
-import InstructorAttendance from "../manage-student/InstructorAttendance";
-import InstructorMapedStudents from "./InstructorStudents";
-import InstructorStudents from "../../InstructorDashboard/InstructorStudents/InstructorStudents";
 import baseurl from "../../Config";
 import Loader from "../../Components/Loader";
+import moment from "moment/moment";
 
 const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
 
     const [data, setData] = useState()
+    const [InstructorData, setInstructorData] = useState()
     const [loading, setLoading] = useState(true);
 
 
     const getInstructorDetailById = (instructor) => {
-        console.log(instructor)
         fetch(baseurl + `/api/instructor/${instructor}`, {
             method: "GET",
             headers: {
@@ -32,7 +30,6 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
                 }
             })
             .then((result) => {
-                console.log(result)
                 setData(result[0]);
                 setLoading(false);
             })
@@ -41,9 +38,38 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
                 setLoading(false);
             });
     };
+
     useEffect(() => {
         getInstructorDetailById(instructor);
+        getScheduledBatchesListById(instructor);
     }, [instructor]);
+
+
+    const getScheduledBatchesListById = (instructor) => {
+        fetch(baseurl + `/api/batch/get?instructor=${instructor}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => {
+                if (res.status === 200) {
+                    return res.json();
+                }
+            })
+            .then((result) => {
+                console.log(result.data)
+                setInstructorData(result.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+            });
+    };
+
+
+
 
 
     return (
@@ -64,7 +90,7 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
                         <>
                             <div className="border border-black rounded-md flex bg-blue-100">
                                 <div className="w-96">
-                                    <img src={`${baseurl}/${data?.profilePic}`} className="h-96" alt="" />
+                                    <img src={`${baseurl}/${data?.profilePic}`} className="h-96 rounded-l-md" alt=".." />
                                 </div>
                                 <table className="w-full">
 
@@ -102,9 +128,49 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
                                     </tr>
                                 </table>
                             </div>
-                            <InstructorAttendance />
-                            <InstructorMapedStudents />
-                            <InstructorStudents />
+                            <div className="pt-4">
+                                <table className="w-full border bg-blue-200 rounded-md">
+
+                                    <tr>
+                                        <th className="font-semibold text-black p-2 border">From</th>
+                                        <th className="font-semibold text-black p-2 border">To</th>
+                                        <th className="font-semibold text-black p-2 border">Reg No.</th>
+                                        <th className="font-semibold text-black p-2 border">Name</th>
+                                        <th className="font-semibold text-black p-2 border">Course.</th>
+                                    </tr>
+
+                                    {
+                                        InstructorData?.map((item, index) => (
+                                            <tr key={index}>
+                                                <td className="text-white text-base p-2">
+                                                    {moment(item?.batchTime?.from).format('h:mm a')}
+                                                </td>
+                                                <td className="text-white text-base p-2">
+                                                    {moment(item?.batchTime?.to).format('h:mm a')}
+                                                </td>
+                                                <td className="text-white text-base p-2">
+
+                                                    {
+                                                        item?.students.map((subitem, index) => (
+                                                            <li>{subitem?.regno}</li>
+                                                        ))
+                                                    }
+                                                </td>
+                                                <td className="text-white text-base p-2">
+
+                                                    {
+                                                        item?.students.map((subitem, index) => (
+                                                            <li>{subitem?.name}</li>
+                                                        ))
+                                                    }
+                                                </td>
+                                                <td className="text-white text-base p-2">{item?.course?.title}</td>
+                                            </tr>
+                                        ))
+                                    }
+
+                                </table>
+                            </div>
                         </>
                     )}
                 </DialogBody>

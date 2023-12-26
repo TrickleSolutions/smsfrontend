@@ -78,7 +78,7 @@ const ModalJoinInstructor = ({ open, handleOpen }) => {
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form onSubmit={handleSubmit} className="w-full px-5 sm:px-10 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
-              {/*  Name */}
+              {/* Name */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"

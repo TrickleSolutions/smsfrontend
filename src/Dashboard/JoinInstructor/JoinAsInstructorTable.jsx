@@ -47,7 +47,7 @@ const JoinAsInstructorTable = ({ item, getJoinInstructorList }) => {
         <td className="px-3 py-4  max-w-sm">
           <Link
             // onClick={() => navigate(`${baseurl}/api/showcontactcv/${item.cv}`)}
-            to={`${baseurl}/api/showcontactcv/${item.cv}`}
+            to={`${item.cv}`}
             target="_blank"
           >
             <svg

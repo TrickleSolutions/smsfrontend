@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   DataGrid,
   GridToolbarColumnsButton,
@@ -11,13 +11,19 @@ import {
 import ModalAddAttendance from './ModalAddAttendance';
 import { Button } from '@material-tailwind/react';
 import moment from 'moment';
+import baseurl from '../../Config';
 
 
 const InstructorAttendence = () => {
 
   const [prevAttendance, setPrevAttendance] = useState(false)
   const [addAttendance, setAddAttendance] = useState(false)
+  const [loader, setLoader] = useState(true);
   const handleattendance = () => setAddAttendance(!addAttendance)
+  const [Data, setData] = useState([])
+  const [instructorData, setInstructorData] = useState(
+    JSON.parse(window.sessionStorage.getItem("instructor-data"))
+  );
 
   const CustomToolbar = () => {
     return (
@@ -32,34 +38,90 @@ const InstructorAttendence = () => {
   };
 
 
-  const Data = [
-    {
-      id: 1,
-      name: 'Dummy',
-      regNo: 326945,
-      todayAttendance: 'Present',
-      course: 'DCA',
-      batchTime: '7 AM to 8 AM',
-      mobileNo: '7052237052',
-      instructorName: 'Sourabh Verma'
+  const getScheduledBatchesListById = () => {
+    const instructorId = instructorData?._id; // Make sure _id is available
+
+    if (!instructorId) {
+      console.error("Instructor ID is not available.");
+      return;
     }
 
-  ]
+    fetch(baseurl + `/api/batch/get?instructor=${instructorId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          return res.json();
+        }
+      })
+      .then((result) => {
+        setData(result.data);
+        setLoader(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getScheduledBatchesListById();
+  }, [instructorData]);
+
+
+  const DataWithID = (data) => {
+    const NewData = [];
+    if (data && Array.isArray(data)) {
+      for (let item of data) {
+        NewData.push({
+          ...item,
+          id: data.indexOf(item),
+        });
+      }
+    }
+    return NewData;
+  };
+  // const Data = [
+  //   {
+  //     id: 1,
+  //     name: 'Dummy',
+  //     regNo: 326945,
+  //     todayAttendance: 'Present',
+  //     course: 'DCA',
+  //     batchTime: '7 AM to 8 AM',
+  //     mobileNo: '7052237052',
+  //     instructorName: 'Sourabh Verma'
+  //   }
+
+  // ]
 
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
+    {
+      field: "id", headerName: "ID", width: 100,
+      renderCell: (params) => (
+        <div>
+          {params.row.id + 1}
+        </div>
+      )
+    },
     {
       field: "name",
       headerName: "Name",
       width: 100,
-      // renderCell: (params) => (
-      //   <div>
-      //     {params.row.name}
-      //     <div className="text-blue-800 font-black">
-      //       Dropout
-      //     </div>
-      //   </div>
-      // )
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <p key={index}>{item.name}</p>
+            ))}
+          {/* <div className="text-blue-800 font-black">
+            Dropout
+          </div> */}
+        </div>
+      )
     },
     {
       field: "todayAttendance",
@@ -77,11 +139,60 @@ const InstructorAttendence = () => {
         </div>
       )
     },
-    { field: "regNo", headerName: "Reg No", width: 100 },
-    { field: "course", headerName: "Course", width: 100 },
-    { field: "batchTime", headerName: "Batch Time", width: 150 },
-    { field: "mobileNo", headerName: "Mobile No", width: 150 },
-    { field: "instructorName", headerName: "Teacher Name", width: 150 },
+    {
+      field: "regNo", headerName: "Reg No", width: 100,
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <p key={index}>{item.regno}</p>
+            ))}
+        </div>
+      )
+    },
+    {
+      field: "course", headerName: "Course", width: 100,
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.course?.title
+          }
+        </div>
+      )
+    },
+    {
+      field: "batchTime", headerName: "Batch Time", width: 500,
+      renderCell: (params) => (
+        <div className='flex justify-around'>
+          <div>
+            {moment(params.row.batchTime?.from).format('MMMM Do YYYY, h:mm a')}
+          </div>
+          <b>&nbsp;	 - &nbsp;	 </b>
+          <div>
+            {moment(params.row.batchTime?.from).format('MMMM Do YYYY, h:mm a')}
+          </div>
+        </div>
+      )
+    },
+    {
+      field: "mobileNo", headerName: "Mobile No", width: 150,
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <p key={index}>{item.contact}</p>
+            ))}
+        </div>
+      )
+    },
+    {
+      field: "instructorName", headerName: "Teacher Name", width: 150,
+      renderCell: (params) => (
+        <div>
+          {instructorData.name}
+        </div>
+      )
+    },
     {
       headerName: "Action",
       width: 100,
@@ -121,7 +232,7 @@ const InstructorAttendence = () => {
         <Button onClick={() => setPrevAttendance(false)} variant={prevAttendance ? 'outlined' : 'contained'} >Today</Button>
       </div>
       <DataGrid
-        rows={Data}
+        rows={DataWithID(Data)}
         columns={columns}
         components={{ Toolbar: CustomToolbar }}
         initialState={{

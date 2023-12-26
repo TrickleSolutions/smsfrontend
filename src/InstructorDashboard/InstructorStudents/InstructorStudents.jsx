@@ -11,6 +11,8 @@ import {
 } from "@mui/x-data-grid";
 import ModalChangeStatus from "./ModalChangeStatus";
 import { useAuthContext } from "../../context/useStateContext";
+import baseurl from "../../Config";
+import moment from "moment/moment";
 
 const InstructorStudents = () => {
 
@@ -18,6 +20,11 @@ const InstructorStudents = () => {
   const [isStastusChangeModalopen, setIsStatusChangeModal] = useState(false)
   const handleStatuschange = () => setIsStatusChangeModal(!isStastusChangeModalopen)
   const { GetInstructorStudents, instructorStudents } = useAuthContext();
+  const [Data, setData] = useState([])
+  const [loader, setLoader] = useState(true);
+  const [instructorData, setInstructorData] = useState(
+    JSON.parse(window.sessionStorage.getItem("instructor-data"))
+  );
 
 
   const CustomToolbar = () => {
@@ -33,99 +40,158 @@ const InstructorStudents = () => {
   };
 
 
+  const getScheduledBatchesListById = () => {
+    const instructorId = instructorData?._id; // Make sure _id is available
+
+    if (!instructorId) {
+      console.error("Instructor ID is not available.");
+      return;
+    }
+
+    fetch(baseurl + `/api/batch/get?instructor=${instructorId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          return res.json();
+        }
+      })
+      .then((result) => {
+        console.log(result.data);
+        setData(result.data);
+        setLoader(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getScheduledBatchesListById();
+  }, [instructorData]);
+
   const DataWithID = (data) => {
     const NewData = [];
-    if (data !== undefined) {
+    if (data && Array.isArray(data)) {
       for (let item of data) {
         NewData.push({
           ...item,
-          id: data.indexOf(item)
+          id: data.indexOf(item),
         });
       }
     }
     return NewData;
   };
 
-  useEffect(() => {
-    GetInstructorStudents()
-  }, [])
-
-  const Data = [
-    {
-      id: 1,
-      name: 'Test',
-      regNo: 3256,
-      doj: '02 Dec 2023',
-      batchSlot: 'Evening',
-      course: 'DIA',
-      batchTime: '12 PM to 1 PM',
-      lastMontDue: 0,
-      thisMonthDue: 1350,
-      feeDate: '02 Dec 2023',
-      thisMonthPaid: 1350,
-      totalDue: 0,
-      mobileNo: '7896456555',
-      teacherName: 'Sourabh',
-      status: 'Running'
-    }
-  ]
+  // const Data = [
+  //   {
+  //     id: 1,
+  //     name: 'Test',
+  //     regNo: 3256,
+  //     doj: '02 Dec 2023',
+  //     batchSlot: 'Evening',
+  //     course: 'DIA',
+  //     batchTime: '12 PM to 1 PM',
+  //     lastMontDue: 0,
+  //     thisMonthDue: 1350,
+  //     feeDate: '02 Dec 2023',
+  //     thisMonthPaid: 1350,
+  //     totalDue: 0,
+  //     mobileNo: '7896456555',
+  //     teacherName: 'Sourabh',
+  //     status: 'Running'
+  //   }
+  // ]
 
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
-      width: 100,
-      // renderCell: (params) => (
-      //   <div className="flex justify-center">{params.row.id + 1}</div>
-      // ),
+      field: "id", headerName: "ID", width: 100,
+      renderCell: (params) => (
+        <div>
+          {params.row.id + 1}
+        </div>
+      )
     },
     {
       field: "name",
       headerName: "Name",
       width: 100,
-      // renderCell: (params) => (
-      //   <div
-      //     style={{ cursor: "pointer" }}
-      //   >
-      //     <div className="flex items-center gap-1">
-      //       <img
-      //         className="rounded-full w-10 h-10"
-      //         src={
-      //           baseurl + `/${params.row?.profilePic}` ||
-      //           "https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg"
-      //         }
-      //         alt="profile"
-      //       />
-      //       <h5>{params.row?.name}</h5>
-      //     </div>
-      //   </div>
-      // ),
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <p key={index}>{item.name}</p>
+            ))}
+          {/* <div className="text-blue-800 font-black">
+            Dropout
+          </div> */}
+        </div>
+      )
     },
     {
-      field: "regno",
-      headerName: "Reg No",
-      type: "number",
-      width: 100,
+      field: "regNo", headerName: "Reg No", width: 100,
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <p key={index}>{item.regno}</p>
+            ))}
+        </div>
+      )
     },
     {
       field: "admdate",
       headerName: "DOJ",
       width: 100,
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <p key={index}>{item.admdate}</p>
+            ))}
+        </div>
+      )
     },
     {
       field: "shift",
       headerName: "Batch Slot",
       width: 100,
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <p key={index}>{item.shift}</p>
+            ))}
+        </div>
+      )
     },
     {
-      field: "course",
-      headerName: "Course",
-      width: 100,
+      field: "course", headerName: "Course", width: 100,
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.course?.title
+          }
+        </div>
+      )
     },
     {
-      field: "batchTime",
-      headerName: "Batch Time",
-      width: 100,
+      field: "batchTime", headerName: "Batch Time", width: 200,
+      renderCell: (params) => (
+        <div className='flex justify-around'>
+          <div>
+            {moment(params.row.batchTime?.from).format('h:mm a')}
+          </div>
+          <b>&nbsp;	 - &nbsp;	 </b>
+          <div>
+            {moment(params.row.batchTime?.from).format('h:mm a')}
+          </div>
+        </div>
+      )
     },
     {
       field: "lastMontDue",
@@ -169,9 +235,15 @@ const InstructorStudents = () => {
       width: 100,
     },
     {
-      field: "mobileNo",
-      headerName: "Mobile No",
-      width: 100,
+      field: "mobileNo", headerName: "Mobile No", width: 150,
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <p key={index}>{item.contact}</p>
+            ))}
+        </div>
+      )
     },
     {
       field: "teacherName",
@@ -233,7 +305,7 @@ const InstructorStudents = () => {
           </Card>
         </div>
         <DataGrid
-          rows={DataWithID(instructorStudents)}
+          rows={DataWithID(Data)}
           columns={columns}
           components={{ Toolbar: CustomToolbar }}
           initialState={{

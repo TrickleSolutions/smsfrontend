@@ -28,7 +28,7 @@ const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) 
 
       if (response.ok) {
         const uploadedData = await response.json();
-        setUploads([...uploads, uploadedData.fileName]); // Add the uploaded file to the array
+        setUploads([...uploads, uploadedData.fileName]);
 
         setUploadedImageUrl(uploadedData.fileName);
 

@@ -21,6 +21,10 @@ const ModalAddJoinAsInstructor = ({
   const [qualification, setQualification] = useState("");
   const [exp, setExp] = useState("");
   const [cv, setCv] = useState("");
+  const [uploads, setUploads] = useState([]);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+
+
 
   const onSubmitClick = () => {
     const formData = new FormData();
@@ -59,6 +63,39 @@ const ModalAddJoinAsInstructor = ({
         console.log(err);
       });
   };
+
+  const handleFileUpload = async (e) => {
+    try {
+      const file = e.target.files[0];
+      console.log('File MIME Type:', file.type);
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('cv', file);
+
+
+      const response = await fetch(baseurl + '/api/upload/file?fileName=' + file?.name, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const uploadedData = await response.json();
+        setUploads([...uploads, uploadedData.fileName]);
+        setUploadedImageUrl(uploadedData.fileName);
+        console.log('File Uploaded Successfully')
+
+        toast.success('File Uploaded Successfully');
+      } else {
+        console.log('File Upload Failed');
+        toast.warning('File Upload Failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+
   return (
     <>
       <Dialog
@@ -173,10 +210,9 @@ const ModalAddJoinAsInstructor = ({
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="cv"
+                  name='cv'
                   type="file"
-                  onChange={(e) => {
-                    setCv(e.target.files[0]);
-                  }}
+                  onChange={handleFileUpload}
                 />
               </div>
             </div>
