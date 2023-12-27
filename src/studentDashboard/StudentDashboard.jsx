@@ -10,6 +10,7 @@ import StudentQueries from "./queries/StudentQueries";
 import baseurl from "../Config";
 import { useAuthContext } from "../context/useStateContext";
 import Syllabus from "./Syllabus/Syllabus";
+import DayByday from "./DayByDay/DayByday";
 
 const StudentDashboard = ({ auth }) => {
   const [student, setStudent] = useState([]);
@@ -37,11 +38,13 @@ const StudentDashboard = ({ auth }) => {
           {/* Profile */}
           <StudentProfile />
           <hr />
+          <DayByday />
+          <hr />
+          <Syllabus />
+          <hr />
           <Classes />
           <hr />
           <StudentAcademics />
-          <hr />
-          <Syllabus />
           <hr />
           <StudentMarks />
           <hr />
