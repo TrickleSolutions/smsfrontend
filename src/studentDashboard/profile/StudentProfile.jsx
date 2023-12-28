@@ -40,10 +40,11 @@ const StudentProfile = ({ auth }) => {
             <img
               // src={`${baseurl}/api/stprofilepic/${currentUser.profilePic}`}
               src={baseurl + `/${currentUser?.profilePic}` || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'}
-              className="w-28 h-28 rounded-full shadow-xl ring-white ring-2"
+              className="w-48 h-48 rounded-lg ring-white ring-2"
+              style={{ boxShadow: 'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset' }}
               alt=""
             />
-            <h4 className="text-black text-lg font-semibold my-3">
+            <h4 className="text-black text-3xl font-semibold my-3">
               {currentUser.name}
             </h4>
             {/* <p className="text-black">@student</p> */}

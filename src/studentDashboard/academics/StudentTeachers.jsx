@@ -17,29 +17,30 @@ const StudentTeachers = ({ enrollData, instructors }) => {
         {instructors?.instructors?.map((item) => (
           <div
             key={item?._id}
-            className="m-3 bg-white rounded-lg border shadow-xl grid grid-cols-2 p-5 place-items-center relative"
+            className="m-3 bg-white rounded-lg border shadow-xl flex items-center gap-4 p-5 place-items-center relative"
           >
-            {/* {console.log(item)} */}
+            {console.log(item)}
             <div className="w-2/5">
-              <img src={man} className="h-full w-full rounded-full" alt="" />
+              <img src={`${baseurl}/${item?.profilePic || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'}`}
+                className="h-52 w-52 rounded-full" alt="..." />
             </div>
             <div className="grid grid-cols-2 w-full">
-              <div className="p-5 grid grid-cols-2">
-                <div className="font-bold">Name</div>
-                <div>{item?.name}</div>
+              <div className="p-5 flex items-center">
+                <div className="font-bold w-24">Name</div>
+                <div className="w-full">{item?.name}</div>
               </div>
-              <div className="p-5 grid grid-cols-2">
-                <div className="font-bold">Course</div>
-                <div>{instructors?.data[0]?.enrolled_courses?.find((x) => x?.instructor === item?._id)?.title}</div>
+              <div className="p-5 flex items-center">
+                <div className="font-bold w-24">Course</div>
+                <div className="w-full">{instructors?.data[0]?.enrolled_courses?.find((x) => x?.instructor === item?._id)?.title}</div>
                 {/* <div>{console.log(instructors?.data[0]?.enrolled_courses?.find((x) => x?.instructor === item?._id)?.title)}</div> */}
               </div>
-              <div className="p-5 grid grid-cols-2">
-                <div className="font-bold">Email</div>
-                <div>{item?.email}</div>
+              <div className="p-5 flex items-center">
+                <div className="font-bold w-24">Email</div>
+                <div className="w-full">{item?.email}</div>
               </div>
-              <div className="p-5 grid grid-cols-2">
-                <div className="font-bold">Mobile No.</div>
-                <div>{item?.contact}</div>
+              <div className="p-5 flex items-center">
+                <div className="font-bold w-32">Mobile No.</div>
+                <div className="w-full">{item?.contact}</div>
               </div>
             </div>
             <div

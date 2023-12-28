@@ -170,7 +170,6 @@ const Classes = ({ auth, updateAuth }) => {
               {eventsData.map((item) => {
                 return (
                   <div className="my-5 bg-white px-3 py-2 rounded-md sm:max-w-xl">
-                    {console.log(`${baseurl}/api/eventpic/${item.img}`)}
                     <h3 className="my-5 sm:my-1 text-center text-[var(--secondary-color)] text-xl font-bold">
                       {item.event}
                     </h3>
@@ -222,8 +221,7 @@ const Classes = ({ auth, updateAuth }) => {
                   scheduleData.map((item) => {
                     return (
                       <>
-                        {console.log(item.date)}
-                        <div className="sm:max-w-xs bg-white flex flex-row items-center shadow-lg rounded-lg">
+                        <div className="sm:max-w-md bg-white flex flex-row items-center shadow-lg rounded-lg">
                           <div className="m-4 flex flex-col items-center">
                             <div className="text-6xl text-[var(--theme-color)] font-bold">
                               {date(item.date)[0]}
@@ -232,12 +230,12 @@ const Classes = ({ auth, updateAuth }) => {
                               {date(item.date)[1]}
                             </div>
                           </div>
-                          <div className="m-4 px-3 flex flex-col max-w-md w-fit ">
-                            <h4 className="text-2xl font-semibold my-5 text-[var(--secondary-color)]">
+                          <div className="m-4 px-3 flex flex-col ">
+                            <div className="text-2xl font-semibold my-5 text-[var(--secondary-color)]">
                               {item.topic}
-                            </h4>
-                            <div className="flex flex-col sm:flex-row sm:space-x-5 justify-center sm:justify-normal">
-                              <div className="flex my-2">
+                            </div>
+                            <div className="flex sm:flex-row sm:space-x-5 justify-center sm:justify-norma">
+                              <div className="flex items-center">
                                 <div>
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"

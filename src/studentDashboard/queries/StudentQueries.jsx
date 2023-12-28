@@ -171,7 +171,7 @@ const StudentQueries = ({ auth }) => {
         {/* New Query */}
         <form>
           <div className="flex flex-col mx-3 mb-6 mt-10">
-            <div className="w-full sm:w-[80%] mb-3">
+            <div className="w-full mb-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 htmlFor="query"
@@ -180,7 +180,7 @@ const StudentQueries = ({ auth }) => {
               </label>
               <textarea
                 rows={5}
-                className="appearance-none block !w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="query"
                 type="text"
                 placeholder="Query...."
@@ -208,7 +208,7 @@ const StudentQueries = ({ auth }) => {
         {/* Feed Back */}
         <form>
           <div className="flex flex-col mx-3 mb-6 mt-10">
-            <div className="w-full sm:w-[80%] mb-3">
+            <div className="w-full  mb-3">
               <textarea
                 rows={5}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

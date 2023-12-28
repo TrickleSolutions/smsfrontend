@@ -12,9 +12,10 @@ import baseurl from "../../Config";
 import Loader from "../../Components/Loader";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/useStateContext";
+import DayByday from "../DayByDay/DayByday";
 
 const StudentAcademics = ({ auth }) => {
-  const [activeTab, setActiveTab] = useState("teachers");
+  const [activeTab, setActiveTab] = useState("courses");
   const [enrollData, setEnrollData] = useState([]);
   const [loader, setLoader] = useState(true);
   const { currentUser } = useAuthContext();
@@ -58,7 +59,6 @@ const StudentAcademics = ({ auth }) => {
 
   useEffect(() => {
     getEnrollData();
-    console.log("Student Data", enrollData);
   }, []);
 
   const getEnrollData = () => {
@@ -84,7 +84,9 @@ const StudentAcademics = ({ auth }) => {
     {
       label: "Courses",
       value: "courses",
-      desc: <StudentCourses auth={currentUser?.regno} />,
+      // desc: <StudentCourses auth={currentUser?.regno} />,
+      desc: <DayByday />
+      ,
     },
     {
       label: "Teachers",

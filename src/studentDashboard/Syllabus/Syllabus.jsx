@@ -9,12 +9,15 @@ const Syllabus = () => {
     const { currentUser } = useAuthContext();
     const [loader, setLoader] = useState(true);
     const [data, setData] = useState('')
+    const [courseData, setCourseData] = useState([]);
+    const [courseName, setCourseName] = useState('');
 
-    const id = currentUser.course === 'O Level' ? '65598823416b71fffc09d399' : null
+
+
 
     const getCourseDetails = () => {
 
-        fetch(baseurl + `/api/course/lessions/get?course${id}`, {
+        fetch(baseurl + `/api/course/lessions/get?course=${courseName}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -32,10 +35,40 @@ const Syllabus = () => {
             });
     };
 
+    const getCoursesList = () => {
+        fetch(baseurl + `/api/course`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                setCourseData(result);
+                setLoader(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const getCourseNameById = (courseId) => {
+        const course = courseData.find((course) => course?.title === courseId);
+        return course ? course._id : 'Course not found';
+    };
+
     useEffect(() => {
         getCourseDetails();
-    }, []);
+        getCoursesList();
+    }, [currentUser?.course]);
 
+    useEffect(() => {
+        const yourId = currentUser?.course;
+        const yourCourseName = getCourseNameById(yourId);
+        setCourseName(yourCourseName);
+    }, [currentUser?.course, courseData]);
+
+    console.log(courseName)
 
     return (
         <section className=" p-2 sm:p-5 md:p-10 ">

@@ -38,8 +38,6 @@ const StudentDashboard = ({ auth }) => {
           {/* Profile */}
           <StudentProfile />
           <hr />
-          <DayByday />
-          <hr />
           <Syllabus />
           <hr />
           <Classes />
