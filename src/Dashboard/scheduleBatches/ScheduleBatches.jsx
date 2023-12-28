@@ -63,7 +63,11 @@ const ScheduleBatches = () => {
   }
 
   const [open2, setOpen2] = useState(false);
-  const handleOpen2 = () => setOpen2(!open2);
+  const [updateId, setUpdateId] = useState("")
+  const handleOpen2 = (id) => {
+    setUpdateId(id)
+    setOpen2(!open2)
+  }
 
   useEffect(() => {
     getScheduledBatchesList();
@@ -201,7 +205,7 @@ const ScheduleBatches = () => {
             </MenuHandler>
             <MenuList>
               <MenuItem>
-                <div onClick={handleOpen2} className="flex ">
+                <div onClick={() => handleOpen2(params.row._id)} className="flex ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -334,8 +338,8 @@ const ScheduleBatches = () => {
                 <ModalEditBatch
                   open={open2}
                   handleOpen={handleOpen2}
-                // getScheduledBatchesList={getScheduledBatchesList}
-                // item={item}
+                  getScheduledBatchesList={getScheduledBatchesList}
+                  batchId={updateId}
                 />
               </div>
             )}
