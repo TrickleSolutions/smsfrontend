@@ -11,7 +11,7 @@ const StudentAssignments = ({ auth }) => {
   const [assignmentData, setAssignmentData] = useState([]);
   const [studentData, setStudentData] = useState("");
   const [loader, setLoader] = useState(true);
-  const { currentUser, setCurrentUser, getStudentData } = useAuthContext();
+  const { currentUser } = useAuthContext();
   // useEffect(() => {
   //   getStudentData();
   // }, []);

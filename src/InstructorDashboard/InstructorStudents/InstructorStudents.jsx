@@ -19,7 +19,7 @@ const InstructorStudents = () => {
 
   const [isStastusChangeModalopen, setIsStatusChangeModal] = useState(false)
   const handleStatuschange = () => setIsStatusChangeModal(!isStastusChangeModalopen)
-  const { GetInstructorStudents, instructorStudents } = useAuthContext();
+  const { GetInstructorStudents, instructorStudents, currentUser } = useAuthContext();
   const [Data, setData] = useState([])
   const [loader, setLoader] = useState(true);
   const [instructorData, setInstructorData] = useState(
@@ -170,7 +170,7 @@ const InstructorStudents = () => {
       )
     },
     {
-      field: "course", headerName: "Course", width: 100,
+      field: "course", headerName: "Course", width: 150,
       renderCell: (params) => (
         <div>
           {
@@ -193,47 +193,47 @@ const InstructorStudents = () => {
         </div>
       )
     },
-    {
-      field: "lastMontDue",
-      headerName: "Last Month Due",
-      width: 100,
-      // renderCell: (params) => (
-      //   <div className="flex justify-center">
-      //     {moment(params.row.dob).format("MMMM Do YYYY")}
-      //   </div>
-      // ),
-    },
-    {
-      field: "thisMonthDue",
-      headerName: "This Month Due",
-      width: 100,
-      // renderCell: (params) => (
-      //   <div className="flex justify-center">
-      //     {moment(params.row.admdate).format("MMMM Do YYYY")}
-      //   </div>
-      // ),
-    },
-    {
-      field: "feeDate",
-      headerName: "Fee Date",
-      type: "number",
-      width: 100,
-      // renderCell: (params) => (
-      //   <div className="flex justify-center">
-      //     <p>{params?.locker_no || "NA"}</p>
-      //   </div>
-      // ),
-    },
-    {
-      field: "thisMonthPaid",
-      headerName: "This Month Paid",
-      width: 100,
-    },
-    {
-      field: "totalDue",
-      headerName: "Total Due",
-      width: 100,
-    },
+    // {
+    //   field: "lastMontDue",
+    //   headerName: "Last Month Due",
+    //   width: 100,
+    //   renderCell: (params) => (
+    //     <div className="flex justify-center">
+    //       {moment(params.row.dob).format("MMMM Do YYYY")}
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   field: "thisMonthDue",
+    //   headerName: "This Month Due",
+    //   width: 100,
+    //   renderCell: (params) => (
+    //     <div className="flex justify-center">
+    //       {moment(params.row.admdate).format("MMMM Do YYYY")}
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   field: "feeDate",
+    //   headerName: "Fee Date",
+    //   type: "number",
+    //   width: 100,
+    //   renderCell: (params) => (
+    //     <div className="flex justify-center">
+    //       <p>{params?.locker_no || "NA"}</p>
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   field: "thisMonthPaid",
+    //   headerName: "This Month Paid",
+    //   width: 100,
+    // },
+    // {
+    //   field: "totalDue",
+    //   headerName: "Total Due",
+    //   width: 100,
+    // },
     {
       field: "mobileNo", headerName: "Mobile No", width: 150,
       renderCell: (params) => (
@@ -248,12 +248,28 @@ const InstructorStudents = () => {
     {
       field: "teacherName",
       headerName: "Teacher Name",
-      width: 100,
+      width: 150,
+      renderCell: (params) => (
+        <div>
+          {currentUser?.name }
+        </div>
+      )
     },
     {
       field: "status",
       headerName: "Status",
       width: 100,
+      renderCell: (params) => (
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <p key={index}>{item.status}</p>
+            ))}
+          {/* <div className="text-blue-800 font-black">
+            Dropout
+          </div> */}
+        </div>
+      )
     },
     {
       headerName: "Action",
