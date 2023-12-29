@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "@material-tailwind/react";
+import { Button, Card } from "@material-tailwind/react";
 import {
   DataGrid,
   GridToolbarColumnsButton,
@@ -8,17 +8,23 @@ import {
   GridToolbarExport,
   GridToolbarFilterButton,
   GridToolbarQuickFilter,
+  gridClasses,
 } from "@mui/x-data-grid";
 import ModalChangeStatus from "./ModalChangeStatus";
 import { useAuthContext } from "../../context/useStateContext";
 import baseurl from "../../Config";
+import { CiEdit } from "react-icons/ci";
 import moment from "moment/moment";
 
 const InstructorStudents = () => {
 
 
   const [isStastusChangeModalopen, setIsStatusChangeModal] = useState(false)
-  const handleStatuschange = () => setIsStatusChangeModal(!isStastusChangeModalopen)
+  const [updateId, setUpdateId] = useState('')
+  const handleStatuschange = (id) => {
+    setUpdateId(id)
+    setIsStatusChangeModal(!isStastusChangeModalopen)
+  }
   const { GetInstructorStudents, instructorStudents, currentUser } = useAuthContext();
   const [Data, setData] = useState([])
   const [loader, setLoader] = useState(true);
@@ -41,6 +47,7 @@ const InstructorStudents = () => {
 
 
   const getScheduledBatchesListById = () => {
+
     const instructorId = instructorData?._id; // Make sure _id is available
 
     if (!instructorId) {
@@ -55,13 +62,11 @@ const InstructorStudents = () => {
       },
     })
       .then((res) => {
-        console.log(res)
         if (res.status === 200) {
           return res.json();
         }
       })
       .then((result) => {
-        console.log(result.data);
         setData(result.data);
         setLoader(false);
       })
@@ -87,29 +92,9 @@ const InstructorStudents = () => {
     return NewData;
   };
 
-  // const Data = [
-  //   {
-  //     id: 1,
-  //     name: 'Test',
-  //     regNo: 3256,
-  //     doj: '02 Dec 2023',
-  //     batchSlot: 'Evening',
-  //     course: 'DIA',
-  //     batchTime: '12 PM to 1 PM',
-  //     lastMontDue: 0,
-  //     thisMonthDue: 1350,
-  //     feeDate: '02 Dec 2023',
-  //     thisMonthPaid: 1350,
-  //     totalDue: 0,
-  //     mobileNo: '7896456555',
-  //     teacherName: 'Sourabh',
-  //     status: 'Running'
-  //   }
-  // ]
-
   const columns = [
     {
-      field: "id", headerName: "ID", width: 100,
+      field: "id", headerName: "Sr. No.", width: 100,
       renderCell: (params) => (
         <div>
           {params.row.id + 1}
@@ -119,16 +104,18 @@ const InstructorStudents = () => {
     {
       field: "name",
       headerName: "Name",
-      width: 100,
+      width: 150,
+      height: 400,
       renderCell: (params) => (
         <div>
           {
             params.row.students.map((item, index) => (
-              <p key={index}>{item.name}</p>
+              <div>
+                <p key={index}>{index + 1}.   {item.name}</p>
+                <p className="text-blue-800 font-black uppercase">{item.status ==='break' && 'DropOut'}</p>
+
+              </div>
             ))}
-          {/* <div className="text-blue-800 font-black">
-            Dropout
-          </div> */}
         </div>
       )
     },
@@ -251,7 +238,7 @@ const InstructorStudents = () => {
       width: 150,
       renderCell: (params) => (
         <div>
-          {currentUser?.name }
+          {currentUser?.name}
         </div>
       )
     },
@@ -260,14 +247,11 @@ const InstructorStudents = () => {
       headerName: "Status",
       width: 100,
       renderCell: (params) => (
-        <div>
+        <div className="uppercase">
           {
             params.row.students.map((item, index) => (
               <p key={index}>{item.status}</p>
             ))}
-          {/* <div className="text-blue-800 font-black">
-            Dropout
-          </div> */}
         </div>
       )
     },
@@ -275,25 +259,20 @@ const InstructorStudents = () => {
       headerName: "Action",
       width: 100,
       renderCell: (params) => (
-        <div
-          className="flex items-center"
-          onClick={handleStatuschange}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-4 h-4 mx-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-            />
-          </svg>
-          Edit
+
+        <div>
+          {
+            params.row.students.map((item, index) => (
+              <Button
+                key={item._id}
+                className="block my-2"
+                variant="outlined"
+                size="sm"
+                onClick={() => handleStatuschange(item._id)}
+              >
+                <CiEdit size={20} />
+              </Button>
+            ))}
         </div>
       ),
     },
@@ -331,13 +310,20 @@ const InstructorStudents = () => {
               },
             },
           }}
+          sx={{
+            [`& .${gridClasses.cell}`]: {
+              py: 7,
+            },
+          }}
           pageSizeOptions={[5, 10, 25]}
           checkboxSelection
           disableRowSelectionOnClick
+          defaultDensity="Comfortable"
         />
         <ModalChangeStatus
           open={isStastusChangeModalopen}
           handleOpen={handleStatuschange}
+          updateId={updateId}
         />
       </div>
     </>

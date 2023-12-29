@@ -19,16 +19,11 @@ const ModalEditBatch = ({
   getScheduledBatchesList,
 }) => {
 
-  const [batch, setBatch] = useState("");
-  const [product, setProduct] = useState([]);
   const [loader, setLoader] = useState(true);
-  const [course, setCourse] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [maped, setMaped] = useState(true)
   const [data, setData] = useState([]);
-  const [updatedMappedStudents, setUpdatedMappedStudents] = useState([]);
   const [selectedInstructor, setSelectedInstructor] = useState(null);
+  const [instructorStudent, setInstructorStudent] = useState([]);
+
 
   const [formData, setFormData] = useState({
     instructor: null,
@@ -66,10 +61,10 @@ const ModalEditBatch = ({
 
         setFormData({
           instructor: instructorOption,
-          course: batchData.course.title,
+          course: batchData.course._id,
           from: formattedFrom,
           to: formattedTo,
-          students: batchData.students || [],
+          students: batchData?.students || [],
         });
 
         setSelectedInstructor(instructorOption);
@@ -82,8 +77,14 @@ const ModalEditBatch = ({
 
   useEffect(() => {
     getScheduledBatchesListByid(batchId);
-    getInstructorList();
   }, [batchId]);
+
+  useEffect(() => {
+    getInstructorList();
+    if (selectedInstructor) {
+      getInstructorStudent();
+    }
+  }, [selectedInstructor]);
 
 
   const getInstructorList = () => {
@@ -102,6 +103,27 @@ const ModalEditBatch = ({
       });
   };
 
+
+  const getInstructorStudent = () => {
+    if (selectedInstructor) {
+      fetch(`${baseurl}/api/course/students/${selectedInstructor.value}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((instructorStudent) => {
+          setInstructorStudent(instructorStudent);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  console.log(instructorStudent)
+
   const instructors = data || [];
 
   const handleSelectInstructorOption = (selectedInstructor) => {
@@ -117,20 +139,20 @@ const ModalEditBatch = ({
     label: instructor?.name,
   }));
 
-  const onSubmitClick = () => {
-
+  const onSubmitClick = (formData) => {
     const updatedData = {
-      instructor: formData.instructor,
-      course: formData.course,
-      from: formData.from,
-      to: formData.to,
-      students: formData.students,
+      instructor: formData?.instructor?.value,
+      course: formData?.course,
+      batchTime: {
+        from: formData?.from,
+        to: formData?.to,
+      },
+      students: formData?.students.map((item) => item._id),
     };
-
-    console.log(formData.students)
+    console.log(updatedData, formData)
 
     fetch(baseurl + "/api/batch/update/" + batchId, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -138,7 +160,7 @@ const ModalEditBatch = ({
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
       })
@@ -155,30 +177,35 @@ const ModalEditBatch = ({
   };
 
 
-
   const handleMapedChange = (studentId) => {
-    // Find the student in the current list
-    const studentIndex = formData.students.findIndex((student) => student._id === studentId);
+    const studentIndex = formData.students.findIndex(
+      (student) => student._id === studentId
+    );
 
-    // Check if the student is already in the list
+
     if (studentIndex !== -1) {
-      // Student exists, remove from the list
-      const updatedStudents = [...formData.students];
-      updatedStudents.splice(studentIndex, 1);
-      setFormData({ ...formData, students: updatedStudents });
+      handleRemoveStudent(studentId);
     } else {
-      // Student doesn't exist, add to the list
-      const studentToAdd = {
-        _id: studentId,
-        // Add other properties as needed
-      };
-      const updatedStudents = [...formData.students, studentToAdd];
+      handleAddStudent(studentId);
+    }
+  };
+
+  const handleRemoveStudent = (studentId) => {
+    const updatedStudents = formData.students.filter(
+      (student) => student._id !== studentId
+    );
+    setFormData({ ...formData, students: updatedStudents });
+  };
+
+  const handleAddStudent = (studentId) => {
+    const selectedStudent = instructorStudent.data.find((student) => student._id === studentId);
+
+    if (selectedStudent) {
+      const updatedStudents = [...formData.students, selectedStudent];
       setFormData({ ...formData, students: updatedStudents });
     }
-
-    // Toggle the maped state
-    setMaped(!maped);
   };
+
 
 
   return (
@@ -213,7 +240,7 @@ const ModalEditBatch = ({
                 />
               </div>
               {/* Course */}
-              <div className="w-full px-3 mb-3">
+              {/* <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="course"
@@ -227,7 +254,7 @@ const ModalEditBatch = ({
                   name="course"
                   disabled
                 />
-              </div>
+              </div> */}
               {/* From */}
               <div className="w-full px-3 mb-3">
                 <label
@@ -270,24 +297,29 @@ const ModalEditBatch = ({
                 >
                   Mapped Students
                 </label>
+                {/* {console.log(formData.students[0]._id)} */}
                 <table className="table-auto w-full">
-                  <thead style={{ position: 'sticky', top: 0, zIndex: 1, backgroundColor: 'white' }}>
+                  <thead>
                     <tr className="text-left">
                       <th>Student Name</th>
                       <th>Course</th>
-                      <th>Fees</th>
-                      <th>Action</th>
+                      <th className="text-center" >Action</th>
                     </tr>
                   </thead>
                   <tbody style={{ overflowY: 'scroll', height: '100px' }}>
-                    <tr>
-                      <td>Ram</td>
-                      <td>CCC</td>
-                      <td>19000</td>
-                      <td className="text-center" onClick={() => handleMapedChange()}>
-                        {maped ? <Button>Remove</Button> : <Button>Add</Button>}
-                      </td>
-                    </tr>
+                    {instructorStudent?.data?.map((student, index) => (
+                      <tr key={index}>
+                        <td>{student.name}</td>
+                        <td>{student.course}</td>
+                        <td className="text-center" onClick={() => handleMapedChange(student._id)}>
+                          {formData.students.some(s => s._id === student._id) ? (
+                            <Button>Remove</Button>
+                          ) : (
+                            <Button>Add</Button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -303,7 +335,7 @@ const ModalEditBatch = ({
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="blue" onClick={onSubmitClick}>
+          <Button variant="gradient" type="submit" color="blue" onClick={() => onSubmitClick(formData)}>
             <span>Save</span>
           </Button>
         </DialogFooter>

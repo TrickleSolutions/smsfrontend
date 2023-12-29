@@ -175,8 +175,8 @@ const InstructorAssignments = ({ updateInstructorAuth, instructorAuth }) => {
                   {pageData.map((item) => {
                     if (
                       item.title
-                        .toLowerCase()
-                        .includes(search.trim().toLowerCase())
+                        ?.toLowerCase()
+                        .includes(search.trim()?.toLowerCase())
                     ) {
                       return (
                         <>

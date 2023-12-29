@@ -111,7 +111,7 @@ const EnquiryTable = ({ item, getEnquiryList, checked, index }) => {
       <td className={`${item.status === 'pending' ? 'text-yellow-700' :
         item.status === 'joined' ? 'text-green-700' :
           item.status === 'not-interested' ? 'text-red-700' : ''
-        } px-1 py-4`}>{
+        }`}>{
           item.status === 'pending' ? 'Pending' :
             item.status === 'joined' ? 'Joined' :
               item.status === 'not-interested' ? 'Not Interested' : ''

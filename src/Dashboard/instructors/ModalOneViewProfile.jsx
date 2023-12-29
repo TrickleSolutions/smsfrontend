@@ -68,7 +68,16 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
             });
     };
 
-
+    const downloadCV = () => {
+        if (data?.cv) {
+          const downloadLink = document.createElement("a");
+          downloadLink.href = `${baseurl}/${data?.cv}`;
+          downloadLink.download = "CV_Bio_Data.pdf";
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+        }
+      };
 
 
 
@@ -124,7 +133,7 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
                                     </tr>
                                     <tr>
                                         <td className="text-black font-semibold text-base p-2">CV(Bio-Data)</td>
-                                        <td className="text-thin font-semibold text-white p-2">{data?.cv}</td>
+                                        <td onClick={downloadCV} className="cursor-pointer text-thin font-semibold text-white p-2">{data?.cv}</td>
                                     </tr>
                                 </table>
                             </div>
