@@ -71,7 +71,7 @@ const Students = ({ updateAuth }) => {
     setSelectAll(allSelected);
   };
 
-  const getStudentList = (filterby) => {
+  const getStudentList = () => {
     const query = new URLSearchParams({
       page: currentPage,
       limit: 1300,
@@ -89,12 +89,13 @@ const Students = ({ updateAuth }) => {
         // setStudentsData(result);
         if (filterBy === "all") {
           setProduct(result);
-        } else {
-          let filteredData = result.filter(
-            (student) => student.status === filterBy
-          );
-          setProduct(filteredData);
         }
+        // } else {
+        //   let filteredData = result.filter(
+        //     (student) => student.status === filterBy
+        //   );
+        //   setProduct(filteredData);
+        // }
         setLoader(false);
       })
       .catch((err) => {

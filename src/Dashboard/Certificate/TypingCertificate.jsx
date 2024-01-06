@@ -1,14 +1,51 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdArrowForward } from 'react-icons/md';
 import { Button, Input, Textarea } from '@material-tailwind/react'
 import Select from 'react-select';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useCertificate } from '../../context/useCertificate';
+import baseurl from '../../Config';
 
 
 const TypingCertificate = ({ back }) => {
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [loader, setLoader] = useState(true);
+
+    const [selectStudent, setSelectStudent] = useState([]);
+    const [selectStudentData, setSelectStudentData] = useState([]);
+
+    const getStudentList = async () => {
+        try {
+
+            const response = await fetch(`${baseurl}/api/course-students/65599995416b71fffc09d5ff`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log(result)
+            setSelectStudentData(result.data[0].student);
+            setLoader(false);
+        } catch (error) {
+            console.error("Error fetching student list:", error);
+        }
+    };
+
+
+    useEffect(() => {
+        getStudentList();
+    }, [currentPage]);
+
+
     const [formData, setFormData] = useState({
-        name: '',
+        name: null,
         fatherName: '',
         regNo: '',
         language: null,
@@ -26,14 +63,36 @@ const TypingCertificate = ({ back }) => {
             ...prevData,
             [name]: value,
         }));
+
     };
 
-    const handleSelectOption = (selectedOption) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            options: selectedOption,
-        }));
+
+    const handleSelectStudent = (selectedStudent) => {
+        const selected = selectStudentData?.students?.find(
+            (item) => item?._id === selectedStudent?.value
+        );
+
+        if (selected) {
+            const { regno, fname } = selected;
+
+            setFormData({
+                student: selected,
+                regNo: regno,
+                fatherName: fname,
+            });
+        }
+
+        setSelectStudent(selectedStudent);
     };
+
+
+    useEffect(() => {
+        if (selectStudent) {
+            const student = selectStudentData?.students?.find(item => item?._id === selectStudent?.value)
+            setFormData({ regNo: student?.regno, fatherName: student?.fname })
+        }
+    }, [selectStudent])
+
     const handleSelectlanguageOption = (selectedOption) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -71,6 +130,21 @@ const TypingCertificate = ({ back }) => {
 
                     <div className="py-2">
                         <Select
+                            id="name"
+                            name="name"
+                            value={selectStudent}
+                            onChange={handleSelectStudent}
+                            options={selectStudentData?.map((item) => ({
+                                label: item?.name,
+                                value: item?._id,
+                            }))}
+                            placeholder="Select Student"
+                            isSearchable
+                        />
+                    </div>
+
+                    <div className="py-2">
+                        <Select
                             id="grade"
                             name="grade"
                             value={formData.language}
@@ -83,19 +157,6 @@ const TypingCertificate = ({ back }) => {
                     </div>
 
                     <div className="py-2">
-                        <Input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            label="Enter Student Name"
-                            size="regular"
-                            fullWidth
-                        />
-
-                    </div>
-                    <div className="py-2">
 
                         <Input
                             type="text"
@@ -107,6 +168,7 @@ const TypingCertificate = ({ back }) => {
                             size="regular"
                             fullWidth
                         />
+
                     </div>
                     <div className="py-2">
 
