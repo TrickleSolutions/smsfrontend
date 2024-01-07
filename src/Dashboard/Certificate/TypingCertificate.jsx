@@ -257,7 +257,7 @@ const TypingCertificate = ({ back }) => {
                             value={formData.grade}
                             onChange={handleInputChange}
                             variant="outlined"
-                            label="Enter Grade"
+                            label="Enter Marks"
                             size="regular"
                             fullWidth
                         />

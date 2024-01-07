@@ -89,7 +89,7 @@ const PrintTableCertificate = () => {
                                 W/o, D/o <span className='text-blue-800'>...{formData?.fatherName}...</span> Registration No <span className='text-blue-800'>...{formData?.regNo}...</span> on successfully
                                 completed course of <span className='text-blue-800'>...Certificate of Computer in {formData?.language?.label} Typing...</span> average test
                                 speed <span className='text-blue-800'>...{formData?.speedWpm} wpm...</span> average accuracy <span className='text-blue-800'>...{formData?.average}%...</span> at <span className='text-blue-800'>...{formData?.address}...</span> of duration from <span className='text-blue-800'>...{moment(formData?.from).format("MMM-YYYY")}...</span> to <span className='text-blue-800'>...{moment(formData?.to).format("MMM-YYYY")}...</span> and achieved the
-                                grade <span className='text-blue-800'>...{formData?.grade}...</span>
+                                grade <span className='text-blue-800'>...{formData?.grade < 60 ? 'B' : formData?.grade > 60 ? 'A' : formData?.grade > 80 ? 'A+' : formData?.grade}...</span>
                             </div>
                         </Draggable>
                     </div>
