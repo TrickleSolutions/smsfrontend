@@ -135,7 +135,7 @@ const ScheduleBatches = () => {
           ))}
         </tbody>
       </table>
-      {/* <Button onClick={() => handleOpenViewModal(params.row?._id)}>View</Button> */}
+      <Button onClick={() => handleOpenViewModal(params.row?._id)}>View</Button>
     </div>
   }
 
@@ -165,7 +165,7 @@ const ScheduleBatches = () => {
       ),
     },
     {
-      field: "name",
+      field: "instructor",
       headerName: "Instructor Name",
       width: 150,
       renderCell: (params) => (
@@ -173,7 +173,7 @@ const ScheduleBatches = () => {
       ),
     },
     {
-      field: "title",
+      field: "course",
       headerName: "Course",
       width: 150,
       renderCell: (params) => (

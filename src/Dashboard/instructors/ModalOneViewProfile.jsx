@@ -127,10 +127,10 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
                                         <td className="text-black font-semibold text-base p-2">Qualification</td>
                                         <td className="text-thin font-semibold text-white p-2">{data?.qualification}</td>
                                     </tr>
-                                    <tr>
+                                    {/* <tr>
                                         <td className="text-black font-semibold text-base p-2">joining Date</td>
                                         <td className="text-thin font-semibold text-white p-2">Maria Anders</td>
-                                    </tr>
+                                    </tr> */}
                                     <tr>
                                         <td className="text-black font-semibold text-base p-2">CV(Bio-Data)</td>
                                         <td onClick={downloadCV} className="cursor-pointer text-thin font-semibold text-white p-2">{data?.cv}</td>

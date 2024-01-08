@@ -10,6 +10,7 @@ import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import { RiBillLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
+import moment from "moment/moment";
 
 const AdminFeesTable = ({ item, getFeesList }) => {
   const [open2, setOpen2] = useState(false);
@@ -54,8 +55,8 @@ const AdminFeesTable = ({ item, getFeesList }) => {
         <td className="border">{item.mode}</td>
         <td className="border">{item.transId}</td>
         <td className="border text-green-800 text-base font-semibold">{item.paid}</td>
-        <td className="border text-yellow-800 font-semibold text-base">{item.paid - item.amount}</td>
-        <td className="border">{item.date}</td>
+        <td className="border text-yellow-800 font-semibold text-base">{item?.pending}</td>
+        <td className="border">{moment(item.date).format("mm Do YY")}</td>
         <td className="border">Sourabh</td>
         <td className="border">Admin</td>
         <td className="border">

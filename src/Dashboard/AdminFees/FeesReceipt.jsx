@@ -78,7 +78,7 @@ const FeesReceipt = () => {
                             {/* 1st detail */}
                             <div className="flex ">
                                 <div className="font-extrabold w-36">Registration No:</div>
-                                {/* <div>{currentUser.regno}</div> */}
+                                {/* <div>{currentUser.regno}</div> */} 
                             </div>
                             {/* 2nd detail */}
                             <div className="flex ">
