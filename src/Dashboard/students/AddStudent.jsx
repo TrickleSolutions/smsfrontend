@@ -203,9 +203,9 @@ const AddStudent = ({ open, handleOpen }) => {
                   onChange={(e) => {
                     handleChangeinput(e.target.name, e.target.value);
                   }}
-                  // onChange={(e) => {
-                  //   setEmail(e.target.value);
-                  // }}
+                // onChange={(e) => {
+                //   setEmail(e.target.value);
+                // }}
                 />
               </div>
               <div className="w-full px-3 mb-3">
@@ -225,9 +225,9 @@ const AddStudent = ({ open, handleOpen }) => {
                   onChange={(e) => {
                     handleChangeinput(e.target.name, e.target.value);
                   }}
-                  // onChange={(e) => {
-                  //   setAddress(e.target.value);
-                  // }}
+                // onChange={(e) => {
+                //   setAddress(e.target.value);
+                // }}
                 />
               </div>
 
@@ -241,16 +241,19 @@ const AddStudent = ({ open, handleOpen }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="contact"
-                  type="number"
+                  type="tel"
                   placeholder="9257643858"
                   name="contact"
                   value={formData.contact || ""}
-                  onChange={(e) =>
-                    handleChangeinput(e.target.name, e.target.value)
-                  }
-                  // onChange={(e) => {
-                  //   setContact(e.target.value);
-                  // }}
+                  onChange={(e) => {
+                    const enteredValue = e.target.value.replace(/\D/g, '');
+                    if (enteredValue.length <= 10) {
+                      handleChangeinput(e.target.name, enteredValue);
+                    }
+                  }}
+                // onChange={(e) => {
+                //   setContact(e.target.value);
+                // }}
                 />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-3">
@@ -573,7 +576,7 @@ const AddStudent = ({ open, handleOpen }) => {
             variant="gradient"
             color="blue"
             onClick={onSubmitClick}
-            // onClick={() => console.log(formData)}
+          // onClick={() => console.log(formData)}
           >
             <span>Submit</span>
           </Button>

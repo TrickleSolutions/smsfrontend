@@ -585,13 +585,19 @@ const PrintableEnquiryForm = ({ open, handleOpen, getEnquiryList }) => {
                                 </label>
                                 <div className="w-full">
                                     <Input variant='static'
-                                        type="text"
+                                        type="tel"
                                         id="contact"
                                         value={contact}
                                         placeholder="Enter phone number"
+                                        // onChange={(e) => {
+                                        //     setPhoneNumber(e.target.value);
+                                        // }}
                                         onChange={(e) => {
-                                            setPhoneNumber(e.target.value);
-                                        }}
+                                            const enteredValue = e.target.value.replace(/\D/g, '');
+                                            if (enteredValue.length <= 10) {
+                                                setPhoneNumber(e.target.value, enteredValue);
+                                            }
+                                          }}
                                     />
                                 </div>
                             </div>

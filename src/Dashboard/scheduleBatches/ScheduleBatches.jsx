@@ -115,6 +115,30 @@ const ScheduleBatches = () => {
     }
   }
 
+  const MappedData = ({ params }) => {
+    return <div className="py-2">
+      <table className="table-auto">
+        <thead>
+          <tr className="text-left">
+            <th>Reg No.</th>
+            <th>Student Name</th>
+            <th>Course</th>
+          </tr>
+        </thead>
+        <tbody>
+          {params.row?.students?.map((item, index) => (
+            <tr key={index}>
+              <td>{item?.regno}</td>
+              <td>{item?.name}</td>
+              <td>{item?.course}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {/* <Button onClick={() => handleOpenViewModal(params.row?._id)}>View</Button> */}
+    </div>
+  }
+
   const DataWithID = (data) => {
     const NewData = [];
     if (data !== undefined) {
@@ -175,9 +199,9 @@ const ScheduleBatches = () => {
     {
       field: "students",
       headerName: "students",
-      width: 150,
+      width: 300,
       renderCell: (params) => (
-        <div className="flex justify-center"><Button onClick={() => handleOpenViewModal(params.row?._id)}>{params.row?.students?.length}</Button></div>
+        <MappedData params={params} />
       ),
     },
     {
@@ -317,6 +341,7 @@ const ScheduleBatches = () => {
                 <DataGrid
                   rows={DataWithID(product?.data)}
                   columns={columns}
+                  getRowHeight={() => 'auto'}
                   components={{ Toolbar: CustomToolbar }}
                   initialState={{
                     pagination: {
