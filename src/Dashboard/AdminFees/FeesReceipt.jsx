@@ -1,16 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "../../assets/images/logo.png";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { Button } from '@material-tailwind/react';
 import moment from 'moment/moment';
 import { useNavigate, useParams } from 'react-router-dom';
+import baseurl from '../../Config';
 
 const FeesReceipt = () => {
 
     const [loader, setLoader] = useState(false);
+    const [feesData, setFeesData] = useState(false)
     const { id } = useParams();
-    const  navigate = useNavigate()
+    const navigate = useNavigate()
+
+
+    const getFeesList = () => {
+        fetch(baseurl + "/api/fee ", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((result) => {
+                setFeesData(result);
+                setLoader(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    useEffect(() => {
+        getFeesList();
+    }, []);
+
+    console.log(feesData)
 
     const downloadPDF = () => {
         const capture = document.querySelector(".receipt");
@@ -78,7 +106,7 @@ const FeesReceipt = () => {
                             {/* 1st detail */}
                             <div className="flex ">
                                 <div className="font-extrabold w-36">Registration No:</div>
-                                {/* <div>{currentUser.regno}</div> */} 
+                                {/* <div>{currentUser.regno}</div> */}
                             </div>
                             {/* 2nd detail */}
                             <div className="flex ">

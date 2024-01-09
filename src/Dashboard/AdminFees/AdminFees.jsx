@@ -19,7 +19,7 @@ const AdminFees = () => {
   }, [page]);
 
   const getFeesList = () => {
-    fetch(baseurl + "/api/fee ", {
+    fetch(baseurl + "/api/fee/data/get ", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const AdminFees = () => {
         return res.json();
       })
       .then((result) => {
-        setProduct(result);
+        setProduct(result?.data);
         setLoader(false);
       })
       .catch((err) => {

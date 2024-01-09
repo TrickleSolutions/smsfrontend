@@ -36,7 +36,6 @@ const AdminFeesTable = ({ item, getFeesList }) => {
   // };
 
   console.log(item)
-
   return (
     <>
       <tr className="bg-white border-b" key={item._id}>
@@ -49,16 +48,16 @@ const AdminFeesTable = ({ item, getFeesList }) => {
             <p className="text-yellow-900">Fully Paid</p>
           }
         </td>
-        <td className="border">12356</td>
-        <td className="border">ADCA</td>
-        <td className="border">{item.amount}</td>
+        <td className="border">{item.recieptNo}</td>
+        <td className="border">{item?.course?.title}</td>
+        <td className="border">{item.courseFee}</td>
         <td className="border">{item.mode}</td>
         <td className="border">{item.transId}</td>
         <td className="border text-green-800 text-base font-semibold">{item.paid}</td>
         <td className="border text-yellow-800 font-semibold text-base">{item?.pending}</td>
-        <td className="border">{moment(item.date).format("mm Do YY")}</td>
-        <td className="border">Sourabh</td>
-        <td className="border">Admin</td>
+        <td className="border">{moment(item.date).format("mm dddd yyyy")}</td>
+        <td className="border">{item?.instructor?.name}</td>
+        <td className="border">{item.recievedBy}</td>
         <td className="border">
           <div>
             <Menu>

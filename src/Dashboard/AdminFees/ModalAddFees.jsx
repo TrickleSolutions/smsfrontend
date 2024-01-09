@@ -13,6 +13,7 @@ import Select from "react-select";
 
 const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
   const [studentsData, setStudentsData] = useState([]);
+  const [recievedby, setRecievedby] = useState("");
   const [name, setName] = useState("");
   const [regno, setRegno] = useState("");
   const [amount, setAmount] = useState("");
@@ -48,12 +49,12 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
 
   const onSubmitClick = () => {
     // Create the data object with updated name and mode
-    const data = { name, regno, amount, mode, transId, paid, date };
-    console.log(data)  
-  
+    const data = { recievedby, name, regno, amount, mode, transId, paid, date };
+    console.log(data)
+
 
     // Post Api For Posting Data
-    fetch(baseurl + "/api/fee", {
+    fetch(baseurl + `/api/fee/create/${regno}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -88,6 +89,25 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form className="w-full px-5 sm:px-10 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="recievedby"
+                >
+                  Recieved By
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  placeholder="Enter Fees Receiver Name"
+                  id="recievedby"
+                  type="text"
+                  value={recievedby}
+                  onChange={(e) => {
+                    setRecievedby(e.target.value);
+                  }}
+                />
+
+              </div>
               {/* Regno */}
               <div className="w-full px-3 mb-3">
                 <label
@@ -126,6 +146,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
                 />
 
               </div>
+
               {/* amount */}
               <div className="w-full px-3 mb-3">
                 <label

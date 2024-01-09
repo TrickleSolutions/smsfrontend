@@ -232,7 +232,7 @@ const ModalEnrollStudent = ({
                   <select
                     label="Select Course"
                     name="course"
-                    className="p-2 border focus-visible:outline-none"
+                    className="p-2 border focus-visible:outline-none w-full rounded-sm"
                     value={formData.course || ""}
                     // onChange={(e) => {
                     //   setCourse(e.target.value);

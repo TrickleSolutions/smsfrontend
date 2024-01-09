@@ -35,7 +35,14 @@ const EditStudent = () => {
   const [formData, setFormData] = useState({});
 
   const handleFormData = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Check if the field is the "contact" field and if the value is a valid 10-digit number
+    if (name === "contact" && value.length <= 10 && /^\d+$/.test(value)) {
+      setFormData({ ...formData, [name]: value });
+    } else if (name !== "contact") {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
   const navigate = useNavigate();
 
@@ -244,13 +251,10 @@ const EditStudent = () => {
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="contact"
-                    type="number"
+                    type="tel"
                     placeholder="9257643858"
                     name="contact"
                     value={formData.contact || ""}
-                    // onChange={(e) => {
-                    //   setContact(e.target.value);
-                    // }}
                     onChange={handleFormData}
                   />
                 </div>
@@ -578,13 +582,6 @@ const EditStudent = () => {
                     Sumbit
                   </button>
                 </div>
-
-                {/* <input
-                  type="button"
-                  onClick={handleSubmit}
-                  placeholder="Sumbit"
-                  className="h-fit p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
-                /> */}
               </div>
             </form>
           </div>

@@ -235,8 +235,8 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="salary"
-                  type="text"
-                  placeholder="(in Month)"
+                  type="number"
+                  placeholder="(per Month)"
                   value={salary}
                   onChange={(e) => {
                     setSalary(e.target.value);
@@ -253,11 +253,14 @@ const ModalAddInstructor = ({ open, handleOpen, getInstructorList }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="contact"
-                  type="number"
+                  type="tel"
                   placeholder="9257643858"
                   value={contact}
                   onChange={(e) => {
-                    setContact(e.target.value);
+                    const enteredValue = e.target.value.replace(/\D/g, '');
+                    if (enteredValue.length <= 10) {
+                      setContact(e.target.value, enteredValue);
+                    }
                   }}
                 />
               </div>

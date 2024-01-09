@@ -45,7 +45,6 @@ const ModalEditFees = ({ item, open, handleOpen, getFeesList }) => {
   };
 
   const data = { name, regno, amount, mode, transId, paid, date };
-  console.log(data);
 
   //   Prefill Form Data
   useEffect(() => {

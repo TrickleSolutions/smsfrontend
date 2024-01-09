@@ -126,7 +126,7 @@ const Students = ({ updateAuth }) => {
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 200,
       renderCell: (params) => (
         <div
           onClick={() => ShowStudent(params.row)}
@@ -149,7 +149,6 @@ const Students = ({ updateAuth }) => {
     {
       field: "regno",
       headerName: "Reg No",
-      type: "number",
       width: 100,
     },
     {
@@ -171,13 +170,11 @@ const Students = ({ updateAuth }) => {
     {
       field: "gender",
       headerName: "Gender",
-      type: "number",
       width: 100,
     },
     {
       field: "dob",
       headerName: "DOB",
-      type: "number",
       width: 150,
       renderCell: (params) => (
         <div className="flex justify-center">
@@ -188,7 +185,6 @@ const Students = ({ updateAuth }) => {
     {
       field: "admdate",
       headerName: "DOJ",
-      type: "number",
       width: 150,
       renderCell: (params) => (
         <div className="flex justify-center">
@@ -199,7 +195,6 @@ const Students = ({ updateAuth }) => {
     {
       field: "locker_no",
       headerName: "Locker No.",
-      type: "number",
       width: 100,
       renderCell: (params) => (
         <div className="flex justify-center">
@@ -222,7 +217,6 @@ const Students = ({ updateAuth }) => {
     {
       field: "shift",
       headerName: "Shift",
-      type: "number",
       width: 80,
       renderCell: (params) => (
         <div className="flex justify-center">

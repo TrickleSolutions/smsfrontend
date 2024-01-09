@@ -251,9 +251,6 @@ const AddStudent = ({ open, handleOpen }) => {
                       handleChangeinput(e.target.name, enteredValue);
                     }
                   }}
-                // onChange={(e) => {
-                //   setContact(e.target.value);
-                // }}
                 />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-3">
@@ -401,7 +398,7 @@ const AddStudent = ({ open, handleOpen }) => {
                   </label>
                   <select
                     label="Select Course"
-                    className="p-2 border focus-visible:outline-none"
+                    className="p-2 border focus-visible:outline-none w-full rounded-md"
                     name="course"
                     value={formData.course || ""}
                     onChange={(e) => {
