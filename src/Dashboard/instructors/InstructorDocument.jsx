@@ -20,7 +20,7 @@ const InstructorDocument = ({ open, handleDocumentOpen, item }) => {
   };
   return (
     <Dialog open={open} handler={handleDocumentOpen}>
-      <DialogHeader>Student Documents</DialogHeader>
+      <DialogHeader>Instructor Documents</DialogHeader>
       <DialogBody divider>
         <div className="flex items-center">
           <div className="w-1/2 px-3 mb-3">

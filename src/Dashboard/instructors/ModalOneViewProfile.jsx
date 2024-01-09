@@ -40,8 +40,10 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
     };
 
     useEffect(() => {
-        getInstructorDetailById(instructor);
-        getScheduledBatchesListById(instructor);
+        if (instructor) {
+            getScheduledBatchesListById(instructor);
+            getInstructorDetailById(instructor);
+        }
     }, [instructor]);
 
 
@@ -68,16 +70,27 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
             });
     };
 
+    const downloadAddhar = () => {
+        if (data?.aadhar) {
+            const downloadLink = document.createElement("a");
+            downloadLink.href = `${baseurl}/${data?.aadhar}`;
+            downloadLink.download = "CV_Bio_Data.pdf";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
+    };
+
     const downloadCV = () => {
         if (data?.cv) {
-          const downloadLink = document.createElement("a");
-          downloadLink.href = `${baseurl}/${data?.cv}`;
-          downloadLink.download = "CV_Bio_Data.pdf";
-          document.body.appendChild(downloadLink);
-          downloadLink.click();
-          document.body.removeChild(downloadLink);
+            const downloadLink = document.createElement("a");
+            downloadLink.href = `${baseurl}/${data?.cv}`;
+            downloadLink.download = "CV_Bio_Data.pdf";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
         }
-      };
+    };
 
 
 
@@ -97,45 +110,51 @@ const ModalOneViewProfile = ({ open, handleOpen, instructor }) => {
                         <Loader />
                     </div> : (
                         <>
-                            <div className="border border-black rounded-md flex bg-blue-100">
-                                <div className="w-96">
-                                    <img src={`${baseurl}/${data?.profilePic}`} className="h-96 rounded-l-md" alt=".." />
-                                </div>
-                                <table className="w-full">
+                            <div className="bg-blue-100 rounded-md border border-black">
+                                <div className="flex items-center">
+                                    <div className="w-96">
+                                        <img src={`${baseurl}/${data?.profilePic}`} className="h-96 rounded-l-md" alt=".." />
+                                    </div>
+                                    <table className="w-full">
 
-                                    <tr>
-                                        <td className="text-black font-semibold text-base p-2">Name</td>
-                                        <td className="text-thin font-semibold text-white p-2">{data?.name}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-black font-semibold text-base p-2">Address</td>
-                                        <td className="text-thin font-semibold text-white p-2">{data?.address}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-black font-semibold text-base p-2">Mobile</td>
-                                        <td className="text-thin font-semibold text-white p-2">{data?.contact}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-black font-semibold text-base p-2">Email</td>
-                                        <td className="text-thin font-semibold text-white p-2">{data?.email}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-black font-semibold text-base p-2">Date of Birth</td>
-                                        <td className="text-thin font-semibold text-white p-2">{data?.dob}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-black font-semibold text-base p-2">Qualification</td>
-                                        <td className="text-thin font-semibold text-white p-2">{data?.qualification}</td>
-                                    </tr>
-                                    {/* <tr>
-                                        <td className="text-black font-semibold text-base p-2">joining Date</td>
-                                        <td className="text-thin font-semibold text-white p-2">Maria Anders</td>
-                                    </tr> */}
-                                    <tr>
-                                        <td className="text-black font-semibold text-base p-2">CV(Bio-Data)</td>
-                                        <td onClick={downloadCV} className="cursor-pointer text-thin font-semibold text-white p-2">{data?.cv}</td>
-                                    </tr>
-                                </table>
+                                        <tr>
+                                            <td className="text-black font-semibold text-base p-2">Name</td>
+                                            <td className="text-thin font-semibold text-white p-2">{data?.name}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-black font-semibold text-base p-2">Address</td>
+                                            <td className="text-thin font-semibold text-white p-2">{data?.address}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-black font-semibold text-base p-2">Mobile</td>
+                                            <td className="text-thin font-semibold text-white p-2">{data?.contact}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-black font-semibold text-base p-2">Email</td>
+                                            <td className="text-thin font-semibold text-white p-2">{data?.email}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-black font-semibold text-base p-2">Date of Birth</td>
+                                            <td className="text-thin font-semibold text-white p-2">{data?.dob}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-black font-semibold text-base p-2">Qualification</td>
+                                            <td className="text-thin font-semibold text-white p-2">{data?.qualification}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-black font-semibold text-base p-2">Joining Date</td>
+                                            <td className="text-thin font-semibold text-white p-2">{moment(data?.doj).format('MMMM Do YYYY')}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div className="grid grid-cols-2 p-2 border-t-2">
+                                    <div>
+                                        <div>Instructor Aadhar Card</div>
+                                        <img onClick={downloadAddhar} src={`${baseurl}/${data?.aadhar}`} alt="aadhar Card" /></div>
+                                    <div>
+                                        <div>Instructor CV</div>
+                                        <Button onClick={downloadCV} size="sm">Download CV</Button></div>
+                                </div>
                             </div>
                             <div className="pt-4">
                                 <table className="w-full border bg-blue-200 rounded-md">

@@ -22,7 +22,7 @@ const StudentAcademics = () => {
   const { id } = useParams();
 
   const getCourseDetails = () => {
-    fetch(baseurl + `/api/course/lessions/get?course${id}`, {
+    fetch(baseurl + `/api/course/lessions/get?course=${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

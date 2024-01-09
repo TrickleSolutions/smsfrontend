@@ -61,27 +61,27 @@ const CourseTable = ({ item, getCourseList }) => {
             <div className="text-md">{item.title}</div>
           </div>
         </th>
-        <td className="px-6 py-4">{item.category}</td>
-        <td className="px-6 py-4  max-w-xs truncate">
+        <td className="px-6 py-4 font-semibold text-black">{item.category}</td>
+        <td className="px-6 py-4 font-semibold text-black max-w-xs truncate">
           <Tooltip
-            className="max-w-xs bg-[var(--theme-color)] rounded-md text-sm"
+            className="max-w-xs bg-[var(--theme-color)]  rounded-md text-sm"
             content={item.desc}
             placement="bottom-end"
           >
             {item.desc}
           </Tooltip>
         </td>
-        <td className="px-6 py-4">{item.level}</td>
-        <td className="px-6 py-4">{item.lessons}</td>
-        <td className="px-6 py-4">{item.duration}</td>
+        <td className="px-6 py-4 font-semibold text-black">{item.level}</td>
+        <td className="px-6 py-4 font-semibold text-black">{item.lessons}</td>
+        <td className="px-6 py-4 font-semibold text-black">{item.duration}</td>
         {/* <td className="px-3 py-4">
                           <span className="text-orange-600">Pending</span>
                         </td> */}
-        <td className="px-3 py-4">{item.price}</td>
-        <td className="px-6 py-4">{item.rating}</td>
+        <td className="px-3 py-4 font-semibold text-black">{item.price}</td>
+        <td className="px-6 py-4 font-semibold text-black">{item.rating}</td>
         <td
           className={`${item.status === "active"
-              ? "text-teal-500"
+              ? "text-green-800"
               : item.status === "paused"
                 ? "text-amber-500"
                 : ""

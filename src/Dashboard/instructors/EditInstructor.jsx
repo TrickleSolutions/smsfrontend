@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuthContext } from "../../context/useStateContext";
 import axios from "axios";
+import moment from "moment/moment";
 
 const EditInstructor = () => {
   const [name, setName] = useState("");
@@ -12,6 +13,7 @@ const EditInstructor = () => {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setDob] = useState("");
+  const [doj, setDoj] = useState("");
   const [qualification, setQualification] = useState("");
   const [degree, setDegree] = useState("");
   const [exp, setExp] = useState("");
@@ -46,6 +48,7 @@ const EditInstructor = () => {
     setAddress(instData.address);
     setGender(instData.gender);
     setDob(instData.dob);
+    setDoj(instData.doj);
     setQualification(instData.qualification);
     setDegree(instData.degree);
     setExp(instData.exp);
@@ -116,6 +119,7 @@ const EditInstructor = () => {
       address,
       gender,
       dob,
+      doj,
       qualification,
       degree,
       exp,
@@ -134,6 +138,7 @@ const EditInstructor = () => {
       address,
       gender,
       dob,
+      doj,
       qualification,
       degree,
       exp,
@@ -178,6 +183,7 @@ const EditInstructor = () => {
                 address: address,
                 gender: gender,
                 dob: dob,
+                doj: doj,
                 qualification: qualification,
                 contact: contact,
                 degree: degree,
@@ -290,6 +296,24 @@ const EditInstructor = () => {
                   value={dob}
                   onChange={(e) => {
                     setDob(e.target.value);
+                  }}
+                />
+                {console.log(doj)}
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="doj"
+                >
+                  Joining Date
+                </label>
+                <input
+                  className="scroll-smooth appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="doj"
+                  type="date"
+                  value={moment(doj).format('YYYY-MM-DD')}
+                  onChange={(e) => {
+                    setDoj(e.target.value);
                   }}
                 />
               </div>
