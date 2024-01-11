@@ -14,6 +14,7 @@ const TypingCertificate = ({ back }) => {
 
     const [selectStudent, setSelectStudent] = useState([]);
     const [selectStudentData, setSelectStudentData] = useState([]);
+    const [fetchTypingData, setFetchTypingData] = useState([])
 
     const getStudentList = async () => {
         try {
@@ -30,7 +31,6 @@ const TypingCertificate = ({ back }) => {
             }
 
             const result = await response.json();
-            console.log(result)
             setSelectStudentData(result.data[0].student);
             setLoader(false);
         } catch (error) {
@@ -38,9 +38,35 @@ const TypingCertificate = ({ back }) => {
         }
     };
 
+    console.log('selected student', selectStudent.value)
+    const getFetchResult = async () => {
+        try {
+
+            const response = await fetch(`${baseurl}/api/typing-result/get?id=${selectStudent?.value}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            setFetchTypingData(result.data);
+            setLoader(false);
+        } catch (error) {
+            console.error("Error fetching student list:", error);
+        }
+    };
+
+    console.log('', fetchTypingData)
+
 
     useEffect(() => {
         getStudentList();
+        getFetchResult();
     }, [currentPage]);
 
 
@@ -144,7 +170,7 @@ const TypingCertificate = ({ back }) => {
                     </div>
 
                     <div className="py-2">
-                        <Select
+                        {/* <Select
                             id="grade"
                             name="grade"
                             value={formData.language}
@@ -153,6 +179,16 @@ const TypingCertificate = ({ back }) => {
                             placeholder="Typing Language"
                             isSearchable
                             isClearable
+                        /> */}
+                        <Input
+                            type="text"
+                            id="fatherName"
+                            name="fatherName"
+                            value={fetchTypingData.typingLang}
+                            // onChange={handleInputChange}
+                            label="Typing Language"
+                            size="regular"
+                            fullWidth
                         />
                     </div>
 
@@ -162,8 +198,8 @@ const TypingCertificate = ({ back }) => {
                             type="text"
                             id="fatherName"
                             name="fatherName"
-                            value={formData.fatherName}
-                            onChange={handleInputChange}
+                            value={fetchTypingData.fname}
+                            // onChange={handleInputChange}
                             label="Father's Name"
                             size="regular"
                             fullWidth
@@ -176,8 +212,8 @@ const TypingCertificate = ({ back }) => {
                             type="text"
                             id="regNo"
                             name="regNo"
-                            value={formData.regNo}
-                            onChange={handleInputChange}
+                            value={fetchTypingData.regno}
+                            // onChange={handleInputChange}
                             label="Registration Number"
                             size="regular"
                             fullWidth
@@ -189,8 +225,8 @@ const TypingCertificate = ({ back }) => {
                             type="number"
                             id="speedWpm"
                             name="speedWpm"
-                            value={formData.speedWpm}
-                            onChange={handleInputChange}
+                            value={fetchTypingData.speed}
+                            // onChange={handleInputChange}
                             label="Speed"
                             size="regular"
                             fullWidth
@@ -202,8 +238,8 @@ const TypingCertificate = ({ back }) => {
                             type="number"
                             id="average"
                             name="average"
-                            value={formData.average}
-                            onChange={handleInputChange}
+                            value={fetchTypingData.accuracy}
+                            // onChange={handleInputChange}
                             label="Average"
                             size="regular"
                             fullWidth
@@ -215,8 +251,8 @@ const TypingCertificate = ({ back }) => {
                             type="text"
                             id="address"
                             name="address"
-                            value={formData.address}
-                            onChange={handleInputChange}
+                            value={fetchTypingData.address}
+                            // onChange={handleInputChange}
                             label="Address"
                             size="regular"
                             fullWidth
@@ -227,8 +263,8 @@ const TypingCertificate = ({ back }) => {
                             type="date"
                             id="from"
                             name="from"
-                            value={formData.from}
-                            onChange={handleInputChange}
+                            value={fetchTypingData.from}
+                            // onChange={handleInputChange}
                             variant="outlined"
                             label="From"
                             size="regular"
@@ -241,8 +277,8 @@ const TypingCertificate = ({ back }) => {
                             type="date"
                             id="to"
                             name="to"
-                            value={formData.to}
-                            onChange={handleInputChange}
+                            value={fetchTypingData.to}
+                            // onChange={handleInputChange}
                             variant="outlined"
                             label="To"
                             size="regular"
@@ -254,8 +290,8 @@ const TypingCertificate = ({ back }) => {
                         <Input
                             id="grade"
                             name="grade"
-                            value={formData.grade}
-                            onChange={handleInputChange}
+                            value={fetchTypingData.obtain_marks}
+                            // onChange={handleInputChange}
                             variant="outlined"
                             label="Enter Marks"
                             size="regular"
