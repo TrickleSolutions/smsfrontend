@@ -1,74 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { MdArrowForward } from 'react-icons/md';
-import { Button, Input, Textarea } from '@material-tailwind/react'
+import { Button, Input, select } from '@material-tailwind/react'
 import Select from 'react-select';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useCertificate } from '../../context/useCertificate';
+import { useNavigate } from 'react-router-dom';
 import baseurl from '../../Config';
+import TypingCertificateResults from './TypingCertificateResults';
+import moment from 'moment/moment';
+import AddTypingResultModal from './AddTypingResultModal';
 
 
 const TypingCertificate = ({ back }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [loader, setLoader] = useState(true);
-
-    const [selectStudent, setSelectStudent] = useState([]);
-    const [selectStudentData, setSelectStudentData] = useState([]);
     const [fetchTypingData, setFetchTypingData] = useState([])
+    const [selectStudent, setSelectStudent] = useState(null); // Added selectStudent state
+    const [selectedStudent, setSelectedStudent] = useState(null)
+    const [open, setOpen] = useState(false)
+    const handleClose = () => setOpen(!open)
+    const [openAdd, setOpenAdd] = useState(false)
+    const handleAddClose = () => setOpenAdd(!openAdd)
 
-    const getStudentList = async () => {
-        try {
-
-            const response = await fetch(`${baseurl}/api/course-students/65599995416b71fffc09d5ff`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status} - ${response.statusText}`);
-            }
-
-            const result = await response.json();
-            setSelectStudentData(result.data[0].student);
-            setLoader(false);
-        } catch (error) {
-            console.error("Error fetching student list:", error);
-        }
-    };
-
-    console.log('selected student', selectStudent.value)
-    const getFetchResult = async () => {
-        try {
-
-            const response = await fetch(`${baseurl}/api/typing-result/get?id=${selectStudent?.value}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status} - ${response.statusText}`);
-            }
-
-            const result = await response.json();
-            setFetchTypingData(result.data);
-            setLoader(false);
-        } catch (error) {
-            console.error("Error fetching student list:", error);
-        }
-    };
-
-    console.log('', fetchTypingData)
-
-
-    useEffect(() => {
-        getStudentList();
-        getFetchResult();
-    }, [currentPage]);
-
+    const handleAddtypingResult = () => {
+        setOpen(!open)
+        setOpenAdd(!openAdd)
+    }
 
     const [formData, setFormData] = useState({
         name: null,
@@ -83,73 +39,76 @@ const TypingCertificate = ({ back }) => {
         grade: ''
     });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+    const getFetchResult = async () => {
+        try {
+            const response = await fetch(`${baseurl}/api/typing-result/get`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            setFetchTypingData(result.data);
+            setLoader(false);
+        } catch (error) {
+            console.error("Error fetching typing result:", error);
+        }
     };
 
 
-    const handleSelectStudent = (selectedStudent) => {
-        const selected = selectStudentData?.students?.find(
-            (item) => item?._id === selectedStudent?.value
-        );
+    const returnOptions = (data) => {
+        const options = data?.map((item) => ({
+            label: item?.student?.name,
+            value: item?._id
+        }))
 
-        if (selected) {
-            const { regno, fname } = selected;
+        return options
+    }
 
-            setFormData({
-                student: selected,
-                regNo: regno,
-                fatherName: fname,
-            });
-        }
 
-        setSelectStudent(selectedStudent);
+
+    useEffect(() => {
+        getFetchResult()
+    }, [])
+
+    const handleSelectStudent = (selectedOption) => {
+        setSelectStudent(selectedOption);
+    };
+    const PrintCertificate = useNavigate()
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        PrintCertificate(`/admin/certificate/print-certificate`, { state: { selectedStudent } });
+        console.log('Form submitted:', selectedStudent);
     };
 
 
     useEffect(() => {
         if (selectStudent) {
-            const student = selectStudentData?.students?.find(item => item?._id === selectStudent?.value)
-            setFormData({ regNo: student?.regno, fatherName: student?.fname })
+            setSelectedStudent(fetchTypingData?.find((item) => item?._id === selectStudent?.value))
         }
     }, [selectStudent])
 
-    const handleSelectlanguageOption = (selectedOption) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            language: selectedOption,
-        }));
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        PrintCertificate(`/admin/certificate/print-certificate`, { state: { formData } });
-        console.log('Form submitted:', formData);
-    };
-
-    const selectedlanguageOptions = [
-        { label: 'English', value: 'english' },
-        { label: 'Hindi', value: 'hindi' },
-    ];
-
-    const SelectOptions = [
-        { label: 'Credit', value: 'credit' },
-        { label: 'Distinction', value: 'distinction' },
-        { label: 'Excellent', value: 'excellent' }
-        // Add more courses as needed
-    ];
-
-    const PrintCertificate = useNavigate()
-    const { Id } = useParams();
-
     return (
         <div>
-            <Button onClick={back}>Back to Certificate</Button>
+            <div className="flex justify-between">
+                <Button variant='outlined' onClick={back}>Back to Certificate</Button>
+                <Button color='green' onClick={handleClose} >Typing Certificates</Button>
+                <TypingCertificateResults
+                    open={open}
+                    handleClose={handleClose}
+                    openAddCertificate={handleAddtypingResult}
+                />
+                <AddTypingResultModal
+                    open={openAdd}
+                    handleClose={handleAddClose}
+                />
+            </div>
             <div className="p-5 mx-auto max-w-xl">
                 <form onSubmit={handleSubmit}>
                     {/* Course Select Field */}
@@ -160,35 +119,22 @@ const TypingCertificate = ({ back }) => {
                             name="name"
                             value={selectStudent}
                             onChange={handleSelectStudent}
-                            options={selectStudentData?.map((item) => ({
-                                label: item?.name,
-                                value: item?._id,
-                            }))}
+                            options={returnOptions(fetchTypingData)}
                             placeholder="Select Student"
                             isSearchable
                         />
                     </div>
 
                     <div className="py-2">
-                        {/* <Select
-                            id="grade"
-                            name="grade"
-                            value={formData.language}
-                            onChange={handleSelectlanguageOption}
-                            options={selectedlanguageOptions}
-                            placeholder="Typing Language"
-                            isSearchable
-                            isClearable
-                        /> */}
                         <Input
                             type="text"
                             id="fatherName"
                             name="fatherName"
-                            value={fetchTypingData.typingLang}
-                            // onChange={handleInputChange}
+                            value={selectedStudent?.typingLang}
                             label="Typing Language"
                             size="regular"
                             fullWidth
+                            disabled
                         />
                     </div>
 
@@ -198,11 +144,11 @@ const TypingCertificate = ({ back }) => {
                             type="text"
                             id="fatherName"
                             name="fatherName"
-                            value={fetchTypingData.fname}
-                            // onChange={handleInputChange}
+                            value={selectedStudent?.fname}
                             label="Father's Name"
                             size="regular"
                             fullWidth
+                            disabled
                         />
 
                     </div>
@@ -212,11 +158,11 @@ const TypingCertificate = ({ back }) => {
                             type="text"
                             id="regNo"
                             name="regNo"
-                            value={fetchTypingData.regno}
-                            // onChange={handleInputChange}
+                            value={selectedStudent?.regno}
                             label="Registration Number"
                             size="regular"
                             fullWidth
+                            disabled
                         />
                     </div>
                     <div className="py-2">
@@ -225,11 +171,11 @@ const TypingCertificate = ({ back }) => {
                             type="number"
                             id="speedWpm"
                             name="speedWpm"
-                            value={fetchTypingData.speed}
-                            // onChange={handleInputChange}
+                            value={selectedStudent?.speed}
                             label="Speed"
                             size="regular"
                             fullWidth
+                            disabled
                         />
                     </div>
                     <div className="py-2">
@@ -238,11 +184,11 @@ const TypingCertificate = ({ back }) => {
                             type="number"
                             id="average"
                             name="average"
-                            value={fetchTypingData.accuracy}
-                            // onChange={handleInputChange}
+                            value={selectedStudent?.accuracy}
                             label="Average"
                             size="regular"
                             fullWidth
+                            disabled
                         />
                     </div>
                     <div className="py-2">
@@ -251,11 +197,11 @@ const TypingCertificate = ({ back }) => {
                             type="text"
                             id="address"
                             name="address"
-                            value={fetchTypingData.address}
-                            // onChange={handleInputChange}
+                            value={selectedStudent?.student?.address}
                             label="Address"
                             size="regular"
                             fullWidth
+                            disabled
                         />
                     </div>
                     <div className="py-2">
@@ -263,12 +209,12 @@ const TypingCertificate = ({ back }) => {
                             type="date"
                             id="from"
                             name="from"
-                            value={fetchTypingData.from}
-                            // onChange={handleInputChange}
+                            value={selectedStudent?.from ? moment(selectedStudent?.from).format('YYYY-MM-DD') : ''}
                             variant="outlined"
                             label="From"
                             size="regular"
                             fullWidth
+                            disabled
                         />
 
                     </div>
@@ -277,12 +223,12 @@ const TypingCertificate = ({ back }) => {
                             type="date"
                             id="to"
                             name="to"
-                            value={fetchTypingData.to}
-                            // onChange={handleInputChange}
+                            value={selectedStudent?.from ? moment(selectedStudent?.to).format('YYYY-MM-DD') : ''}
                             variant="outlined"
                             label="To"
                             size="regular"
                             fullWidth
+                            disabled
                         />
 
                     </div>
@@ -290,12 +236,12 @@ const TypingCertificate = ({ back }) => {
                         <Input
                             id="grade"
                             name="grade"
-                            value={fetchTypingData.obtain_marks}
-                            // onChange={handleInputChange}
+                            value={selectedStudent?.obtain_marks < 60 ? 'B' : selectedStudent?.obtain_marks > 60 ? 'A' : selectedStudent?.obtain_marks > 80 ? 'A+' : null}
                             variant="outlined"
                             label="Enter Marks"
                             size="regular"
                             fullWidth
+                            disabled
                         />
                     </div>
 

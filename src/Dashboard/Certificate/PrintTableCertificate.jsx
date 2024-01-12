@@ -15,6 +15,10 @@ const PrintTableCertificate = () => {
 
     const location = useLocation();
     const formData = location.state?.formData || {};
+    const formDataa = location.state?.selectedStudent || {};
+
+
+    console.log(formDataa)
 
     const [loader, setLoader] = useState(false);
 
@@ -43,8 +47,6 @@ const PrintTableCertificate = () => {
             doc.save("certificate.pdf");
         });
     };
-
-    console.log(formData)
 
     return (
         <div className='bg-white flex items-start justify-center'>
@@ -85,11 +87,11 @@ const PrintTableCertificate = () => {
                                 style={{ fontFamily: 'Charm, cursive' }}
                                 className='absolute leading-loose w-[650px] text-[17px] font-bold inset-x-auto top-[42%] text-left tracking-wider'
                             >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certified that Mr./Mrs./Miss <span className='text-blue-800'>...{formData?.name}...</span> S/o,
-                                W/o, D/o <span className='text-blue-800'>...{formData?.fatherName}...</span> Registration No <span className='text-blue-800'>...{formData?.regNo}...</span> on successfully
-                                completed course of <span className='text-blue-800'>...Certificate of Computer in {formData?.language?.label} Typing...</span> average test
-                                speed <span className='text-blue-800'>...{formData?.speedWpm} wpm...</span> average accuracy <span className='text-blue-800'>...{formData?.average}%...</span> at <span className='text-blue-800'>...{formData?.address}...</span> of duration from <span className='text-blue-800'>...{moment(formData?.from).format("MMM-YYYY")}...</span> to <span className='text-blue-800'>...{moment(formData?.to).format("MMM-YYYY")}...</span> and achieved the
-                                grade <span className='text-blue-800'>...{formData?.grade < 60 ? 'B' : formData?.grade > 60 ? 'A' : formData?.grade > 80 ? 'A+' : formData?.grade}...</span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certified that Mr./Mrs./Miss <span className='text-blue-800'>...{formDataa?.student?.name}...</span> S/o,
+                                W/o, D/o <span className='text-blue-800'>...{formDataa?.student?.fname}...</span> Registration No <span className='text-blue-800'>...{formDataa?.student?.regno}...</span> on successfully
+                                completed course of <span className='text-blue-800'>...Certificate of Computer in {formDataa?.language?.label} Typing...</span> average test
+                                speed <span className='text-blue-800'>...{formDataa?.speed} wpm...</span> average accuracy <span className='text-blue-800'>...{formDataa?.accuracy}%...</span> at <span className='text-blue-800'>...SMS Education Computer...</span> of duration from <span className='text-blue-800'>...{moment(formDataa?.from).format("MMM-YYYY")}...</span> to <span className='text-blue-800'>...{moment(formDataa?.to).format("MMM-YYYY")}...</span> and achieved the
+                                grade <span className='text-blue-800'>...{formDataa?.obtain_marks < 60 ? 'B' : formDataa?.obtain_marks > 60 ? 'A' : formDataa?.obtain_marks > 80 ? 'A+' : null}...</span>
                             </div>
                         </Draggable>
                     </div>
