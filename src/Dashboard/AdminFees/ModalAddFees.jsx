@@ -11,7 +11,7 @@ import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import Select from "react-select";
 
-const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
+const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
   const [courses, setCourses] = useState("");
   const [data, setData] = useState([]);
   const [getStudent, setGetStudent] = useState([])
@@ -168,22 +168,6 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
     label: student.name,
   }));
 
-  // const getStudentList = () => {
-  //   fetch(baseurl + "/api/students/" + formData.students?.value, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setGetStudent(data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
   const onSubmitClick = (e) => {
     e.preventDefault();
 
@@ -196,15 +180,10 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
       paid: paid,
       recievedBy: recievedBy,
       date: date,
-      course: getStudent?.course,
+      course: formData?.course?._id,
       instructor: formData.instructor.value,
     };
 
-
-
-    console.log('Request Data:', requestData);
-
-    console.log(getStudent?.regno)
 
     fetch(baseurl + "/api/fee/create/" + getStudent?.regno, {
       method: "POST",
@@ -222,13 +201,14 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
       })
       .then((result) => {
         // Handle successful response
-        toast.success("Batch Scheduled Successfully");
+        toast.success("Fees Added Successfully");
         handleOpen();
-        getScheduledBatchesList();
+        getFeesList();
       })
       .catch((err) => {
         // Handle fetch error
         console.error("Fetch error:", err);
+        toast.warning(err);
       });
 
   };
@@ -419,6 +399,7 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
                     setPaid(e.target.value);
                   }}
                 />
+                <span className="text-red-800">{formData?.course?.price < paid ? 'This is More than Course Fees Minus (-)' : ''}</span>
               </div>
               <div className="w-full px-3 mb-3">
                 <label
@@ -509,4 +490,4 @@ const ModalAddBatch = ({ open, handleOpen, getScheduledBatchesList }) => {
   );
 };
 
-export default ModalAddBatch;
+export default ModalAddFees;

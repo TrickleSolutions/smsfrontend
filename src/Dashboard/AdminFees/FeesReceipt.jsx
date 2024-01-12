@@ -16,7 +16,7 @@ const FeesReceipt = () => {
 
 
     const getFeesList = () => {
-        fetch(baseurl + "/api/fee ", {
+        fetch(baseurl + "/api/fee/data/get?regno=" + id, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -26,7 +26,7 @@ const FeesReceipt = () => {
                 return res.json();
             })
             .then((result) => {
-                setFeesData(result);
+                setFeesData(result.data[0]);
                 setLoader(false);
             })
             .catch((err) => {
@@ -68,7 +68,7 @@ const FeesReceipt = () => {
             >
                 Download
             </Button>
-            <div className="receipt w-[100%] h-[150vh]">
+            <div style={{ margin: 'auto auto' }} className="receipt w-[100%] h-[150vh]">
                 <div
                     style={{ boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px' }}
                     className="max-w-4xl mx-auto p-5">
@@ -76,7 +76,7 @@ const FeesReceipt = () => {
                     <div className="flex justify-between items-start">
                         <div className="m-2 flex flex-col justify-center items-center w-fit">
                             <h3 className="text-sm my-1">ISO Certified : 9001:2008</h3>
-                            <img src={logo} className="w-20 h-20" alt="" />
+                            <img src={logo} className="w-20 h-20 mt-1" alt="" />
                         </div>
                         <div className="m-2 text-xl text-center uppercase font-extrabold font-mono">
                             <h1 className="text-5xl mb-5">SMS Education</h1>
@@ -91,7 +91,7 @@ const FeesReceipt = () => {
                         </div>
                         <div className="m-2 flex flex-col justify-center items-center w-fit">
                             <h3 className="text-sm my-1">ISO Certified : 9001:2008</h3>
-                            <img src={logo} className="w-20 h-20" alt="" />
+                            <img src={logo} className="w-20 h-20 mt-1" alt="" />
                         </div>
                     </div>
 
@@ -106,35 +106,25 @@ const FeesReceipt = () => {
                             {/* 1st detail */}
                             <div className="flex ">
                                 <div className="font-extrabold w-36">Registration No:</div>
-                                {/* <div>{currentUser.regno}</div> */}
+                                <div>{feesData?.regno}</div>
                             </div>
                             {/* 2nd detail */}
                             <div className="flex ">
                                 <div className="font-extrabold w-36">Name:</div>
-                                {/* <div>{currentUser.name}</div> */}
-                            </div>
-                            {/* 3rd detail */}
-                            <div className="flex ">
-                                <div className="font-extrabold w-36">Father's Name:</div>
-                                {/* <div>{currentUser.fname}</div> */}
+                                <div>{feesData?.name}</div>
                             </div>
                         </div>
                         {/* Right block */}
                         <div className="m-3">
-                            {/* 1st detail */}
-                            <div className="flex ">
-                                <div className="font-extrabold w-36">Receipt Id :</div>
-                                <div>5964</div>
-                            </div>
                             {/* 2nd detail */}
                             <div className="flex ">
                                 <div className="font-extrabold w-36">Receipt No. :</div>
-                                <div>{id}</div>
+                                <div>{feesData?.recieptNo}</div>
                             </div>
                             {/* 3rd detail */}
                             <div className="flex ">
                                 <div className="font-extrabold w-36">Date :</div>
-                                <div>{moment().format("MMM Do YY")}</div>
+                                <div>{moment(feesData?.date).format("MMM Do YY")}</div>
                             </div>
                         </div>
                     </div>
@@ -148,13 +138,13 @@ const FeesReceipt = () => {
                         </div>
                         <div className="flex justify-between border-b border-black px-2 py-2 text-md">
                             <div>1.</div>
-                            <div>Android Development</div>
-                            <div>14000</div>
+                            <div>{feesData?.course?.title}</div>
+                            <div>{feesData?.paid}</div>
                         </div>
                         <div className="flex text-xl justify-between border-b border-black px-2 font-semibold py-2">
                             <div className=" ml-10">Total</div>
                             <div></div>
-                            <div>1400</div>
+                            <div>{feesData?.paid}</div>
                         </div>
                     </div>
 
