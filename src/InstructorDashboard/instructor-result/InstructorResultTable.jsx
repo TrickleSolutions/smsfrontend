@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import ModalEditResult from "./ModalEditResult";
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
+import moment from "moment/moment";
 
 const InstructorResultTable = ({ item, getMarksList }) => {
   const [open2, setOpen2] = useState(false);
@@ -26,6 +27,7 @@ const InstructorResultTable = ({ item, getMarksList }) => {
         });
     }
   }
+  
 
   return (
     <>
@@ -42,7 +44,7 @@ const InstructorResultTable = ({ item, getMarksList }) => {
           {item.obtain_marks}{" "}
           <span className=" visible sm:hidden">/ {item.total_marks}</span>
         </td>
-        <td className="px-3 py-4 hidden lg:table-cell">{item.date}</td>
+        <td className="px-3 py-4 hidden lg:table-cell">{moment(item.date).format('MMMM Do YYYY')}</td>
         <td className="px-1 py-4">
           <div>
             <Menu>

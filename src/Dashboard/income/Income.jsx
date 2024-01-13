@@ -6,6 +6,7 @@ import IncomeTable from "./IncomeTable";
 import Loader from "../../Components/Loader";
 import Expenses from "../expenses/Expenses";
 import ModalAddIncome from "./ModalAddIncome";
+import Approval from "./Approval";
 
 const Income = () => {
   const [product, setProduct] = useState([]);
@@ -15,6 +16,8 @@ const Income = () => {
   const [search, setSearch] = useState("");
   const [loader, setLoader] = useState(true);
   const [allExpenseData, setAllExpenseData] = useState([]);
+  const [openapproval, setApproval] = useState(false)
+  const handleApprovelModal = () => setApproval(!openapproval)
 
   const getIncomeList = () => {
     fetch(baseurl + "/api/income ", {
@@ -169,11 +172,34 @@ const Income = () => {
               </div>
             </div>
           </div>
+          <div className="m-3 flex items-center w-fit px-5 py-7 sm:py-10  rounded-lg shadow-xl hover:-translate-y-2 transition">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1}
+              stroke="currentColor"
+              className="w-12 sm:w-16 h-12 sm:h-16 mr-5 text-[var(--theme-color)]"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+
+            <div className="">
+              <div className="text-[var(--theme-color)] text-3xl">{totalExpense - totalIncome}</div>
+              <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
+                Opening Balance
+              </div>
+            </div>
+          </div>
         </div>
         {/* Incomes */}
         <div className=" flex flex-col sm:flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] text-center sm:text-start ">
-            Incomes
+            Balance Report
           </h2>
           {/* Students */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center">
@@ -207,8 +233,11 @@ const Income = () => {
                 </div>
               </div>
             </div>
-            <Button onClick={handleOpen} className="h-fit">
+            <Button onClick={handleOpen} className="h-fit mr-1">
               + Add Income
+            </Button>
+            <Button color="red" onClick={handleApprovelModal} className="h-fit">
+              View Deduction Approval
             </Button>
           </div>
         </div>
@@ -216,6 +245,10 @@ const Income = () => {
           open={open}
           handleOpen={handleOpen}
           getIncomeList={getIncomeList}
+        />
+        <Approval
+          open={openapproval}
+          handleOpen={handleApprovelModal}
         />
 
         {/* Income Table */}
@@ -230,20 +263,26 @@ const Income = () => {
                 <table className="w-full text-sm text-left text-gray-500 ">
                   <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
                     <tr>
-                      <th scope="col" className=" py-3">
-                        <Checkbox />
+                      <th scope="col" className="px-6 py-3 text-center">
+                        Sr. No.
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        Source
-                      </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="px-3 py-3 text-center">
                         Date
                       </th>
-                      <th scope="col" className="px-6 py-3">
-                        Time
+                      <th scope="col" className="px-6 py-3 text-center">
+                        Particular
                       </th>
-                      <th scope="col" className="px-3 py-3">
-                        Amount
+                      <th scope="col" className="px-6 py-3 text-center">
+                        Detail
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-center">
+                        DR (Amount)
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-center">
+                        CR (Amount)
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-center">
+                        Balance
                       </th>
                       <th scope="col" className="px-1 py-3">
                         <svg
@@ -264,8 +303,28 @@ const Income = () => {
                     </tr>
                   </thead>
                   <tbody>
+                    <tr className="p-2">
+                      <td className="text-black text-center">1</td>
+                      <td className="text-black text-center">12 January 2024</td>
+                      <td className="text-black text-center">Electricity Bill</td>
+                      <td className="text-black text-center">Bill</td>
+                      <td className="text-red-800 text-center">200</td>
+                      <td className="text-black text-center"></td>
+                      <td className="text-black text-center">200</td>
+                      <td className="text-black text-center">Action</td>
+                    </tr>
+                    <tr className="p-2">
+                      <td className="text-black text-center">2</td>
+                      <td className="text-black text-center">13 January 2024</td>
+                      <td className="text-black text-center">Student Fees</td>
+                      <td className="text-black text-center">Fees</td>
+                      <td className="text-black text-center"></td>
+                      <td className="text-green-800 text-center">5000</td>
+                      <td className="text-black text-center">500</td>
+                      <td className="text-black text-center">Action</td>
+                    </tr>
                     {/* Dummy Data Ends Here */}
-                    {pageData.map((item) => {
+                    {/* {pageData.map((item) => {
                       if (
                         item.desc
                           .toLowerCase()
@@ -278,7 +337,7 @@ const Income = () => {
                           />
                         );
                       }
-                    })}
+                    })} */}
                   </tbody>
                 </table>
               </div>
@@ -347,7 +406,7 @@ const Income = () => {
         </div>
 
         {/* Expenses Table */}
-        <Expenses />
+        {/* <Expenses /> */}
       </div>
       {/* Footer */}
       <div className="bg-[var(--theme-color)]">
