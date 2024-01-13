@@ -87,6 +87,8 @@ const CoursesCertificate = ({ back }) => {
     GetStudentList(formData.course?._id);
   }, [formData.course]);
 
+
+
   return (
     <div>
       <Button onClick={back}>Back to Certificate</Button>
@@ -138,7 +140,7 @@ const CoursesCertificate = ({ back }) => {
               type="text"
               id="regNo"
               name="regNo"
-              value={formData.regNo}
+              value={formData?.student?.regno}
               onChange={handleInputChange}
               label="Registration Number"
               size="regular"

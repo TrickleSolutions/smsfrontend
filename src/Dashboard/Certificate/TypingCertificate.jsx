@@ -26,19 +26,6 @@ const TypingCertificate = ({ back }) => {
         setOpenAdd(!openAdd)
     }
 
-    const [formData, setFormData] = useState({
-        name: null,
-        fatherName: '',
-        regNo: '',
-        language: null,
-        speedWpm: '',
-        average: '',
-        address: '',
-        from: '',
-        to: '',
-        grade: ''
-    });
-
     const getFetchResult = async () => {
         try {
             const response = await fetch(`${baseurl}/api/typing-result/get`, {
@@ -107,6 +94,9 @@ const TypingCertificate = ({ back }) => {
                 <AddTypingResultModal
                     open={openAdd}
                     handleClose={handleAddClose}
+                    openList={handleClose}
+                    openAddCertificate={handleAddtypingResult}
+                    getFetchResult={getFetchResult}
                 />
             </div>
             <div className="p-5 mx-auto max-w-xl">

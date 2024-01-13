@@ -84,7 +84,17 @@ const TypingCertificateResults = ({ open, handleClose, openAddCertificate }) => 
                       <td className="border border-gray-300 p-2">{moment(item?.to).format('MM Do YYYY')}</td>
                       <td className="border border-gray-300 p-2">{item?.total_marks}</td>
                       <td className="border border-gray-300 p-2">{item?.obtain_marks}</td>
-                      <td className="border border-gray-300 p-2">{item?.obtain_marks < 60 ? 'B' : item?.obtain_marks > 60 ? 'A' : item?.obtain_marks > 80 ? 'A+' : null  }</td>
+                      <td className="border border-gray-300 p-2">{
+
+                        item?.obtain_marks < 60
+                          ? 'B'
+                          : item?.obtain_marks >= 60 && item?.obtain_marks <= 80
+                            ? 'A'
+                            : item?.obtain_marks > 80
+                              ? 'A+'
+                              : null
+
+                      }</td>
                     </tr>
                   ))
                 }

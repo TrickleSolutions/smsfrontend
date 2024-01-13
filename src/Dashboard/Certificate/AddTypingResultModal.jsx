@@ -2,13 +2,18 @@ import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Input } from '@
 import React, { useEffect, useState } from 'react';
 import baseurl from '../../Config';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 
-const AddTypingResultModal = ({ open, handleClose }) => {
+const AddTypingResultModal = ({ open, handleClose, getFetchResult, openList }) => {
     const [inputs, setInputs] = useState({});
     const [loader, setLoader] = useState(true);
 
     const [selectStudent, setSelectStudent] = useState(null);
     const [selectStudentData, setSelectStudentData] = useState([]);
+    const [typingLang, setTypingLang] = useState(null);
+
+
+
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -18,7 +23,11 @@ const AddTypingResultModal = ({ open, handleClose }) => {
 
     const handleSelectStudent = (selectedOption) => {
         setSelectStudent(selectedOption);
-        setInputs(values => ({ ...values, name: selectedOption.label, studentId: selectedOption.value }));
+    };
+
+    const handleSelectTypingLang = (selectedOption) => {
+        setTypingLang(selectedOption);
+        setInputs((values) => ({ ...values, typingLang: selectedOption.value }));
     };
 
     const handleSubmit = (event) => {
@@ -26,9 +35,9 @@ const AddTypingResultModal = ({ open, handleClose }) => {
 
         const formData = {
             student: selectStudent.value,
-            regno: inputs.regno || '',
-            typingLang: inputs.typingLang || '',
-            fname: inputs.fname || '',
+            regno: selectStudent?.regno || '',
+            typingLang: typingLang?.value || '',
+            fname: selectStudent.fname || '',
             speed: inputs.speed || '',
             accuracy: inputs.accuracy || '',
             from: inputs.from || '',
@@ -38,7 +47,45 @@ const AddTypingResultModal = ({ open, handleClose }) => {
         };
 
         console.log("Form submitted:", formData);
-        handleClose();
+
+
+        fetch(baseurl + "/api/typing-result/create", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((result) => {
+                toast.success("Added Successfully");
+                handleClose()
+                setInputs({
+                    ...inputs,
+                    student: '',
+                    regno: '',
+                    typingLang: '',
+                    fname: '',
+                    speed: '',
+                    accuracy: '',
+                    from: '',
+                    to: '',
+                    total_marks: '',
+                    obtain_marks: ''
+                });
+                getFetchResult();
+            })
+            .catch((err) => {
+                // Handle fetch error
+                console.error("Fetch error:", err);
+                toast.warning(err);
+            });
     }
 
     const getStudentList = async () => {
@@ -56,7 +103,6 @@ const AddTypingResultModal = ({ open, handleClose }) => {
 
             const result = await response.json();
             setSelectStudentData(result.data[0].student);
-            setLoader(false);
         } catch (error) {
             console.error("Error fetching student list:", error);
         }
@@ -66,7 +112,10 @@ const AddTypingResultModal = ({ open, handleClose }) => {
         getStudentList();
     }, []);
 
-    console.log(selectStudentData)
+    const options = [
+        { value: 'english', label: 'English Language' },
+        { value: 'hindi', label: 'Hindi Language' },
+    ]
 
     return (
         <>
@@ -89,20 +138,120 @@ const AddTypingResultModal = ({ open, handleClose }) => {
                                 options={selectStudentData?.map((item) => ({
                                     label: item?.name,
                                     value: item?._id,
+                                    ...item
                                 }))}
                                 placeholder="Select Student"
                                 isSearchable
                             />
                         </div>
-                        {/* Additional form fields go here */}
+
                         <div className="py-2">
                             <Input
                                 type="text"
-                                id="otherField"
-                                name="otherField"
-                                value={inputs.otherField || ''}
+                                id="regno"
+                                name="regno"
+                                value={selectStudent?.regno}
+                                label="Reg. No."
+                                size="regular"
+                                fullWidth
+                            />
+                        </div>
+
+                        <div className="py-2">
+                            <Input
+                                type="text"
+                                id="fname"
+                                name="fname"
+                                value={selectStudent?.fname || ''}
+                                label="Father Name"
+                                size="regular"
+                                fullWidth
+                            />
+                        </div>
+
+                        <div className="py-2">
+                            <Select
+                                id="typingLang"
+                                name="typingLang"
+                                value={typingLang}
+                                onChange={handleSelectTypingLang}
+                                options={options}
+                                placeholder="Select Typing Language"
+                                isSearchable
+                            />
+
+                        </div>
+
+                        <div className="py-2">
+                            <Input
+                                type="number"
+                                id="speed"
+                                name="speed"
+                                value={inputs.speed || ''}
                                 onChange={handleChange}
-                                label="Other Field"
+                                label="Speed"
+                                size="regular"
+                                fullWidth
+                            />
+                        </div>
+                        <div className="py-2">
+                            <Input
+                                type="number"
+                                id="accuracy"
+                                name="accuracy"
+                                value={inputs.accuracy || ''}
+                                onChange={handleChange}
+                                label="Accuracy"
+                                size="regular"
+                                fullWidth
+                            />
+                        </div>
+                        <div className="grid grid-cols-2 py-2 gap-4">
+                            <div className="">
+                                <Input
+                                    type="date"
+                                    id="from"
+                                    name="from"
+                                    value={inputs.from || ''}
+                                    onChange={handleChange}
+                                    label="From"
+                                    size="regular"
+                                    fullWidth
+                                />
+                            </div>
+                            <div className="">
+                                <Input
+                                    type="date"
+                                    id="to"
+                                    name="to"
+                                    value={inputs.to || ''}
+                                    onChange={handleChange}
+                                    label="To"
+                                    size="regular"
+                                    fullWidth
+                                />
+                            </div>
+                        </div>
+                        <div className="py-2">
+                            <Input
+                                type="number"
+                                id="obtain_marks"
+                                name="obtain_marks"
+                                value={inputs.obtain_marks || ''}
+                                onChange={handleChange}
+                                label="Obtain Marks"
+                                size="regular"
+                                fullWidth
+                            />
+                        </div>
+                        <div className="py-2">
+                            <Input
+                                type="number"
+                                id="total_marks"
+                                name="total_marks"
+                                value={inputs.total_marks || ''}
+                                onChange={handleChange}
+                                label="Total Marks"
                                 size="regular"
                                 fullWidth
                             />
