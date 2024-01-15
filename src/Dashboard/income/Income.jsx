@@ -7,6 +7,8 @@ import Loader from "../../Components/Loader";
 import Expenses from "../expenses/Expenses";
 import ModalAddIncome from "./ModalAddIncome";
 import Approval from "./Approval";
+import Select from 'react-select'
+
 
 const Income = () => {
   const [product, setProduct] = useState([]);
@@ -98,10 +100,24 @@ const Income = () => {
   const expense = expenseLabels.split('+').map(Number);
   const totalExpense = expense.reduce((total, currentValue) => total + currentValue, 0);
 
+  const options = [
+    { value: '2023', label: '2023' },
+    { value: '2024', label: '2024' },
+  ]
+
 
   return (
     <>
       <div className="relative mt-5 mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
+        <div className="flex justify-between">
+          <div>
+            Year 2024
+          </div>
+          <Select
+            options={options}
+            className="w-40"
+          />
+        </div>
         {/* Stats */}
         <div className="flex justify-around flex-wrap my-10">
           <div className="m-3 flex items-center px-5 py-7 sm:py-10  rounded-lg shadow-xl hover:-translate-y-2 transition">
@@ -234,11 +250,21 @@ const Income = () => {
               </div>
             </div>
             <Button onClick={handleOpen} className="h-fit mr-1">
-              + Add Income
+              + Add Fund
             </Button>
-            <Button color="red" onClick={handleApprovelModal} className="h-fit">
-              View Deduction Approval
-            </Button>
+            <div class="relative inline-flex">
+              <Button
+                className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                onClick={handleApprovelModal}
+                color="red"
+                type="button">
+                View Deduction Approval
+              </Button>
+              <span
+                className="absolute rounded-full border border-white-2 py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[24px] min-h-[24px]">
+                5
+              </span>
+            </div>
           </div>
         </div>
         <ModalAddIncome

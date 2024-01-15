@@ -1,10 +1,10 @@
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton, Input } from '@material-tailwind/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import baseurl from '../../../Config';
 import { FiDelete } from "react-icons/fi";
 import { IoIosAddCircle } from "react-icons/io";
 import { toast } from 'react-toastify';
-
+import Select from 'react-select';
 
 
 const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) => {
@@ -12,6 +12,9 @@ const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) 
   const [file, setFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [uploads, setUploads] = useState([]);
+  const [selectedInstructor, setSelectedInstructor] = useState(null);
+  const [instructors, setInstructors] = useState([]);
+
 
   const handleFileUpload = async (e) => {
     try {
@@ -42,71 +45,140 @@ const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) 
     }
   };
 
+  const fetchInstructors = async () => {
+    try {
+      const response = await fetch(baseurl + '/api/instructor');
+      if (response.ok) {
+        const instructorsData = await response.json();
+        // Assuming the API returns an array of objects with label and value properties
+        return instructorsData.map((instructor) => ({ label: instructor.name, value: instructor._id }));
+      }
+      console.error('Failed to fetch instructors');
+      return [];
+    } catch (error) {
+      console.error('Error fetching instructors:', error);
+      return [];
+    }
+  };
 
+  const instructorId = selectedInstructor && selectedInstructor.length > 0 ? selectedInstructor.map(option => option.value) : null;
 
   const [formData, setFormData] = useState({
-    lession_no: '',
-    title: '',
-    subtitle: [],
+    lession_no: null,
+    course: courseId,
+    subject: {
+      title: "",
+    },
+    topic: [
+      {
+        day: 1,
+        topics: "",
+        notes: "",
+      },
+    ],
+    instructorList: [instructorId],
   });
 
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleTitleChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      subject: {
+        ...prevFormData.subject,
+        title: value,
+      },
+    }));
+  };
+
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     subject: {
+  //       ...prevFormData.subject,
+  //       [name]: value,
+  //     },
+  //   }));
+  // };
+
+  const handleTopicChange = (index, name, value) => {
+    const topics = [...formData.topic];
+    topics[index] = {
+      ...topics[index],
+      [name]: value,
+    };
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      topic: topics,
     });
   };
 
-  const handleSubtitleChange = (index, value) => {
-    const subtitles = [...formData.subtitle];
-    subtitles[index] = value;
+  const handleAddTopic = () => {
     setFormData({
       ...formData,
-      subtitle: subtitles,
+      topic: [
+        ...formData.topic,
+        {
+          day: formData.topic.length + 1,
+          topics: "",
+          notes: "",
+        },
+      ],
     });
   };
 
-  const handleAddSubtitle = () => {
+  const handleRemoveTopic = (index) => {
+    const topics = [...formData.topic];
+    topics.splice(index, 1);
     setFormData({
       ...formData,
-      subtitle: [...formData.subtitle, ''],
+      topic: topics,
     });
   };
-
-  const handleRemoveSubtitle = (index) => {
-    const subtitles = [...formData.subtitle];
-    subtitles.splice(index, 1);
-    setFormData({
-      ...formData,
-      subtitle: subtitles,
-    });
-  };
+  console.log(selectedInstructor)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log('formdata', formData)
+
     try {
-      const response = await fetch(baseurl + `/api/course/lessions/${courseId}`, {
+      const response = await fetch(baseurl + `/api/course/new-lession/${courseId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          uploads: uploads, // Include the uploads array in the request
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         console.log('Form Data Submitted:', formData);
         getCourseDetails();
         setFormData({
-          lession_no: '',
-          title: '',
-          subtitle: [],
+          lession_no: null,
+          course: courseId,
+          subject: {
+            title: "",
+          },
+          topic: [
+            {
+              day: 1,
+              topics: "",
+              notes: "",
+            },
+          ],
+          instructorList: [],
         });
         setFile(null);
-        setUploads([]); // Clear the uploads array after submission
+        setUploads([]);
       } else {
         console.error('Submission failed');
       }
@@ -117,6 +189,34 @@ const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) 
       handleOpen();
     }
   };
+
+  const handleInstructorChange = (selectedOptions) => {
+    // Convert selectedOptions to the required format
+    const updatedInstructorList = selectedOptions.map((option) => ({
+      value: option.value,
+      label: option.label,
+    }));
+
+    setSelectedInstructor(selectedOptions);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      instructorList: updatedInstructorList,
+    }));
+  };
+
+  useEffect(() => {
+    setFormData({ ...formData, instructorList: instructorId })
+  }, [selectedInstructor])
+
+
+  useEffect(() => {
+    const loadInstructors = async () => {
+      const instructorsList = await fetchInstructors();
+      setInstructors(instructorsList);
+    };
+
+    loadInstructors();
+  }, []);
 
   return (
     <Dialog
@@ -137,7 +237,7 @@ const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) 
             <Input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="lession_no"
-              type="text"
+              type="number"
               name="lession_no"
               value={formData.lession_no}
               onChange={handleInputChange}
@@ -154,49 +254,82 @@ const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) 
               id="title"
               type="text"
               name="title"
-              value={formData.title}
-              onChange={handleInputChange}
+              value={formData.subject.title}
+              onChange={handleTitleChange}
               placeholder="Enter title"
             />
+
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">
-              Upload Document
-            </label>
-            <input
-              type="file"
-              id="file"
-              name="file"
-              className="uploadDocs hidden"
-              onChange={handleFileUpload}
-            />
-            <Button onClick={() => document.querySelector(".uploadDocs").click()}>Upload</Button>
-            {uploadedImageUrl && (
-              <img src={uploadedImageUrl} alt="Uploaded" className="ml-4 max-w-[100px] max-h-[100px]" />
-            )}
-          </div>
-          <div className="mb-4">
+          <div className="">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="subtitle">
-              Subtitles
+              Lession Plan
             </label>
-            {formData.subtitle.map((subtitle, index) => (
-              <div key={index} className="flex mb-2">
-                <Input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text"
-                  name={`subtitle-${index}`}
-                  value={subtitle}
-                  onChange={(e) => handleSubtitleChange(index, e.target.value)}
-                  placeholder="Enter subtitle"
-                />
-                <IconButton className='text-red-800 flex items-center ml-1' variant='text' type="button" onClick={() => handleRemoveSubtitle(index)}>
-                  <FiDelete size={30} />
-                </IconButton>
+            {formData.topic.map((topic, index) => (
+              <div key={index} className="w-full">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">
+                  Day
+                </label>
+                <div className="flex justify-between">
+                  <Input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="number"
+                    name={`day-${index}`}
+                    value={topic.day}
+                    onChange={(e) => handleTopicChange(index, "day", e.target.value)}
+                  />
+                  <IconButton className='text-red-800 flex items-center ml-1' variant='text' type="button" onClick={() => handleRemoveTopic(index)}>
+                    <FiDelete size={30} />
+                  </IconButton>
+                </div>
+                <div className='my-2 '>
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">
+                    Enter Topics Name
+                  </label>
+                  <Input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    name={`subtitle-${index}`}
+                    value={topic.topics}
+                    onChange={(e) => handleTopicChange(index, "topics", e.target.value)}
+                    placeholder="Enter topics"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">
+                    Upload Document
+                  </label>
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    className="uploadDocs hidden"
+                    onChange={handleFileUpload}
+                  />
+                  <Button onClick={() => document.querySelector(".uploadDocs").click()}>Upload</Button>
+                  {uploadedImageUrl && (
+                    <img src={uploadedImageUrl} alt="Uploaded" className="ml-4 max-w-[100px] max-h-[100px]" />
+                  )}
+                </div>
               </div>
             ))}
-            <button type="button" onClick={handleAddSubtitle}>
+            <button type="button" onClick={handleAddTopic}>
               <IoIosAddCircle size={30} />
             </button>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lession_no">
+              Add Instructor
+            </label>
+            <Select
+              id="instructor"
+              name="instructor"
+              isMulti
+              value={selectedInstructor}
+              onChange={handleInstructorChange}
+              options={instructors}
+              placeholder="Select an instructor"
+            />
+
           </div>
         </form>
       </DialogBody>
