@@ -143,7 +143,6 @@ const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) 
       topic: topics,
     });
   };
-  console.log(selectedInstructor)
 
   const handleSubmit = async (e) => {
     e.preventDefault();

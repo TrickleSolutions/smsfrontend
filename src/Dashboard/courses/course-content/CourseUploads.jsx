@@ -6,6 +6,7 @@ import { FaCheckCircle, FaRegTrashAlt, FaUpload } from "react-icons/fa";
 import ModalAddCourseDetail from "./ModalAddCourseDetail";
 import { toast } from "react-toastify";
 import Loader from "../../../Components/Loader";
+import axios from "axios";
 
 const StudentAcademics = () => {
 
@@ -64,6 +65,33 @@ const StudentAcademics = () => {
     }
   };
 
+  const handleFileUpload = async (file, itemid, topicId) => {
+
+    try {
+      const formdata = new FormData();
+      formdata.append("file", file);
+
+
+      try {
+        const upload = await axios.post(baseurl + `/api/upload/file?fileName=${file.name}`, formdata)
+        if (upload.status === 200) {
+          const fileUrl = upload.data.fileName
+          console.log(fileUrl, itemid, topicId)
+          toast.info("uploaded on aws successfully", fileUrl)
+          const updateLessionNotes = await axios.get(baseurl + `/api/course/new-lession/upload/${itemid}/${topicId}?notesLink=${fileUrl}`)
+          if (updateLessionNotes.status === 200) {
+            toast.success("file Uploaded successfully")
+          }
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
 
   return (
     <>
@@ -80,9 +108,9 @@ const StudentAcademics = () => {
           ) : (
             <div className="w-full border border-black rounded-sm">
               {
-                courseDetail?.data?.map((item, index) => (
-                  <ul key={index} className="flex">
-                    <li className="border-black border w-24 text-center p-1 grid place-items-center" >[{index + 1}]</li>
+                courseDetail?.data?.map((item, key) => (
+                  <ul key={key} className="flex">
+                    <li className="border-black border w-24 text-center p-1 grid place-items-center" >[{key + 1}]</li>
                     <li className="border-black border w-3/5 text-blue-500 font-bold p-1 grid place-items-left items-center" >
                       <h3>{item.subject.title}</h3>
                       <p className="text-black">Days {item.subject.daycounts}</p>
@@ -90,14 +118,21 @@ const StudentAcademics = () => {
                     <li className="border-black border w-full text-blue-800 font-semibold p-1" >
                       {
                         item?.topic.map((title, index) => (
-                          <li>
-                            <div className="flex justify-between gap-4">
+                          <li key={index}>
+                            <div className="flex justify-between gap-4 items-center">
                               <div className="flex items-center gap-4">
                                 <div className="border border-black p-2">Day- {title.day}</div>
                                 <h4>{title.topics} </h4>
                               </div>
-                              <div className="flex gap-4">
-                                <IconButton color="" variant="outlined">
+                              <div className="flex gap-4 items-center">
+                                <input
+                                  type="file"
+                                  onChange={(e) =>
+                                    handleFileUpload(e.target.files[0], item._id, title._id)
+                                  }
+                                  className="uploadDocs hidden"
+                                />
+                                <IconButton onClick={() => document.querySelector(".uploadDocs").click()} color="" variant="outlined">
                                   <FaUpload />
                                 </IconButton>
                               </div>
@@ -109,10 +144,13 @@ const StudentAcademics = () => {
                     <li className="border-black border p-1 flex items-center justify-around">
                       {item.createdAt === item.updatedAt ? 'NA' : <FaCheckCircle />}
                     </li>
-                    <li className="border-black border w-1/3 p-1 flex items-center justify-around">
-                      <h4>{item.instructorList}</h4>
+                    <li className="border-black border w-1/5 p-1">
+                      {item.instructorList.map((instructor, index) => (
+                        <h2 key={index}>{instructor.name}</h2>
+                      ))}
                     </li>
-                    <li className="border-black border w-1/3 p-1 flex items-center justify-around">
+
+                    <li className="border-black border w-1/5 p-1 flex items-center justify-around">
                       <IconButton color="red" onClick={() => deleteData(item._id)} variant="outlined">
                         <FaRegTrashAlt className="text-red-800" />
                       </IconButton>

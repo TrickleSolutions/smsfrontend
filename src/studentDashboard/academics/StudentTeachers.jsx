@@ -19,7 +19,6 @@ const StudentTeachers = ({ enrollData, instructors }) => {
             key={item?._id}
             className="m-3 bg-white rounded-lg border shadow-xl flex items-center gap-4 p-5 place-items-center relative"
           >
-            {console.log(item)}
             <div className="w-2/5">
               <img src={`${baseurl}/${item?.profilePic || 'https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg'}`}
                 className="h-52 w-52 rounded-full" alt="..." />
