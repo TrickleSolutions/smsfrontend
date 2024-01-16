@@ -293,7 +293,7 @@ const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) 
                     placeholder="Enter topics"
                   />
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">
                     Upload Document
                   </label>
@@ -308,7 +308,7 @@ const ModalAddCourseDetail = ({ open, handleOpen, courseId, getCourseDetails }) 
                   {uploadedImageUrl && (
                     <img src={uploadedImageUrl} alt="Uploaded" className="ml-4 max-w-[100px] max-h-[100px]" />
                   )}
-                </div>
+                </div> */}
               </div>
             ))}
             <button type="button" onClick={handleAddTopic}>
