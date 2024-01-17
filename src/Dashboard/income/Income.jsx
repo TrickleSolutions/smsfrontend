@@ -1,104 +1,40 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
-import { Checkbox } from "@material-tailwind/react";
 import baseurl from "../../Config";
-import IncomeTable from "./IncomeTable";
-import Loader from "../../Components/Loader";
-import Expenses from "../expenses/Expenses";
+import {
+  DataGrid,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarDensitySelector,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+  GridToolbarQuickFilter,
+} from "@mui/x-data-grid";
 import ModalAddIncome from "./ModalAddIncome";
 import Approval from "./Approval";
 import Select from 'react-select'
+import moment from "moment/moment";
+import Loader from "../../Components/Loader";
+import ModalStartNewYear from "./ModalStartNewYear";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 
 const Income = () => {
-  const [product, setProduct] = useState([]);
-  const [pageData, setPageData] = useState([]);
-  const [page, setPage] = useState(1);
-  const [pageCount, setPageCount] = useState(0);
-  const [search, setSearch] = useState("");
+  const [timer, setTimer] = useState(new Date().getSeconds())
   const [loader, setLoader] = useState(true);
-  const [allExpenseData, setAllExpenseData] = useState([]);
-  const [openapproval, setApproval] = useState(false)
-  const handleApprovelModal = () => setApproval(!openapproval)
-
-  const getIncomeList = () => {
-    fetch(baseurl + "/api/income ", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setProduct(result);
-        setLoader(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const getExpenseList = () => {
-    fetch(baseurl + "/api/expense", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setAllExpenseData(result);
-        setLoader(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-
-  //handle Next
-  const handleNext = () => {
-    if (page === pageCount) return page;
-    setPage(page + 1);
-  };
-  //handlePrevious
-  const handlePrevious = () => {
-    if (page === 1) return page;
-    setPage(page - 1);
-  };
-  //console.log(pageCount)
-
-  useEffect(() => {
-    getIncomeList();
-    getExpenseList();
-  }, [page]);
-
-  useEffect(() => {
-    const pagedatacount = Math.ceil(product.length / 5);
-    setPageCount(pagedatacount);
-
-    if (page) {
-      const LIMIT = 5;
-      const skip = LIMIT * page;
-      const dataskip = product.slice(page === 1 ? 0 : skip - LIMIT, skip);
-      setPageData(dataskip);
-    }
-  }, [product]);
+  const [transitData, setTransitData] = useState([])
+  const [statsData, setStatsData] = useState(null)
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  const [openFinancial, setOpenFinancial] = useState(false);
+  const handleOpenFinancialYear = () => setOpenFinancial(!openFinancial);
 
-  const IncomeResult = pageData.map((item) => item.amount);
-  const incomeLabels = IncomeResult.join("+");
-  const income = incomeLabels.split('+').map(Number);
-  const totalIncome = income.reduce((total, currentValue) => total + currentValue, 0);
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
 
-  const ExpenseResult = allExpenseData.map((item) => item.amount);
-  const expenseLabels = ExpenseResult.join("+");
-  const expense = expenseLabels.split('+').map(Number);
-  const totalExpense = expense.reduce((total, currentValue) => total + currentValue, 0);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+
 
   const options = [
     { value: '2023', label: '2023' },
@@ -106,16 +42,201 @@ const Income = () => {
   ]
 
 
+  const CustomToolbar = () => {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarQuickFilter />
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+        <GridToolbarExport />
+        <GridToolbarDensitySelector />
+      </GridToolbarContainer>
+    );
+  };
+
+  const date = new
+
+
+    useEffect(() => {
+      console.log(timer)
+    }, [timer])
+
+
+
+
+
+  const getAllStats = async (selectedYear) => {
+    try {
+      setLoader(true);
+
+      toast.promise(
+        (async () => {
+          const response = await axios.get(`${baseurl}/api/cashbook/report/${selectedYear}`, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (response.status === 200) {
+            setStatsData(response.data.data);
+            setLoader(false);
+          } else {
+            setStatsData(null)
+          }
+        })(),
+        {
+          pending: `Fetching data for ${selectedYear}`,
+          success: `Year ${selectedYear} Data updated`,
+          error: `No record found in this year ${selectedYear}`,
+        }
+      );
+    } catch (error) {
+      console.error('Error fetching typing result:', error.message);
+      setLoader(false);
+    }
+  };
+
+  const getAllTransections = async (selectedYear) => {
+    try {
+      setLoader(true);
+      const response = await fetch(`${baseurl}/api/cashbook/transaction/get/${selectedYear}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      setTransitData(result.data);
+      setLoader(false);
+    } catch (error) {
+      console.error("Error fetching typing result:", error);
+      setLoader(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (selectedYear) {
+        await getAllStats(selectedYear);
+        await getAllTransections(selectedYear);
+      }
+    };
+
+    fetchData();
+  }, [selectedYear]);
+
+
+
+
+  const handleYearChange = (selectedOption) => {
+    setSelectedYear(selectedOption.value);
+  };
+
+
+  const DataWithID = (data) => {
+    const NewData = [];
+    if (data !== undefined) {
+      for (let item of data) {
+        NewData.push({
+          ...item,
+          id: data.indexOf(item),
+          date: moment(item.createdAt).format("D / M / Y"),
+        });
+      }
+    } else {
+      NewData.push({ id: 0 });
+    }
+    return NewData;
+  };
+
+  const columns = [
+    {
+      field: "id",
+      headerName: "Sr. No.",
+      width: 90,
+      renderCell: (params) => (
+        <div className="flex justify-center">{params.row.id + 1}</div>
+      ),
+    },
+    {
+      field: "date",
+      headerName: "Date",
+      width: 250,
+      renderCell: (params) => (
+        <div className="flex justify-center">{moment(params.row.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
+      ),
+    },
+    {
+      field: "particular",
+      headerName: "Particular",
+      width: 200,
+      renderCell: (params) => (
+        <div className="flex justify-center">{params.row.source}</div>
+      ),
+    },
+    {
+      field: "discrption",
+      headerName: "Detail",
+      width: 200,
+      renderCell: (params) => (
+        <div className="flex justify-center">{params.row.discrption}</div>
+      ),
+    },
+    {
+      field: "debitAmount",
+      headerName: "DR (Amount)",
+      type: "text",
+      width: 150,
+      renderCell: (params) => (
+        <div className="flex justify-center text-red-700">{params.row.incomeType === 'debit' && params.row.amount}</div>
+      ),
+    },
+    {
+      field: "creditAmount",
+      headerName: "CR (Amount)",
+      width: 150,
+      renderCell: (params) => (
+        <div className="flex justify-center text-green-500">{params.row.incomeType === 'credit' && params.row.amount}</div>
+      ),
+    },
+    {
+      headerName: "Action",
+      width: 100
+    },
+  ];
+
+
+
+
+
+
   return (
     <>
       <div className="relative mt-5 mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
+        {loader && <Loader />}
         <div className="flex justify-between">
           <div>
-            Year 2024
+            Year {selectedYear} (<b className="text-blue-700">Opening Balance {statsData?.openingBalance}</b>)
           </div>
-          <Select
-            options={options}
-            className="w-40"
+          <div className="flex gap-4">
+            <Select
+              options={options}
+              className="w-40"
+              defaultValue={options[1]}
+              onChange={handleYearChange}
+            />
+
+            <Button onClick={handleOpenFinancialYear} variant="contained">Start New Financial Year</Button>
+          </div>
+          <ModalStartNewYear
+            open={openFinancial}
+            handleClose={handleOpenFinancialYear}
+            currentYear={currentYear}
           />
         </div>
         {/* Stats */}
@@ -136,7 +257,7 @@ const Income = () => {
               />
             </svg>
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">{totalIncome}</div>
+              <div className="text-[var(--theme-color)] text-3xl">{statsData?.totalExpense}</div>
               <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
                 Total Expense
               </div>
@@ -159,7 +280,7 @@ const Income = () => {
             </svg>
 
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">{totalExpense}</div>
+              <div className="text-[var(--theme-color)] text-3xl">{statsData?.totalIncome}</div>
               <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
                 Total Income
               </div>
@@ -180,9 +301,9 @@ const Income = () => {
                 d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-
+            {console.log(statsData)}
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">{totalExpense - totalIncome}</div>
+              <div className="text-[var(--theme-color)] text-3xl">{statsData?.totalRevenue}</div>
               <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
                 Total Revenue
               </div>
@@ -205,54 +326,24 @@ const Income = () => {
             </svg>
 
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">{totalExpense - totalIncome}</div>
+              <div className="text-[var(--theme-color)] text-3xl">{statsData?.closingBalance}</div>
               <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
-                Opening Balance
+                Balance
               </div>
             </div>
           </div>
         </div>
         {/* Incomes */}
-        <div className=" flex flex-col sm:flex-row justify-between items-center">
+        <div className=" flex flex-col sm:flex-row justify-between items-center py-4">
           <h2 className="text-2xl font-bold text-[var(--secondary-color)] text-center sm:text-start ">
             Balance Report
           </h2>
           {/* Students */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center">
-            <div className=" w-48 mx-2">
-              <div className="relative flex w-full flex-wrap items-stretch">
-                <input
-                  type="textarea"
-                  className="relative m-0 block w-[1%] min-w-0 pl-2 pr-8 py-2  flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-[var(--theme-color)] focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
-                  placeholder="Search by name"
-                  value={search}
-                  onChange={(event) => {
-                    setSearch(event.target.value);
-                  }}
-                />
-                <div
-                  className=" absolute bottom-1 right-1 input-group-text flex items-center whitespace-nowrap rounded px-1 py-1.5 text-center text-base font-normal text-neutral-700  cursor-pointer"
-                  id="basic-addon2"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    className="h-5 w-5"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
             <Button onClick={handleOpen} className="h-fit mr-1">
               + Add Fund
             </Button>
-            <div class="relative inline-flex">
+            {/* <div class="relative inline-flex">
               <Button
                 className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                 onClick={handleApprovelModal}
@@ -262,177 +353,48 @@ const Income = () => {
               </Button>
               <span
                 className="absolute rounded-full border border-white-2 py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[24px] min-h-[24px]">
-                5
+                {count}
               </span>
-            </div>
+            </div> */}
+            <Approval
+              selectedYear={selectedYear}
+            />
           </div>
         </div>
         <ModalAddIncome
           open={open}
           handleOpen={handleOpen}
-          getIncomeList={getIncomeList}
-        />
-        <Approval
-          open={openapproval}
-          handleOpen={handleApprovelModal}
+        // getIncomeList={getIncomeList}
         />
 
-        {/* Income Table */}
-        <div className="my-10">
-          <div className=" mx-auto ">
-            {loader ? (
-              <div className="w-full h-[90vh] flex justify-center items-center">
-                <Loader />
-              </div>
-            ) : (
-              <div className="relative overflow-x-scroll">
-                <table className="w-full text-sm text-left text-gray-500 ">
-                  <thead className="text-md text-[var(--secondary-color)] uppercase bg-gray-50 border-b">
-                    <tr>
-                      <th scope="col" className="px-6 py-3 text-center">
-                        Sr. No.
-                      </th>
-                      <th scope="col" className="px-3 py-3 text-center">
-                        Date
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-center">
-                        Particular
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-center">
-                        Detail
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-center">
-                        DR (Amount)
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-center">
-                        CR (Amount)
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-center">
-                        Balance
-                      </th>
-                      <th scope="col" className="px-1 py-3">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                          />
-                        </svg>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="p-2">
-                      <td className="text-black text-center">1</td>
-                      <td className="text-black text-center">12 January 2024</td>
-                      <td className="text-black text-center">Electricity Bill</td>
-                      <td className="text-black text-center">Bill</td>
-                      <td className="text-red-800 text-center">200</td>
-                      <td className="text-black text-center"></td>
-                      <td className="text-black text-center">200</td>
-                      <td className="text-black text-center">Action</td>
-                    </tr>
-                    <tr className="p-2">
-                      <td className="text-black text-center">2</td>
-                      <td className="text-black text-center">13 January 2024</td>
-                      <td className="text-black text-center">Student Fees</td>
-                      <td className="text-black text-center">Fees</td>
-                      <td className="text-black text-center"></td>
-                      <td className="text-green-800 text-center">5000</td>
-                      <td className="text-black text-center">500</td>
-                      <td className="text-black text-center">Action</td>
-                    </tr>
-                    {/* Dummy Data Ends Here */}
-                    {/* {pageData.map((item) => {
-                      if (
-                        item.desc
-                          .toLowerCase()
-                          .includes(search.trim().toLowerCase())
-                      ) {
-                        return (
-                          <IncomeTable
-                            item={item}
-                            getIncomeList={getIncomeList}
-                          />
-                        );
-                      }
-                    })} */}
-                  </tbody>
-                </table>
-              </div>
-            )}
+        <DataGrid
+          rows={DataWithID(transitData) || []}
+          // rows={dataa}
+          columns={columns}
+          components={{ Toolbar: CustomToolbar }}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+            filter: {
+              filterModel: {
+                items: [
+                  {
+                    field: "status",
+                    operatorValue: "contains",
+                    value: "active",
+                  },
+                ],
+              },
+            }
+          }}
+          pageSizeOptions={[5, 10, 25]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
 
-            <div className="flex justify-end">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination flex space-x-5 border w-fit px-2 py-1 mx-5 mt-5">
-                  <li className="page-item">
-                    <a
-                      className="page-link"
-                      sty
-                      href="#"
-                      aria-label="Previous"
-                      onClick={handlePrevious}
-                      disabled={page === 1}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="border px-2 py-1 shadow-xl rounded-lg"
-                      >
-                        &laquo;
-                      </span>
-                      <span className="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  {Array(pageCount)
-                    .fill(null)
-                    .map((ele, index) => {
-                      return (
-                        <li className="page-item">
-                          <a
-                            className="page-link"
-                            href="#"
-                            active={page === index + 1 ? true : false}
-                            onClick={() => {
-                              setPage(index + 1);
-                            }}
-                          >
-                            {index + 1}
-                          </a>
-                        </li>
-                      );
-                    })}
-                  <li className="page-item">
-                    <a
-                      className="page-link"
-                      href="#"
-                      aria-label="Next"
-                      onClick={handleNext}
-                      disabled={page === pageCount}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="border px-2 py-1 shadow-xl rounded-lg"
-                      >
-                        &raquo;
-                      </span>
-                      <span className="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
-
-        {/* Expenses Table */}
-        {/* <Expenses /> */}
       </div>
       {/* Footer */}
       <div className="bg-[var(--theme-color)]">
