@@ -10,46 +10,53 @@ import {
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
-const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
-  const [time, setTime] = useState("");
-  const [date, setDate] = useState("2023-08-06");
-  const [amount, setAmount] = useState("");
+const ModalAddIncome = ({ open, handleOpen, currentYear, getAllTransections }) => {
+
+  const [transactionType, setTransactionType] = useState("credit");
   const [desc, setDesc] = useState("");
-  const [transactionType, setTransactionType] = useState("DR");
+  const [detailDesc, setDetailDesc] = useState("");
+  const [date, setDate] = useState("");
+  const [amount, setAmount] = useState("");
 
-
-  const onSubmitClick = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = { time, date, amount, desc };
 
-    // Empty the value of fields
-    setTime("");
-    setDesc("");
-    setAmount("");
-    setDate("");
-    setTransactionType("DR"); // Reset to default
+    try {
+      const formData = {
+        discrption: desc,
+        incomeType: transactionType,
+        source: detailDesc,
+        amount: amount,
+        dateTime: new Date(date).toISOString(),
+      };
 
-    // Post Api For Posting Data
-    fetch(baseurl + "/api/income", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        toast.success("Income Added Successfully");
-        getIncomeList();
-        handleOpen();
-      })
-      .catch((err) => {
-        console.log(err);
+      console.log(currentYear)
+
+      const response = await fetch(`${baseurl}/api/cashbook/transaction/add/${currentYear}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+      console.log('formData', formData)
+
+      if (response.ok) {
+        toast.success("Form submitted successfully");
+      } else {
+        const errorData = await response.json();
+        toast.error(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An unexpected error occurred");
+    }
+    getAllTransections()
+    handleOpen();
+
   };
+
+
   return (
     <>
       <Dialog
@@ -63,7 +70,7 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
           Add Fund
         </DialogHeader>
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
-          <form className="w-full px-5 mt-5" onSubmit={onSubmitClick}>
+          <form className="w-full px-5 mt-5">
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full px-3 mb-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -72,19 +79,19 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
                 <div className="flex space-x-4">
                   <Radio
                     id="drRadio"
-                    value="DR"
+                    value="debit"
                     name="transactionType"
-                    label="DR"
-                    checked={transactionType === "DR"}
-                    onChange={() => setTransactionType("DR")}
+                    label="Debit"
+                    checked={transactionType === "debit"}
+                    onChange={() => setTransactionType("debit")}
                   />
                   <Radio
                     id="crRadio"
-                    value="CR"
+                    value="credit"
                     name="transactionType"
-                    label="CR"
-                    checked={transactionType === "CR"}
-                    onChange={() => setTransactionType("CR")}
+                    label="Credit"
+                    checked={transactionType === "credit"}
+                    onChange={() => setTransactionType("credit")}
                   />
                 </div>
               </div>
@@ -94,11 +101,12 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="desc"
                 >
-                  Detail
+                  Description
                 </label>
                 <textarea
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="desc"
+                  id="discrption"
+                  name="discrption"
                   type="text"
                   placeholder="Description"
                   value={desc}
@@ -107,21 +115,22 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
                   }}
                 />
               </div>
-              {/* time */}
               <div className="w-full px-3 mb-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="time"
+                  htmlFor="desc"
                 >
-                  Time
+                  In Detail
                 </label>
-                <input
+                <textarea
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="time"
-                  type="time"
-                  value={time}
+                  id="source"
+                  type="text"
+                  name="source"
+                  placeholder="In Detail"
+                  value={detailDesc}
                   onChange={(e) => {
-                    setTime(e.target.value);
+                    setDetailDesc(e.target.value);
                   }}
                 />
               </div>
@@ -136,7 +145,7 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
                 <input
                   className="scroll-smooth appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="date"
-                  type="date"
+                  type="datetime-local"
                   value={date}
                   onChange={(e) => {
                     setDate(e.target.value);
@@ -154,6 +163,7 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="amount"
+                  name="amount"
                   type="number"
                   placeholder="2000"
                   value={amount}
@@ -162,17 +172,19 @@ const ModalAddIncome = ({ open, handleOpen, getIncomeList }) => {
                   }}
                 />
               </div>
-
-              <input
-                type="submit"
-                className="p-2 bg-[var(--theme-color)] rounded-lg text-white hover:bg-[var(--secondary-color)] cursor-pointer transition-all"
-              />
             </div>
           </form>
         </DialogBody>
         <DialogFooter>
           <Button
-            variant="text"
+            onClick={handleSubmit}
+            className="mr-1"
+            type="submit"
+          >
+            <span>Submit</span>
+          </Button>
+          <Button
+            variant="outlined"
             color="red"
             onClick={handleOpen}
             className="mr-1"

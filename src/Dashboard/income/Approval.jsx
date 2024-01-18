@@ -11,7 +11,7 @@ import baseurl from "../../Config";
 import { toast } from "react-toastify";
 import moment from "moment/moment";
 
-const Approval = ({ selectedYear }) => {
+const Approval = ({ selectedYear, currentYear }) => {
 
     const [loader, setLoader] = useState(true);
     const [transitApproveData, setTransitApproveData] = useState([])
@@ -53,7 +53,7 @@ const Approval = ({ selectedYear }) => {
                 .then((res) => {
                     if (res.success) {
                         toast.success("Updated Successfully");
-                        getApprovalTransections();
+                        getApprovalTransections(currentYear);
                     } else {
                         toast.error("Failed to update");
                     }
@@ -84,10 +84,10 @@ const Approval = ({ selectedYear }) => {
                     type="button">
                     View Deduction Approval
                 </Button>
-                <span
+                {transitApproveData?.data?.length ? <span
                     className="absolute rounded-full border border-white-2 py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[24px] min-h-[24px]">
                     {transitApproveData?.data?.length}
-                </span>
+                </span> : null}
             </div>
 
             <Dialog

@@ -17,6 +17,7 @@ import moment from "moment/moment";
 import Loader from "../../Components/Loader";
 import ModalStartNewYear from "./ModalStartNewYear";
 import axios from "axios";
+import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
 
 
@@ -29,18 +30,17 @@ const Income = () => {
   const handleOpen = () => setOpen(!open);
   const [openFinancial, setOpenFinancial] = useState(false);
   const handleOpenFinancialYear = () => setOpenFinancial(!openFinancial);
+  const [getYear, setGetYear] = useState([])
 
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
-
-  const options = [
-    { value: '2023', label: '2023' },
-    { value: '2024', label: '2024' },
-  ]
-
+  const options = getYear?.map((year) => ({
+    value: `${year}`,
+    label: `${year}`,
+  }));
 
   const CustomToolbar = () => {
     return (
@@ -53,17 +53,6 @@ const Income = () => {
       </GridToolbarContainer>
     );
   };
-
-  const date = new
-
-
-    useEffect(() => {
-      console.log(timer)
-    }, [timer])
-
-
-
-
 
   const getAllStats = async (selectedYear) => {
     try {
@@ -119,6 +108,29 @@ const Income = () => {
     }
   };
 
+  const getYears = async () => {
+    try {
+      setLoader(true);
+      const response = await fetch(`${baseurl}/api/cashbook/transaction/cashbook-years`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      setGetYear(result.data);
+      setLoader(false);
+    } catch (error) {
+      console.error("Error fetching typing result:", error);
+      setLoader(false);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       if (selectedYear) {
@@ -128,9 +140,27 @@ const Income = () => {
     };
 
     fetchData();
+    getYears()
   }, [selectedYear]);
 
 
+  const deleteData = async (id) => {
+    const userConfirmed = window.confirm("Are you sure you want to delete this Entry?");
+
+    if (userConfirmed) {
+      try {
+        await fetch(baseurl + `/api/cashbook/transaction/delete/${currentYear}/${id}`, {
+          method: "DELETE",
+        });
+        toast.success("Delete successfully")
+        getAllTransections(currentYear);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.log("Deletion canceled by user.");
+    }
+  };
 
 
   const handleYearChange = (selectedOption) => {
@@ -193,6 +223,7 @@ const Income = () => {
       type: "text",
       width: 150,
       renderCell: (params) => (
+        
         <div className="flex justify-center text-red-700">{params.row.incomeType === 'debit' && params.row.amount}</div>
       ),
     },
@@ -206,18 +237,20 @@ const Income = () => {
     },
     {
       headerName: "Action",
-      width: 100
+      width: 100,
+      renderCell:(params) => (
+        <div className="text-red-600">
+          <MdDeleteForever  onClick={() => deleteData(params.row._id)} size={30} />
+        </div>
+      )
     },
   ];
 
 
-
-
-
-
   return (
     <>
-      <div className="relative mt-5 mx-auto p-5 shadow-lg  h-[100vh] overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
+      <div className="relative  mx-auto p-5 shadow-lg  h-screen overflow-y-scroll scrollbar-hide bg-[#f5f6fa]">
+        <div className="text-red-800 font-extrabold"><span className="font-black text-black">Note:</span> Every new financial year starts on the night of December 31st at 11:00 PM. </div>
         {loader && <Loader />}
         <div className="flex justify-between">
           <div>
@@ -227,11 +260,11 @@ const Income = () => {
             <Select
               options={options}
               className="w-40"
-              defaultValue={options[1]}
+              defaultValue={options[0]}
               onChange={handleYearChange}
             />
 
-            <Button onClick={handleOpenFinancialYear} variant="contained">Start New Financial Year</Button>
+            {/* <Button onClick={handleOpenFinancialYear} variant="contained">Start New Financial Year</Button> */}
           </div>
           <ModalStartNewYear
             open={openFinancial}
@@ -301,7 +334,6 @@ const Income = () => {
                 d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            {console.log(statsData)}
             <div className="">
               <div className="text-[var(--theme-color)] text-3xl">{statsData?.totalRevenue}</div>
               <div className="text-[var(--secondary-color)] sm:text-2xl font-semibold">
@@ -340,31 +372,20 @@ const Income = () => {
           </h2>
           {/* Students */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center">
-            <Button onClick={handleOpen} className="h-fit mr-1">
+            <Button onClick={handleOpen} className="h-fit mr-1" disabled={statsData?.status === "close"}>
               + Add Fund
             </Button>
-            {/* <div class="relative inline-flex">
-              <Button
-                className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                onClick={handleApprovelModal}
-                color="red"
-                type="button">
-                View Deduction Approval
-              </Button>
-              <span
-                className="absolute rounded-full border border-white-2 py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[24px] min-h-[24px]">
-                {count}
-              </span>
-            </div> */}
             <Approval
               selectedYear={selectedYear}
+              currentYear={currentYear}
             />
           </div>
         </div>
         <ModalAddIncome
           open={open}
           handleOpen={handleOpen}
-        // getIncomeList={getIncomeList}
+          currentYear={currentYear}
+          getAllTransections={getAllTransections}
         />
 
         <DataGrid
