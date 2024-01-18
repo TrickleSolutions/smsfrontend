@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import baseurl from "../Config";
 import Loader from "../Components/Loader";
 import { GrCertificate } from "react-icons/gr";
+import { BiSolidReport } from "react-icons/bi";
+
 
 
 const AdminDashboard = ({ adminAuth }) => {
@@ -508,6 +510,21 @@ const AdminDashboard = ({ adminAuth }) => {
                       </svg>
                     </div>
                     <div>Contact Queries</div>
+                  </div>
+                ) : (
+                  ""
+                )}
+
+                {/* Balance Report */}
+                {userPermissions ? (
+                  <div
+                    onClick={() => goto("/admin/balance-report")}
+                    className="w-48 h-48 p-10 m-3 text-2xl text-[#1af169] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#1af169] ring-offset-1"
+                  >
+                    <div className="py-1">
+                      <BiSolidReport className="w-10 h-10" />
+                    </div>
+                    <div>Balance Report</div>
                   </div>
                 ) : (
                   ""

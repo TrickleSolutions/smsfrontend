@@ -81,6 +81,7 @@ import InstructorStudents from "./InstructorDashboard/InstructorStudents/Instruc
 import AllAttendance from "./Dashboard/manage-student/AllAttendance";
 import Certificate from "./Dashboard/Certificate/Certificate";
 import PrintTableCertificate from "./Dashboard/Certificate/PrintTableCertificate";
+import BalanceReport from "./Dashboard/balance report/BalanceReport";
 
 const App = () => {
   const location = useLocation();
@@ -492,6 +493,15 @@ const App = () => {
                 <AdminProtected
                   adminAuth={adminAuth}
                   Component={ScheduleBatches}
+                />
+              }
+            />
+            <Route
+              path="/admin/balance-report"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={BalanceReport}
                 />
               }
             />
