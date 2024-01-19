@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     DataGrid,
     GridToolbarColumnsButton,
@@ -13,7 +13,8 @@ import { MdPendingActions } from "react-icons/md";
 import { BsCash } from "react-icons/bs";
 import { LiaCashRegisterSolid } from "react-icons/lia";
 import { GiCash } from "react-icons/gi";
-import { Button } from '@material-tailwind/react';
+import Select from 'react-select'
+import baseurl from '../../Config';
 
 
 
@@ -21,7 +22,6 @@ import { Button } from '@material-tailwind/react';
 
 const BalanceReport = () => {
 
-    const [loader, setLoader] = useState(false);
 
     const CustomToolbar = () => {
         return (
@@ -35,6 +35,48 @@ const BalanceReport = () => {
         );
     };
 
+    const [loader, setLoader] = useState(false);
+    const [instructor, setInstructor] = useState([])
+    const [selectedInstructor, setSelectedInstructor] = useState(null);
+
+
+    const getIstructors = async () => {
+        try {
+            setLoader(true);
+            const response = await fetch(`${baseurl}/api/instructor`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            setInstructor(result);
+            setLoader(false);
+        } catch (error) {
+            console.error("Error fetching typing result:", error);
+            setLoader(false);
+        }
+    };
+
+    useEffect(() => {
+        getIstructors()
+    }, [])
+
+    console.log(instructor)
+
+    const handleSelectInstructorOption = (selectedInstructor) => {
+        setSelectedInstructor(selectedInstructor);
+    };
+
+    const instructorOptions = instructor.map((instructor) => ({
+        value: instructor._id,
+        label: instructor.name,
+      }));
 
     const columns = [
         {
@@ -167,13 +209,19 @@ const BalanceReport = () => {
     return (
         <>
             <div className="mt-5 p-5 ml-auto  bg-[#f5f6fa]">
-
-                <div className='flex justify-around items-center'>
-                    <Button>Divyanshi Singh</Button>
-                    <Button variant='outlined'>Komal Verma</Button>
-                    <Button variant='outlined'>Anuj</Button>
-                    <Button variant='outlined'>Mukesh</Button>
-                    <Button variant='outlined'>Anuj</Button>
+                <div className="flex flex-col sm:flex-row justify-between items-center">
+                    <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
+                        Balance Report
+                    </h2>
+                    <Select
+                        name="instructor"
+                        id="instructor"
+                        placeholder="Select Instructor"
+                        options={instructorOptions}
+                        value={selectedInstructor}
+                        onChange={handleSelectInstructorOption}
+                        className='w-64'
+                    />
                 </div>
                 <div className="flex justify-around flex-wrap my-10">
                     <div className="m-3 flex items-center px-5 py-7 sm:py-10 text-orange-500 rounded-lg shadow-xl hover:-translate-y-2 transition">
@@ -215,11 +263,7 @@ const BalanceReport = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col sm:flex-row justify-between items-center">
-                    <h2 className="text-2xl font-bold text-[var(--secondary-color)] ">
-                        Balance Report
-                    </h2>
-                </div>
+
 
                 {/* Student Table */}
                 <div className="my-10">

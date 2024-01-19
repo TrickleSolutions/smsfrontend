@@ -38,7 +38,6 @@ const AdminFeesTable = ({ item, getFeesList }) => {
   //   updateAuth();
   // };
 
-  console.log(item)
   return (
     <>
       <tr className="bg-white border-b" key={item._id}>

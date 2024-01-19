@@ -26,6 +26,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
 
   const [formData, setFormData] = useState({
     regno: "",
+    student: "",
     name: "",
     courseFee: "",
     mode: "",
@@ -173,6 +174,7 @@ const ModalAddFees = ({ open, handleOpen, getFeesList }) => {
 
     const requestData = {
       regno: getStudent.regno,
+      student: formData.students.value,
       name: formData.students.label,
       courseFee: formData?.course?.price,
       mode: mode,

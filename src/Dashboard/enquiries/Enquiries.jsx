@@ -266,7 +266,7 @@ const Enquiries = () => {
                       <th scope="col" className="min-w-[60px]">
                         Sr. No.
                       </th>
-                      <th scope="col" className="">
+                      <th scope="col" className="min-w-[150px]">
                         Name
                       </th>
                       <th scope="col" className="min-w-[120px]">
@@ -282,7 +282,7 @@ const Enquiries = () => {
                         Gender
                       </th>
                       <th scope="col" className="min-w-[100px]">
-                        Martial Status
+                        Marital Status
                       </th>
                       <th scope="col" className="min-w-[100px]">
                         DOB
@@ -297,7 +297,7 @@ const Enquiries = () => {
                         Previous knowledge
                       </th>
                       <th scope="col" className="min-w-[100px]">
-                        Counselor
+                        Counsellor
                       </th>
                       <th scope="col" className="min-w-[100px]">
                         Course
@@ -306,10 +306,10 @@ const Enquiries = () => {
                         Personality Development
                       </th>
                       <th scope="col" className="min-w-[100px]">
-                        Carrier Classes
+                        Career Classes
                       </th>
                       <th scope="col" className="min-w-[100px]">
-                        Refered By
+                        Referred By
                       </th>
                       <th scope="col" className="min-w-[100px]">
                         Enq. Date

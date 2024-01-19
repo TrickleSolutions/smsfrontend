@@ -82,6 +82,7 @@ import AllAttendance from "./Dashboard/manage-student/AllAttendance";
 import Certificate from "./Dashboard/Certificate/Certificate";
 import PrintTableCertificate from "./Dashboard/Certificate/PrintTableCertificate";
 import BalanceReport from "./Dashboard/balance report/BalanceReport";
+import SliderMgmt from "./Dashboard/slider Mgmt/SliderMgmt";
 
 const App = () => {
   const location = useLocation();
@@ -502,6 +503,15 @@ const App = () => {
                 <AdminProtected
                   adminAuth={adminAuth}
                   Component={BalanceReport}
+                />
+              }
+            />
+            <Route
+              path="/admin/websiteSliderMgmt"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={SliderMgmt}
                 />
               }
             />

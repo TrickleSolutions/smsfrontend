@@ -4,6 +4,8 @@ import baseurl from "../Config";
 import Loader from "../Components/Loader";
 import { GrCertificate } from "react-icons/gr";
 import { BiSolidReport } from "react-icons/bi";
+import { TfiLayoutSlider } from "react-icons/tfi";
+
 
 
 
@@ -565,7 +567,17 @@ const AdminDashboard = ({ adminAuth }) => {
                   <div className="py-1 text-[#6bbd4a]">
                     <GrCertificate className="w-10 h-10" />
                   </div>
-                  <div>certificate</div>
+                  <div>Certificate</div>
+                </div>
+
+                <div
+                  onClick={() => goto("/admin/websiteSliderMgmt")}
+                  className="w-48 h-48 p-10 m-3 text-2xl text-[#6494d4] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#6494d4] ring-offset-1"
+                >
+                  <div className="py-1 text-[#6494d4]">
+                    <TfiLayoutSlider className="w-10 h-10" />
+                  </div>
+                  <div>Slider Management</div>
                 </div>
 
               </div>
