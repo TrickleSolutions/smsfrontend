@@ -4,6 +4,7 @@ import { Button, Input, Textarea } from "@material-tailwind/react";
 import Select from "react-select";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCertificate } from "../../context/useCertificate";
+import CourseCertificateResults from "./CourseCertificateResults";
 
 const CoursesCertificate = ({ back }) => {
   const { courseInfo, GetStudentList, GetCourses, course } = useCertificate();
@@ -20,6 +21,8 @@ const CoursesCertificate = ({ back }) => {
 
   const [courseSelect, setCourseSelect] = useState(null);
   const [selectStudent, setSelectStudent] = useState(null);
+  const [allResults, setAllResults] = useState(false)
+  const handleAllResults = () => setAllResults(!allResults)
 
   useEffect(() => {
     GetCourses();
@@ -91,7 +94,14 @@ const CoursesCertificate = ({ back }) => {
 
   return (
     <div>
-      <Button onClick={back}>Back to Certificate</Button>
+      <div className="flex justify-between">
+        <Button onClick={back}>Back to Certificate</Button>
+        <Button color="green" onClick={handleAllResults} >Students Results</Button>
+        <CourseCertificateResults
+          open={allResults}
+          handleClose={handleAllResults}
+        />
+      </div>
       <div className="p-5 mx-auto max-w-xl">
         <form onSubmit={handleSubmit}>
           {/* Course Select Field */}
