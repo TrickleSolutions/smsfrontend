@@ -10,7 +10,7 @@ import {
 import baseurl from "../../Config";
 import { toast } from "react-toastify";
 
-const ModalAddIncome = ({ open, handleOpen, currentYear, getAllTransections }) => {
+const ModalAddExpense = ({ open, handleOpen, currentYear, getAllTransections }) => {
 
   const [transactionType, setTransactionType] = useState("credit");
   const [desc, setDesc] = useState("");
@@ -24,7 +24,7 @@ const ModalAddIncome = ({ open, handleOpen, currentYear, getAllTransections }) =
     try {
       const formData = {
         discrption: desc,
-        incomeType: 'credit',
+        incomeType: 'debit',
         source: detailDesc,
         amount: amount,
         dateTime: new Date(date).toISOString(),
@@ -67,7 +67,7 @@ const ModalAddIncome = ({ open, handleOpen, currentYear, getAllTransections }) =
       >
         <DialogHeader className="text-center justify-center">
           {" "}
-          Add Fund
+          Add Expense
         </DialogHeader>
         <DialogBody divider className="h-[25rem] overflow-y-scroll">
           <form className="w-full px-5 mt-5">
@@ -174,4 +174,4 @@ const ModalAddIncome = ({ open, handleOpen, currentYear, getAllTransections }) =
   );
 };
 
-export default ModalAddIncome;
+export default ModalAddExpense;

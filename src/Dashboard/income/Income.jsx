@@ -19,6 +19,7 @@ import ModalStartNewYear from "./ModalStartNewYear";
 import axios from "axios";
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
+import ModalAddExpense from "./ModalAddExpense";
 
 
 const Income = () => {
@@ -28,6 +29,8 @@ const Income = () => {
   const [statsData, setStatsData] = useState(null)
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  const [openExpense, setOpenExpense] = useState(false)
+  const handleExpense = () => setOpenExpense(!openExpense)
   const [openFinancial, setOpenFinancial] = useState(false);
   const handleOpenFinancialYear = () => setOpenFinancial(!openFinancial);
   const [getYear, setGetYear] = useState([])
@@ -372,6 +375,9 @@ const Income = () => {
           </h2>
           {/* Students */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center">
+            <Button color="orange" onClick={handleExpense} className="h-fit mr-1" disabled={statsData?.status === "close"}>
+              + Add Expense
+            </Button>
             <Button onClick={handleOpen} className="h-fit mr-1" disabled={statsData?.status === "close"}>
               + Add Fund
             </Button>
@@ -384,6 +390,12 @@ const Income = () => {
         <ModalAddIncome
           open={open}
           handleOpen={handleOpen}
+          currentYear={currentYear}
+          getAllTransections={getAllTransections}
+        />
+        <ModalAddExpense
+          open={openExpense}
+          handleOpen={handleExpense}
           currentYear={currentYear}
           getAllTransections={getAllTransections}
         />
