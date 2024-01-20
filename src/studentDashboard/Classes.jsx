@@ -105,7 +105,7 @@ const Classes = ({ auth, updateAuth }) => {
               />
             </svg>
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">06</div>
+              <div className="text-[var(--theme-color)] text-3xl">01</div>
               <div className="text-[var(--secondary-color)] font-semibold">
                 Total Courses
               </div>
@@ -127,7 +127,7 @@ const Classes = ({ auth, updateAuth }) => {
               />
             </svg>
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">02</div>
+              <div className="text-[var(--theme-color)] text-3xl">01</div>
               <div className="text-[var(--secondary-color)] font-semibold">
                 Active Courses
               </div>
@@ -149,7 +149,7 @@ const Classes = ({ auth, updateAuth }) => {
               />
             </svg>
             <div className="">
-              <div className="text-[var(--theme-color)] text-3xl">06</div>
+              <div className="text-[var(--theme-color)] text-3xl">0</div>
               <div className="text-[var(--secondary-color)] font-semibold">
                 Completed Courses
               </div>
