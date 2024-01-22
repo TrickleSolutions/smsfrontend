@@ -14,10 +14,11 @@ const PrintTableCertificate = () => {
 
 
     const location = useLocation();
-    const formData = location.state?.formData || {};
+    const formData = location.state?.selectedStudent || {};
     const formDataa = location.state?.selectedStudent || {};
 
 
+    console.log(formData)
     console.log(formDataa)
 
     const [loader, setLoader] = useState(false);
@@ -54,19 +55,19 @@ const PrintTableCertificate = () => {
                 <FaPrint size={28} />
             </Button>
             {
-                formData.course ?
+                formData.course  ?
                     <div className='grid place-items-center relative text-center font-serif Certificate'>
                         <img src={CertificatePreview} alt='...' />
                         <div className='absolute top-[7%] left-[80%] font-black'>124563</div>
                         <div className='absolute w-20 top-[30%] left-[78%]'>
                             <img
                                 className='h-24 w-full'
-                                src={test}
+                                src={formData?.student?.profilePic}
                                 alt='...'
                             />
                         </div>
                         <div className='absolute w-6/12 top-[45%] font-black text-xl text-blue-800'>
-                            {formData?.course?.label} (<span className='text-sm font-thin italic'>4 Months</span>)
+                            {formData?.course}
                         </div>
                         <Draggable>
                             <div
@@ -74,9 +75,9 @@ const PrintTableCertificate = () => {
                                 className='absolute leading-loose w-[650px] text-[16px] font-bold inset-x-auto top-2/4 text-left tracking-wider'
                             >
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This certificate is awarded to Mr./Mrs./Miss{' '}
-                                <span className='text-blue-800'>...{formData?.name}...</span> S/o, W/o, D/o <span className='text-blue-800'>...{formData?.fatherName}...</span> Registration No <span className='text-blue-800'>...{formData?.regNo}...</span> on
+                                <span className='text-blue-800'>...{formData?.name}...</span> S/o, W/o, D/o <span className='text-blue-800'>...{formData?.student?.fname}...</span> Registration No <span className='text-blue-800'>...{formData?.student?.regno}...</span> on
                                 the <span className='text-blue-800'>...{moment(formData?.date).format('D')}...</span> Day of the month <span className='text-blue-800'>...{moment(formData?.date).format('MMMM')}...</span> in the year of <span className='text-blue-800'>...{moment(formData?.date).format('YYYY')}...</span> Attending the Course from our{' '}
-                                <span className='text-blue-800'>...{formData?.address}...</span> Center in the Grade of <span className='text-blue-800'>...{formData?.options?.label}...</span>
+                                <span className='text-blue-800'>...SMS Education Computer...</span> Center in the Grade of <span className='text-blue-800'>...{formData?.obtain_marks < 60 ? 'Credit' : formData?.obtain_marks > 60 ? 'Distinction' : formData?.obtain_marks > 80 ? 'Excellent' : null}...</span>
                             </div>
                         </Draggable>
                     </div> :

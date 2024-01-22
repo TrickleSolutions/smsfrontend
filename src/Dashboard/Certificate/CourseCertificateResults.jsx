@@ -37,9 +37,6 @@ const CourseCertificateResults = ({ open, handleClose }) => {
         getFetchResult('final');
     }, []);
 
-
-    console.log(courseResults)
-
     return (
         <>
             <Dialog
@@ -62,6 +59,7 @@ const CourseCertificateResults = ({ open, handleClose }) => {
                                     <th className="border border-gray-300 p-2">Course</th>
                                     <th className="border border-gray-300 p-2">Student Name</th>
                                     <th className="border border-gray-300 p-2">Reg. No.</th>
+                                    <th className="border border-gray-300 p-2">Father Name</th>
                                     <th className="border border-gray-300 p-2">Date</th>
                                     <th className="border border-gray-300 p-2">Obtained Marks</th>
                                     <th className="border border-gray-300 p-2">Total Marks</th>
@@ -75,6 +73,7 @@ const CourseCertificateResults = ({ open, handleClose }) => {
                                             <td className="border border-gray-300 p-2">{item?.course}</td>
                                             <td className="border border-gray-300 p-2">{item?.name}</td>
                                             <td className="border border-gray-300 p-2">{item?.regno}</td>
+                                            <td className="border border-gray-300 p-2">{item?.student?.fname}</td>
                                             <td className="border border-gray-300 p-2">{moment(item?.date).format('MM Do YYYY')}</td>
                                             <td className="border border-gray-300 p-2">{item?.obtain_marks}</td>
                                             <td className="border border-gray-300 p-2">{item?.total_marks}</td>

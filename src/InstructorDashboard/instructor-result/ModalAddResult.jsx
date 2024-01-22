@@ -16,6 +16,7 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
     JSON.parse(window.sessionStorage.getItem("instructor-data"))
   );
   const { GetInstructorStudents, instructorStudents } = useAuthContext();
+  const [student, setStudent] = useState("");
   const [name, setName] = useState("");
   const [regno, setRegno] = useState(0);
   const [course, setCourse] = useState("");
@@ -25,10 +26,20 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
   const [date, setDate] = useState("");
   const [studentSelect, setStudentSelect] = useState({});
 
+  const [resultTypeOptions] = useState([
+    { label: "Surprise", value: "surprise" },
+    { label: "Final", value: "final" },
+    { label: "Other", value: "other" },
+  ]);
+  const [resultType, setResultType] = useState("");
+
+
   let data = {
+    student,
     name,
     regno,
     course,
+    resultType,
     topic,
     total_marks,
     obtain_marks,
@@ -36,6 +47,7 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
   };
 
   const handleSelectStudent = (data) => {
+    setStudent(data?.value)
     setStudentSelect({ label: data?.label, value: data.value });
     setName(data?.name);
     setRegno(data?.regno);
@@ -43,7 +55,7 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
   };
 
   const onsubmitClick = () => {
-    // Empty the fields
+    setStudent("")
     setName("");
     setRegno(0);
     setCourse("");
@@ -74,11 +86,11 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
       });
   };
 
-  console.log(instructorStudents)
+  console.log(studentSelect)
 
   const StudentList = instructorStudents?.map((item) => ({
     label: item?.name,
-    value: item?.name,
+    value: item?._id,
     name: item?.name,
     regno: item?.regno,
     course: item?.course,
@@ -115,16 +127,19 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
                   value={studentSelect}
                   onChange={(value) => handleSelectStudent(value)}
                 />
-                {/* <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="name"
-                  type="text"
-                  placeholder="Rohan"
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                /> */}
+              </div>
+              <div className="w-full px-3 mb-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="name"
+                >
+                  Select Result Type
+                </label>
+                <Select
+                  options={resultTypeOptions}
+                  value={resultTypeOptions.find((option) => option.value === resultType)}
+                  onChange={(selectedOption) => setResultType(selectedOption.value)}
+                />
               </div>
               {/* Regno */}
               <div className="w-full px-3 mb-3">

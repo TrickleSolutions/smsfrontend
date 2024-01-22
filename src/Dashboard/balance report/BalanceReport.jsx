@@ -15,8 +15,7 @@ import { LiaCashRegisterSolid } from "react-icons/lia";
 import { GiCash } from "react-icons/gi";
 import Select from 'react-select'
 import baseurl from '../../Config';
-
-
+import moment from 'moment/moment';
 
 
 
@@ -38,7 +37,23 @@ const BalanceReport = () => {
     const [loader, setLoader] = useState(false);
     const [instructor, setInstructor] = useState([])
     const [selectedInstructor, setSelectedInstructor] = useState(null);
+    const [balanceReport, setBalanceReport] = useState([])
 
+    const DataWithID = (data) => {
+        const NewData = [];
+        if (data !== undefined) {
+            for (let item of data) {
+                NewData.push({
+                    ...item,
+                    id: data.indexOf(item),
+                    date: moment(item.createdAt).format("D / M / Y"),
+                });
+            }
+        } else {
+            NewData.push({ id: 0 });
+        }
+        return NewData;
+    };
 
     const getIstructors = async () => {
         try {
@@ -67,7 +82,39 @@ const BalanceReport = () => {
         getIstructors()
     }, [])
 
-    console.log(instructor)
+    console.log('llol', selectedInstructor)
+
+    const getBalanceReport = async () => {
+        try {
+            setLoader(true);
+            const response = await fetch(`${baseurl}/api/balance-report/${selectedInstructor.value}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            setBalanceReport(result.data);
+            setLoader(false);
+        } catch (error) {
+            console.error("Error fetching typing result:", error);
+            setLoader(false);
+        }
+    };
+
+    useEffect(() => {
+        getIstructors()
+        getBalanceReport()
+    }, [selectedInstructor])
+
+
+
+    console.log(balanceReport)
 
     const handleSelectInstructorOption = (selectedInstructor) => {
         setSelectedInstructor(selectedInstructor);
@@ -76,135 +123,196 @@ const BalanceReport = () => {
     const instructorOptions = instructor.map((instructor) => ({
         value: instructor._id,
         label: instructor.name,
-      }));
+    }));
 
     const columns = [
         {
             field: "id",
-            headerName: "ID",
+            headerName: "Sr. No.",
             width: 100,
-            // renderCell: (params) => (
-            //     <div className="flex justify-center">{params.row.id + 1}</div>
-            // ),
+            renderCell: (params) => (
+                <div className="flex justify-center">{params.row.id + 1}</div>
+            ),
         },
+
         {
             field: "name",
             headerName: "Name",
-            width: 100,
+            width: 200,
+            renderCell: (params) => (
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item?.name}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
+            ),
         },
+
         {
             field: "regNo",
             headerName: "Reg. No.",
             width: 100,
+            renderCell: (params) => (
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item?.regno}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
+            ),
         },
         {
             field: "doj",
             headerName: "DOJ",
             type: "text",
-            width: 100,
+            width: 200,
+            renderCell: (params) => (
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{moment(item?.createdAt).format('MMMM Do YYYY')}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
+            ),
         },
         {
             field: "batchSlot",
             headerName: "Batch Slot",
             width: 100,
+            renderCell: (params) => (
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item?.shift === '1st Shift' ? 'Morning' : 'Evening'}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
+            ),
         },
         {
             field: "course",
             headerName: "Course",
             width: 100,
+            renderCell: (params) => (
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item?.course}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
+            ),
         },
         {
             field: "batchTime",
             headerName: "Batch Time",
-            width: 120,
+            width: 200,
+            renderCell: (params) => (
+                <div className="">
+                    <p><b>From:</b> {moment(params.row?.batchTime?.from).format('MMMM Do YYYY')}</p>
+                    <p>{moment(params.row?.batchTime?.from).format('h:mm:ss a')}</p>
+                    <p><b>To:</b> {moment(params.row?.batchTime?.to).format('MMMM Do YYYY')}</p>
+                    <p>{moment(params.row?.batchTime?.to).format('h:mm:ss a')}</p>
+                </div>
+            ),
         },
         {
             field: "lastMonthDue",
             headerName: "Last Month Due",
             width: 100,
+            renderCell: (params) => (
+                <div className="flex justify-center">{params.row.id + 1}</div>
+            ),
 
         },
         {
             field: "thisMonthFee",
             headerName: "This Month Fee",
             width: 100,
+            renderCell: (params) => (
+                <div className="flex justify-center">{params.row.id + 1}</div>
+            ),
         },
         {
             field: "feeDate",
             headerName: "Fee Date",
             width: 100,
-            // renderCell: (params) => (
-            //     <div className="flex justify-center">
-            //         <Button onClick={() => handleDocumentOpen(params.row)} size="sm">
-            //             View
-            //         </Button>
-            //     </div>
-            // ),
+            renderCell: (params) => (
+                <div className="flex justify-center">{params.row.id + 1}</div>
+            ),
         },
         {
             field: "thisMonthPaid",
             headerName: "This Month Paid",
-            width: 100
+            width: 100,
+            renderCell: (params) => (
+                <div className="flex justify-center">{params.row.id + 1}</div>
+            ),
         },
         {
             field: "totalDue",
             headerName: "Total Due",
             width: 100,
+            renderCell: (params) => (
+                <div className="flex justify-center">{params.row.id + 1}</div>
+            ),
         },
         {
             field: "mobileNo",
             headerName: "Mobile No.",
             width: 100,
+            renderCell: (params) => (
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item?.contact}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
+            ),
         },
         {
             field: "teacherName",
             headerName: "Instructor Name",
             width: 100,
+            renderCell: (params) => (
+                <div className="flex justify-center">{params.row.id + 1}</div>
+            ),
         },
         {
             field: "status",
             headerName: "Status",
             width: 100,
+            renderCell: (params) => (
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item?.status}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
+            ),
         }
     ];
 
-
-    const NeedData = [
-        {
-            id: 1,
-            name: 'Ram',
-            regNo: '32653',
-            doj: '20 Dec 2023',
-            batchSlot: 'Evening',
-            course: 'O Level',
-            batchTime: '5 PM to 6 PM',
-            lastMonthDue: '0',
-            thisMonthFee: '0',
-            feeDate: '01 Jan',
-            thisMonthPaid: '0',
-            totalDue: '0',
-            mobileNo: '8080900400',
-            teacherName: "Komal verma",
-            status: 'Running'
-        },
-        {
-            id: 2,
-            name: 'Ram',
-            regNo: '32653',
-            doj: '20 Dec 2023',
-            batchSlot: 'Evening',
-            course: 'O Level',
-            batchTime: '5 PM to 6 PM',
-            lastMonthDue: '0',
-            thisMonthFee: '0',
-            feeDate: '01 Jan',
-            thisMonthPaid: '0',
-            totalDue: '0',
-            mobileNo: '8080900400',
-            teacherName: "Komal verma",
-            status: 'Running'
-        }
-    ]
 
     return (
         <>
@@ -275,7 +383,7 @@ const BalanceReport = () => {
                         ) : (
                             <div className="relative overflow-x-scroll">
                                 <DataGrid
-                                    rows={NeedData || []}
+                                    rows={DataWithID(balanceReport) || []}
                                     columns={columns}
                                     components={{ Toolbar: CustomToolbar }}
                                     initialState={{
@@ -284,21 +392,12 @@ const BalanceReport = () => {
                                                 pageSize: 5,
                                             },
                                         },
-                                        // filter: {
-                                        //     filterModel: {
-                                        //         items: [
-                                        //             {
-                                        //                 field: "status",
-                                        //                 operatorValue: "contains",
-                                        //                 value: "active",
-                                        //             },
-                                        //         ],
-                                        //     },
-                                        // }
+                                        density: 'comfortable',
                                     }}
                                     pageSizeOptions={[5, 10, 25]}
                                     checkboxSelection
                                     disableRowSelectionOnClick
+                                    getRowHeight={() => 'auto'}
                                 />
                             </div>
                         )}

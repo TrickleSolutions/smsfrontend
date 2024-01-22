@@ -199,7 +199,7 @@ const ScheduleBatches = () => {
     {
       field: "students",
       headerName: "students",
-      width: 300,
+      width: 500,
       renderCell: (params) => (
         <MappedData params={params} />
       ),

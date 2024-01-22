@@ -5,6 +5,8 @@ import Select from "react-select";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCertificate } from "../../context/useCertificate";
 import CourseCertificateResults from "./CourseCertificateResults";
+import baseurl from "../../Config";
+import moment from "moment/moment";
 
 const CoursesCertificate = ({ back }) => {
   const { courseInfo, GetStudentList, GetCourses, course } = useCertificate();
@@ -19,14 +21,54 @@ const CoursesCertificate = ({ back }) => {
     options: null,
   });
 
-  const [courseSelect, setCourseSelect] = useState(null);
   const [selectStudent, setSelectStudent] = useState(null);
   const [allResults, setAllResults] = useState(false)
   const handleAllResults = () => setAllResults(!allResults)
+  const [loader, setLoader] = useState(true);
+  const [courseResults, setCourseResults] = useState([])
+  const [selectedStudentId, setSelectedStudentId] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState(null)
+
+  const getFetchResult = async (resultType) => {
+    try {
+      const response = await fetch(`${baseurl}/api/marks`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+
+      const allResults = await response.json();
+
+      // Filter the results based on resultType
+      const filteredResults = allResults.filter(result => result.resultType === resultType);
+
+      setCourseResults(filteredResults);
+      setLoader(false);
+    } catch (error) {
+      console.error("Error fetching student list:", error);
+    }
+  };
+
+
+  const returnOptions = (data) => {
+    const options = data?.map((item) => ({
+      label: item?.student?.name,
+      value: item?._id
+    }))
+
+    return options
+  }
+
 
   useEffect(() => {
-    GetCourses();
+    getFetchResult('final');
   }, []);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,27 +78,21 @@ const CoursesCertificate = ({ back }) => {
     }));
   };
 
-  const handleSelectCourse = (selectedCourse) => {
-    const selected = course?.data?.find(
-      (item) => item._id === selectedCourse.value
-    );
-    setFormData((prevData) => ({
-      ...prevData,
-      course: selected,
-    }));
-    setCourseSelect(selectedCourse);
-  };
 
   const handleSelectStudent = (selectedStudent) => {
     const selected = courseInfo?.students?.find(
       (item) => item?._id === selectedStudent?.value
     );
+    setSelectedStudentId(selectedStudent?.value); // Store selected student ID
     setFormData((prevData) => ({
       ...prevData,
       student: selected,
     }));
     setSelectStudent(selectedStudent);
+
+    // Fetch course details for the selected student
   };
+
   const handleSelectOption = (selectedOption) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -66,30 +102,21 @@ const CoursesCertificate = ({ back }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    PrintCertificate(`/admin/certificate/print-certificate`, {
-      state: { formData },
-    });
-    console.log("Form submitted:", formData);
+    PrintCertificate(`/admin/certificate/print-certificate`, { state: { selectedStudent } });
+    console.log("Form submitted:", selectedStudent);
   };
 
-  const selectedCourseOptions = [
-    { label: "O Level", value: "olevel" },
-    { label: "Course 2", value: "course2" },
-    // Add more courses as needed
-  ];
+  useEffect(() => {
+    if (selectStudent) {
+      setSelectedStudent(courseResults?.find((item) => item?._id === selectStudent?.value))
+    }
+  }, [selectStudent])
 
-  const SelectOptions = [
-    { label: "Credit", value: "credit" },
-    { label: "Distinction", value: "distinction" },
-    { label: "Excellent", value: "excellent" },
-    // Add more courses as needed
-  ];
 
   const PrintCertificate = useNavigate();
   useEffect(() => {
     GetStudentList(formData.course?._id);
   }, [formData.course]);
-
 
 
   return (
@@ -109,26 +136,13 @@ const CoursesCertificate = ({ back }) => {
             <Select
               id="course"
               name="course"
-              value={courseSelect}
-              onChange={handleSelectCourse}
-              options={course?.data?.map((item) => ({
-                label: item?.title,
-                value: item?._id,
-              }))}
-              placeholder="Select Course"
-              isSearchable
-            />
-          </div>
-          <div className="py-2">
-            <Select
-              id="course"
-              name="course"
               value={selectStudent}
               onChange={handleSelectStudent}
-              options={courseInfo?.students?.map((item) => ({
-                label: item?.name,
-                value: item?._id,
-              }))}
+              options={returnOptions(courseResults)}
+              // options={courseResults?.map((item) => ({
+              //   label: item?.name,
+              //   value: item?._id,
+              // }))}
               placeholder="Select Student"
               isSearchable
             />
@@ -136,10 +150,21 @@ const CoursesCertificate = ({ back }) => {
           <div className="py-2">
             <Input
               type="text"
+              id="course"
+              name="course"
+              label="Course"
+              size="regular"
+              fullWidth
+              value={selectedStudent?.course}
+            />
+          </div>
+
+          <div className="py-2">
+            <Input
+              type="text"
               id="fatherName"
               name="fatherName"
-              value={formData?.student?.fname}
-              onChange={handleInputChange}
+              value={selectedStudent?.student?.fname}
               label="Father's Name"
               size="regular"
               fullWidth
@@ -150,8 +175,7 @@ const CoursesCertificate = ({ back }) => {
               type="text"
               id="regNo"
               name="regNo"
-              value={formData?.student?.regno}
-              onChange={handleInputChange}
+              value={selectedStudent?.student?.regno}
               label="Registration Number"
               size="regular"
               fullWidth
@@ -162,35 +186,24 @@ const CoursesCertificate = ({ back }) => {
               type="date"
               id="date"
               name="date"
-              value={formData.date}
-              onChange={handleInputChange}
+              value={selectedStudent?.date ? moment(selectedStudent?.from).format('YYYY-MM-DD') : ''}
               variant="outlined"
               label="Date"
               size="regular"
               fullWidth
             />
           </div>
+
           <div className="py-2">
-            <Textarea
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleInputChange}
-              placeholder="Address"
+            <Input
+              type="text"
+              id="grade"
+              name="grade"
+              value={selectedStudent?.obtain_marks < 60 ? 'Credit' : selectedStudent?.obtain_marks > 60 ? 'Distinction' : selectedStudent?.obtain_marks > 80 ? 'Excellent' : null}
+              variant="outlined"
+              label="Grade"
               size="regular"
               fullWidth
-            />
-          </div>
-          <div className="py-2">
-            <Select
-              id="course"
-              name="course"
-              value={formData.options}
-              onChange={handleSelectOption}
-              options={SelectOptions}
-              placeholder="Options"
-              isSearchable
-              isClearable
             />
           </div>
 
