@@ -82,8 +82,6 @@ const BalanceReport = () => {
         getIstructors()
     }, [])
 
-    console.log('llol', selectedInstructor)
-
     const getBalanceReport = async () => {
         try {
             setLoader(true);
@@ -99,7 +97,8 @@ const BalanceReport = () => {
             }
 
             const result = await response.json();
-            setBalanceReport(result.data);
+            setBalanceReport(result.data[0]);
+            console.log(result.data[0])
             setLoader(false);
         } catch (error) {
             console.error("Error fetching typing result:", error);
@@ -114,7 +113,6 @@ const BalanceReport = () => {
 
 
 
-    console.log(balanceReport)
 
     const handleSelectInstructorOption = (selectedInstructor) => {
         setSelectedInstructor(selectedInstructor);
@@ -353,9 +351,7 @@ const BalanceReport = () => {
         }
     ];
 
-    const totalAmountSumPaid = balanceReport.reduce((sum, obj) => sum + obj.totalAmountPaid, 0);
-    const totalAmountSumDue = balanceReport.reduce((sum, obj) => sum + obj.totalAmountDue, 0);
-    const totalAmountSumMP = balanceReport.reduce((sum, obj) => sum + obj.totalLastMonthPaid, 0);
+
 
     return (
         <>
@@ -378,7 +374,7 @@ const BalanceReport = () => {
                     <div className="m-3 flex items-center w-fit px-5 py-7 sm:py-10 text-orange-500 rounded-lg shadow-xl hover:-translate-y-2 transition">
                         <LiaCashRegisterSolid className='w-16 h-16' />
                         <div className="text-center">
-                            <div className=" text-3xl">{totalAmountSumMP}</div>
+                            <div className=" text-3xl">{balanceReport?.finalAmountPaid}</div>
                             <div className="p-2 text-[var(--secondary-color)] sm:text-2xl font-semibold">
                                 Total Last Month Paid
                             </div>
@@ -388,7 +384,7 @@ const BalanceReport = () => {
                         <BsCash className='w-16 h-16' />
 
                         <div className="text-center">
-                            <div className=" text-3xl">{totalAmountSumPaid}</div>
+                            <div className=" text-3xl">{balanceReport?.finalMonthPaid}</div>
                             <div className="p-2 text-[var(--secondary-color)] sm:text-2xl font-semibold">
                                 Total Amount Paid
                             </div>
@@ -398,7 +394,7 @@ const BalanceReport = () => {
                         <GiCash className='w-16 h-16' />
 
                         <div className="text-center">
-                            <div className=" text-3xl">{totalAmountSumDue}</div>
+                            <div className=" text-3xl">{balanceReport?.finalAmoutDue}</div>
                             <div className="p-2 text-[var(--secondary-color)] sm:text-2xl font-semibold">
                                 Total Amount Due
                             </div>
@@ -417,7 +413,7 @@ const BalanceReport = () => {
                         ) : (
                             <div className="relative overflow-x-scroll">
                                 <DataGrid
-                                    rows={DataWithID(balanceReport) || []}
+                                    rows={DataWithID(balanceReport.data) || []}
                                     columns={columns}
                                     components={{ Toolbar: CustomToolbar }}
                                     initialState={{
