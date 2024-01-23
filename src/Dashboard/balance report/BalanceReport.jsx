@@ -231,44 +231,84 @@ const BalanceReport = () => {
             ),
         },
         {
-            field: "lastMonthDue",
-            headerName: "Last Month Due",
-            width: 100,
+            field: "lastMonthPaid",
+            headerName: "Last Month Paid",
+            width: 140,
             renderCell: (params) => (
-                <div className="flex justify-center">{params.row.id + 1}</div>
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item?.lastMonthPaid}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
             ),
 
         },
-        {
-            field: "thisMonthFee",
-            headerName: "This Month Fee",
-            width: 100,
-            renderCell: (params) => (
-                <div className="flex justify-center">{params.row.id + 1}</div>
-            ),
-        },
+        // {
+        //     field: "thisMonthFee",
+        //     headerName: "This Month Fee",
+        //     width: 140,
+        //     renderCell: (params) => (
+        //         <div >
+        //             {
+        //                 params.row?.students?.map((item, index) => (
+        //                     <tr key={index}>
+        //                         <td>{item?.amountDue}</td>
+        //                     </tr>
+        //                 ))
+        //             }
+        //         </div>
+        //     ),
+        // },
         {
             field: "feeDate",
             headerName: "Fee Date",
-            width: 100,
+            width: 150,
             renderCell: (params) => (
-                <div className="flex justify-center">{params.row.id + 1}</div>
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <p>{moment(item.feeDate).format('MMMM Do YYYY')}</p>
+                            </tr>
+                        ))
+                    }
+                </div>
             ),
         },
         {
-            field: "thisMonthPaid",
-            headerName: "This Month Paid",
-            width: 100,
+            field: "amountPaid",
+            headerName: "Amount Paid",
+            width: 140,
             renderCell: (params) => (
-                <div className="flex justify-center">{params.row.id + 1}</div>
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item?.amountPaid}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
             ),
         },
         {
             field: "totalDue",
             headerName: "Total Due",
-            width: 100,
+            width: 140,
             renderCell: (params) => (
-                <div className="flex justify-center">{params.row.id + 1}</div>
+                <div >
+                    {
+                        params.row?.students?.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item?.amountDue}</td>
+                            </tr>
+                        ))
+                    }
+                </div>
             ),
         },
         {
@@ -292,7 +332,7 @@ const BalanceReport = () => {
             headerName: "Instructor Name",
             width: 100,
             renderCell: (params) => (
-                <div className="flex justify-center">{params.row.id + 1}</div>
+                <div className="flex justify-center">{params.row?.instructor?.name}</div>
             ),
         },
         {
@@ -313,6 +353,9 @@ const BalanceReport = () => {
         }
     ];
 
+    const totalAmountSumPaid = balanceReport.reduce((sum, obj) => sum + obj.totalAmountPaid, 0);
+    const totalAmountSumDue = balanceReport.reduce((sum, obj) => sum + obj.totalAmountDue, 0);
+    const totalAmountSumMP = balanceReport.reduce((sum, obj) => sum + obj.totalLastMonthPaid, 0);
 
     return (
         <>
@@ -332,21 +375,12 @@ const BalanceReport = () => {
                     />
                 </div>
                 <div className="flex justify-around flex-wrap my-10">
-                    <div className="m-3 flex items-center px-5 py-7 sm:py-10 text-orange-500 rounded-lg shadow-xl hover:-translate-y-2 transition">
-                        <MdPendingActions className='w-16 h-16' />
-                        <div className="text-center">
-                            <div className=" text-3xl">0</div>
-                            <div className="p-2 text-[var(--secondary-color)] sm:text-2xl font-semibold">
-                                Last Month Due
-                            </div>
-                        </div>
-                    </div>
                     <div className="m-3 flex items-center w-fit px-5 py-7 sm:py-10 text-orange-500 rounded-lg shadow-xl hover:-translate-y-2 transition">
                         <LiaCashRegisterSolid className='w-16 h-16' />
                         <div className="text-center">
-                            <div className=" text-3xl">0</div>
+                            <div className=" text-3xl">{totalAmountSumMP}</div>
                             <div className="p-2 text-[var(--secondary-color)] sm:text-2xl font-semibold">
-                                This Month Fee
+                                Total Last Month Paid
                             </div>
                         </div>
                     </div>
@@ -354,9 +388,9 @@ const BalanceReport = () => {
                         <BsCash className='w-16 h-16' />
 
                         <div className="text-center">
-                            <div className=" text-3xl">0</div>
+                            <div className=" text-3xl">{totalAmountSumPaid}</div>
                             <div className="p-2 text-[var(--secondary-color)] sm:text-2xl font-semibold">
-                                This Month Paid
+                                Total Amount Paid
                             </div>
                         </div>
                     </div>
@@ -364,9 +398,9 @@ const BalanceReport = () => {
                         <GiCash className='w-16 h-16' />
 
                         <div className="text-center">
-                            <div className=" text-3xl">0</div>
+                            <div className=" text-3xl">{totalAmountSumDue}</div>
                             <div className="p-2 text-[var(--secondary-color)] sm:text-2xl font-semibold">
-                                Total Due
+                                Total Amount Due
                             </div>
                         </div>
                     </div>
