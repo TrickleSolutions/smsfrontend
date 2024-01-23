@@ -64,20 +64,9 @@ const CoursesCertificate = ({ back }) => {
     return options
   }
 
-
   useEffect(() => {
     getFetchResult('final');
   }, []);
-
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
 
   const handleSelectStudent = (selectedStudent) => {
     const selected = courseInfo?.students?.find(
@@ -156,6 +145,7 @@ const CoursesCertificate = ({ back }) => {
               size="regular"
               fullWidth
               value={selectedStudent?.course}
+              disabled
             />
           </div>
 
@@ -168,6 +158,7 @@ const CoursesCertificate = ({ back }) => {
               label="Father's Name"
               size="regular"
               fullWidth
+              disabled
             />
           </div>
           <div className="py-2">
@@ -179,6 +170,7 @@ const CoursesCertificate = ({ back }) => {
               label="Registration Number"
               size="regular"
               fullWidth
+              disabled
             />
           </div>
           <div className="py-2">
@@ -191,6 +183,7 @@ const CoursesCertificate = ({ back }) => {
               label="Date"
               size="regular"
               fullWidth
+              disabled
             />
           </div>
 
@@ -204,6 +197,7 @@ const CoursesCertificate = ({ back }) => {
               label="Grade"
               size="regular"
               fullWidth
+              disabled
             />
           </div>
 

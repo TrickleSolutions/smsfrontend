@@ -28,6 +28,7 @@ const ModalAddResult = ({ open, handleOpen, getMarksList }) => {
 
   const [resultTypeOptions] = useState([
     { label: "Surprise", value: "surprise" },
+    { label: "Module", value: "module" },
     { label: "Final", value: "final" },
     { label: "Other", value: "other" },
   ]);

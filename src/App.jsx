@@ -83,6 +83,8 @@ import Certificate from "./Dashboard/Certificate/Certificate";
 import PrintTableCertificate from "./Dashboard/Certificate/PrintTableCertificate";
 import BalanceReport from "./Dashboard/balance report/BalanceReport";
 import SliderMgmt from "./Dashboard/slider Mgmt/SliderMgmt";
+import IdCard from "./Dashboard/id Card/IdCard";
+import Idgenerator from "./Dashboard/id Card/Idgenerator";
 
 const App = () => {
   const location = useLocation();
@@ -539,6 +541,24 @@ const App = () => {
                 <AdminProtected
                   adminAuth={adminAuth}
                   Component={Certificate}
+                />
+              }
+            />
+            <Route
+              path="/admin/idCard"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={IdCard}
+                />
+              }
+            />
+            <Route
+              path="/admin/idCard/id-generator"
+              element={
+                <AdminProtected
+                  adminAuth={adminAuth}
+                  Component={Idgenerator}
                 />
               }
             />

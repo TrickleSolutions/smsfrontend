@@ -580,6 +580,16 @@ const AdminDashboard = ({ adminAuth }) => {
                   <div>Slider Management</div>
                 </div>
 
+                {/* <div
+                  onClick={() => goto("/admin/idCard")}
+                  className="w-48 h-48 p-10 m-3 text-2xl text-[#e486bb] font-semibold text-center flex flex-col justify-center items-center bg-gray-200 border rounded-lg shadow-2xl hover:-translate-y-4 transition cursor-pointer ring-2 ring-[#e486bb] ring-offset-1"
+                >
+                  <div className="py-1 text-[#e486bb]">
+                    <TfiLayoutSlider className="w-10 h-10" />
+                  </div>
+                  <div>ID Card</div>
+                </div> */}
+
               </div>
             ) : (
               <div className="text-xl font-semibold my-20 text-center">
