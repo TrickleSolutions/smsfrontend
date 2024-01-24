@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { IconButton } from '@material-tailwind/react'
+import React, { Fragment, useEffect, useState } from 'react'
+import { Button, IconButton } from '@material-tailwind/react'
 import { MdFileDownload } from "react-icons/md";
 import baseurl from '../../Config';
 import { useAuthContext } from '../../context/useStateContext';
 import Loader from '../../Components/Loader';
+import moment from 'moment/moment';
 
 const DayByday = () => {
 
     const { currentUser } = useAuthContext();
     const [loader, setLoader] = useState(true);
-    const [data, setData] = useState('')
+    const [data, setData] = useState(null)
     const [courseData, setCourseData] = useState([]);
     const [courseName, setCourseName] = useState('');
+    const [getTopic, setGetTopic] = useState([])
 
 
+    console.log(courseName)
 
-
-    const getCourseDetails = () => {
+    const getCourseDetails = (courseName) => {
 
         setLoader(true)
 
-        fetch(baseurl + `/api/course/new-lession/get?course=${courseName}`, {
+        fetch(baseurl + `/api/new-daybyday/get?course=${courseName}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -30,7 +32,7 @@ const DayByday = () => {
                 return res.json();
             })
             .then((result) => {
-                setData(result);
+                setData(result.data);
                 setLoader(false);
             })
             .catch((err) => {
@@ -56,15 +58,39 @@ const DayByday = () => {
             });
     };
 
+
+    const getCourseByTopic = (courseName) => {
+        fetch(baseurl + `/api/lessions/getalltopic/${courseName}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                setGetTopic(result.data);
+                setLoader(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     const getCourseNameById = (courseId) => {
         const course = courseData.find((course) => course?.title === courseId);
         return course ? course._id : 'Course not found';
     };
 
     useEffect(() => {
-        getCourseDetails();
+        if (courseName) {
+            getCourseDetails(courseName);
+            getCourseByTopic(courseName)
+        }
+    }, [courseName]);
+
+    useEffect(() => {
         getCoursesList();
-    }, [currentUser?.course]);
+    }, [])
 
     useEffect(() => {
         const yourId = currentUser?.course;
@@ -83,6 +109,14 @@ const DayByday = () => {
             document.body.removeChild(downloadLink);
         }
     };
+
+    const GetIDDate = (id, list) => {
+
+        const _find = list?.find((item) => item?._id === id)
+
+        return _find
+    }
+
     return (
         <section className=" p-2 sm:p-5 md:p-10 ">
             <div className="w-full p-1">
@@ -100,47 +134,67 @@ const DayByday = () => {
                             <thead>
                                 <tr>
                                     <th className="border border-black text-gray-800 font-semibold p-1">Day</th>
-                                    <th className="border border-black text-gray-800 font-semibold p-1">Topics</th>
-                                    <th className="border border-black text-gray-800 font-semibold p-1">Notes</th>
-                                    <th className="border border-black text-gray-800 font-semibold p-1">Instructor</th>
+                                    {/* <th className="border border-black text-gray-800 font-semibold p-1">Topics</th> */}
+                                    <th className="border border-black text-gray-800 font-semibold p-1">Theory</th>
+                                    <th className="border border-black text-gray-800 font-semibold p-1">Practical</th>
+                                    <th className="border border-black text-gray-800 font-semibold p-1">Start Date</th>
+                                    <th className="border border-black text-gray-800 font-semibold p-1">End Date</th>
                                 </tr>
                             </thead>
-                            {data?.data?.map((item, index) => (
-                                <tbody key={index}>
-                                    <tr>
-                                        <td className='border border-black p-1 text-center'>
-                                            {
-                                                item.topic.map((item, index) => (
-                                                    <p className='p-2' key={index}>{index + 1}</p>
-                                                ))
-                                            }
-                                        </td>
-                                        <td className='border font-semibold border-black p-1'>
-                                            {
-                                                item.topic.map((item, index) => (
-                                                    <p className='p-2' key={index}>{item.topics}</p>
-                                                ))
-                                            }
-                                        </td>
-                                        <td className='border font-semibold border-black p-1'>
-                                            {
-                                                item.topic.map((topic, index) => (
-                                                    <div key={index} className='flex justify-center p-1'>
-                                                        <IconButton onClick={() => downloadNotes(topic.notes)}>
-                                                            <MdFileDownload />
-                                                        </IconButton>
-                                                    </div>
-                                                ))
-                                            }
-                                        </td>
-                                        <td className='border font-semibold border-black p-1'>
-                                            {item.instructorList.map((instructor, index) => (
-                                                <h2 key={index}>{instructor.name}</h2>
-                                            ))}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            ))}
+
+                            <tbody>
+                                {data?.map((item, index) => (
+                                    <Fragment key={index}>
+                                        {
+                                            item.plan?.map((plan, index) => (
+                                                <tr key={index}>
+                                                    <Fragment key={index}>
+                                                        <td className='border border-black text-gray-800 p-1' rowSpan={plan?.theory?.length}>{plan?.day}</td>
+
+                                                        <td className='border border-black text-gray-800 p-1'>
+                                                            <table>
+                                                                {plan.theory?.map((theory, index) => (
+                                                                    <tr className=''>
+                                                                        <h6>
+                                                                            {GetIDDate(theory, getTopic)?.topics} <br />
+                                                                        </h6>
+                                                                        {GetIDDate(theory, getTopic)?.notes !== "" ? (
+                                                                            <IconButton onClick={() => downloadNotes(GetIDDate(theory, getTopic)?.notes)}>
+                                                                                <MdFileDownload />
+                                                                            </IconButton>
+                                                                        ) : null}</tr>
+                                                                ))}
+                                                            </table>
+                                                        </td>
+                                                        <td className='border border-black text-gray-800 p-1'>
+                                                            <table>
+                                                                {plan?.practical?.map((practical, index) => (
+                                                                    <tr key={index}>
+                                                                        {GetIDDate(practical, getTopic)?.topics}
+                                                                        {GetIDDate(practical, getTopic)?.notes !== "" ? (
+                                                                            <IconButton onClick={() => downloadNotes(GetIDDate(practical, getTopic)?.notes)}>
+                                                                                <MdFileDownload />
+                                                                            </IconButton>
+                                                                        ) : null}
+
+                                                                    </tr>
+                                                                ))}
+                                                            </table>
+                                                        </td>
+                                                        <td className='border border-black text-gray-800 p-1'>
+                                                            {moment(plan?.startDate).format('MMM Do YY')}
+                                                        </td>
+                                                        <td className='border border-black text-gray-800 p-1'>
+                                                            {moment(plan?.endDate).format('MMM Do YY')}
+                                                        </td>
+                                                    </Fragment>
+                                                </tr>
+                                            ))
+                                        }
+                                    </Fragment>
+                                ))}
+                            </tbody>
+
                         </table>
                     )}
 
@@ -150,3 +204,64 @@ const DayByday = () => {
 }
 
 export default DayByday
+
+
+
+
+
+// <tbody key={index}>
+//     <tr>
+//         {
+//             item?.plan?.map((item, index) => (
+//                 <td className='border border-black p-1 text-center'>
+//                     <p className='p-2' key={index}>{item?.day}</p>
+//                 </td>
+//             ))
+//         }
+//         <td>topic Data</td>
+//         <td className='border font-semibold border-black p-1'>
+//             {item?.plan?.map((items, index) => (
+//                 <table>
+//                     {GetIDDate(items?.theory, getTopic)?.map((topicdata, index) => (
+//                         <tr className='p-2' key={index}>
+//                             <td key={index}>
+//                                 <p>{topicdata?.topics}</p>
+//                             </td>
+//                         </tr>
+//                     ))}
+//                 </table>
+//             ))}
+
+//         </td>
+//         <td className='border font-semibold border-black p-1'>
+//             {
+//                 item?.plan?.map((items, index) => (
+//                     <table>
+//                         {GetIDDate(items?.practical, getTopic)?.map((topicdata, index) => (
+//                             <tr className='p-2' key={index}>
+
+//                                 <td>{topicdata?.topics}</td>
+
+//                             </tr>
+//                         ))}
+//                     </table>
+
+//                 ))
+//             }
+//         </td>
+//         <td>notes data</td>
+//         <td>ins</td>
+//         {/* <td className='border font-semibold border-black p-1'>
+//             {
+//                 item.topic.map((topic, index) => (
+//                     <div key={index} className='flex justify-center p-1'>
+//                         <IconButton onClick={() => downloadNotes(topic.notes)}>
+//                             <MdFileDownload />
+//                         </IconButton>
+//                     </div>
+//                 ))
+//             }
+//         </td> */}
+
+//     </tr>
+// </tbody>

@@ -8,9 +8,12 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useLocation } from 'react-router-dom';
 import moment from 'moment/moment';
+import { useAuthContext } from '../../context/useStateContext';
 
 
 const PrintTableCertificate = () => {
+
+    const { DownloadPdfandUploadWithAPi, currentUser } = useAuthContext()
 
 
     const location = useLocation();
@@ -45,6 +48,8 @@ const PrintTableCertificate = () => {
             }
 
             setLoader(false);
+            const pdfblog = doc.output('blob')
+            DownloadPdfandUploadWithAPi(pdfblog, formData?._id)
             doc.save("certificate.pdf");
         });
     };
@@ -52,10 +57,10 @@ const PrintTableCertificate = () => {
     return (
         <div className='bg-white flex items-start justify-center'>
             <Button onClick={downloadPDF} className='mt-8' >
-                <FaPrint size={28} />
+                save & Download
             </Button>
             {
-                formData.course  ?
+                formData.course ?
                     <div className='grid place-items-center relative text-center font-serif Certificate'>
                         <img src={CertificatePreview} alt='...' />
                         <div className='absolute top-[7%] left-[80%] font-black'>124563</div>

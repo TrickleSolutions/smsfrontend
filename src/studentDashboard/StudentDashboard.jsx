@@ -14,6 +14,8 @@ import DayByday from "./DayByDay/DayByday";
 
 const StudentDashboard = ({ auth }) => {
   const [student, setStudent] = useState([]);
+  const [hide, setShow] = useState(false)
+  const handleSyllabus = () => setShow(!hide)
 
   const navigate = useNavigate();
   // console.log(student);
@@ -38,7 +40,7 @@ const StudentDashboard = ({ auth }) => {
           {/* Profile */}
           <StudentProfile />
           <hr />
-          <Syllabus />
+          <Syllabus hide={hide} handleSyllabus={handleSyllabus} />
           <hr />
           <Classes />
           <hr />

@@ -4,7 +4,7 @@ import { MdFileDownload } from "react-icons/md";
 import baseurl from '../../Config';
 import { useAuthContext } from '../../context/useStateContext';
 
-const Syllabus = () => {
+const Syllabus = ({ hide, handleSyllabus }) => {
 
     const { currentUser } = useAuthContext();
     const [loader, setLoader] = useState(true);
@@ -71,58 +71,62 @@ const Syllabus = () => {
     return (
         <section className=" p-2 sm:p-5 md:p-10 ">
             <div className="w-full p-1">
-                <div className="flex justify-between items-center p-1 pb-4">
+                <div className="flex gap-4 items-center p-1 pb-4">
                     <h2 className="text-3xl font-semibold text-[var(--secondary-color)] text-center sm:text-start my-5 sm:my-7 md:my-10">
                         Course Syllabus
                     </h2>
+                    <Button onClick={handleSyllabus}>{hide ? 'Hide' : 'Show'}</Button>
                 </div>
 
-                <div className="w-full border border-black rounded-sm">
+                {
+                    hide ?
+                        <div className="w-full border border-black rounded-sm">
 
-                    <table className="border-collapse w-full">
-                        <thead>
-                            <tr>
-                                <th className="border border-black text-center p-1">Sr. No.</th>
-                                <th className="border border-black text-gray-800 font-bold p-1">Subject</th>
-                                <th className="border border-black text-gray-800 font-semibold p-1">Day</th>
-                                <th className="border border-black text-gray-800 font-semibold p-1">Topics</th>
-                                <th className="border border-black text-gray-800 font-semibold p-1">Instructors</th>
-                            </tr>
-                        </thead>
-                        {data?.data?.map((item, index) => (
-                            <tbody key={index}>
-                                <tr>
-                                    <td className='border border-black p-1 text-center'>{index + 1}</td>
-                                    <td className='border font-bold border-black text-blue-800 p-1'>
-                                        {item.subject.title}
-                                        <p className='text-black'>Days: {item.subject.daycounts}</p>
-                                    </td>
-                                    <td className='border border-black p-1 text-center'>
-                                        {
-                                            item.topic.map((item, index) => (
-                                                <p key={index}>{index + 1}</p>
-                                            ))
-                                        }
-                                    </td>
-                                    <td className='border font-semibold border-black p-1'>
-                                        {
-                                            item.topic.map((item, index) => (
-                                                <p key={index}>{item.topics}</p>
-                                            ))
-                                        }
-                                    </td>
-                                    <td className='border font-semibold border-black p-1'>
-                                        {item.instructorList.map((instructor, index) => (
-                                            <h2 key={index}>{instructor.name}</h2>
-                                        ))}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        ))}
-                    </table>
+                            <table className="border-collapse w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="border border-black text-center p-1">Sr. No.</th>
+                                        <th className="border border-black text-gray-800 font-bold p-1">Subject</th>
+                                        <th className="border border-black text-gray-800 font-semibold p-1">Day</th>
+                                        <th className="border border-black text-gray-800 font-semibold p-1">Topics</th>
+                                        <th className="border border-black text-gray-800 font-semibold p-1">Instructors</th>
+                                    </tr>
+                                </thead>
+                                {data?.data?.map((item, index) => (
+                                    <tbody key={index}>
+                                        <tr>
+                                            <td className='border border-black p-1 text-center'>{index + 1}</td>
+                                            <td className='border font-bold border-black text-blue-800 p-1'>
+                                                {item.subject.title}
+                                                <p className='text-black'>Days: {item.subject.daycounts}</p>
+                                            </td>
+                                            <td className='border border-black p-1 text-center'>
+                                                {
+                                                    item.topic.map((item, index) => (
+                                                        <p key={index}>{index + 1}</p>
+                                                    ))
+                                                }
+                                            </td>
+                                            <td className='border font-semibold border-black p-1'>
+                                                {
+                                                    item.topic.map((item, index) => (
+                                                        <p key={index}>{item.topics}</p>
+                                                    ))
+                                                }
+                                            </td>
+                                            <td className='border font-semibold border-black p-1'>
+                                                {item.instructorList.map((instructor, index) => (
+                                                    <h2 key={index}>{instructor.name}</h2>
+                                                ))}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                ))}
+                            </table>
 
 
-                </div>
+                        </div> : null
+                }
             </div>
         </section>)
 }

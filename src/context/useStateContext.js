@@ -145,6 +145,31 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+
+
+
+  const DownloadPdfandUploadWithAPi = async (pdfBlob, studentid) => {
+    const formData = new FormData();
+    formData.append('file', pdfBlob, 'certificate.pdf');
+    try {
+      const response = await toast.promise(axios.post(baseurl + `/api/upload/file?fileName=certificate.pdf`, formData), {
+        pending: "wait certificate is uploading On Aws please dont refresh ",
+        success: "uploaded successfull on Aws",
+        error: "failed to uplaod retry or regenerate certificate"
+      })
+      if (response.status === 200) {
+        const _dataUpdate = await axios.get(baseurl + `/api/result/upload/student/${studentid}?certificate=${response?.data?.fileName}`)
+        if (response.status === 200) {
+          toast.success("uploaded certificate successfully")
+        }
+      }
+      // update the data
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -160,6 +185,7 @@ const AuthProvider = ({ children }) => {
         UploadImage,
         setImageUploads,
         GetInstructorStudents,
+        DownloadPdfandUploadWithAPi,
         instructorStudents,
         GetAllholidays,
         HolidaysList,
