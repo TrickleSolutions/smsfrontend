@@ -21,9 +21,6 @@ const PrintTableCertificate = () => {
     const formDataa = location.state?.selectedStudent || {};
 
 
-    console.log(formData)
-    console.log(formDataa)
-
     const [loader, setLoader] = useState(false);
 
     const downloadPDF = () => {

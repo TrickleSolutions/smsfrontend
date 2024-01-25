@@ -98,7 +98,6 @@ const BalanceReport = () => {
 
             const result = await response.json();
             setBalanceReport(result.data[0]);
-            console.log(result.data[0])
             setLoader(false);
         } catch (error) {
             console.error("Error fetching typing result:", error);
